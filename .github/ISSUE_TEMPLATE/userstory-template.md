@@ -1,7 +1,7 @@
 ---
 name: UserStory Template
 about: Custom UserStory template
-title: 'US:'
+title: 'US :'
 labels: USERSTORY
 assignees: rstan-dev
 
