@@ -1,4 +1,4 @@
-rest_framework import permission
+from rest_framework import permissions
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
