@@ -26,7 +26,10 @@ class ProfileDetail(APIView):
     Defines a get method to handle HTTP requests and a put method to handle
     updates to profile info.
 
-    serilaizer_class explicitly set to render form in preview.
+    serializer_class explicitly set to render form in preview.
+
+    permission_classes set for IsOwnerOrReadOnly ensures user making the
+    request has the corect permissions.
     """
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
