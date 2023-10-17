@@ -14,8 +14,8 @@ class Job(models.Model):
 
     """
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    assigned_to = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='job_owner')
+    assigned_to = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="assigned_to")
 
     job_type = models.CharField(max_length=75, choices=JOB_TYPE_CHOICES)
     job_details = models.TextField(blank=True)
