@@ -18,9 +18,9 @@ class Profile(models.Model):
 
 
     class Meta:
-        ordering = ['_created_at']
+        ordering = ['-created_at']
 
-    def__str__(self):
+    def __str__(self):
         return f"{self.owner}'s profile"
 
 
