@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from .models import Job
 from rest_framework import status
 from rest_framework.test import APITestCase
+from .serializers import JobSerializer
 
 
 class JobListViewTests(APITestCase):
@@ -10,7 +11,7 @@ class JobListViewTests(APITestCase):
         testuser1 = User.objects.create_user(username='testuser1', password='testpw1234')
         testuser2 = User.objects.create_user(username='testuser2', password='testpw1234')
 
-    def test_user_can_retrieve_all_jobs(self):
+    def test_logged_in_user_can_retrieve_all_jobs(self):
         """
         Test that a user can retrieve a list of all jobs.
 
@@ -81,6 +82,7 @@ class JobDetailViewTests(APITestCase):
         testuser1 = User.objects.create_user(username='testuser1', password='testpw1234')
         testuser2 = User.objects.create_user(username='testuser2', password='testpw1234')
         Job.objects.create(
+            pk=1,
             owner=testuser1,
             job_type='Major Service',
             job_details='test details',
@@ -88,6 +90,7 @@ class JobDetailViewTests(APITestCase):
             assigned_to=testuser2
         )
         Job.objects.create(
+            pk=2,
             owner=testuser2,
             job_type='Minor Service',
             job_details='more test details',
@@ -95,7 +98,11 @@ class JobDetailViewTests(APITestCase):
             assigned_to=testuser2
         )
 
-    def test_can_retrieve_job_using_valid_id(self):
+    def test_user_can_retrieve_job_with_valid_job_id(self):
+        """
+        Tests a user can retrieve all the job details using the correct id
+        Verified with a HTTP 200 status.
+        """
         response = self.client.get('/jobs/1/')
         self.assertEqual(response.data['owner'], 'testuser1')
         self.assertEqual(response.data['job_type'], 'Major Service')
@@ -103,3 +110,13 @@ class JobDetailViewTests(APITestCase):
         self.assertEqual(response.data['status'], 'Pending')
         self.assertEqual(response.data['assigned_to'], 2)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_cannot_retrieve_job_with_invalid_id(self):
+        """
+        Tests a user cannot retrieve any job details using an incorrect id
+        Verified with a HTTP 404 status.
+        """
+        response = self.client.get('/jobs/101/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    
