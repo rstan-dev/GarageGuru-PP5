@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Job
@@ -15,6 +15,9 @@ class JobList(APIView):
     serializer_class renders form
     """
     serializer_class = JobSerializer
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
 
     def get(self, request):
         jobs = Job.objects.all()
