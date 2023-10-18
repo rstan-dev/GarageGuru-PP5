@@ -12,3 +12,7 @@ STATUS_CHOICES = (
     ('Completed', 'Completed'),
     ('Overdue', 'Overdue')
 )
+
+IMAGE_FILTER_CHOICES = [
+     ('normal', 'Normal'),
+    ]

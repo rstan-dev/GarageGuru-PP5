@@ -6,6 +6,7 @@ from .models import Job
 class JobSerializer(serializers.ModelSerializer):
     """
     Serializes specific Job model fields into JSON data.
+    assigned_to variable 
     get_is_owner method checks if the user making the request is the owner of the profile.
     """
     owner = serializers.ReadOnlyField(source='owner.username')

@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from .choices import (
     JOB_TYPE_CHOICES,
-    STATUS_CHOICES
+    STATUS_CHOICES,
+    IMAGE_FILTER_CHOICES,
 )
 
 
@@ -29,6 +30,11 @@ class Job(models.Model):
         default='../default_job',
         blank=True
     )
+    image_filter = models.CharField(
+        max_length=50,
+        choices=IMAGE_FILTER_CHOICES,
+        default='normal'
+        )
 
     class Meta:
         ordering = ['-created_at']
