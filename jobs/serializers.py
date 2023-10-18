@@ -17,7 +17,10 @@ class JobSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
 
-    assigned_to = serializers.StringRelatedField()
+    assigned_to = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        allow_null=True
+    )
 
     def validate_image(self, value):
         "check if file size is greater than 2mb"
