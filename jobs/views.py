@@ -72,6 +72,18 @@ class JobDetail(APIView):
         except Job.DoesNotExist:
             raise Http404
 
+    def put(self, request, pk):
+        job = Job.objects.get(pk=pk)
+        serializer = JobSerializer(
+            job,
+            data=request.data,
+            context={'request': request}
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
