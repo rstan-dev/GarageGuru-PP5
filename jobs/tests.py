@@ -74,3 +74,32 @@ class JobListViewTests(APITestCase):
             }
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class JobDetailViewTests(APITestCase):
+    def setUp(self):
+        testuser1 = User.objects.create_user(username='testuser1', password='testpw1234')
+        testuser2 = User.objects.create_user(username='testuser2', password='testpw1234')
+        Job.objects.create(
+            owner=testuser1,
+            job_type='Major Service',
+            job_details='test details',
+            status='Pending',
+            assigned_to=testuser2
+        )
+        Job.objects.create(
+            owner=testuser2,
+            job_type='Minor Service',
+            job_details='more test details',
+            status='Pending',
+            assigned_to=testuser2
+        )
+
+    def test_can_retrieve_job_using_valid_id(self):
+        response = self.client.get('/jobs/1/')
+        self.assertEqual(response.data['owner'], 'testuser1')
+        self.assertEqual(response.data['job_type'], 'Major Service')
+        self.assertEqual(response.data['job_details'], 'test details')
+        self.assertEqual(response.data['status'], 'Pending')
+        self.assertEqual(response.data['assigned_to'], 2)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
