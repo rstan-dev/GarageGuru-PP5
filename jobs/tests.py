@@ -57,6 +57,20 @@ class JobListViewTests(APITestCase):
         self.assertEqual(
             response.status_code,
             status.HTTP_201_CREATED)
-       
 
-
+    def test_logged_out_user_cannot_create_job(self):
+        """
+        Test that a logged-out user cannot create a job, by verifying
+        with a HTTP 403 Forbidden status.
+        """
+        testuser2 = User.objects.get(username='testuser2')
+        response = self.client.post(
+            '/jobs/',
+            {
+                'job_type': 'Service',
+                'job_details': 'test details',
+                'status': 'Pending',
+                'assigned_to': testuser2
+            }
+        )
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
