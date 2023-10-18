@@ -29,7 +29,7 @@ class ProfileDetail(APIView):
     serializer_class explicitly set to render form in preview.
 
     permission_classes set for IsOwnerOrReadOnly ensures user making the
-    request has the corect permissions.
+    request has the correct permissions.
     """
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
