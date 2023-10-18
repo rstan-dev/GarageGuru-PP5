@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from .models import Job
 
 
@@ -8,9 +9,9 @@ class JobSerializer(serializers.ModelSerializer):
     get_is_owner method checks if the user making the request is the owner of the profile.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
-    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     is_owner = serializers.SerializerMethodField()
 
+    assigned_to = serializers.StringRelatedField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
