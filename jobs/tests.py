@@ -120,6 +120,10 @@ class JobDetailViewTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_user_can_update_job_card_they_own(self):
+        """
+        Tests a user can update job details on a job card they own.
+        Verified with a HTTP 200 status.
+        """
         self.client.login(username='testuser1', password='testpw1234')
         response = self.client.put('/jobs/1/', {'job_details': 'NEW TEST DETAILS',
         'assigned_to': 2},
@@ -129,3 +133,14 @@ class JobDetailViewTests(APITestCase):
         job = Job.objects.filter(pk=1).first()
         self.assertEqual(job.job_details, 'NEW TEST DETAILS')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_cannot_update_job_card_they_dont_own(self):
+        """
+        Tests a user can't update job details on a job card they don't own.
+        Verified with a HTTP 403 status.
+        """
+        self.client.login(username='testuser1', password='testpw1234')
+        response = self.client.put('/jobs/2/', {'job_details': 'NEW TEST DETAILS',
+        'assigned_to': 2},
+        )
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
