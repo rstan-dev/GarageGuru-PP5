@@ -35,7 +35,7 @@ class ProfileDetail(APIView):
     request has the correct permissions.
     """
     serializer_class = ProfileSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try:

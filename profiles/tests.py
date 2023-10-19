@@ -36,7 +36,7 @@ class ProfileListViewTests(APITestCase):
         """
         Test that a user cannot view any profiles if not logged in.
 
-        The test verifies that no profiles bare displayed with a
+        The test verifies that no profiles are displayed with a
         HTTP response status 403 (Forbidden)
         """
 
@@ -70,5 +70,17 @@ class ProfileDetailViewTests(APITestCase):
         profile = Profile.objects.get(owner=self.testuser1)
         response = self.client.get(f'/profiles/101/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_logged_out_user_cannot_view_any_profiles(self):
+        """
+        Tests a logged out user can't view any profiles by id.
+        The test verifies that no profiles are displayed with a
+        HTTP response status 403 (Forbidden)
+        """
+        profile = Profile.objects.get(owner=self.testuser1)
+        response = self.client.get(f'/profiles/{profile.id}/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
 
 
