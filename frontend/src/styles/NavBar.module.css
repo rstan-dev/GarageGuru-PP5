@@ -5,4 +5,17 @@
 .NavLinks{
     color: #454545;
     font-size: 1.5rem;
+    padding: 10px;
+}
+
+/* Hide the label by default */
+.NavLinks .Label {
+    display: none;
+    font-size: 0.9rem;
+    padding: 10px;
+}
+
+/* Show the label when Nav.Link is hovered */
+  .NavLinks:hover .Label {
+    display: inline;
 }

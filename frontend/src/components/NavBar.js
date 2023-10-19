@@ -5,7 +5,7 @@ import styles from "../styles/NavBar.module.css"
 
 const NavBar = () => {
   return (
-    <Navbar  className={styles.NavBar} expand="lg" fixed="top">
+    <Navbar  className={styles.NavBar} expand="md" fixed="top">
         <Container>
             <Navbar.Brand>
                 <img src={logo} alt="logo" height="50" />
@@ -14,31 +14,39 @@ const NavBar = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
                 <Nav.Link className={styles.NavLinks} >
-                    <i class="fa-solid fa-car"></i>  All Jobs
+                    <i class="fa-solid fa-car"></i>
+                    <span className={styles.Label}>All Jobs</span>
+                </Nav.Link>
+                <Nav.Link className={styles.NavLinks}>                    <i class="fa-solid fa-clipboard-list"></i>
+                <span className={styles.Label}>My Jobs</span>
                 </Nav.Link>
                 <Nav.Link className={styles.NavLinks}>
-                    <i class="fa-solid fa-clipboard-list"></i> My Jobs
+                    <i class="fa-solid fa-circle-plus"></i>
+                    <span className={styles.Label}>Add Job</span>
                 </Nav.Link>
                 <Nav.Link className={styles.NavLinks}>
-                    <i class="fa-solid fa-circle-plus"></i> Add Job
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks}>
-                    <i class="fa-solid fa-people-group"></i> Assigned
+                    <i class="fa-solid fa-people-group"></i>
+                    <span className={styles.Label}>Assigned</span>
                 </Nav.Link>
                 <Nav.Link className={styles.NavLinks} >
-                    <i class="fa-solid fa-eye"></i> Watching
+                    <i class="fa-solid fa-eye"></i>
+                    <span className={styles.Label}>Watching</span>
                 </Nav.Link>
                 <Nav.Link className={styles.NavLinks}>
-                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span className={styles.Label}>Login</span>
                 </Nav.Link>
                 <Nav.Link className={styles.NavLinks}>
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span className={styles.Label}>Logout</span>
                 </Nav.Link>
                 <Nav.Link className={styles.NavLinks}>
-                    <i class="fa-solid fa-user-plus"></i> Register
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span className={styles.Label}>Register</span>
                 </Nav.Link>
                 <Nav.Link className={styles.NavLinks}>
-                    <i class="fa-solid fa-circle-user"></i> Profile
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span className={styles.Label}>Profile</span>
                 </Nav.Link>
                 </Nav>
             </Navbar.Collapse>
