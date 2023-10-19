@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.http import Http404
 from .models import Job
 from .serializers import JobSerializer
+from drf_api.permissions import IsOwnerOrReadOnly
 
 
 class JobList(APIView):
@@ -59,21 +60,26 @@ class JobDetail(APIView):
     request has the correct permissions.
     """
     serializer_class = JobSerializer
-    permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly
-    ]
+    permission_classes = [IsOwnerOrReadOnly]
 
-    def get(self, request, pk):
+    def get_object(self, pk):
         try:
             job = Job.objects.get(pk=pk)
             self.check_object_permissions(self.request, job)
-            serializer = JobSerializer(job, context={'request': request})
-            return Response(serializer.data)
+            return job
         except Job.DoesNotExist:
             raise Http404
 
+    def get(self, request, pk):
+        job = self.get_object(pk)
+        serializer = JobSerializer(
+            job,
+            context={'request': request}
+        )
+        return Response(serializer.data)
+
     def put(self, request, pk):
-        job = Job.objects.get(pk=pk)
+        job = self.get_object(pk)
         serializer = JobSerializer(
             job,
             data=request.data,
