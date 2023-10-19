@@ -128,8 +128,6 @@ class JobDetailViewTests(APITestCase):
         response = self.client.put('/jobs/1/', {'job_details': 'NEW TEST DETAILS',
         'assigned_to': 2},
         )
-        print(f'Response Content: {response.content}')
-        print(f'Response Status Code: {response.status_code}')
         job = Job.objects.filter(pk=1).first()
         self.assertEqual(job.job_details, 'NEW TEST DETAILS')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
