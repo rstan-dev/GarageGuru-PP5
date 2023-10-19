@@ -1,4 +1,4 @@
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
@@ -7,43 +7,20 @@ from .serializers import JobSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
 
 
-class JobList(APIView):
+class JobList(generics.ListCreateAPIView):
     """
-    View to handle HTTP GET requests for retrieving a list of
-    jobs from the Job Model, returning them as a JSON response.
-
-    HTTP POST request creates a new job instance
-
-    serializer_class renders form
-
-    permission_classes requires users to be logged in to create or upate
+    View to retrieve a list of jobs or create a new job using the
+    perform_create function.
+    serializer_class renders form.
+    permission_classes requires users to be logged in to create a
     job card.
     """
     serializer_class = JobSerializer
-    permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly
-    ]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Job.objects.all()
 
-    def get(self, request):
-        jobs = Job.objects.all()
-        serializer = JobSerializer(jobs, many=True, context={'request': request})
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = JobSerializer(
-            data=request.data,
-            context={'request': request}
-        )
-        if serializer.is_valid():
-            serializer.save(owner=request.user)
-            return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
-            )
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
-        )
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class JobDetail(APIView):
