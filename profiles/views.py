@@ -31,11 +31,11 @@ class ProfileDetail(APIView):
 
     serializer_class explicitly set to render form in preview.
 
-    permission_classes set for IsOwnerOrReadOnly ensures user making the
+    permission_classes set for isAurthenticated and IsOwnerOrReadOnly ensures user making the
     request has the correct permissions.
     """
     serializer_class = ProfileSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_object(self, pk):
         try:

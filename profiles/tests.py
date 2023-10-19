@@ -5,6 +5,7 @@ from rest_framework import status
 from .serializers import ProfileSerializer
 
 
+
 class ProfileListViewTests(APITestCase):
 
     def setUp(self):
@@ -94,6 +95,18 @@ class ProfileDetailViewTests(APITestCase):
         self.assertEqual(profile.name, 'Updated Name')
         self.assertEqual(profile.bio, 'Updated Bio')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_logged_in_user_cannot_update_a_different_profile(self):
+        """
+        Tests a logged-in user cannot update another users' profile.
+        Verified with a HTTP 403 status (Forbidden).
+        """
+        self.client.login(username='testuser1', password='testpw1234')
+
+        profile1 = Profile.objects.get(owner=self.testuser1)
+        profile2 = Profile.objects.get(owner=self.testuser2)
+        response = self.client.put(f'/profiles/{profile2.id}/', {'name': 'Updated Name', 'bio': 'Updated Bio'})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
 
