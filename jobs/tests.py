@@ -119,4 +119,13 @@ class JobDetailViewTests(APITestCase):
         response = self.client.get('/jobs/101/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    
+    def test_user_can_update_job_card_they_own(self):
+        self.client.login(username='testuser1', password='testpw1234')
+        response = self.client.put('/jobs/1/', {'job_details': 'NEW TEST DETAILS',
+        'assigned_to': 2},
+        )
+        print(f'Response Content: {response.content}')
+        print(f'Response Status Code: {response.status_code}')
+        job = Job.objects.filter(pk=1).first()
+        self.assertEqual(job.job_details, 'NEW TEST DETAILS')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
