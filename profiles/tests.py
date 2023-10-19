@@ -44,3 +44,16 @@ class ProfileListViewTests(APITestCase):
         self.assertEqual(
             response.status_code,
             status.HTTP_403_FORBIDDEN)
+
+
+class ProfileDetailViewTests(APITestCase):
+    def setUp(self):
+        self.testuser1 = User.objects.create_user(username='testuser1', password='testpw1234')
+        self.testuser2 = User.objects.create_user(username='testuser2', password='testpw1234')
+
+    def test_logged_in_user_can_view_profile_with_valid_id(self):
+        self.client.login(username='testuser1', password='testpw1234')
+        profile = Profile.objects.get(owner=self.testuser1)
+        response = self.client.get(f'/profiles/{profile.id}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
