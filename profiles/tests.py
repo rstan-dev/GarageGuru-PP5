@@ -52,8 +52,23 @@ class ProfileDetailViewTests(APITestCase):
         self.testuser2 = User.objects.create_user(username='testuser2', password='testpw1234')
 
     def test_logged_in_user_can_view_profile_with_valid_id(self):
+        """
+        Tests a logged in user can view profile by id.
+        Verified with a HTTP 200 status if valid.
+        """
         self.client.login(username='testuser1', password='testpw1234')
         profile = Profile.objects.get(owner=self.testuser1)
         response = self.client.get(f'/profiles/{profile.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_logged_in_user_cannot_view_profile_with_invalid_id(self):
+        """
+        Tests a logged in user can't view a profile by id that does not exist.
+        Verified with a HTTP 404 status if not found.
+        """
+        self.client.login(username='testuser1', password='testpw1234')
+        profile = Profile.objects.get(owner=self.testuser1)
+        response = self.client.get(f'/profiles/101/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
 
