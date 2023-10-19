@@ -81,6 +81,22 @@ class ProfileDetailViewTests(APITestCase):
         response = self.client.get(f'/profiles/{profile.id}/')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_logged_in_user_can_update_own_profile(self):
+        """
+        Tests a logged-in user can update their own profile details.
+        Verified with a HTTP 200 status.
+        """
+        self.client.login(username='testuser1', password='testpw1234')
+
+        profile = Profile.objects.get(owner=self.testuser1)
+        response = self.client.put(f'/profiles/{profile.id}/', {'name': 'Updated Name', 'bio': 'Updated Bio'})
+        profile = Profile.objects.filter(pk=1).first()
+        self.assertEqual(profile.name, 'Updated Name')
+        self.assertEqual(profile.bio, 'Updated Bio')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+
 
 
 
