@@ -31,3 +31,16 @@ class ProfileListViewTests(APITestCase):
         self.assertEqual(
             response.status_code,
             status.HTTP_200_OK)
+
+    def test_logged_out_user_cannot_retrieve_any_profiles(self):
+        """
+        Test that a user cannot view any profiles if not logged in.
+
+        The test verifies that no profiles bare displayed with a
+        HTTP response status 403 (Forbidden)
+        """
+
+        response = self.client.get('/profiles/')
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_403_FORBIDDEN)
