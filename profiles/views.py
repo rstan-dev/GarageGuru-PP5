@@ -1,5 +1,5 @@
 from django.http import Http404
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Profile
@@ -7,18 +7,14 @@ from .serializers import ProfileSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
 
 
-class ProfileList(APIView):
+class ProfileList(generics.ListAPIView):
     """
-    View to handle HTTP GET requests for retrieving a list of
-    profiles from the Profile Model, returning them as a JSON response.
+    List all profiles using generics ListView
     Permissions ensure only logged in users can see profile list
     """
     permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request):
-        profiles = Profile.objects.all()
-        serializer = ProfileSerializer(profiles, many=True, context={'request': request})
-        return Response(serializer.data)
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
 
 
 class ProfileDetail(APIView):
