@@ -2,52 +2,56 @@ import React from "react";
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import logo from "../assets/garageguru_logo.png"
 import styles from "../styles/NavBar.module.css"
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <Navbar  className={styles.NavBar} expand="md" fixed="top">
+    <Navbar  className={styles.NavBar} expand="lg" fixed="top">
         <Container>
-            <Navbar.Brand>
-                <img src={logo} alt="logo" height="50" />
-            </Navbar.Brand>
+            <NavLink to="/">
+                <Navbar.Brand>
+                    <img src={logo} alt="logo" height="50" />
+                </Navbar.Brand>
+            </NavLink>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
-                <Nav.Link className={styles.NavLinks} >
+                <NavLink to="/" className={styles.NavLinks} >
                     <i class="fa-solid fa-car"></i>
                     <span className={styles.Label}>All Jobs</span>
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks}>                    <i class="fa-solid fa-clipboard-list"></i>
-                <span className={styles.Label}>My Jobs</span>
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks}>
+                </NavLink>
+                <NavLink to="/myjobs" className={styles.NavLinks}>
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span className={styles.Label}>My Jobs</span>
+                </NavLink>
+                <NavLink to="/addjob" className={styles.NavLinks}>
                     <i class="fa-solid fa-circle-plus"></i>
                     <span className={styles.Label}>Add Job</span>
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks}>
+                </NavLink>
+                <NavLink to="/assigned" className={styles.NavLinks}>
                     <i class="fa-solid fa-people-group"></i>
                     <span className={styles.Label}>Assigned</span>
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks} >
+                </NavLink>
+                <NavLink to="/watched" className={styles.NavLinks} >
                     <i class="fa-solid fa-eye"></i>
                     <span className={styles.Label}>Watching</span>
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks}>
+                </NavLink>
+                <NavLink to="/login" className={styles.NavLinks}>
                     <i class="fa-solid fa-right-to-bracket"></i>
                     <span className={styles.Label}>Login</span>
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks}>
+                </NavLink>
+                <NavLink to="/logout" className={styles.NavLinks}>
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span className={styles.Label}>Logout</span>
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks}>
+                </NavLink>
+                <NavLink to="/register" className={styles.NavLinks}>
                     <i class="fa-solid fa-user-plus"></i>
                     <span className={styles.Label}>Register</span>
-                </Nav.Link>
-                <Nav.Link className={styles.NavLinks}>
+                </NavLink>
+                <NavLink to="/profile" className={styles.NavLinks}>
                     <i class="fa-solid fa-circle-user"></i>
                     <span className={styles.Label}>Profile</span>
-                </Nav.Link>
+                </NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Container>
