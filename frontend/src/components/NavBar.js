@@ -14,7 +14,7 @@ const NavBar = () => {
                 </Navbar.Brand>
             </NavLink>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Collapse className={styles.NavbarCollapse} id="basic-navbar-nav">
                 <Nav className="ml-auto">
                 <NavLink to="/" className={styles.NavLinks} >
                     <i class="fa-solid fa-car"></i>

@@ -8,6 +8,10 @@
     padding: 10px;
 }
 
+.NavLinks:hover {
+  text-decoration: none;
+}
+
 /* Hide the label by default */
 .NavLinks .Label {
     display: none;
@@ -16,6 +20,25 @@
 }
 
 /* Show the label when Nav.Link is hovered */
-  .NavLinks:hover .Label {
+.NavLinks:hover .Label {
     display: inline;
+}
+
+/* White background for toggled dropdown menu on mobile */
+@media (max-width:991px) {
+  .NavbarCollapse {
+        background-color: white;
+      }
+
+  /* Reset styles for NavLinks on mobile */
+  .NavLinks {
+      font-size: 2rem; /* Adjust font size for mobile */
+      padding: 10px;
+    }
+
+  /* Show the label next to the icon on mobile */
+  .NavLinks .Label {
+      display: inline;
+    }
+
 }
