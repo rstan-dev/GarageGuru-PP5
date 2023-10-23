@@ -5,6 +5,8 @@ import { Container } from 'react-bootstrap';
 import { Route, Switch } from "react-router-dom";
 import './api/axiosDefaults';
 
+import LoginForm from './pages/auth/LoginForm';
+
 
 function App() {
   return (
@@ -17,7 +19,7 @@ function App() {
           <Route exact path="/addjob" render={() => <h1>Add Job</h1>} />
           <Route exact path="/assigned" render={() => <h1>Assigned Jobs</h1>} />
           <Route exact path="/watched" render={() => <h1>Watched Jobs</h1>} />
-          <Route exact path="/login" render={() => <h1>Login</h1>} />
+          <Route exact path="/login" render={() => <LoginForm />} />
           <Route exact path="/logout" render={() => <h1>Logout</h1>} />
           <Route exact path="/register" render={() => <h1>Register</h1>} />
           <Route exact path="/profile" render={() => <h1>Profile</h1>} />
