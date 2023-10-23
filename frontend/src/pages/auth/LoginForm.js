@@ -1,17 +1,31 @@
-import React from "react";
+import { React, useState } from "react";
 import axios from "axios";
 
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import appStyles from "../../App.module.css";
 import styles from "../../styles/LoginRegister.module.css"
 
 
 function LoginForm() {
+    const [logInData, setlogInData] = useState({
+        username: '',
+        password: '',
+    });
+
+    const {username, password} = logInData;
+
+    const handleChange = (event) => {
+        setlogInData({
+            ...logInData,
+            [event.target.name]: event.target.value
+        })
+    }
+
+
+
   return (
     <Container className={styles.LoginRegisterForm}>
         <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
@@ -22,7 +36,9 @@ function LoginForm() {
                     <Form.Control
                         type="text"
                         placeholder="Enter your username"
-                        name="username"/>
+                        name="username"
+                        value={username}
+                        onChange={handleChange}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
@@ -30,7 +46,9 @@ function LoginForm() {
                     <Form.Control
                         type="password"
                         placeholder="Enter Password"
-                        name="password" />
+                        name="password"
+                        value={password}
+                        onChange={handleChange} />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Log In
