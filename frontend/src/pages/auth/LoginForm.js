@@ -1,5 +1,5 @@
 import React, { useContext, useState} from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import Col from "react-bootstrap/Col";
@@ -22,9 +22,9 @@ function LoginForm() {
 
     const {username, password} = logInData;
 
-    const [errors, setErrors] = useState()
+    const [errors, setErrors] = useState({})
 
-    const history = useHistory()
+    const history = useHistory();
 
     const handleChange = (event) => {
         setlogInData({
@@ -51,7 +51,7 @@ function LoginForm() {
             <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
                 <h1> Log In</h1>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="username">
                         <Form.Label>Username</Form.Label>
                         <Form.Control
                             type="text"
@@ -66,7 +66,7 @@ function LoginForm() {
                         </Alert>
                     ))}
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group controlId="password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             type="password"
@@ -84,8 +84,8 @@ function LoginForm() {
                     <Button variant="primary" type="submit">
                         Log In
                     </Button>
-                    {errors.non_field_errors?.map((message, idx) => (
-                        <Alert variant="warning" key={idx} className="mt-3">
+                    {errors.non_field_errors?.map((message, index) => (
+                        <Alert variant="warning" key={index} className="mt-3">
                         {message}
                         </Alert>
                     ))}

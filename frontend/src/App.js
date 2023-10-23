@@ -33,7 +33,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <SetCurrentUserContext.Provider vlaue={setCurrentUser}>
+      <SetCurrentUserContext.Provider value={setCurrentUser}>
         <div className={styles.App}>
           < NavBar />
           < Container className={styles.Content}>
