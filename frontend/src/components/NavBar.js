@@ -4,9 +4,14 @@ import logo from "../assets/garageguru_logo.png"
 import styles from "../styles/NavBar.module.css"
 import { NavLink } from "react-router-dom";
 import { CurrentUserContext } from "../App";
+import useToggleMenu from "../hooks/useToggleMenu";
 
 const NavBar = () => {
     const currentUser = useContext(CurrentUserContext)
+
+    const { expanded, setExpanded, ref } = useToggleMenu();
+
+
     const loggedInMenu = <>{currentUser?.username}</>
     const loggedOutMenu = (
         <>
@@ -23,14 +28,21 @@ const NavBar = () => {
     )
 
     return (
-    <Navbar  className={styles.NavBar} expand="lg" fixed="top">
+    <Navbar
+        className={styles.NavBar}
+        expand="lg"
+        fixed="top"
+        expanded={expanded}>
         <Container>
             <NavLink to="/">
                 <Navbar.Brand>
                     <img src={logo} alt="logo" height="50" />
                 </Navbar.Brand>
             </NavLink>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Toggle
+                aria-controls="basic-navbar-nav"
+                ref={ref}
+                onClick={() => setExpanded(!expanded)}/>
             <Navbar.Collapse className={styles.NavbarCollapse} id="basic-navbar-nav">
                 <Nav className="ml-auto">
                 <NavLink to="/" className={styles.NavLinks} >
