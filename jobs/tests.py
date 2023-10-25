@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.urls import reverse
 from .models import Job
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -119,19 +120,6 @@ class JobDetailViewTests(APITestCase):
         response = self.client.get('/jobs/101/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    def test_user_can_update_job_card_they_own(self):
-        """
-        Tests a user can update job details on a job card they own.
-        Verified with a HTTP 200 status.
-        """
-        self.client.login(username='testuser1', password='testpw1234')
-        response = self.client.put('/jobs/1/', {'job_details': 'NEW TEST DETAILS',
-        'assigned_to': 2},
-        )
-        job = Job.objects.filter(pk=1).first()
-        self.assertEqual(job.job_details, 'NEW TEST DETAILS')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
     def test_user_cannot_update_job_card_they_dont_own(self):
         """
         Tests a user can't update job details on a job card they don't own.
@@ -142,3 +130,46 @@ class JobDetailViewTests(APITestCase):
         'assigned_to': 2},
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class JobUpdateTest(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+        self.client.login(username='testuser', password='testpassword')
+
+        self.job = Job.objects.create(
+            owner=self.user,
+            job_type='Major Service',
+            job_details='Initial job details',
+            status='Pending',
+            assigned_to=self.user
+            )
+
+    def test_user_can_update_own_job_card(self):
+        """
+        Tests a user can update a job card they own
+        Verified with a HTTP 200 OK status.
+        """
+        updated_data = {
+            'job_type': 'Minor Service',
+            'job_details': 'Updated job details',
+            'status': 'Pending',
+            'assigned_to': self.job.assigned_to.id
+        }
+
+        url = f'/jobs/{self.job.id}/'
+        response = self.client.put(url, updated_data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.job.refresh_from_db()
+
+        self.assertEqual(self.job.job_type, 'Minor Service')
+        self.assertEqual(self.job.job_details, 'Updated job details')
+        self.assertEqual(self.job.status, 'Pending')
+        self.assertEqual(self.job.owner, self.user)
+
+    def tearDown(self):
+        self.user.delete()
+        self.job.delete()

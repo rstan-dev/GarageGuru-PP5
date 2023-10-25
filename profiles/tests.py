@@ -5,7 +5,6 @@ from rest_framework import status
 from .serializers import ProfileSerializer
 
 
-
 class ProfileListViewTests(APITestCase):
 
     def setUp(self):
@@ -91,7 +90,7 @@ class ProfileDetailViewTests(APITestCase):
 
         profile = Profile.objects.get(owner=self.testuser1)
         response = self.client.put(f'/profiles/{profile.id}/', {'name': 'Updated Name', 'bio': 'Updated Bio'})
-        profile = Profile.objects.filter(pk=1).first()
+        profile.refresh_from_db()
         self.assertEqual(profile.name, 'Updated Name')
         self.assertEqual(profile.bio, 'Updated Bio')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
