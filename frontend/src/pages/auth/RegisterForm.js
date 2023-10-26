@@ -8,7 +8,7 @@ import { Alert } from "react-bootstrap";
 
 import styles from "../../styles/LoginRegister.module.css"
 import axios from "axios";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/";
 
 
 function RegisterForm() {
@@ -22,7 +22,7 @@ function RegisterForm() {
 
     const [errors, setErrors] = useState({})
 
-    const history = useHistory
+    const history = useHistory()
 
 
 
@@ -36,13 +36,13 @@ function RegisterForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('dj-rest-auth/registration/', registerData)
-            history.push('/login')
+            await axios.post('dj-rest-auth/registration/', registerData);
+            history.push('/login');
 
         } catch(error) {
             setErrors(error.response?.data)
         }
-    }
+    };
 
 
     return (
@@ -106,8 +106,9 @@ function RegisterForm() {
                         {message}
                         </Alert>
                     ))}
-
-                    <p>Already have an account?<br/>Click here to log in</p>
+                    <Link to="/login">
+                        <p>Already have an account?<br/>Click here to log in</p>
+                    </Link>
                 </Form>
             </Col>
         </Container>

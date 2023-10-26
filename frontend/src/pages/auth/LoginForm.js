@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 import Col from "react-bootstrap/Col";
@@ -89,8 +89,9 @@ function LoginForm() {
                         {message}
                         </Alert>
                     ))}
-
-                    <p>Don't have an account?<br/>Click here to register</p>
+                    <Link to="/register">
+                        <p>Don't have an account?<br/>Click here to register</p>
+                    </Link>
                 </Form>
             </Col>
         </Container>
