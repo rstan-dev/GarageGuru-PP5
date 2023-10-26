@@ -11,10 +11,54 @@ const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
 
-
     const { expanded, setExpanded, ref } = useToggleMenu();
 
-    const loggedInMenu = <>{currentUser?.username}</>
+    const handleLogOut = async () => {
+        try {
+            await axios.post("dj-rest-auth/logout/");
+            setCurrentUser(null)
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const loggedInMenu = (
+        <>
+        <NavLink to="/" className={styles.NavLinks} >
+            <i className="fa-solid fa-car"></i>
+            <span className={styles.Label}>All Jobs</span>
+        </NavLink>
+        <NavLink to="/myjobs" className={styles.NavLinks}>
+            <i className="fa-solid fa-clipboard-list"></i>
+                <span className={styles.Label}>My Jobs</span>
+        </NavLink>
+        <NavLink to="/addjob" className={styles.NavLinks}>
+            <i className="fa-solid fa-circle-plus"></i>
+            <span className={styles.Label}>Add Job</span>
+        </NavLink>
+        <NavLink to="/assigned" className={styles.NavLinks}>
+            <i className="fa-solid fa-people-group"></i>
+            <span className={styles.Label}>Assigned</span>
+        </NavLink>
+        <NavLink to="/watched" className={styles.NavLinks} >
+            <i className="fa-solid fa-eye"></i>
+            <span className={styles.Label}>Watching</span>
+        </NavLink>
+        <NavLink
+            to="/login"
+            className={styles.NavLinks}
+            onClick={handleLogOut}>
+            <i className="fa-solid fa-right-from-bracket"></i>
+            <span className={styles.Label}>Logout</span>
+        </NavLink>
+        <NavLink to="/profile" className={styles.NavLinks}>
+            <i className="fa-solid fa-circle-user"></i>
+            <span className={styles.Label}>Profile</span>
+        </NavLink>
+
+        {currentUser?.username}
+        </>
+    )
     const loggedOutMenu = (
         <>
         <NavLink to="/login" className={styles.NavLinks}>
@@ -27,15 +71,6 @@ const NavBar = () => {
         </NavLink>
         </>
     )
-
-    const handleLogOut = async () => {
-        try {
-            await axios.post("dj-rest-auth/logout/");
-            setCurrentUser(null)
-        } catch (err) {
-            console.log(err);
-        }
-    };
 
     return (
     <Navbar
@@ -55,37 +90,7 @@ const NavBar = () => {
                 onClick={() => setExpanded(!expanded)}/>
             <Navbar.Collapse className={styles.NavbarCollapse} id="basic-navbar-nav">
                 <Nav className="ml-auto">
-                <NavLink to="/" className={styles.NavLinks} >
-                    <i className="fa-solid fa-car"></i>
-                    <span className={styles.Label}>All Jobs</span>
-                </NavLink>
-                <NavLink to="/myjobs" className={styles.NavLinks}>
-                    <i className="fa-solid fa-clipboard-list"></i>
-                    <span className={styles.Label}>My Jobs</span>
-                </NavLink>
-                <NavLink to="/addjob" className={styles.NavLinks}>
-                    <i className="fa-solid fa-circle-plus"></i>
-                    <span className={styles.Label}>Add Job</span>
-                </NavLink>
-                <NavLink to="/assigned" className={styles.NavLinks}>
-                    <i className="fa-solid fa-people-group"></i>
-                    <span className={styles.Label}>Assigned</span>
-                </NavLink>
-                <NavLink to="/watched" className={styles.NavLinks} >
-                    <i className="fa-solid fa-eye"></i>
-                    <span className={styles.Label}>Watching</span>
-                </NavLink>
-                <NavLink
-                    to="/login"
-                    className={styles.NavLinks}
-                    onClick={handleLogOut}>
-                    <i className="fa-solid fa-right-from-bracket"></i>
-                    <span className={styles.Label}>Logout</span>
-                </NavLink>
-                <NavLink to="/profile" className={styles.NavLinks}>
-                    <i className="fa-solid fa-circle-user"></i>
-                    <span className={styles.Label}>Profile</span>
-                </NavLink>
+
                 {currentUser ? loggedInMenu : loggedOutMenu}
                 </Nav>
             </Navbar.Collapse>
