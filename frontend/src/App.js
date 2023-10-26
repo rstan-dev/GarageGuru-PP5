@@ -6,7 +6,7 @@ import { Route, Switch } from "react-router-dom";
 import './api/axiosDefaults';
 
 import LoginForm from './pages/auth/LoginForm';
-
+import RegisterForm from './pages/auth/RegisterForm';
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
               <Route exact path="/watched" render={() => <h1>Watched Jobs</h1>} />
               <Route exact path="/login" render={() => <LoginForm />} />
               <Route exact path="/logout" render={() => <h1>Logout</h1>} />
-              <Route exact path="/register" render={() => <h1>Register</h1>} />
+              <Route exact path="/register" render={() => <RegisterForm />} />
               <Route exact path="/profile" render={() => <h1>Profile</h1>} />
               <Route render={() => <PageNotFound />} />
           </Switch>
