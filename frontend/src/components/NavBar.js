@@ -1,16 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import logo from "../assets/garageguru_logo.png"
 import styles from "../styles/NavBar.module.css"
 import { NavLink } from "react-router-dom";
-import { CurrentUserContext } from "../App";
+import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import useToggleMenu from "../hooks/useToggleMenu";
+import axios from "axios";
 
 const NavBar = () => {
-    const currentUser = useContext(CurrentUserContext)
+    const currentUser = useCurrentUser();
+    const setCurrentUser = useSetCurrentUser();
+
 
     const { expanded, setExpanded, ref } = useToggleMenu();
-
 
     const loggedInMenu = <>{currentUser?.username}</>
     const loggedOutMenu = (
@@ -23,9 +25,17 @@ const NavBar = () => {
             <i className="fa-solid fa-user-plus"></i>
             <span className={styles.Label}>Register</span>
         </NavLink>
-
         </>
     )
+
+    const handleLogOut = async () => {
+        try {
+            await axios.post("dj-rest-auth/logout/");
+            setCurrentUser(null)
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
     <Navbar
@@ -65,7 +75,10 @@ const NavBar = () => {
                     <i className="fa-solid fa-eye"></i>
                     <span className={styles.Label}>Watching</span>
                 </NavLink>
-                <NavLink to="/logout" className={styles.NavLinks}>
+                <NavLink
+                    to="/login"
+                    className={styles.NavLinks}
+                    onClick={handleLogOut}>
                     <i className="fa-solid fa-right-from-bracket"></i>
                     <span className={styles.Label}>Logout</span>
                 </NavLink>
