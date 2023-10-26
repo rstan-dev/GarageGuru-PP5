@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -9,6 +9,20 @@ import styles from "../../styles/LoginRegister.module.css"
 
 
 function RegisterForm() {
+    const [registerData, setRegisterData]= useState({
+        username: '',
+        password1: '',
+        password2: '',
+    })
+
+    const {username, password1, password2} = registerData;
+
+    const handleChange = (event) => {
+        setRegisterData({
+            ...registerData,
+            [event.target.name]: event.target.value,
+        });
+    };
 
 
     return (
@@ -22,6 +36,8 @@ function RegisterForm() {
                             type="text"
                             placeholder="Enter a username"
                             name="username"
+                            value={username}
+                            onChange={handleChange}
                             />
                     </Form.Group>
 
@@ -30,7 +46,9 @@ function RegisterForm() {
                         <Form.Control
                             type="password"
                             placeholder="Enter a password"
-                            name="password2"
+                            name="password1"
+                            value={password1}
+                            onChange={handleChange}
                              />
                     </Form.Group>
 
@@ -40,6 +58,8 @@ function RegisterForm() {
                             type="password"
                             placeholder="Re-enter the same password"
                             name="password2"
+                            value={password2}
+                            onChange={handleChange}
                              />
                     </Form.Group>
 
