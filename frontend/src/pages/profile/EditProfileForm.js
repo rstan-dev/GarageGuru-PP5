@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -12,6 +13,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 const EditProfileForm = () => {
   const currentUser = useCurrentUser();
   const currentUserId = currentUser?currentUser.pk : null;
+  const history = useHistory();
 
 
   const [editProfileData, setEditProfileData] = useState({
@@ -40,6 +42,28 @@ const EditProfileForm = () => {
     fetchprofileData();
   }, [currentUserId]);
 
+  const handleChange = (event) => {
+    setEditProfileData({
+      ...editProfileData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("bio", bio);
+
+    try {
+      await axiosReq.put(`/profiles/${currentUserId}/`, formData);
+      console.log("Profile Updated Successfully")
+
+    } catch (err) {
+        console.log(err);
+    }
+  };
+
 
 return (
       <Container className={styles.EditProfileForm}>
@@ -47,7 +71,7 @@ return (
                 <h1> Edit Profile</h1>
                 <h2>Profile Image (placeholder)</h2>
 
-                <Form >
+                <Form onSubmit={(handleSubmit)}>
                     <Form.Group controlId="name">
                         <Form.Label>Update Name</Form.Label>
                         <Form.Control
@@ -55,6 +79,7 @@ return (
                             type="text"
                             name="name"
                             value={name}
+                            onChange={handleChange}
                             />
                     </Form.Group>
                     <Form.Group controlId="bio">
@@ -64,6 +89,7 @@ return (
                             name="bio"
                             value={bio}
                             rows={7}
+                            onChange={handleChange}
                             />
                     </Form.Group>
                     <Button
