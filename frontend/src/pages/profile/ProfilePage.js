@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
-import axios from 'axios';
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 
-const ProfilePage = () => {
+const ProfilePage = ( {profilePageData}) => {
     const currentUser = useCurrentUser();
-    const currentUserId = currentUser?currentUser.id : null;
+    const currentUserId = currentUser?currentUser.pk : null;
 
     const [profileData, setProfileData] = useState({
       id: '',
@@ -18,7 +19,7 @@ const ProfilePage = () => {
       bio: '',
       image: '',
       created_at: '',
-      is_owner: '',
+      is_owner: false,
     })
 
     const { id, name, bio, image, created_at, is_owner } = profileData;
@@ -26,7 +27,7 @@ const ProfilePage = () => {
     useEffect(() => {
       const fetchprofileData = async () => {
         try {
-          const {data} = await axiosReq.get(`/profiles/1/`)
+          const {data} = await axiosReq.get(`/profiles/${currentUserId}/`)
           const {id, name, bio, image, created_at, is_owner} = data;
           setProfileData({
             id,
@@ -42,7 +43,6 @@ const ProfilePage = () => {
       };
       fetchprofileData();
     }, [currentUserId, setProfileData]);
-
 
     return (
          <Container>
@@ -72,8 +72,24 @@ const ProfilePage = () => {
             </p>
             <p>User Id: {id}</p>
             <p>
-              is_owner: {is_owner}
+              is_owner: {is_owner ? "true" : "false"}
             </p>
+            <Link to="/profile/edit-profile">
+              <Button
+                variant="warning">
+                Edit Profile
+              </Button>
+            </Link>
+            <Link to="/">
+                <Button variant="warning">
+                  Edit Username
+                </Button>
+            </Link>
+            <Link to="/">
+              <Button variant="warning">
+                Edit Password
+              </Button>
+            </Link>
           </div>
         </Col>
       </Row>
