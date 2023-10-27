@@ -9,7 +9,7 @@ import { Image } from "react-bootstrap";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 
-const ProfilePage = ( {profilePageData}) => {
+const ProfilePage = () => {
     const currentUser = useCurrentUser();
     const currentUserId = currentUser?currentUser.pk : null;
 

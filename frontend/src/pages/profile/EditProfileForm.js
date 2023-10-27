@@ -1,82 +1,84 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import ProfilePage from "./ProfilePage";
+import styles from "../../styles/EditProfile.module.css"
 
-const EditProfileForm = ( {profilePageData} ) => {
-    const [profileData, setProfileData] = useState({
-        name: profilePageData.name,
-        bio: profilePageData.bio,
-        image: profilePageData.image
-      });
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { axiosReq } from "../../api/axiosDefaults";
 
-    const { name, bio } = profileData;
+const EditProfileForm = () => {
+  const currentUser = useCurrentUser();
+  const currentUserId = currentUser?currentUser.pk : null;
 
-    const history = useHistory();
 
-    const handleChange = (event) => {
-        setProfileData({
-          ...profileData,
-          [event.target.name]: event.target.value,
-        });
-      };
+  const [editProfileData, setEditProfileData] = useState({
+    name: "",
+    bio: "",
+    image: "",
+    });
 
-      const textFields = (
-        <>
-          <Form.Group>
-            <Form.Label>Change Name:</Form.Label>
-            <Form.Control
-              as="text"
-              value={name}
-              onChange={handleChange}
-              name="content"
-              rows={7}
-            />
-          </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Change Bio:</Form.Label>
-            <Form.Control
-              as="textarea"
-              value={bio}
-              onChange={handleChange}
-              name="content"
-              rows={7}
-            />
-          </Form.Group>
+  const {name, bio, image} = editProfileData
 
-          <Button
-            variation="danger"
-            onClick={() => history.goBack()}
-          >
-            Cancel
-          </Button>
-          <Button
-            variation="sucess"
-            type="submit">
-            Update
-          </Button>
-        </>
-      );
+  useEffect(() => {
+    const fetchprofileData = async () => {
+      try {
+        const {data} = await axiosReq.get(`/profiles/${currentUserId}/`)
+        const { name, bio, image } = data;
+        setEditProfileData({
+          name,
+          bio,
+          image,
+          });
+      } catch(error) {
+        console.log(error)
+      }
+    };
+    fetchprofileData();
+  }, [currentUserId]);
+
 
 return (
-    <Form>
-        <Row>
-            <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
-                <Container >
-                        <div className="d-md-none">
-                            {textFields}
-                        </div>
-                </Container>
-            </Col>
-          </Row>
+      <Container className={styles.EditProfileForm}>
+            <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
+                <h1> Edit Profile</h1>
+                <h2>Profile Image (placeholder)</h2>
 
-    </Form>
+                <Form >
+                    <Form.Group controlId="name">
+                        <Form.Label>Update Name</Form.Label>
+                        <Form.Control
+                            as="input"
+                            type="text"
+                            name="name"
+                            value={name}
+                            />
+                    </Form.Group>
+                    <Form.Group controlId="bio">
+                        <Form.Label>Update Bio</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            name="bio"
+                            value={bio}
+                            rows={7}
+                            />
+                    </Form.Group>
+                    <Button
+                      variant="success"
+                      type="submit">
+                      Update
+                    </Button>
+                    <Button variant="warning">
+                      Cancel
+                    </Button>
+                </Form>
+            </Col>
+
+    </Container>
+
 )
 
 }
