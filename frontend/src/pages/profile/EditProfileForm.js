@@ -5,10 +5,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
 import styles from "../../styles/EditProfile.module.css"
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
+import { Link } from "react-router-dom";
 
 const EditProfileForm = () => {
   const currentUser = useCurrentUser();
@@ -22,8 +24,10 @@ const EditProfileForm = () => {
     image: "",
     });
 
-
   const {name, bio, image} = editProfileData
+
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     const fetchprofileData = async () => {
@@ -57,10 +61,14 @@ const EditProfileForm = () => {
 
     try {
       await axiosReq.put(`/profiles/${currentUserId}/`, formData);
-      console.log("Profile Updated Successfully")
+      setSuccessMessage('Profile updated successfully');
+      setTimeout(() => {
+        setSuccessMessage('');
+        history.push('/profile');
+      }, 1500);
 
     } catch (err) {
-        console.log(err);
+      setErrors(err.response?.data);
     }
   };
 
@@ -97,10 +105,18 @@ return (
                       type="submit">
                       Update
                     </Button>
-                    <Button variant="warning">
-                      Cancel
-                    </Button>
+                    <Link to="/profile">
+                      <Button variant="warning">
+                        Cancel
+                      </Button>
+                    </Link>
                 </Form>
+                {/* Display success message */}
+                {successMessage && <Alert variant="success">{successMessage}</Alert>}
+
+                {/* Display error messages */}
+                {errors.name && <Alert variant="danger">{errors.name[0]}</Alert>}
+                {errors.bio && <Alert variant="danger">{errors.bio[0]}</Alert>}
             </Col>
 
     </Container>
