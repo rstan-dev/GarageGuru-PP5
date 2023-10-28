@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
+import { Image } from "react-bootstrap";
 import styles from "../../styles/EditProfile.module.css"
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -25,6 +26,8 @@ const EditProfileForm = () => {
     });
 
   const {name, bio, image} = editProfileData
+
+  const [profileImage, setProfileImage] = useState(null);
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
@@ -53,11 +56,19 @@ const EditProfileForm = () => {
     });
   };
 
+  const handleImageChange = (event) => {
+    setProfileImage(event.target.files[0]);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
     formData.append("bio", bio);
+
+    if (profileImage) {
+      formData.append('image', profileImage);
+    }
 
     try {
       await axiosReq.put(`/profiles/${currentUserId}/`, formData);
@@ -77,7 +88,25 @@ return (
       <Container className={styles.EditProfileForm}>
             <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
                 <h1> Edit Profile</h1>
-                <h2>Profile Image (placeholder)</h2>
+                <Image
+                  src={editProfileData.image}
+                  alt="Profile image"
+                  roundedCircle
+                  fluid
+                />
+                <div>
+                  <label htmlFor="imageInput">
+                    <i className="fas fa-upload"></i>
+                    Change Profile Image
+                  </label>
+                  <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{ display: 'none' }}
+                  />
+                </div>
 
                 <Form onSubmit={(handleSubmit)}>
                     <Form.Group controlId="name">
