@@ -63,9 +63,6 @@ const ChangePasswordForm = () => {
           {/* Display success message */}
           {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-          {/* Display error messages */}
-          {errors.name && <Alert variant="danger">{errors.name[0]}</Alert>}
-          {errors.bio && <Alert variant="danger">{errors.bio[0]}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group>
             {errors?.new_password1?.map((message, index) => (
