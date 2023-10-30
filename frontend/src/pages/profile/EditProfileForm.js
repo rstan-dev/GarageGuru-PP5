@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -45,9 +45,18 @@ const EditProfileForm = () => {
           });
       } catch(error) {
         console.log(error)
-        history.push("/profile")
+        if (error.response?.status === 401) {
+          history.push("/login");
+        } else {
+          history.push("/profile")
+        }
       }
     };
+
+    if (!currentUser) {
+      history.push("/login");
+    }
+
     handleMount();
   }, [currentUserId, history]);
 

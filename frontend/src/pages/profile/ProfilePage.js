@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -14,6 +14,7 @@ const ProfilePage = () => {
     const currentUserId = currentUser?currentUser.pk : null;
     const location = useLocation();
     const isProfileUpdated = new URLSearchParams(location.search).get('updated') === 'true';
+    const history = useHistory();
 
 
     const [profileData, setProfileData] = useState({
@@ -50,8 +51,9 @@ const ProfilePage = () => {
     }, [currentUserId]);
 
     useEffect(() => {
-      if (isProfileUpdated) {
-        // Fetch updated profile data when isProfileUpdated changes
+      if (!currentUser) {
+        history.push("/login");
+      } else {
         const fetchUpdatedProfileData = async () => {
           try {
             const { data } = await axiosReq.get(`/profiles/${currentUserId}/`);
@@ -69,9 +71,14 @@ const ProfilePage = () => {
           }
         };
 
+        if (!currentUser) {
+          history.push("/signin");
+        }
+
         fetchUpdatedProfileData();
       }
-    }, [currentUserId, isProfileUpdated]);
+    }, [currentUserId]);
+
     return (
          <Container>
       <Row>
