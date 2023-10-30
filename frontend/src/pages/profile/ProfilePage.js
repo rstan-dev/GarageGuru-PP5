@@ -113,7 +113,7 @@ const ProfilePage = () => {
                 Edit Profile
               </Button>
             </Link>
-            <Link to="/">
+            <Link to="/profile/change-username">
                 <Button variant="warning">
                   Edit Username
                 </Button>

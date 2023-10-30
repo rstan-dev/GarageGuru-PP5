@@ -10,6 +10,7 @@ import RegisterForm from './pages/auth/RegisterForm';
 import ProfilePage from './pages/profile/ProfilePage';
 import EditProfileForm from './pages/profile/EditProfileForm';
 import ChangePasswordForm from './pages/profile/ChangePasswordForm';
+import ChangeUsernameForm from './pages/profile/ChangeUsernameForm';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               <Route exact path="/profile" render={() => <ProfilePage />} />
               <Route exact path="/profile/edit-profile" render={() => <EditProfileForm />} />
               <Route exact path="/profile/change-password" render={() => <ChangePasswordForm />} />
+              <Route exact path="/profile/change-username" render={() => <ChangeUsernameForm />} />
               <Route render={() => <PageNotFound />} />
           </Switch>
           </Container>
