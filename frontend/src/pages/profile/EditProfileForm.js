@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -58,7 +58,7 @@ const EditProfileForm = () => {
     }
 
     handleMount();
-  }, [currentUserId, history]);
+  }, [currentUserId, currentUser, history]);
 
   const handleChange = (event) => {
     setEditProfileData({
