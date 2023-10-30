@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
@@ -9,14 +9,17 @@ import Alert from "react-bootstrap/Alert";
 import { Image } from "react-bootstrap";
 import styles from "../../styles/EditProfile.module.css"
 
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Link } from "react-router-dom";
 
 const EditProfileForm = () => {
   const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
   const currentUserId = currentUser?currentUser.pk : null;
   const history = useHistory();
+  const imageFile = useRef();
+
 
 
   const [editProfileData, setEditProfileData] = useState({
@@ -27,13 +30,11 @@ const EditProfileForm = () => {
 
   const {name, bio, image} = editProfileData
 
-  const [profileImage, setProfileImage] = useState(null);
-
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    const fetchprofileData = async () => {
+    const handleMount = async () => {
       try {
         const {data} = await axiosReq.get(`/profiles/${currentUserId}/`)
         const { name, bio, image } = data;
@@ -44,10 +45,11 @@ const EditProfileForm = () => {
           });
       } catch(error) {
         console.log(error)
+        history.push("/profile")
       }
     };
-    fetchprofileData();
-  }, [currentUserId]);
+    handleMount();
+  }, [currentUserId, history]);
 
   const handleChange = (event) => {
     setEditProfileData({
@@ -56,9 +58,6 @@ const EditProfileForm = () => {
     });
   };
 
-  const handleImageChange = (event) => {
-    setProfileImage(event.target.files[0]);
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -66,16 +65,22 @@ const EditProfileForm = () => {
     formData.append("name", name);
     formData.append("bio", bio);
 
-    if (profileImage) {
-      formData.append('image', profileImage);
+    if (imageFile?.current?.files[0]) {
+      formData.append("image", imageFile?.current?.files[0]);
     }
+    console.log("FormData:", formData);
 
     try {
-      await axiosReq.put(`/profiles/${currentUserId}/`, formData);
+      const { data } = await axiosReq.put(`/profiles/${currentUserId}/`, formData);
+      setCurrentUser((currentUser) => ({
+        ...currentUser,
+        profile_image: data.image,
+      }));
       setSuccessMessage('Profile updated successfully');
+      console.log("FormData afterupate:", formData)
       setTimeout(() => {
         setSuccessMessage('');
-        history.push('/profile');
+        history.goBack();
       }, 1500);
 
     } catch (err) {
@@ -87,28 +92,52 @@ const EditProfileForm = () => {
 return (
       <Container className={styles.EditProfileForm}>
             <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
+                {/* Display success message */}
+                {successMessage && <Alert variant="success">{successMessage}</Alert>}
+
+                {/* Display error messages */}
+                {errors.name && <Alert variant="danger">{errors.name[0]}</Alert>}
+                {errors.bio && <Alert variant="danger">{errors.bio[0]}</Alert>}
+
                 <h1> Edit Profile</h1>
-                <Image
-                  src={editProfileData.image}
-                  alt="Profile image"
-                  roundedCircle
-                  fluid
-                />
-                <div>
-                  <label htmlFor="imageInput">
-                    <i className="fas fa-upload"></i>
-                    Change Profile Image
-                  </label>
-                  <input
-                    type="file"
-                    id="imageInput"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    style={{ display: 'none' }}
-                  />
-                </div>
 
                 <Form onSubmit={(handleSubmit)}>
+                    <Form.Group>
+                    {image && (
+                      <figure>
+                        <Image
+                        src={image}
+                        fluid
+                        roundedCircle />
+                      </figure>
+                    )}
+                    {errors?.image?.map((message, idx) => (
+                      <Alert variant="warning" key={idx}>
+                        {message}
+                      </Alert>
+                    ))}
+                    <div>
+                      <Form.Label htmlFor="image-upload">
+                        <i className="fas fa-upload"></i>
+                        Change Profile Image
+                      </Form.Label>
+                    </div>
+
+                    <Form.File
+                      id="image-upload"
+                      ref={imageFile}
+                      accept="image/*"
+                      onChange={(e) => {
+                        if (e.target.files.length) {
+                          setEditProfileData({
+                            ...editProfileData,
+                            image: URL.createObjectURL(e.target.files[0]),
+                          });
+                        }
+                      }}
+                    />
+
+                    </Form.Group>
                     <Form.Group controlId="name">
                         <Form.Label>Update Name</Form.Label>
                         <Form.Control
@@ -140,12 +169,7 @@ return (
                       </Button>
                     </Link>
                 </Form>
-                {/* Display success message */}
-                {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-                {/* Display error messages */}
-                {errors.name && <Alert variant="danger">{errors.name[0]}</Alert>}
-                {errors.bio && <Alert variant="danger">{errors.bio[0]}</Alert>}
             </Col>
 
     </Container>

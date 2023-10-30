@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -12,6 +12,9 @@ import { axiosReq } from "../../api/axiosDefaults";
 const ProfilePage = () => {
     const currentUser = useCurrentUser();
     const currentUserId = currentUser?currentUser.pk : null;
+    const location = useLocation();
+    const isProfileUpdated = new URLSearchParams(location.search).get('updated') === 'true';
+
 
     const [profileData, setProfileData] = useState({
       id: '',
@@ -27,8 +30,8 @@ const ProfilePage = () => {
     useEffect(() => {
       const fetchprofileData = async () => {
         try {
-          const {data} = await axiosReq.get(`/profiles/${currentUserId}/`)
-          const {id, name, bio, image, created_at, is_owner} = data;
+          const { data } = await axiosReq.get(`/profiles/${currentUserId}/`);
+          const { id, name, bio, image, created_at, is_owner } = data;
           setProfileData({
             id,
             name,
@@ -37,13 +40,38 @@ const ProfilePage = () => {
             created_at,
             is_owner,
           });
-        } catch(error) {
-          console.log(error)
+        } catch (error) {
+          console.log(error);
         }
       };
-      fetchprofileData();
-    }, [currentUserId, setProfileData]);
 
+      // Fetch initial profile data when the component mounts
+      fetchprofileData();
+    }, [currentUserId]);
+
+    useEffect(() => {
+      if (isProfileUpdated) {
+        // Fetch updated profile data when isProfileUpdated changes
+        const fetchUpdatedProfileData = async () => {
+          try {
+            const { data } = await axiosReq.get(`/profiles/${currentUserId}/`);
+            const { id, name, bio, image, created_at, is_owner } = data;
+            setProfileData({
+              id,
+              name,
+              bio,
+              image,
+              created_at,
+              is_owner,
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
+        fetchUpdatedProfileData();
+      }
+    }, [currentUserId, isProfileUpdated]);
     return (
          <Container>
       <Row>
