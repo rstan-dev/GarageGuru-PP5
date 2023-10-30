@@ -23,6 +23,7 @@ const ChangePasswordForm = () => {
     const { new_password1, new_password2 } = userData;
 
     const [errors, setErrors] = useState({});
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleChange = (event) => {
         setUserData({
@@ -42,7 +43,11 @@ const ChangePasswordForm = () => {
       event.preventDefault();
       try {
         await axiosRes.post("/dj-rest-auth/password/change/", userData);
-        history.goBack();
+        setSuccessMessage('Password updated successfully');
+        setTimeout(() => {
+          setSuccessMessage('');
+          history.goBack();
+      }, 1500);
       } catch (err) {
         console.log(err);
         console.log(userData)
@@ -55,6 +60,12 @@ const ChangePasswordForm = () => {
     <Row>
       <Col className="py-2 mx-auto text-center" md={6}>
         <Container >
+          {/* Display success message */}
+          {successMessage && <Alert variant="success">{successMessage}</Alert>}
+
+          {/* Display error messages */}
+          {errors.name && <Alert variant="danger">{errors.name[0]}</Alert>}
+          {errors.bio && <Alert variant="danger">{errors.bio[0]}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group>
             {errors?.new_password1?.map((message, index) => (
