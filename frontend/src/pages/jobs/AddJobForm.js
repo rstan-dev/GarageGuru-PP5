@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -8,9 +8,16 @@ import Button from 'react-bootstrap/Button';
 
 import styles from '../../styles/AddEditJob.module.css'
 
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import axios from 'axios';
+
 
 function AddJobForm() {
 
+    const currentUser = useCurrentUser();
+    const [users, setUsers] = useState([]);
+
+    // initialize state of job data
     const [jobData, setJobData] = useState({
         job_type: '',
         job_details: '',
@@ -20,7 +27,39 @@ function AddJobForm() {
         status: 'Pending'
       });
 
-      const {job_type, job_details, image, due_date, assigned_to, status } = jobData;
+    const {job_type, job_details, image, due_date, assigned_to, status } = jobData;
+
+    const imageInput = useRef()
+
+
+    // Get current date to use as default in due_date
+        const getCurrentDate = () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+        }
+
+      // handle any changes to main form
+      const handleChange = (event) => {
+        setJobData({
+            ...jobData,
+            [event.target.name]: event.target.value,
+        });
+      };
+
+      // handle any changes to image
+      const handleUploadImage = (event) => {
+        if (event.target.files.length){
+            URL.revokeObjectURL(image);
+            setJobData({
+                ...jobData,
+                image: URL.createObjectURL(event.target.files[0])
+            });
+        }
+      };
+
 
 
 
@@ -32,7 +71,7 @@ function AddJobForm() {
                 as="select"
                 name="job_type"
                 value={job_type}
-
+                onChange={handleChange}
                 isrequired="true"
                 >
                 <option>Choose Job Type</option>
@@ -51,6 +90,7 @@ function AddJobForm() {
                 name="job_details"
                 rows={2}
                 value={job_details}
+                onChange={handleChange}
                 />
             </Form.Group>
 
@@ -60,6 +100,7 @@ function AddJobForm() {
                 as="select"
                 name="assigned_to"
                 value={assigned_to}
+                onChange={handleChange}
                 isrequired="true"
                 >
                 </Form.Control>
@@ -70,7 +111,9 @@ function AddJobForm() {
                 <Form.Control
                 type="date"
                 name="due_date"
-                value={due_date}
+                value={getCurrentDate()}
+                onChange={handleChange}
+                min={getCurrentDate()}
                 />
             </Form.Group>
 
@@ -80,6 +123,7 @@ function AddJobForm() {
                 as="select"
                 name="status"
                 value={status}
+                onChange={handleChange}
                 >
                 <option>Select status</option>
                 <option value="Pending">Pending</option>
@@ -130,7 +174,8 @@ function AddJobForm() {
                                 <Form.File
                                 id="image-upload"
                                 accept="image/*"
-
+                                ref={imageInput}
+                                onChange={handleUploadImage}
                                 />
                             </Form.Group>
                         </div>
