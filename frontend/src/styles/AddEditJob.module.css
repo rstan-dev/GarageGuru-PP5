@@ -1,0 +1,9 @@
+.AddEditJobForm {
+  padding-top: 50px;
+}
+
+.Image {
+    max-height: 30vh;
+    max-width: 100%;
+    object-fit: contain;
+  }

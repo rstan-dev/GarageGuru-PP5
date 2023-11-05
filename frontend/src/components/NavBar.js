@@ -32,7 +32,7 @@ const NavBar = () => {
             <i className="fa-solid fa-clipboard-list"></i>
                 <span className={styles.Label}>My Jobs</span>
         </NavLink>
-        <NavLink to="/addjob" className={styles.NavLinks}>
+        <NavLink to="/jobs/addjob" className={styles.NavLinks}>
             <i className="fa-solid fa-circle-plus"></i>
             <span className={styles.Label}>Add Job</span>
         </NavLink>

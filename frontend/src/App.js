@@ -11,6 +11,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import EditProfileForm from './pages/profile/EditProfileForm';
 import ChangePasswordForm from './pages/profile/ChangePasswordForm';
 import ChangeUsernameForm from './pages/profile/ChangeUsernameForm';
+import AddJobForm from './pages/jobs/AddJobForm';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
             <Switch>
               <Route exact path="/" render={() => <h1>All Jobs</h1>} />
               <Route exact path="/myjobs" render={() => <h1>My Jobs</h1>} />
-              <Route exact path="/addjob" render={() => <h1>Add Job</h1>} />
+              <Route exact path="/jobs/addjob" render={() => <AddJobForm />} />
               <Route exact path="/assigned" render={() => <h1>Assigned Jobs</h1>} />
               <Route exact path="/watched" render={() => <h1>Watched Jobs</h1>} />
               <Route exact path="/login" render={() => <LoginForm />} />
