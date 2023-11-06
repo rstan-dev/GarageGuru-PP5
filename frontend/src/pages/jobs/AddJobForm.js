@@ -5,11 +5,14 @@ import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 
 import styles from '../../styles/AddEditJob.module.css'
 
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import { axiosReq } from '../../api/axiosDefaults';
 
 
 function AddJobForm() {
@@ -30,6 +33,10 @@ function AddJobForm() {
     const {job_type, job_details, image, due_date, assigned_to, status } = jobData;
 
     const imageInput = useRef()
+    const [errors, setErrors] = useState({});
+    const [successMessage, setSuccessMessage] = useState('');
+    const successTimeoutRef = useRef();
+    const history = useHistory();
 
     // Set default assigned_to to current username
     useEffect(() => {
@@ -50,7 +57,6 @@ function AddJobForm() {
           .catch((error) => console.log(error));
       }, [currentUser]);
 
-
     // Get current date to use as default in due_date
         const getCurrentDate = () => {
         const now = new Date();
@@ -59,6 +65,15 @@ function AddJobForm() {
         const day = String(now.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
         }
+
+    // Sets the due_date field to curent date when form initially loads
+    useEffect(() => {
+        const currentDate = getCurrentDate();
+        setJobData(prevState => ({
+            ...prevState,
+            due_date: currentDate,
+        }));
+        }, []);
 
       // handle any changes to main form
       const handleChange = (event) => {
@@ -79,9 +94,67 @@ function AddJobForm() {
         }
       };
 
+    // Clears the success message timeout function
+    useEffect(() => {
+        return () => {
+            if (successTimeoutRef.current) {
+                clearTimeout(successTimeoutRef.current);
+            }
+        };
+    }, []);
 
+    const handleSubmit = async (event) => {
+    event.preventDefault()
 
+    let formErrors = {};
 
+    if (!job_type || job_type === 'Choose Job Type') {
+        formErrors.job_type = ['Job Type is Required. Please select a job type.'];
+    }
+
+    if (!due_date) {
+        formErrors.due_date = ['Due Date is required. Please select a due date.'];
+    }
+
+    if (Object.keys(formErrors).length > 0) {
+        setErrors(formErrors);
+        return;
+    }
+
+    const formData = new FormData();
+
+    formData.append('job_type', job_type)
+    formData.append('job_details', job_details)
+    formData.append('due_date', due_date)
+    formData.append('assigned_to', assigned_to)
+    formData.append('status', status)
+    if (imageInput.current && imageInput.current.files[0]) {
+        formData.append('image', imageInput.current.files[0]);
+        }
+
+    try {
+        const {data} = await axiosReq.post('/jobs/', formData)
+        setSuccessMessage('Job has been added successfully');
+        successTimeoutRef.current = setTimeout(() => {
+            setSuccessMessage('');
+            history.push(`/jobs/${data.id}`)
+            }, 1500);
+    } catch (err) {
+        if (axios.isAxiosError(err) && err.response) {
+            console.log(err.response.data);
+            console.log(err.response.status);
+            console.log(err.response.headers);
+            if (err.response.status !== 401) {
+                setErrors(err.response.data);
+            }
+            } else {
+            console.error(err);
+            setErrors({ message: ["There was an error submitting the form."] });
+            }
+        };
+    };
+
+      // Text fields component to be rendered in form
       const textFields = (
         <div className='text-center'>
             <Form.Group controlId="job_type">
@@ -100,7 +173,11 @@ function AddJobForm() {
                 <option value="Tyre Change">Tyre Change</option>
                 </Form.Control>
             </Form.Group>
-
+            {errors?.job_type?.map((message, index) => (
+                <Alert variant="danger" key={index}>
+                    {message}
+                </Alert>
+            ))}
 
             <Form.Group controlId="job_details">
                 <Form.Label >Job Details:</Form.Label>
@@ -112,6 +189,11 @@ function AddJobForm() {
                 onChange={handleChange}
                 />
             </Form.Group>
+            {errors?.job_details?.map((message, index) => (
+                <Alert variant="danger" key={index}>
+                    {message}
+                </Alert>
+            ))}
 
             <Form.Group controlId="assigned_to">
                 <Form.Label >Assigned to:</Form.Label>
@@ -130,17 +212,27 @@ function AddJobForm() {
                 ))}
                 </Form.Control>
             </Form.Group>
+            {errors?.assigned_to?.map((message, index) => (
+                <Alert variant="danger" key={index}>
+                    {message}
+                </Alert>
+            ))}
 
             <Form.Group controlId="due_date">
                 <Form.Label >Due Date:</Form.Label>
                 <Form.Control
                 type="date"
                 name="due_date"
-                value={getCurrentDate()}
+                value={due_date}
                 onChange={handleChange}
                 min={getCurrentDate()}
                 />
             </Form.Group>
+            {errors?.due_date?.map((message, index) => (
+                <Alert variant="danger" key={index}>
+                    {message}
+                </Alert>
+            ))}
 
             <Form.Group controlId="status">
                 <Form.Label >Status:</Form.Label>
@@ -157,16 +249,21 @@ function AddJobForm() {
                 <option value="Overdue">Overdue</option>
                 </Form.Control>
             </Form.Group>
-
+            {errors?.status?.map((message, index) => (
+                <Alert variant="danger" key={index}>
+                    {message}
+                </Alert>
+            ))}
         </div>
       )
-
 
     return (
         <Container className={styles.AddEditJobForm}>
             <Col xs={12} sm={12} md={10} lg={8} xl={6}>
+            {/* Display success message */}
+            {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-            <Form >
+            <Form onSubmit={handleSubmit}>
                 <div>AddJobForm</div>
 
                         <div className="card">
@@ -178,6 +275,11 @@ function AddJobForm() {
                             <figure>
                                 <Image className={styles.Image} src={image} rounded/>
                             </figure>
+                            {errors?.image?.map((message, index) => (
+                                <Alert variant="warning" key={index}>
+                                    {message}
+                                </Alert>
+                            ))}
 
                             <div>
                             <Form.Label
@@ -185,7 +287,6 @@ function AddJobForm() {
                                 htmlFor="image-upload">
                                 <p>Change image</p>
                                 </Form.Label>
-
                             </div>
                             </>
                         ) : (
@@ -206,6 +307,7 @@ function AddJobForm() {
                         </div>
                 <Button
                 variant="warning"
+                onClick={() => history.goBack()}
                 >
                     Cancel
                 </Button>
