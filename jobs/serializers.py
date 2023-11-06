@@ -47,5 +47,5 @@ class JobSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'assigned_to', 'job_type',
             'job_details', 'status', 'created_at', 'updated_at',
-            'image', 'is_owner', 'image_filter',
+            'image', 'is_owner', 'image_filter', 'due_date'
         ]
