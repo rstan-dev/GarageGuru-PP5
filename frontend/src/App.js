@@ -12,6 +12,7 @@ import EditProfileForm from './pages/profile/EditProfileForm';
 import ChangePasswordForm from './pages/profile/ChangePasswordForm';
 import ChangeUsernameForm from './pages/profile/ChangeUsernameForm';
 import AddJobForm from './pages/jobs/AddJobForm';
+import JobPage from './pages/jobs/JobPage';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
               <Route exact path="/profile/edit-profile" render={() => <EditProfileForm />} />
               <Route exact path="/profile/change-password" render={() => <ChangePasswordForm />} />
               <Route exact path="/profile/change-username" render={() => <ChangeUsernameForm />} />
+              <Route exact path="/jobs/:id" render={() => <JobPage />} />
               <Route render={() => <PageNotFound />} />
           </Switch>
           </Container>
