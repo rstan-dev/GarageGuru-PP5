@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -8,10 +8,53 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Card from 'react-bootstrap/Card';
 
 import styles from '../../styles/JobCard.module.css'
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import axios from 'axios';
+import { axiosReq } from '../../api/axiosDefaults';
 
-function JobCard() {
+const JobCard = (props) => {
+    const {
+        id,
+        owner,
+        job_type,
+        job_details,
+        created_at,
+        updated_at,
+        due_date,
+        assigned_to,
+        status,
+        image,
+      } = props;
 
-    return (
+      console.log(`Props: ${props.assigned_to}`)
+
+      const currentUser = useCurrentUser();
+      const is_owner = currentUser?.username === owner;
+      const [assignedUsername, setAssignedUsername] = useState()
+
+      // gets Profile id and sets corresponding username to display as
+      // Assigned To user in JobCard
+      useEffect(() => {
+        const getProfileUsername = async () => {
+          try {
+            await axiosReq.get(`/profiles/${assigned_to}/`).then((response) => {
+              setAssignedUsername(response.data.owner)
+              });
+            } catch (error) {
+              console.log(error);
+            }
+          };
+          getProfileUsername();
+        }, [assigned_to]);
+
+
+      useEffect(() => {
+        console.log(`Assigned Username ${assignedUsername}`);
+    }, [assignedUsername]);
+
+
+
+      return (
     <Container className={styles.JobCard}>
         <Col xs={12} sm={12} md={10} lg={10} xl={10}>
             <div>JobCard</div>
@@ -60,48 +103,48 @@ function JobCard() {
                     <tbody>
                       <tr>
                         <th><i className="fa-solid fa-hashtag"></i>Job No:</th>
-                        <td>placeholder number</td>
+                        <td>{id}</td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-wrench"></i>Job Type:</th>
-                        <td>placeholder job type</td>
+                        <td>{job_type}</td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-circle-info"></i>Details:</th>
-                        <td>placeholder details</td>
+                        <td>{job_details}</td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-user"></i>Created By:</th>
-                        <td>placeholder owner username</td>
+                        <td>{owner}</td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-calendar-days"></i>Created on:</th>
-                        <td>placeholder created date</td>
+                        <td>{created_at}</td>
                       </tr>
                       <tr>
                         <th><i className="fa-regular fa-calendar-plus"></i> Updated on:</th>
-                        <td>placeholder uodated date</td>
+                        <td>{updated_at}</td>
                       </tr>
                       <tr>
                         <th><i className="fa-regular fa-calendar-check"></i>Due date:</th>
-                        <td>placeholder due date</td>
+                        <td>{due_date}</td>
                       </tr>
                       <tr>
                         <th><i className="fa-regular fa-id-badge"></i>Assigned to:</th>
-                        <td>placeholder assigned username</td>
+                        <td>{assignedUsername}</td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-circle-question"></i>Status:</th>
-                        <td>placeholder status</td>
+                        <td>{status}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
 
                 <div className="col-md-4 d-none d-md-block text-center">
-
+                  {is_owner ? (
                     <div className="text-right">
-                      <Link to={"/"}>
+                      <Link to={`/jobs/${id}/edit-job`}>
                         <OverlayTrigger
                           placement="top"
                           overlay={
@@ -115,6 +158,7 @@ function JobCard() {
                         </OverlayTrigger>
                       </Link>
                     </div>
+                    ) : null}
 
 
                 <Card>placeholder image</Card>

@@ -27,7 +27,7 @@ function JobPage() {
 
     return (
     <div>JobPage
-        < JobCard />
+        < JobCard {...job.results[0]}/>
     </div>
 
   )
