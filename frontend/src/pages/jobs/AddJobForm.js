@@ -31,6 +31,25 @@ function AddJobForm() {
 
     const imageInput = useRef()
 
+    // Set default assigned_to to current username
+    useEffect(() => {
+        if (currentUser && currentUser.pk) {
+            setJobData(prevState => ({
+              ...prevState,
+              assigned_to: currentUser.pk
+            }));
+          }
+        }, [currentUser]);
+
+    // Get list of profiles to populate assigned_to dropdown
+    useEffect(() => {
+        axios.get("/profiles/").then((response) => {
+            console.log(response.data)
+            setUsers(response.data)
+        })
+          .catch((error) => console.log(error));
+      }, [currentUser]);
+
 
     // Get current date to use as default in due_date
         const getCurrentDate = () => {
@@ -103,6 +122,12 @@ function AddJobForm() {
                 onChange={handleChange}
                 isrequired="true"
                 >
+                <option>Choose a user</option>
+                {users.map((user) => (
+                    <option key={user.id} value={user.id}>
+                    {user.owner}
+                    </option>
+                ))}
                 </Form.Control>
             </Form.Group>
 
