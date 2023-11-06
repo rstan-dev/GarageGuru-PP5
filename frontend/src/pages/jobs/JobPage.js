@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { axiosReq } from '../../api/axiosDefaults';
+import JobCard from './JobCard';
 
 function JobPage() {
     const { id } = useParams();
@@ -26,7 +27,7 @@ function JobPage() {
 
     return (
     <div>JobPage
-        <p> Job Card Component</p>
+        < JobCard />
     </div>
 
   )
