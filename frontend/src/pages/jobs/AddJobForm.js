@@ -51,7 +51,6 @@ function AddJobForm() {
     // Get list of profiles to populate assigned_to dropdown
     useEffect(() => {
         axios.get("/profiles/").then((response) => {
-            console.log(response.data)
             setUsers(response.data)
         })
           .catch((error) => console.log(error));

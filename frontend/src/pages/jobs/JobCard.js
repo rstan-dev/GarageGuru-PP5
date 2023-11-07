@@ -9,7 +9,6 @@ import Card from 'react-bootstrap/Card';
 
 import styles from '../../styles/JobCard.module.css'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
-import axios from 'axios';
 import { axiosReq } from '../../api/axiosDefaults';
 
 const JobCard = (props) => {
@@ -25,8 +24,6 @@ const JobCard = (props) => {
         status,
         image,
       } = props;
-
-      console.log(`Props: ${props.assigned_to}`)
 
       const currentUser = useCurrentUser();
       const is_owner = currentUser?.username === owner;
@@ -46,11 +43,6 @@ const JobCard = (props) => {
           };
           getProfileUsername();
         }, [assigned_to]);
-
-
-      useEffect(() => {
-        console.log(`Assigned Username ${assignedUsername}`);
-    }, [assignedUsername]);
 
 
       return (

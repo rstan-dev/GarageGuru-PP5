@@ -20,11 +20,6 @@ function JobPage() {
         handleMount()
     }, [id]);
 
-    // Checks the state of Job after update
-    useEffect(() => {
-        console.log(job);
-    }, [job]);
-
     return (
     <div>JobPage
         < JobCard {...job.results[0]}/>
