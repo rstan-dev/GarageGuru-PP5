@@ -1,6 +1,8 @@
 env.py
 node_modules
 __pycache__
+.eslintcache
+
 
 **/migrations/**
 !**/migrations
