@@ -8,6 +8,7 @@ import styles from '../../styles/JobCard.module.css'
 import { axiosReq } from '../../api/axiosDefaults';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import JobCard from './JobCard';
+import Asset from '../../components/Asset';
 
 function AllJobsPage({ message }) {
     const [jobs, setJobs] = useState([]);
@@ -64,6 +65,9 @@ function AllJobsPage({ message }) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    </div>
+
                         {hasLoaded ? (
                         <>
                         { jobs?.length ? (
@@ -71,16 +75,13 @@ function AllJobsPage({ message }) {
                                 <JobCard key={job.id} {...job} setJobs={setJobs}/>
                             ))
                         ) : (
-                            <p>No Jobs to display</p>
+                            <Asset icon={"fa-solid fa-clipboard-question"} message={"No Jobs to display"} />
                         )}
                         </>
                         ) : (
-                            <p>show loading spinner</p>
+                            <Asset spinner message={"loading jobs"} />
+
                         )}
-                    </div>
-
-                </div>
-
 
             </Col>
         </Container>

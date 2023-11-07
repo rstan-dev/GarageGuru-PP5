@@ -1,0 +1,13 @@
+.Asset {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    font-size: 2rem;
+  }
+
+.Asset i {
+    font-size: 6rem;
+    color: #dc3545
+}
