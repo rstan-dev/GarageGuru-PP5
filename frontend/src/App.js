@@ -13,6 +13,7 @@ import ChangePasswordForm from './pages/profile/ChangePasswordForm';
 import ChangeUsernameForm from './pages/profile/ChangeUsernameForm';
 import AddJobForm from './pages/jobs/AddJobForm';
 import JobPage from './pages/jobs/JobPage';
+import AllJobsPage from './pages/jobs/AllJobsPage';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
           < NavBar />
           < Container className={styles.Content}>
             <Switch>
-              <Route exact path="/" render={() => <h1>All Jobs</h1>} />
+              <Route exact path="/" render={() => < AllJobsPage message="No Jobs Found..." /> } />
               <Route exact path="/myjobs" render={() => <h1>My Jobs</h1>} />
               <Route exact path="/jobs/addjob" render={() => <AddJobForm />} />
               <Route exact path="/assigned" render={() => <h1>Assigned Jobs</h1>} />
