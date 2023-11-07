@@ -9,9 +9,11 @@ import { axiosReq } from '../../api/axiosDefaults';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import JobCard from './JobCard';
 import Asset from '../../components/Asset';
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from '../../utils/utils';
 
 function AllJobsPage({ message }) {
-    const [jobs, setJobs] = useState([]);
+    const [jobs, setJobs] = useState({ results: []});
     const [hasLoaded, setHasLoaded] = useState(false);
     const { pathname } = useLocation();
     const currentUser = useCurrentUser();
@@ -70,10 +72,20 @@ function AllJobsPage({ message }) {
 
                         {hasLoaded ? (
                         <>
-                        { jobs?.length ? (
-                            jobs.map((job) => (
-                                <JobCard key={job.id} {...job} setJobs={setJobs}/>
-                            ))
+                        { jobs?.results?.length ? (
+                            <InfiniteScroll
+                              children={
+                                jobs.results.map((job) => (
+                                    <JobCard key={job.id} {...job} setJobs={setJobs}/>
+                                ))
+                              }
+                              dataLength={jobs.results.length}
+                              loader={<Asset spinner />}
+                              hasMore={!!jobs.next}
+                              next={() => fetchMoreData(jobs, setJobs)}
+
+                            />
+
                         ) : (
                             <Asset icon={"fa-solid fa-clipboard-question"} message={"No Jobs to display"} />
                         )}
