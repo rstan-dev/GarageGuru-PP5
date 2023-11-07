@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import { Link  } from "react-router-dom";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -46,12 +44,6 @@ const JobCard = (props) => {
 
 
       return (
-    <Container className={styles.JobCard}>
-        <Col xs={12} sm={12} md={10} lg={10} xl={10}>
-
-
-        <div>
-        </div>
 
         <div className={styles.CardBlock}>
           <div className="card">
@@ -155,8 +147,6 @@ const JobCard = (props) => {
             </div>
           </div>
         </div>
-        </Col>
-    </Container>
 
   )
 }
