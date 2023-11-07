@@ -53,7 +53,6 @@ const JobCard = (props) => {
     }, [assignedUsername]);
 
 
-
       return (
     <Container className={styles.JobCard}>
         <Col xs={12} sm={12} md={10} lg={10} xl={10}>
@@ -160,8 +159,7 @@ const JobCard = (props) => {
                     </div>
                     ) : null}
 
-
-                <Card>placeholder image</Card>
+                <Card.Img src={image} alt={job_type} />
                 <div className={styles.CommentEyes}>
                   <i className="fa-regular fa-comment"></i>
                   <i className="fa-regular fa-eye"></i>
@@ -185,7 +183,7 @@ const JobCard = (props) => {
                       </Link>
                     </div>
 
-                <Card>placeholder image</Card>
+                <Card.Img src={image} alt={job_type} />
                 <div className={styles.CommentEyes}>
                   <i className="fa-regular fa-comment"></i>
                   <i className="fa-regular fa-eye"></i>
