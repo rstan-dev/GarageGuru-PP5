@@ -18,12 +18,19 @@ function AllJobsPage({ message }) {
     const { pathname } = useLocation();
     const currentUser = useCurrentUser();
 
+    const [statusCounts, setStatusCounts] = useState({
+        Pending: 0,
+        Underway: 0,
+        Completed: 0,
+    });
+
     useEffect(() => {
         const fetchJobs = async () => {
             try {
                 const {data} = await axiosReq.get(`/jobs/?`);
                 console.log(data)
                 setJobs(data);
+                setStatusCounts(data.status_counts);
                 setHasLoaded(true);
             } catch (err) {
                 console.log(err);
@@ -45,7 +52,7 @@ function AllJobsPage({ message }) {
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
                                 <h2 className="card-title">Pending</h2>
-                                <p className="card-text">0</p>
+                                <p className="card-text">{statusCounts.Pending}</p>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +61,7 @@ function AllJobsPage({ message }) {
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-hourglass-half ${styles['UnderwayIcon']}`}></i>
                                 <h2 className="card-title">Underway</h2>
-                                <p className="card-text">0</p>
+                                <p className="card-text">{statusCounts.Underway}</p>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +70,7 @@ function AllJobsPage({ message }) {
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-flag-checkered ${styles['CompletedIcon']}`}></i>
                                 <h2 className="card-title">Completed</h2>
-                                <p className="card-text">0</p>
+                                <p className="card-text">{statusCounts.Completed}</p>
                                 </div>
                             </div>
                         </div>

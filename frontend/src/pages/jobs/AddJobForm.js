@@ -50,11 +50,17 @@ function AddJobForm() {
 
     // Get list of profiles to populate assigned_to dropdown
     useEffect(() => {
-        axios.get("/profiles/").then((response) => {
-            setUsers(response.data)
-        })
-          .catch((error) => console.log(error));
-      }, [currentUser]);
+        const fetchProfiles = async () => {
+            try {
+                const { data } = await axiosReq.get(`/profiles/`)
+                console.log(data)
+                setUsers(data.results);
+            } catch(err) {
+                console.log(err)
+            }
+        };
+        fetchProfiles();
+    }, []);
 
     // Get current date to use as default in due_date
         const getCurrentDate = () => {
