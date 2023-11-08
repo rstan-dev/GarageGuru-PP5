@@ -52,34 +52,40 @@ function AllJobsPage({ message, filter = "" }) {
                     {
                     // Status Block //
                     }
+
+                    <p>Filter by:</p>
                     <div className={`row ${styles['StatusBlock']}`}>
-                        <div className="col-md-4">
+                        <div className="col-md-4"
+                            onClick={() => {setQuery("Pending")}}>
                             <div className="card">
                                 <div className="card-body text-center">
-                                <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
-                                <h2 className="card-title">Pending</h2>
-                                {statusCounts.Pending ? (
-                                        <p className="card-text">{statusCounts.Pending}</p>
-                                    ) : (
-                                        <p className="card-text">0</p>
-                                    )}
+                                    <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
+                                    <h2 className="card-title">Pending</h2>
+                                    {statusCounts.Pending ? (
+                                            <p className="card-text">{statusCounts.Pending}</p>
+                                        ) : (
+                                            <p className="card-text">0</p>
+                                        )}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="col-md-4"
+                            onClick={() => {setQuery("Underway")}}>
+                            <div className="card">
+                                <div className="card-body text-center">
+                                    <i className={`fa-solid fa-hourglass-half ${styles['UnderwayIcon']}`}></i>
+                                    <h2 className="card-title">Underway</h2>
+                                    {statusCounts.Underway ? (
+                                            <p className="card-text">{statusCounts.Underway}</p>
+                                        ) : (
+                                            <p className="card-text">0</p>
+                                        )}
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-4">
-                            <div className="card">
-                                <div className="card-body text-center">
-                                <i className={`fa-solid fa-hourglass-half ${styles['UnderwayIcon']}`}></i>
-                                <h2 className="card-title">Underway</h2>
-                                {statusCounts.Underway ? (
-                                        <p className="card-text">{statusCounts.Underway}</p>
-                                    ) : (
-                                        <p className="card-text">0</p>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-4">
+                        <div className="col-md-4"
+                            onClick={() => {setQuery("Completed")}}>
                             <div className="card">
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-flag-checkered ${styles['CompletedIcon']}`}></i>
