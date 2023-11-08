@@ -3,8 +3,9 @@ import { useLocation } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 
-import styles from '../../styles/JobCard.module.css'
+import styles from '../../styles/AllJobsPage.module.css'
 import { axiosReq } from '../../api/axiosDefaults';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import JobCard from './JobCard';
@@ -46,7 +47,10 @@ function AllJobsPage({ message }) {
         <Container className={styles.JobCard}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
                 <div className={styles.CardBlock}>
-                    <div className="row">
+                    {
+                    // Status Block //
+                    }
+                    <div className={`row ${styles['StatusBlock']}`}>
                         <div className="col-md-4">
                             <div className="card">
                                 <div className="card-body text-center">
@@ -75,6 +79,19 @@ function AllJobsPage({ message }) {
                             </div>
                         </div>
                     </div>
+                    {
+                    // Search bar //
+                    }
+                    <i className={`fas fa-search ${styles.SearchIcon}`} />
+                    <Form className={styles.SearchBar}
+                    onSubmit={(event) => event.preventDefault()}
+                    >
+                        <Form.Control
+                        type="text"
+                        className="mr-sm-2"
+                        placeholder="Search jobs"
+                        />
+                    </Form>
                     </div>
 
                         {hasLoaded ? (
@@ -90,18 +107,14 @@ function AllJobsPage({ message }) {
                               loader={<Asset spinner />}
                               hasMore={!!jobs.next}
                               next={() => fetchMoreData(jobs, setJobs)}
-
                             />
-
                         ) : (
                             <Asset icon={"fa-solid fa-clipboard-question"} message={"No Jobs to display"} />
                         )}
                         </>
                         ) : (
                             <Asset spinner message={"loading jobs"} />
-
                         )}
-
             </Col>
         </Container>
   )

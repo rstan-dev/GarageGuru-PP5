@@ -15,21 +15,6 @@ th i {
     padding-right: 5px;
 }
 
-.PendingIcon {
-    color: red;
-    font-size: 2rem;
-}
-
-.UnderwayIcon {
-    color: orange;
-    font-size: 2rem;
-}
-
-.CompletedIcon {
-    color: green;
-    font-size: 2rem;
-}
-
 .DefaultCarIcon {
     font-size: 150px;
     color: #004AAD;
