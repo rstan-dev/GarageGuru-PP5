@@ -58,7 +58,7 @@ function AllJobsPage({ message, filter = "" }) {
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
                                 <h2 className="card-title">Pending</h2>
-                                {statusCounts.Completed ? (
+                                {statusCounts.Pending ? (
                                         <p className="card-text">{statusCounts.Pending}</p>
                                     ) : (
                                         <p className="card-text">0</p>
