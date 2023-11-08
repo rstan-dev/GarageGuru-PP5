@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import styles from '../../styles/AllJobsPage.module.css'
 import { axiosReq } from '../../api/axiosDefaults';
@@ -26,11 +27,12 @@ function AllJobsPage({ message, filter = "" }) {
     });
 
     const [query, setQuery] = useState ("");
+    const [orderingField, setOrderingField] = useState(null);
 
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const {data} = await axiosReq.get(`/jobs/?${filter}search=${query}`);
+                const {data} = await axiosReq.get(`/jobs/?${filter}search=${query}&ordering=${orderingField}`);
                 setJobs(data);
                 setStatusCounts(data.status_counts);
                 setHasLoaded(true);
@@ -41,7 +43,14 @@ function AllJobsPage({ message, filter = "" }) {
         setHasLoaded(false);
         fetchJobs();
 
-    }, [pathname, currentUser, filter, query]);
+    }, [pathname, currentUser, filter, query, orderingField]);
+
+
+    const handleOrderBy = (field) => {
+        // sets the ordering field state for created date, updated date
+        // and due date
+        setOrderingField(field);
+      };
 
 
     return (
@@ -98,6 +107,20 @@ function AllJobsPage({ message, filter = "" }) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <p className="text-md-end">Order by:</p>
+                    <div className={`row ${styles.OrderBySection}`}>
+
+                        <div className="col-md-4">
+                            <Button onClick={() => handleOrderBy('-created_at')} variant="secondary">Recently Created</Button>
+                        </div>
+                        <div className="col-md-4">
+                            <Button onClick={() => handleOrderBy('-updated_at')} variant="secondary">Recently Updated</Button>
+                        </div>
+                        <div className="col-md-4">
+                            <Button onClick={() => handleOrderBy('due_date')} variant="secondary">Due Date</Button>
+                        </div>
+
                     </div>
                     {
                     // Search bar //
