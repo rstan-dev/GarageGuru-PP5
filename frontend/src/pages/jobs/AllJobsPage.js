@@ -13,7 +13,7 @@ import Asset from '../../components/Asset';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from '../../utils/utils';
 
-function AllJobsPage({ message }) {
+function AllJobsPage({ message, filter = "" }) {
     const [jobs, setJobs] = useState({ results: []});
     const [hasLoaded, setHasLoaded] = useState(false);
     const { pathname } = useLocation();
@@ -25,11 +25,12 @@ function AllJobsPage({ message }) {
         Completed: 0,
     });
 
+    const [query, setQuery] = useState ("");
+
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const {data} = await axiosReq.get(`/jobs/?`);
-                console.log(data)
+                const {data} = await axiosReq.get(`/jobs/?${filter}search=${query}`);
                 setJobs(data);
                 setStatusCounts(data.status_counts);
                 setHasLoaded(true);
@@ -40,12 +41,13 @@ function AllJobsPage({ message }) {
         setHasLoaded(false);
         fetchJobs();
 
-    }, [pathname, currentUser]);
+    }, [pathname, currentUser, filter, query]);
 
 
     return (
         <Container className={styles.JobCard}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
+                <h1>All Jobs</h1>
                 <div className={styles.CardBlock}>
                     {
                     // Status Block //
@@ -56,7 +58,11 @@ function AllJobsPage({ message }) {
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
                                 <h2 className="card-title">Pending</h2>
-                                <p className="card-text">{statusCounts.Pending}</p>
+                                {statusCounts.Completed ? (
+                                        <p className="card-text">{statusCounts.Pending}</p>
+                                    ) : (
+                                        <p className="card-text">0</p>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -65,7 +71,11 @@ function AllJobsPage({ message }) {
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-hourglass-half ${styles['UnderwayIcon']}`}></i>
                                 <h2 className="card-title">Underway</h2>
-                                <p className="card-text">{statusCounts.Underway}</p>
+                                {statusCounts.Underway ? (
+                                        <p className="card-text">{statusCounts.Underway}</p>
+                                    ) : (
+                                        <p className="card-text">0</p>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -74,7 +84,11 @@ function AllJobsPage({ message }) {
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-flag-checkered ${styles['CompletedIcon']}`}></i>
                                 <h2 className="card-title">Completed</h2>
-                                <p className="card-text">{statusCounts.Completed}</p>
+                                    {statusCounts.Completed ? (
+                                        <p className="card-text">{statusCounts.Completed}</p>
+                                    ) : (
+                                        <p className="card-text">0</p>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -83,13 +97,16 @@ function AllJobsPage({ message }) {
                     // Search bar //
                     }
                     <i className={`fas fa-search ${styles.SearchIcon}`} />
-                    <Form className={styles.SearchBar}
+                    <Form
+                    className={styles.SearchBar}
                     onSubmit={(event) => event.preventDefault()}
                     >
                         <Form.Control
                         type="text"
                         className="mr-sm-2"
                         placeholder="Search jobs"
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
                         />
                     </Form>
                     </div>
