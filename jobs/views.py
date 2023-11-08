@@ -1,4 +1,4 @@
-from rest_framework import status, permissions, generics
+from rest_framework import status, permissions, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
@@ -7,6 +7,7 @@ from .serializers import JobSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
 from django.db.models import Count
 from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class CustomPagination(PageNumberPagination):
@@ -14,9 +15,10 @@ class CustomPagination(PageNumberPagination):
     View to add a count of all status types to pagination data
     """
     def get_paginated_response(self, data):
-        # Gets the total counts for each status
-        status_counts = Job.objects.values('status').annotate(total=Count('status')).order_by()
-        print(f"Status Counts: {status_counts}")
+        # Gets the total counts for each status according to filter set
+        request = self.request
+        filtered_queryset = request.filtered_queryset if hasattr(request, 'filtered_queryset') else Job.objects.all()
+        status_counts = filtered_queryset.values('status').annotate(total=Count('status')).order_by()
         status_counts_dict = {item['status']: item['total'] for item in status_counts}
 
         return Response({
@@ -38,8 +40,34 @@ class JobList(generics.ListCreateAPIView):
     """
     serializer_class = JobSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Job.objects.all()
     pagination_class = CustomPagination
+    filter_backends = [
+        filters.SearchFilter,
+        filters.OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    search_fields = [
+        'owner__username',
+        'job_type',
+        'job_details',
+        'assigned_to__username',
+        'status',
+        'id',
+    ]
+    ordering_fields = [
+        'created_at',
+        'updated_at',
+        'due_date',
+    ]
+
+    def get_queryset(self):
+        queryset = Job.objects.all()
+        # Apply the filters from the filter backends manually
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        # Assign the filtered queryset to the request for use in pagination
+        self.request.filtered_queryset = queryset
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
