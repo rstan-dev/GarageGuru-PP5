@@ -22,6 +22,12 @@ class JobSerializer(serializers.ModelSerializer):
         allow_null=True
     )
 
+    # Formats date and time
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    # Format with only date
+    due_date = serializers.DateField(format="%Y-%m-%d")
+
     def validate_image(self, value):
         "check if file size is greater than 2mb"
         if value.size > 1024 * 1024 * 2:
