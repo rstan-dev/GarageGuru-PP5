@@ -86,6 +86,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'profiles',
     'jobs',
+    'comments',
 ]
 
 SITE_ID = 1
