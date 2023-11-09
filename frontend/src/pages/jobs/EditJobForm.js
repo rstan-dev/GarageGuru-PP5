@@ -40,7 +40,13 @@ function EditJobForm() {
     const [successMessage, setSuccessMessage] = useState('');
     const successTimeoutRef = useRef();
     const history = useHistory();
+
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const [confirmationModalContent, setConfirmationModalContent] = useState({
+        title: '',
+        body: '',
+        confirmAction: () => {},
+      });
 
     // Gets original JobCard data to populate form
     useEffect(() => {
@@ -82,24 +88,24 @@ function EditJobForm() {
         return `${year}-${month}-${day}`;
         }
 
-      // handle any changes to main form
-      const handleChange = (event) => {
+    // handle any changes to main form
+    const handleChange = (event) => {
+    setJobData({
+        ...jobData,
+        [event.target.name]: event.target.value,
+    });
+    };
+
+    // handle any changes to image
+    const handleUploadImage = (event) => {
+    if (event.target.files.length){
+        URL.revokeObjectURL(image);
         setJobData({
             ...jobData,
-            [event.target.name]: event.target.value,
+            image: URL.createObjectURL(event.target.files[0])
         });
-      };
-
-      // handle any changes to image
-      const handleUploadImage = (event) => {
-        if (event.target.files.length){
-            URL.revokeObjectURL(image);
-            setJobData({
-                ...jobData,
-                image: URL.createObjectURL(event.target.files[0])
-            });
-        }
-      };
+    }
+    };
 
     // Clears the success message timeout function
     useEffect(() => {
@@ -110,7 +116,7 @@ function EditJobForm() {
         };
     }, []);
 
-    // Handles update submit using confrimationModal to verify user actions
+    // Handles update submission using confrimationModal to verify user actions
     const handleSubmit = (event) => {
         event.preventDefault()
 
@@ -128,10 +134,17 @@ function EditJobForm() {
             setErrors(formErrors);
             return;
         }
+
+        setConfirmationModalContent({
+            title: 'Confirm Job Update',
+            body: 'Are you sure you want to update this job?',
+            confirmAction: handleUpdateConfirm, // References the function that performs the update
+          });
         setShowConfirmationModal(true);
     };
 
-    const handleModalConfirm = async () => {
+    // Updates api and closes Confirmation Modal when update confirmed
+    const handleUpdateConfirm = async () => {
         const formData = new FormData();
 
         formData.append('job_type', job_type)
@@ -164,27 +177,43 @@ function EditJobForm() {
             };
 
         setShowConfirmationModal(false);
-      };
+    };
 
-      // Handles the delete button
-      const handleDelete = async () => {
+    // Handles the delete button
+    const handleDelete = () => {
+
+        setConfirmationModalContent({
+            title: 'Confirm Job Deletion',
+            body: 'Are you sure you want to delete this job? This action cannot be undone.',
+            confirmAction: handleDeleteConfirm, // Reference to the function that performs the delete
+            });
+        setShowConfirmationModal(true);
+    }
+
+    // Submits the delete request after modal confirmation
+    const handleDeleteConfirm = async () => {
         try {
-          await axiosRes.delete(`/jobs/${id}/`);
-          setSuccessMessage('Job has been deleted successfully');
-          successTimeoutRef.current = setTimeout(() => {
-          setSuccessMessage('');
-          history.goBack();
-          }, 1500);
-          } catch (err) {
-          console.log(err);
-        }
-       };
-
-
-      // This function will be used to close the modal without taking action
-      const handleModalClose = () => {
+        await axiosRes.delete(`/jobs/${id}/`);
+            setSuccessMessage('Job has been deleted successfully');
+            successTimeoutRef.current = setTimeout(() => {
+                setSuccessMessage('');
+                history.goBack();
+            }, 1500);
+        } catch (err) {
+            console.log(err);
+        };
         setShowConfirmationModal(false);
-      };
+    };
+
+    // Handles modal's confirmation
+    const handleModalConfirm = () => {
+        confirmationModalContent.confirmAction();
+    };
+
+    // This function will be used to close the modal without taking action
+    const handleModalClose = () => {
+        setShowConfirmationModal(false);
+    };
 
       // Text fields component to be rendered in form
       const textFields = (
@@ -360,8 +389,8 @@ function EditJobForm() {
             showModal={showConfirmationModal}
             handleClose={handleModalClose}
             handleConfirm={handleModalConfirm}
-            title="Confirm Job Update"
-            body="Are you sure you want to update this job?"
+            title={confirmationModalContent.title}
+            body={confirmationModalContent.body}
             />
         </Col>
         </Container>
