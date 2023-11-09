@@ -13,6 +13,7 @@ import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios';
 import { axiosReq } from '../../api/axiosDefaults';
+import ConfirmationModal from '../../components/ConfirmationModal';
 
 
 function EditJobForm() {
@@ -39,6 +40,7 @@ function EditJobForm() {
     const [successMessage, setSuccessMessage] = useState('');
     const successTimeoutRef = useRef();
     const history = useHistory();
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
     // Gets original JobCard data to populate form
     useEffect(() => {
@@ -109,56 +111,69 @@ function EditJobForm() {
         };
     }, []);
 
-    const handleSubmit = async (event) => {
-    event.preventDefault()
+    const handleSubmit = (event) => {
+        event.preventDefault()
 
-    let formErrors = {};
+        let formErrors = {};
 
-    if (!job_type || job_type === 'Choose Job Type') {
-        formErrors.job_type = ['Job Type is Required. Please select a job type.'];
-    }
-
-    if (!due_date) {
-        formErrors.due_date = ['Due Date is required. Please select a due date.'];
-    }
-
-    if (Object.keys(formErrors).length > 0) {
-        setErrors(formErrors);
-        return;
-    }
-
-    const formData = new FormData();
-
-    formData.append('job_type', job_type)
-    formData.append('job_details', job_details)
-    formData.append('due_date', due_date)
-    formData.append('assigned_to', assigned_to)
-    formData.append('status', status)
-    if (imageInput.current && imageInput.current.files[0]) {
-        formData.append('image', imageInput.current.files[0]);
+        if (!job_type || job_type === 'Choose Job Type') {
+            formErrors.job_type = ['Job Type is Required. Please select a job type.'];
         }
 
-    try {
-        await axiosReq.put(`/jobs/${id}/`, formData)
-        setSuccessMessage('Job has been updated successfully');
-        successTimeoutRef.current = setTimeout(() => {
-            setSuccessMessage('');
-            history.push(`/jobs/${id}`)
-            }, 1500);
-    } catch (err) {
-        if (axios.isAxiosError(err) && err.response) {
-            console.log(err.response.data);
-            console.log(err.response.status);
-            console.log(err.response.headers);
-            if (err.response.status !== 401) {
-                setErrors(err.response.data);
-            }
-            } else {
-            console.error(err);
-            setErrors({ message: ["There was an error submitting the form."] });
-            }
-        };
+        if (!due_date) {
+            formErrors.due_date = ['Due Date is required. Please select a due date.'];
+        }
+
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            return;
+        }
+
+        setShowConfirmationModal(true);
+
+
     };
+
+    const handleModalConfirm = async () => {
+        const formData = new FormData();
+
+        formData.append('job_type', job_type)
+        formData.append('job_details', job_details)
+        formData.append('due_date', due_date)
+        formData.append('assigned_to', assigned_to)
+        formData.append('status', status)
+        if (imageInput.current && imageInput.current.files[0]) {
+            formData.append('image', imageInput.current.files[0]);
+            }
+
+        try {
+            await axiosReq.put(`/jobs/${id}/`, formData)
+            setSuccessMessage('Job has been updated successfully');
+            successTimeoutRef.current = setTimeout(() => {
+                setSuccessMessage('');
+                history.push(`/jobs/${id}`)
+                }, 1500);
+        } catch (err) {
+            if (axios.isAxiosError(err) && err.response) {
+                console.log(err.response.data);
+                console.log(err.response.status);
+                console.log(err.response.headers);
+                if (err.response.status !== 401) {
+                    setErrors(err.response.data);
+                }
+                } else {
+                console.error(err);
+                setErrors({ message: ["There was an error submitting the form."] });
+                }
+            };
+
+        setShowConfirmationModal(false);
+      };
+
+      // This function will be used to close the modal without taking action
+      const handleModalClose = () => {
+        setShowConfirmationModal(false);
+      };
 
       // Text fields component to be rendered in form
       const textFields = (
@@ -269,7 +284,7 @@ function EditJobForm() {
             {/* Display success message */}
             {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={(e) => e.preventDefault()}>
                 <div>AddJobForm</div>
 
                         <div className="card">
@@ -319,10 +334,17 @@ function EditJobForm() {
                 </Button>
                 <Button
                 variant="success"
-                type="submit">
-                    Add Job
+                onClick={handleSubmit}>
+                    Update Job
                 </Button>
             </Form>
+            <ConfirmationModal
+            showModal={showConfirmationModal}
+            handleClose={handleModalClose}
+            handleConfirm={handleModalConfirm}
+            title="Confirm Job Update"
+            body="Are you sure you want to update this job?"
+            />
         </Col>
         </Container>
     )
