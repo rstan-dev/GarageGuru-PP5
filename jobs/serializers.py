@@ -23,8 +23,8 @@ class JobSerializer(serializers.ModelSerializer):
     )
 
     # Formats date and time
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
     # Format with only date
     due_date = serializers.DateField(format="%Y-%m-%d")
 
