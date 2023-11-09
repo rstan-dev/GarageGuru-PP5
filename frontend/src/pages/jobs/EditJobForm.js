@@ -12,7 +12,7 @@ import styles from '../../styles/AddEditJob.module.css'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios';
-import { axiosReq } from '../../api/axiosDefaults';
+import { axiosReq, axiosRes } from '../../api/axiosDefaults';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
 
@@ -165,6 +165,21 @@ function EditJobForm() {
 
         setShowConfirmationModal(false);
       };
+
+      // Handles the delete button
+      const handleDelete = async () => {
+        try {
+          await axiosRes.delete(`/jobs/${id}/`);
+          setSuccessMessage('Job has been deleted successfully');
+          successTimeoutRef.current = setTimeout(() => {
+          setSuccessMessage('');
+          history.goBack();
+          }, 1500);
+          } catch (err) {
+          console.log(err);
+        }
+       };
+
 
       // This function will be used to close the modal without taking action
       const handleModalClose = () => {
@@ -333,6 +348,11 @@ function EditJobForm() {
                 variant="success"
                 onClick={handleSubmit}>
                     Update Job
+                </Button>
+                <Button
+                variant="danger"
+                onClick={handleDelete}>
+                    Delete Job
                 </Button>
             </Form>
             {/* Confirmation Modal */}
