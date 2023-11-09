@@ -54,7 +54,6 @@ function EditJobForm() {
             // console.log(err);
           }
         };
-
         handleMount();
       }, [history, id]);
 
@@ -111,6 +110,7 @@ function EditJobForm() {
         };
     }, []);
 
+    // Handles update submit using confrimationModal to verify user actions
     const handleSubmit = (event) => {
         event.preventDefault()
 
@@ -128,10 +128,7 @@ function EditJobForm() {
             setErrors(formErrors);
             return;
         }
-
         setShowConfirmationModal(true);
-
-
     };
 
     const handleModalConfirm = async () => {
@@ -145,7 +142,6 @@ function EditJobForm() {
         if (imageInput.current && imageInput.current.files[0]) {
             formData.append('image', imageInput.current.files[0]);
             }
-
         try {
             await axiosReq.put(`/jobs/${id}/`, formData)
             setSuccessMessage('Job has been updated successfully');
@@ -178,6 +174,7 @@ function EditJobForm() {
       // Text fields component to be rendered in form
       const textFields = (
         <div className='text-center'>
+             {/* Job Type Field */}
             <Form.Group controlId="job_type">
                 <Form.Label >Job Type:</Form.Label>
                 <Form.Control
@@ -199,7 +196,7 @@ function EditJobForm() {
                     {message}
                 </Alert>
             ))}
-
+            {/* Job Details Field */}
             <Form.Group controlId="job_details">
                 <Form.Label >Job Details:</Form.Label>
                 <Form.Control
@@ -215,7 +212,7 @@ function EditJobForm() {
                     {message}
                 </Alert>
             ))}
-
+            {/* Assigned To Field */}
             <Form.Group controlId="assigned_to">
                 <Form.Label >Assigned to:</Form.Label>
                 <Form.Control
@@ -238,7 +235,7 @@ function EditJobForm() {
                     {message}
                 </Alert>
             ))}
-
+            {/* Due Date Field */}
             <Form.Group controlId="due_date">
                 <Form.Label >Due Date:</Form.Label>
                 <Form.Control
@@ -254,7 +251,7 @@ function EditJobForm() {
                     {message}
                 </Alert>
             ))}
-
+            {/* Status Field */}
             <Form.Group controlId="status">
                 <Form.Label >Status:</Form.Label>
                 <Form.Control
@@ -289,7 +286,7 @@ function EditJobForm() {
 
                         <div className="card">
                         {textFields}
-
+                        {/* Image & Image Change Field */}
                         <Form.Group className="text-center">
                         {image ? (
                             <>
@@ -338,6 +335,7 @@ function EditJobForm() {
                     Update Job
                 </Button>
             </Form>
+            {/* Confirmation Modal */}
             <ConfirmationModal
             showModal={showConfirmationModal}
             handleClose={handleModalClose}
