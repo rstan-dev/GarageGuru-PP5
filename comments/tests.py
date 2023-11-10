@@ -89,4 +89,21 @@ class CommentModelTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Comment.objects.filter(comment_detail='New Test Comment').count(), 1)
 
+    def test_logged_out_user_cannot_create_a_comment(self):
+        """
+        Test a logged-out user is unable to create a comment.
+        It verifies that the that the response status is 403 FORBIDDEN
+        or 401 UNAUTHORIZED.
+        It also verifies there is no comment object with that specific comment_detail.
+        """
+        data = {
+            'owner': User.objects.get(username='testuser1').id,
+            'job': Job.objects.first().id,
+            'comment_detail': 'Another Test Comment'
+        }
+        response = self.client.post('/comments/', data)
+        self.assertIn(response.status_code, [status.HTTP_403_FORBIDDEN, status.HTTP_401_UNAUTHORIZED])
+        self.assertEqual(Comment.objects.filter(comment_detail='Another Test Comment').count(), 0)
+
+
 
