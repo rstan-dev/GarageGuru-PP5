@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from jobs.models import Job
 from .models import Comment
 import datetime
+from rest_framework import status
 
 class CommentModelTest(APITestCase):
 
@@ -51,5 +52,23 @@ class CommentModelTest(APITestCase):
         """
         comment = Comment.objects.get(id=1)
         self.assertEquals(str(comment), 'Test comment')
+
+    def test_logged_in_user_can_retrieve_a_comment_they_created(self):
+        """
+        Test a logged in user can retrieve a comment by its ID
+        """
+        self.client.login(username='testuser1', password='testpw1234')
+        comment = Comment.objects.get(comment_detail='Test comment')
+        response = self.client.get(f'/comments/{comment.id}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_logged_in_user_can_retrieve_a_comment_they_didnt_create(self):
+        """
+        Test a logged in user can retrieve a comment by its ID
+        """
+        self.client.login(username='testuser2', password='testpw1234')
+        comment = Comment.objects.get(comment_detail='Test comment')
+        response = self.client.get(f'/comments/{comment.id}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
