@@ -114,7 +114,9 @@ const JobCard = (props) => {
 
                 <Card.Img src={image} alt={job_type} />
                 <div className={styles.CommentEyes}>
-                  <i className="fa-regular fa-comment"></i>
+                  <Link to={`/jobs/${id}`}>
+                    <i className="fa-regular fa-comment"></i>
+                  </Link>
                   <i className="fa-regular fa-eye"></i>
                 </div>
               </div>
@@ -138,7 +140,9 @@ const JobCard = (props) => {
 
                 <Card.Img src={image} alt={job_type} />
                 <div className={styles.CommentEyes}>
-                  <i className="fa-regular fa-comment"></i>
+                <Link to={`/jobs/${id}`}>
+                    <i className="fa-regular fa-comment"></i>
+                </Link>
                   <i className="fa-regular fa-eye"></i>
                 </div>
               </div>

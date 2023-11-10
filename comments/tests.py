@@ -2,6 +2,7 @@ from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from jobs.models import Job
 from .models import Comment
+from .serializers import CommentSerializer
 import datetime
 from rest_framework import status
 
@@ -104,6 +105,4 @@ class CommentModelTest(APITestCase):
         response = self.client.post('/comments/', data)
         self.assertIn(response.status_code, [status.HTTP_403_FORBIDDEN, status.HTTP_401_UNAUTHORIZED])
         self.assertEqual(Comment.objects.filter(comment_detail='Another Test Comment').count(), 0)
-
-
 
