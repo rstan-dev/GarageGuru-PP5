@@ -71,4 +71,22 @@ class CommentModelTest(APITestCase):
         response = self.client.get(f'/comments/{comment.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_logged_in_user_can_create_a_comment(self):
+        """
+        Test a logged in user can create a comment associated with a
+        specific job.
+        It verifies that the comment is created in the database and that the
+        HTTP response status is 201 (Created).
+        It also verifies there is a comment object with a specific comment_detail.
+        """
+        self.client.login(username='testuser1', password='testpw1234')
+        data = {
+            'owner': User.objects.get(username='testuser1').id,
+            'job': Job.objects.first().id,
+            'comment_detail': 'New Test Comment'
+        }
+        response = self.client.post('/comments/', data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Comment.objects.filter(comment_detail='New Test Comment').count(), 1)
+
 
