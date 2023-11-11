@@ -9,7 +9,7 @@ function JobPage() {
     const { id } = useParams();
     const [job, setJob] = useState({ results: []});
     const currentUser = useCurrentUser();
-    const profileImage = currentUser?.image
+    const profileImage = currentUser?.profile_image
     const profileName = currentUser?.username
     const [comments, setComments] = useState({ results: []});
 
