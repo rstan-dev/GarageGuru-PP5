@@ -4,6 +4,7 @@ import { axiosReq } from '../../api/axiosDefaults';
 import JobCard from './JobCard';
 import AddCommentForm from '../comments/AddCommentForm';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import CommentSection from '../comments/CommentSection';
 
 function JobPage() {
     const { id } = useParams();
@@ -48,9 +49,9 @@ function JobPage() {
         ) : null}
         {comments.results.length ? (
             comments.results.map((comment) => (
-                <p key={comment.id}>
-                    {comment.owner}: {comment.comment_detail}. {comment.updated_at}
-                </p>
+                <CommentSection
+                key={comment.id} {...comment}
+                />
             ))
         ) : currentUser ? (
             <span>No comments have been left.  Please enter something here...</span>

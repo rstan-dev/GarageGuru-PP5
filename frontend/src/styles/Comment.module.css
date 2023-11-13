@@ -9,6 +9,7 @@
 
 .ProfileName {
     font-size: 15px;
+    margin: 5px;
 }
 
 .ProfileImage {
@@ -16,4 +17,20 @@
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
+    margin: 5px;
+}
+
+.CommentUpdated {
+    font-size: 15px;
+    margin: 5px;
+}
+
+.CommentSection {
+    margin-bottom: 15px;
+}
+
+.CommentDetail {
+    padding-top: 25px;
+    color:black
+
 }
