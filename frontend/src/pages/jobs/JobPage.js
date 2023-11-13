@@ -17,14 +17,20 @@ function JobPage() {
     useEffect(() => {
         const handleMount = async () => {
             try {
-                const { data } = await axiosReq.get(`/jobs/${id}/`);
-                setJob({ results: [data]})
+                const [{ data: job }, { data: comments }] = await Promise.all([
+                    axiosReq.get(`/jobs/${id}/`),
+                    axiosReq.get(`/comments/?job=${id}`)
+                ])
+                setJob({ results: [job]})
+                setComments(comments)
             } catch(error) {
                 console.log(error)
             }
         }
         handleMount()
     }, [id]);
+
+    console.log(comments)
 
     return (
     <div>JobPage
@@ -40,6 +46,15 @@ function JobPage() {
         ) : comments.results.length ? (
             "comments"
         ) : null}
+        {comments.results.length ? (
+            comments.results.map((comment) => (
+                <p key={comment.id}>
+                    {comment.owner}: {comment.comment_detail}. {comment.updated_at}
+                </p>
+            ))
+        ) : currentUser ? (
+            <span>No comments have been left.  Please enter something here...</span>
+        ): null }
     </div>
 
   )

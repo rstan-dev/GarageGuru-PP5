@@ -52,7 +52,7 @@ function AddCommentForm(props) {
                   alt="Profile"
                   fluid
                 />
-                <div classname="col">
+                <div className="col">
                   <p className={styles.ProfileName}>{profileName}</p>
                 </div>
               </div>
