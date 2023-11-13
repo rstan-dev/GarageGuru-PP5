@@ -16,6 +16,7 @@ function JobPage() {
     const profileImage = currentUser?.profile_image
     const profileName = currentUser?.username
     const [comments, setComments] = useState({ results: []});
+    const [commentsCount, setCommentsCount] = useState(0);
 
     // Retrieve an array of jobs by id
     useEffect(() => {
@@ -27,6 +28,7 @@ function JobPage() {
                 ])
                 setJob({ results: [job]})
                 setComments(comments)
+                setCommentsCount(comments.count)
             } catch(error) {
                 console.log(error)
             }
@@ -35,10 +37,14 @@ function JobPage() {
     }, [id]);
 
     console.log(comments)
+    console.log(commentsCount)
 
     return (
     <div>JobPage
-        < JobCard {...job.results[0]}/>
+        < JobCard
+        {...job.results[0]}
+        commentsCount={commentsCount}
+        />
         {currentUser ? (
         < AddCommentForm
         profileImage={profileImage}

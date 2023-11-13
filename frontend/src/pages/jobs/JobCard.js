@@ -21,11 +21,14 @@ const JobCard = (props) => {
         assigned_to,
         status,
         image,
+        commentsCount,
       } = props;
 
       const currentUser = useCurrentUser();
       const is_owner = currentUser?.username === owner;
       const [assignedUsername, setAssignedUsername] = useState()
+
+      console.log(commentsCount)
 
       // gets Profile id and sets corresponding username to display as
       // Assigned To user in JobCard
@@ -116,6 +119,7 @@ const JobCard = (props) => {
                 <div className={styles.CommentEyes}>
                   <Link to={`/jobs/${id}`}>
                     <i className="fa-regular fa-comment"></i>
+                    <p>{commentsCount}</p>
                   </Link>
                   <i className="fa-regular fa-eye"></i>
                 </div>
@@ -142,6 +146,7 @@ const JobCard = (props) => {
                 <div className={styles.CommentEyes}>
                 <Link to={`/jobs/${id}`}>
                     <i className="fa-regular fa-comment"></i>
+                    <p>{commentsCount}</p>
                 </Link>
                   <i className="fa-regular fa-eye"></i>
                 </div>
