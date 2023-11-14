@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-import styles from "../../styles/Comment.module.css"
+import styles from "../../styles/AddEditComment.module.css"
 
 import { axiosRes } from "../../api/axiosDefaults";
 
@@ -41,40 +40,44 @@ function AddCommentForm(props) {
   };
 
   return (
-    <Form className="mt-2" onSubmit={handleSubmit}>
-      <Form.Group>
-        <InputGroup className={styles.CommentArea}>
-            <div className={`row ${styles.ProfileSection}`}>
-              <div className="col">
-                <Image
+    <div className={styles.CommentArea}>
+        <p>Leave a comment</p>
+        <div className="row">
+            <div className={`col ${styles.ProfileSection}`}>
+              <Image
                   className={styles.ProfileImage}
                   src={profileImage}
                   alt="Profile"
                   fluid
-                />
-                <div className="col">
-                  <p className={styles.ProfileName}>{profileName}</p>
-                </div>
-              </div>
+              />
+              <p className={styles.ProfileName}>
+                  {profileName}
+              </p>
             </div>
-          <Form.Control
-            placeholder="add a comment..."
-            as="textarea"
-            value={comment_detail}
-            onChange={handleChange}
-            rows={2}
-          />
-        </InputGroup>
-      </Form.Group>
-      <div className="text-right">
-        <Button
-          variant="success"
-          type="submit"
-        >
-          Submit
-        </Button>
-      </div>
-    </Form>
+            <div className="col-10">
+              <Form onSubmit={handleSubmit}>
+                <Form.Group>
+                    <Form.Control
+                      placeholder="add a comment..."
+                      as="textarea"
+                      value={comment_detail}
+                      onChange={handleChange}
+                      rows={2}
+                    />
+                </Form.Group>
+                <div className={`text-right ${styles.SubmitButton}`}>
+                  <Button
+                    variant="success"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </Form>
+            </div>
+
+        </div>
+    </div>
   );
 }
 

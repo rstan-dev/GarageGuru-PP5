@@ -1,10 +1,13 @@
-
 .CommentArea {
     padding-top: 35px;
 }
 
 .ProfileSection {
-    padding-right: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .ProfileName {
@@ -20,17 +23,6 @@
     margin: 5px;
 }
 
-.CommentUpdated {
-    font-size: 15px;
-    margin: 5px;
-}
-
-.CommentSection {
-    margin-bottom: 15px;
-}
-
-.CommentDetail {
-    padding-top: 25px;
-    color:black
-
+.SubmitButton {
+    padding-bottom: 10px;
 }

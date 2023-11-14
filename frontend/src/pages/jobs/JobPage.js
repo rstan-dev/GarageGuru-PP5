@@ -57,6 +57,8 @@ function JobPage() {
             "comments"
         ) : null}
         {comments.results.length ? (
+            <>
+            <p>Previous comments</p>
             <InfiniteScroll
                 children={
                     comments.results.map((comment) => (
@@ -72,6 +74,7 @@ function JobPage() {
                     hasMore={!!comments.next}
                     next={() => fetchMoreData(comments, setComments)}
                 />
+            </>
         ) : currentUser ? (
             <span>No comments have been left.  Please enter something here...</span>
         ): null }
