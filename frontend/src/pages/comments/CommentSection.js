@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import Image from 'react-bootstrap/Image'
+import Button from "react-bootstrap/Button";
 import styles from "../../styles/Comment.module.css"
 import EditCommentForm from './EditCommentForm'
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 
 const CommentSection = (props) => {
 
@@ -10,10 +13,14 @@ const CommentSection = (props) => {
         owner,
         updated_at,
         comment_detail,
+        setComments,
         id,
     } = props
 
     const [displayEditForm, setDisplayEditForm] = useState(false)
+
+    const currentUser = useCurrentUser();
+    const is_owner = currentUser?.username === owner;
 
   return (
 
@@ -39,6 +46,7 @@ const CommentSection = (props) => {
                     profile_image={profile_image}
                     comment_detail={comment_detail}
                     setDisplayEditForm={setDisplayEditForm}
+                    setComments={setComments}
                     />
                 ) : (
                 <div className={`col-9 ${styles.CommentDetail}`}>
@@ -47,7 +55,15 @@ const CommentSection = (props) => {
                     </div>
                 </div>
                 )}
-
+                {is_owner && !displayEditForm && (
+                    <div>
+                        <Button
+                        onClick={() => setDisplayEditForm(true)}
+                        >
+                        Edit
+                        </Button>
+                    </div>
+                )}
             </div>
     </div>
   )
