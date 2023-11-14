@@ -1,8 +1,7 @@
-import React from 'react'
-import Row from 'react-bootstrap/Row'
-import Media from 'react-bootstrap/Media'
+import React, { useState } from 'react'
 import Image from 'react-bootstrap/Image'
 import styles from "../../styles/Comment.module.css"
+import EditCommentForm from './EditCommentForm'
 
 const CommentSection = (props) => {
 
@@ -11,10 +10,13 @@ const CommentSection = (props) => {
         owner,
         updated_at,
         comment_detail,
+        id,
     } = props
 
+    const [displayEditForm, setDisplayEditForm] = useState(false)
+
   return (
-    <>
+
     <div className={`card ${styles.CommentSection}`}>
             <div className="row ${styles.CommentSection">
                 <div className="col-3">
@@ -31,19 +33,23 @@ const CommentSection = (props) => {
                         {updated_at}
                     </p>
                 </div>
-
+                {displayEditForm ? (
+                    <EditCommentForm
+                    id={id}
+                    profile_image={profile_image}
+                    comment_detail={comment_detail}
+                    setDisplayEditForm={setDisplayEditForm}
+                    />
+                ) : (
                 <div className={`col-9 ${styles.CommentDetail}`}>
                     <div className={styles.CommentDetail}>
-                            {comment_detail}
+                    {comment_detail}
                     </div>
                 </div>
+                )}
+
             </div>
     </div>
-
-
-    </>
-
-
   )
 }
 
