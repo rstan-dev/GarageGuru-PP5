@@ -41,6 +41,18 @@ const EditCommentForm = (props) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/comments/${id}/`)
+      setComments((prevComments) => ({
+        ...prevComments,
+        results: prevComments.results.filter((comment) => comment.id !== id),
+      }));
+    } catch (err) {
+        console.log(err);
+    }
+  };
+
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -67,6 +79,12 @@ const EditCommentForm = (props) => {
           >
             Save
           </Button>
+          <Button
+            variant="danger"
+            onClick={() => handleDelete()}
+            >
+            Delete
+            </Button>
         </div>
       </Form>
   )
