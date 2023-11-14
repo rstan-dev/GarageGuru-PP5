@@ -44,7 +44,7 @@ const EditCommentForm = (props) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-        <Form.Group className="pr-1">
+        <Form.Group >
           <Form.Control
             as="textarea"
             value={formContent}

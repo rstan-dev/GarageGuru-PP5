@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Image from 'react-bootstrap/Image'
 import Button from "react-bootstrap/Button";
-import styles from "../../styles/Comment.module.css"
+import styles from "../../styles/CommentSection.module.css"
 import EditCommentForm from './EditCommentForm'
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
@@ -25,8 +25,8 @@ const CommentSection = (props) => {
   return (
 
     <div className={`card ${styles.CommentSection}`}>
-            <div className="row ${styles.CommentSection">
-                <div className="col-3">
+            <div className="row">
+                <div className={`col ${styles.ProfileSection}`}>
                     <Image
                         className={styles.ProfileImage}
                         src={profile_image}
@@ -41,22 +41,24 @@ const CommentSection = (props) => {
                     </p>
                 </div>
                 {displayEditForm ? (
-                    <EditCommentForm
-                    id={id}
-                    profile_image={profile_image}
-                    comment_detail={comment_detail}
-                    setDisplayEditForm={setDisplayEditForm}
-                    setComments={setComments}
-                    />
-                ) : (
-                <div className={`col-9 ${styles.CommentDetail}`}>
-                    <div className={styles.CommentDetail}>
-                    {comment_detail}
+                    <div className={`col-10 ${styles.CommentDetail}`}>
+                            <EditCommentForm
+                            id={id}
+                            profile_image={profile_image}
+                            comment_detail={comment_detail}
+                            setDisplayEditForm={setDisplayEditForm}
+                            setComments={setComments}
+                            />
                     </div>
-                </div>
+                ) : (
+                    <div className="col-10">
+                        <div className={styles.CommentDetail}>
+                        {comment_detail}
+                        </div>
+                    </div>
                 )}
                 {is_owner && !displayEditForm && (
-                    <div>
+                    <div className="col-12 text-right">
                         <Button
                         onClick={() => setDisplayEditForm(true)}
                         >
