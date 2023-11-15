@@ -9,9 +9,11 @@ import { Alert } from "react-bootstrap";
 import styles from "../../styles/LoginRegister.module.css"
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom/";
+import { useRedirect } from "../../hooks/useRedirect";
 
 
 function RegisterForm() {
+    useRedirect('loggedIn')
     const [registerData, setRegisterData]= useState({
         username: '',
         password1: '',
@@ -23,8 +25,6 @@ function RegisterForm() {
     const [errors, setErrors] = useState({})
 
     const history = useHistory()
-
-
 
     const handleChange = (event) => {
         setRegisterData({
@@ -43,7 +43,6 @@ function RegisterForm() {
             setErrors(error.response?.data)
         }
     };
-
 
     return (
         <Container className={styles.LoginRegisterForm}>

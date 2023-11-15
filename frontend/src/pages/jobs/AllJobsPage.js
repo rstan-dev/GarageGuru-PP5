@@ -13,12 +13,15 @@ import JobCard from './JobCard';
 import Asset from '../../components/Asset';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from '../../utils/utils';
+import { useHistory } from "react-router-dom";
 
 function AllJobsPage({ message, filter = "" }) {
+
     const [jobs, setJobs] = useState({ results: []});
     const [hasLoaded, setHasLoaded] = useState(false);
     const { pathname } = useLocation();
     const currentUser = useCurrentUser();
+    const history = useHistory();
 
     const [statusCounts, setStatusCounts] = useState({
         Pending: 0,
@@ -30,6 +33,12 @@ function AllJobsPage({ message, filter = "" }) {
     const [orderingField, setOrderingField] = useState(null);
 
     useEffect(() => {
+        if (!currentUser) {
+            // Redirect to login only if currentUser is explicitly null (not undefined)
+            history.push("/login");
+            return;
+          }
+
         const fetchJobs = async () => {
             try {
                 const {data} = await axiosReq.get(`/jobs/?${filter}search=${query}&ordering=${orderingField}`);

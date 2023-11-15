@@ -13,11 +13,12 @@ import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { axiosReq } from '../../api/axiosDefaults';
+import { useRedirect } from "../../hooks/useRedirect";
 
 
 function AddJobForm() {
-
     const currentUser = useCurrentUser();
+    // useRedirect(currentUser ? "loggedIn" : "loggedOut");
     const [users, setUsers] = useState([]);
 
     // initialize state of job data
