@@ -1,4 +1,5 @@
 import { axiosReq } from "../api/axiosDefaults";
+import jwtDecode from "jwt-decode"
 
 /* Utility function to get more api data for use with Infinity Scroll.
  * This function updates the resource state with new results by appending them
@@ -21,3 +22,22 @@ export const fetchMoreData = async (resource, setResource) => {
       }));
     } catch (error) {}
   };
+
+  /* Decodes the JWT refresh token and stores its expiration timestamp in local storage.
+  */
+  export const setTokenTimestamp = (data) => {
+    const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp
+    localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp)
+  }
+
+  /* Checks if the refresh token's timestamp is stored in local storage.
+  */
+  export const shouldRefreshToken = () => {
+    return !!localStorage.getItem("refreshTokenTimestamp")
+  }
+
+  /* Removes the stored refresh token's expiration timestamp from local storage.
+  */
+  export const removeTokenTimestamp = () => {
+    localStorage.removeItem("refreshTokenTimestamp")
+  }
