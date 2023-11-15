@@ -27,54 +27,22 @@ const ProfilePage = () => {
     const { id, name, bio, image, created_at, is_owner } = profileData;
 
     useEffect(() => {
-      const fetchprofileData = async () => {
+      if (!currentUser) {
+        // Redirect to login only if currentUser is explicitly null (not undefined)
+        history.push("/login");
+        return;
+      }
+
+      const fetchProfileData = async () => {
         try {
           const { data } = await axiosReq.get(`/profiles/${currentUserId}/`);
-          const { id, name, bio, image, created_at, is_owner } = data;
-          setProfileData({
-            id,
-            name,
-            bio,
-            image,
-            created_at,
-            is_owner,
-          });
+          setProfileData(data);
         } catch (error) {
           console.log(error);
         }
       };
 
-      // Fetch initial profile data when the component mounts
-      fetchprofileData();
-    }, [currentUserId]);
-
-    useEffect(() => {
-      if (!currentUser) {
-        history.push("/login");
-      } else {
-        const fetchUpdatedProfileData = async () => {
-          try {
-            const { data } = await axiosReq.get(`/profiles/${currentUserId}/`);
-            const { id, name, bio, image, created_at, is_owner } = data;
-            setProfileData({
-              id,
-              name,
-              bio,
-              image,
-              created_at,
-              is_owner,
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        };
-
-        if (!currentUser) {
-          history.push("/signin");
-        }
-
-        fetchUpdatedProfileData();
-      }
+      fetchProfileData();
     }, [currentUserId, currentUser, history]);
 
     return (
