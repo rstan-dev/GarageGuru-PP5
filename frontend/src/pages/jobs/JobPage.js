@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { axiosReq } from '../../api/axiosDefaults';
 import JobCard from './JobCard';
 import AddCommentForm from '../comments/AddCommentForm';
@@ -17,9 +17,15 @@ function JobPage() {
     const profileName = currentUser?.username
     const [comments, setComments] = useState({ results: []});
     const [commentsCount, setCommentsCount] = useState(0);
+    const history = useHistory();
 
     // Retrieve an array of jobs by id
     useEffect(() => {
+        if (!currentUser) {
+            // Redirect to login only if currentUser is explicitly null (not undefined)
+            history.push("/login");
+            return;
+          }
         const handleMount = async () => {
             try {
                 const [{ data: job }, { data: comments }] = await Promise.all([
