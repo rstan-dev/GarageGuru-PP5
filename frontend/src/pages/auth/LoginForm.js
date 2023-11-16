@@ -10,10 +10,13 @@ import Alert from "react-bootstrap/Alert";
 
 import styles from "../../styles/LoginRegister.module.css"
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { setTokenTimestamp } from "../../utils/utils";
+import { useRedirect } from "../../hooks/useRedirect";
 
 
 function LoginForm() {
     const setCurrentUser = useSetCurrentUser();
+    useRedirect('loggedIn')
 
     const [logInData, setlogInData] = useState({
         username: '',
@@ -38,6 +41,7 @@ function LoginForm() {
         try {
             const {data} = await axios.post('/dj-rest-auth/login/', logInData);
             setCurrentUser(data.user)
+            setTokenTimestamp(data)
             history.push('/');
         } catch (err) {
             setErrors(err.response?.data);

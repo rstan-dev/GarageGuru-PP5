@@ -14,11 +14,10 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { axiosReq } from '../../api/axiosDefaults';
 
-
 function AddJobForm() {
-
     const currentUser = useCurrentUser();
     const [users, setUsers] = useState([]);
+
 
     // initialize state of job data
     const [jobData, setJobData] = useState({
@@ -40,6 +39,12 @@ function AddJobForm() {
 
     // Set default assigned_to to current username
     useEffect(() => {
+        if (!currentUser) {
+            // Redirect to login only if currentUser is explicitly null (not undefined)
+            history.push("/login");
+            return;
+          }
+
         if (currentUser && currentUser.pk) {
             setJobData(prevState => ({
               ...prevState,
