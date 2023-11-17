@@ -4,6 +4,7 @@ import { Link  } from "react-router-dom";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 import styles from '../../styles/JobCard.module.css'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
@@ -121,7 +122,15 @@ const JobCard = (props) => {
                     <i className="fa-regular fa-comment"></i>
                     <p>{commentsCount}</p>
                   </Link>
-                  <i className="fa-regular fa-eye"></i>
+
+                  <Link to="/invoices/addinvoice">
+                    <Button variant="primary">
+                      Add Invoice
+                    </Button>
+                  </Link>
+                  <div>
+                    <i className="fa-regular fa-eye"></i>
+                  </div>
                 </div>
               </div>
 
@@ -148,7 +157,15 @@ const JobCard = (props) => {
                     <i className="fa-regular fa-comment"></i>
                     <p>{commentsCount}</p>
                 </Link>
-                  <i className="fa-regular fa-eye"></i>
+
+                <Link to="/invoices/addinvoice">
+                  <Button variant="primary">
+                    Add Invoice
+                  </Button>
+                </Link>
+                <div>
+                    <i className="fa-regular fa-eye"></i>
+                  </div>
                 </div>
               </div>
 
