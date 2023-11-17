@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'profiles',
     'jobs',
     'comments',
+    'invoices',
 ]
 
 SITE_ID = 1
