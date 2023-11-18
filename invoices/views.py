@@ -62,6 +62,9 @@ class InvoiceList(generics.ListCreateAPIView):
         'updated_at',
         'due_date',
     ]
+    filterset_fields = [
+        'job_id'
+    ]
 
     def get_queryset(self):
         queryset = Invoice.objects.all()

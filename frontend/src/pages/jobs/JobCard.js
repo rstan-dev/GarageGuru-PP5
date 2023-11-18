@@ -12,7 +12,8 @@ import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { axiosReq } from '../../api/axiosDefaults';
 
 const JobCard = (props) => {
-    const {
+
+      const {
         id,
         owner,
         job_type,
@@ -24,13 +25,31 @@ const JobCard = (props) => {
         status,
         image,
         commentsCount,
+        inv_id,
+        inv_owner,
+        job_assigned_to,
+        job_id,
+        customer_firstname,
+        customer_lastname,
+        customer_email,
+        customer_phone,
+        inv_created_at,
+        inv_updated_at,
+        inv_due_date,
+        amount,
+        invoice_status,
       } = props;
+
+      // const invoiceId = invoiceData.id
+      // const invoiceFirstname = invoiceData.customer_firstname
 
       const currentUser = useCurrentUser();
       const is_owner = currentUser?.username === owner;
       const [assignedUsername, setAssignedUsername] = useState()
 
       console.log(commentsCount)
+      console.log(id)
+      console.log(inv_id)
 
       // gets Profile id and sets corresponding username to display as
       // Assigned To user in JobCard
@@ -110,39 +129,39 @@ const JobCard = (props) => {
                             <tbody>
                               <tr>
                                 <th>Invoice Number:</th>
-                                <td>Placeholder No</td>
+                                <td>{inv_id}</td>
                               </tr>
                               <tr>
                                 <th>Customer:</th>
-                                <td>Placeholder Name</td>
+                                <td>{customer_firstname} {" "} {customer_lastname}</td>
                               </tr>
                               <tr>
                                 <th>Email:</th>
-                                <td>Placeholder Email</td>
+                                <td>{customer_email}</td>
                               </tr>
                               <tr>
                                 <th>Phone:</th>
-                                <td>Placeholder Phone</td>
+                                <td>{customer_phone}</td>
                               </tr>
                               <tr>
                                 <th>Amount:</th>
-                                <td>Placeholder Amount</td>
+                                <td>£{amount}</td>
                               </tr>
                               <tr>
                                 <th>Invoice Due:</th>
-                                <td>Placeholder Due Date</td>
+                                <td>{inv_due_date}</td>
                               </tr>
                               <tr>
                                 <th>Invoice Staus:</th>
-                                <td>Placeholder Pending</td>
+                                <td>{invoice_status}</td>
                               </tr>
                               <tr>
                                 <th>Updated on:</th>
-                                <td>Placeholder Updated Date</td>
+                                <td>{inv_updated_at}</td>
                               </tr>
                               <tr>
                                 <th>Created by:</th>
-                                <td>Placeholder invoice owner</td>
+                                <td>{inv_owner}</td>
                               </tr>
                             </tbody>
                           </table>
