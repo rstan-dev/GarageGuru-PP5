@@ -5,6 +5,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
 
 import styles from '../../styles/JobCard.module.css'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
@@ -95,6 +96,61 @@ const JobCard = (props) => {
                       </tr>
                     </tbody>
                   </table>
+
+                  <Accordion defaultActiveKey="1">
+                    <Card>
+                      <Card.Header>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                        Invoice Details:
+                        </Accordion.Toggle>
+                        </Card.Header>
+                        <Accordion.Collapse eventKey="0">
+                          <Card.Body>
+                          <table className="table table-striped">
+                            <tbody>
+                              <tr>
+                                <th>Invoice Number:</th>
+                                <td>Placeholder No</td>
+                              </tr>
+                              <tr>
+                                <th>Customer:</th>
+                                <td>Placeholder Name</td>
+                              </tr>
+                              <tr>
+                                <th>Email:</th>
+                                <td>Placeholder Email</td>
+                              </tr>
+                              <tr>
+                                <th>Phone:</th>
+                                <td>Placeholder Phone</td>
+                              </tr>
+                              <tr>
+                                <th>Amount:</th>
+                                <td>Placeholder Amount</td>
+                              </tr>
+                              <tr>
+                                <th>Invoice Due:</th>
+                                <td>Placeholder Due Date</td>
+                              </tr>
+                              <tr>
+                                <th>Invoice Staus:</th>
+                                <td>Placeholder Pending</td>
+                              </tr>
+                              <tr>
+                                <th>Updated on:</th>
+                                <td>Placeholder Updated Date</td>
+                              </tr>
+                              <tr>
+                                <th>Created by:</th>
+                                <td>Placeholder invoice owner</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          </Card.Body>
+                        </Accordion.Collapse>
+                      </Card>
+                    </Accordion>
+
                 </div>
 
                 <div className="col-md-4 d-none d-md-block text-center">
