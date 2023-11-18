@@ -123,11 +123,14 @@ const JobCard = (props) => {
                     <p>{commentsCount}</p>
                   </Link>
 
-                  <Link to="/invoices/addinvoice">
-                    <Button variant="primary">
-                      Add Invoice
-                    </Button>
-                  </Link>
+                  <Link to={{
+                  pathname: "/invoices/addinvoice",
+                  state: { jobId: id }
+                }}>
+                  <Button variant="primary">
+                    Add Invoice
+                  </Button>
+                </Link>
                   <div>
                     <i className="fa-regular fa-eye"></i>
                   </div>
@@ -158,7 +161,10 @@ const JobCard = (props) => {
                     <p>{commentsCount}</p>
                 </Link>
 
-                <Link to="/invoices/addinvoice">
+                <Link to={{
+                  pathname: "/invoices/addinvoice",
+                  state: { jobId: id }
+                }}>
                   <Button variant="primary">
                     Add Invoice
                   </Button>
