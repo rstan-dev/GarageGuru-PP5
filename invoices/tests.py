@@ -95,7 +95,7 @@ class InvoiceDetailViewTests(APITestCase):
             status='Pending',
             assigned_to=self.testuser2
         )
-        Invoice.objects.create(
+        self.invoice = Invoice.objects.create(
             job=self.test_job,
             owner=self.testuser1,
             customer_firstname='TestFirstName',
@@ -136,6 +136,26 @@ class InvoiceDetailViewTests(APITestCase):
         response = self.client.put('/invoices/1/', {'customer_firstname': 'UPDATED FIRST NAME'},
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_user_can_update_own_invoice(self):
+        """
+        Tests a user can update an invoice that they created
+        Verified with a HTTP 200 OK status.
+        """
+        self.client.login(username='testuser1', password='testpw1234')
+        updated_data = {
+            'customer_firstname': 'Updated_FirstName',
+            'customer_lastname': 'UpdatedSecondName',
+            'inv_owner': 'test_user1',
+            'job_id': '1',
+            'inv_due_date': '2023-11-15',
+            'invoice_status': 'Pending',
+        }
+
+        url = f'/invoices/{self.invoice.id}/'
+        response = self.client.put(url, updated_data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 
