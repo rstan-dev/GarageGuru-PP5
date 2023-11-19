@@ -119,5 +119,13 @@ class InvoiceDetailViewTests(APITestCase):
         self.assertEqual(response.data['amount'], '100.00')
         self.assertEqual(response.data['invoice_status'], 'Pending')
 
+    def test_user_cannot_retrieve_invoice_with_invalid_id(self):
+        """
+        Tests a user cannot retrieve any invoice details using an incorrect id
+        Verified with a HTTP 404 status.
+        """
+        response = self.client.get('/invoices/101/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
 
 
