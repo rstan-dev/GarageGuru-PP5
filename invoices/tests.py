@@ -60,7 +60,27 @@ class InvoiceListViewTests(APITestCase):
             'customer_firstname': 'Test User2',
             'customer_lastname': 'Surname2',
             'inv_due_date': '2023-11-20',
+            'amount': '101.00'
         }
         response = self.client.post('/invoices/', data)
         print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Invoice.objects.filter(amount='101.00').count(), 1)
+
+    def test_logged_out_user_cannot_create_an_invoice(self):
+        """
+        Test a logged-out user is unable to create an invoice.
+        It verifies that the that the response status is 403 FORBIDDEN
+        or 401 UNAUTHORIZED.
+        """
+        data = {
+            'job_id': self.test_job.id,
+            'customer_firstname': 'Test User2',
+            'customer_lastname': 'Surname2',
+            'inv_due_date': '2023-11-20',
+            'amount': '101.00'
+        }
+        response = self.client.post('/invoices/', data)
+        self.assertIn(response.status_code, [status.HTTP_403_FORBIDDEN, status.HTTP_401_UNAUTHORIZED])
+
+
