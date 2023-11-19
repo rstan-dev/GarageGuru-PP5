@@ -84,3 +84,40 @@ class InvoiceListViewTests(APITestCase):
         self.assertIn(response.status_code, [status.HTTP_403_FORBIDDEN, status.HTTP_401_UNAUTHORIZED])
 
 
+class InvoiceDetailViewTests(APITestCase):
+    def setUp(self):
+        self.testuser1 = User.objects.create_user(username='testuser1', password='testpw1234')
+        self.testuser2 = User.objects.create_user(username='testuser2', password='testpw1234')
+        self.test_job = Job.objects.create(
+            owner=self.testuser1,
+            job_type='MOT',
+            job_details='test details',
+            status='Pending',
+            assigned_to=self.testuser2
+        )
+        Invoice.objects.create(
+            job=self.test_job,
+            owner=self.testuser1,
+            customer_firstname='TestFirstName',
+            customer_lastname='TestSecondName',
+            due_date='2023-11-15',
+            amount=100.00,
+            invoice_status='Pending',
+        )
+
+    def test_user_can_retrieve_invoice_with_valid_invocie_id(self):
+        """
+        Tests a logged-in user can retrieve all the invoice details using the correct id
+        Verified with a HTTP 200 status.
+        """
+        self.client.login(username='testuser1', password='testpw1234')
+        response = self.client.get('/invoices/1/')
+        self.assertEqual(response.data['inv_owner'], 'testuser1')
+        self.assertEqual(response.data['customer_firstname'], 'TestFirstName')
+        self.assertEqual(response.data['customer_lastname'], 'TestSecondName')
+        self.assertEqual(response.data['inv_due_date'], '2023-11-15')
+        self.assertEqual(response.data['amount'], '100.00')
+        self.assertEqual(response.data['invoice_status'], 'Pending')
+
+
+
