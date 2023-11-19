@@ -127,5 +127,15 @@ class InvoiceDetailViewTests(APITestCase):
         response = self.client.get('/invoices/101/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+    def test_user_cannot_update_invoice_they_dont_own(self):
+        """
+        Tests a user can't update invoice details they don't own.
+        Verified with a HTTP 403 status.
+        """
+        self.client.login(username='testuser2', password='testpw1234')
+        response = self.client.put('/invoices/1/', {'customer_firstname': 'UPDATED FIRST NAME'},
+        )
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
 
 
