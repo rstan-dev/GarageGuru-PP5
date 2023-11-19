@@ -4,19 +4,19 @@ from .models import Invoice
 
 class InvoiceSerializer(serializers.ModelSerializer):
     """
-    Serializes specific Job model fields into JSON data.
+    Serializes specific Invoice model fields into JSON data.
 
-    assigned_to variable returns username dropdown.
+    Sets unique names for inv_id, inv_owner, job_assigned_to, job_id,
+    inv_created_at and inv_updated_at to avoid clashing with job model field names.
 
-
-    get_is_owner method checks if the user making the request is the owner of
+    get_is_inv_owner method checks if the user making the request is the owner of
     the profile.
     """
     inv_id = serializers.IntegerField(source='id', read_only=True)
     inv_owner = serializers.ReadOnlyField(source='owner.username')
     job_assigned_to = serializers.ReadOnlyField(source='job.assigned_to.username')
     is_inv_owner = serializers.SerializerMethodField()
-    job_id = serializers.ReadOnlyField(source='job.id')
+    job_id = serializers.IntegerField()
 
     # Formats date and time
     inv_created_at = serializers.DateTimeField(source="created_at", format="%Y-%m-%d %H:%M:%S", read_only=True)
