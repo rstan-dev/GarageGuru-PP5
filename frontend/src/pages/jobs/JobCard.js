@@ -180,6 +180,7 @@ const JobCard = (props) => {
 
                 </div>
 
+                {/* Desktop Display */}
                 <div className="col-md-4 d-none d-md-block text-center">
                   {is_owner ? (
                     <div className="text-right">
@@ -199,14 +200,20 @@ const JobCard = (props) => {
                     </div>
                     ) : null}
 
+                {/* Job Image Placement */}
                 <Card.Img src={image} alt={job_type} />
+
                 <div className={styles.CommentEyes}>
                   <Link to={`/jobs/${id}`}>
                     <i className="fa-regular fa-comment"></i>
                     <p>{comment_count}</p>
                   </Link>
 
-                  { ((!has_invoice && is_owner) || (!has_invoice && (assigned_to === currentUser.pk))) ? (
+                  {/* Display Add and Edit Invoice Buttons if either invoice
+                owner or assigned user are logged in */}
+                  { ((!has_invoice && is_owner) ||
+                  (!has_invoice && (assigned_to === currentUser.pk)))
+                  ? (
                   <Link to={{
                     pathname: "/invoices/addinvoice",
                     state: { jobId: id }
@@ -220,6 +227,9 @@ const JobCard = (props) => {
                       View Invoice
                     </Button>
                 )}
+                 {((has_invoice && is_owner) ||
+                (has_invoice && (assigned_to === currentUser.pk)))
+                ? (
                 <div>
                   <Link to={`/invoices/${id}/edit-invoice`}>
                       <Button variant="primary">
@@ -227,6 +237,9 @@ const JobCard = (props) => {
                       </Button>
                   </Link>
                 </div>
+                ) : (
+                  null
+                )}
 
                   <div>
                     <i className="fa-regular fa-eye"></i>
@@ -234,6 +247,7 @@ const JobCard = (props) => {
                 </div>
               </div>
 
+              {/* Mobile Display */}
               <div className="col-12 d-md-none mt-3 text-center">
                     <div className="text-right">
                       <Link to={"/"}>
@@ -251,14 +265,20 @@ const JobCard = (props) => {
                       </Link>
                     </div>
 
+                {/* Job Image Placement */}
                 <Card.Img src={image} alt={job_type} />
+
                 <div className={styles.CommentEyes}>
                 <Link to={`/jobs/${id}`}>
                     <i className="fa-regular fa-comment"></i>
                     <p>{comment_count}</p>
                 </Link>
 
-                {!has_invoice ? (
+                {/* Display Add and Edit Invoice Buttons if either invoice
+                owner or assigned user are logged in */}
+                {((!has_invoice && is_owner) ||
+                (!has_invoice && (assigned_to === currentUser.pk)))
+                ? (
                   <Link to={{
                     pathname: "/invoices/addinvoice",
                     state: { jobId: id }
@@ -272,6 +292,9 @@ const JobCard = (props) => {
                       View Invoice
                     </Button>
                 )}
+                {((has_invoice && is_owner) ||
+                (has_invoice && (assigned_to === currentUser.pk)))
+                ? (
                 <div>
                   <Link to={`/invoices/${id}/edit-invoice`}>
                       <Button variant="primary">
@@ -279,6 +302,9 @@ const JobCard = (props) => {
                       </Button>
                   </Link>
                 </div>
+                ) : (
+                  null
+                )}
 
                 <div>
                     <i className="fa-regular fa-eye"></i>

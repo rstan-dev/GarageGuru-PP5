@@ -44,6 +44,12 @@ function EditInvoiceForm() {
 
     // Gets original Invoice data to populate form
     useEffect(() => {
+        if ((currentUser.username !== inv_owner) || (currentUser.username !== job_assigned_to)) {
+            // Redirect to AllJobs page if currentUser is not invoice owner or assigned user.
+            history.push("/");
+            return;
+          }
+
         const handleMount = async () => {
           try {
             const { data } = await axiosReq.get(`/invoices/?job_id=${id}`);
