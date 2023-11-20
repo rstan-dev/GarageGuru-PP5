@@ -25,8 +25,11 @@ class InvoiceSerializer(serializers.ModelSerializer):
     inv_due_date = serializers.DateField(source="due_date", format="%Y-%m-%d")
 
     def get_is_inv_owner(self, obj):
-        request = self.context['request']
-        return request.user == obj.owner
+        request = self.context.get('request')
+        if request and hasattr(request, 'user'):
+            # Checks for the presence of request in the context
+            return obj.owner == request.user
+        return False
 
     class Meta:
         model = Invoice
