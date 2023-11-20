@@ -45,16 +45,10 @@ const JobCard = (props) => {
         invoice_status,
       } = invoice_details || {};
 
-      // const invoiceId = invoiceData.id
-      // const invoiceFirstname = invoiceData.customer_firstname
-
       const currentUser = useCurrentUser();
       const is_owner = currentUser?.username === owner;
       const [assignedUsername, setAssignedUsername] = useState()
 
-      console.log(comment_count)
-      console.log(id)
-      console.log(inv_id)
 
       // gets Profile id and sets corresponding username to display as
       // Assigned To user in JobCard
@@ -70,6 +64,7 @@ const JobCard = (props) => {
           };
           getProfileUsername();
         }, [assigned_to]);
+
 
 
       return (
@@ -211,7 +206,7 @@ const JobCard = (props) => {
                     <p>{comment_count}</p>
                   </Link>
 
-                  {!has_invoice ? (
+                  { ((!has_invoice && is_owner) || (!has_invoice && (assigned_to === currentUser.pk))) ? (
                   <Link to={{
                     pathname: "/invoices/addinvoice",
                     state: { jobId: id }
