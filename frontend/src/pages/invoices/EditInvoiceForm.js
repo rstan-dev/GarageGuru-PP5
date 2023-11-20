@@ -12,6 +12,7 @@ import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios';
 import { axiosReq } from '../../api/axiosDefaults';
+import ConfirmationModal from '../../components/ConfirmationModal';
 
 function EditInvoiceForm() {
     const currentUser = useCurrentUser();
@@ -40,7 +41,12 @@ function EditInvoiceForm() {
     const successTimeoutRef = useRef();
     const history = useHistory();
 
-    console.log(`ID: ${id}`)
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const [confirmationModalContent, setConfirmationModalContent] = useState({
+        title: '',
+        body: '',
+        confirmAction: () => {},
+      });
 
     // Gets original Invoice data to populate form
     useEffect(() => {
@@ -108,6 +114,7 @@ function EditInvoiceForm() {
         return `${year}-${month}-${day}`;
         }
 
+    // Handles update submission using confrimationModal to verify user actions
     const handleSubmit = async (event) => {
         event.preventDefault()
 
@@ -126,6 +133,17 @@ function EditInvoiceForm() {
             return;
         }
 
+        setConfirmationModalContent({
+            title: 'Confirm Invoice Update',
+            body: 'Are you sure you want to update this invoice?',
+            confirmAction: handleUpdateConfirm, // References the function that performs the update
+          });
+        setShowConfirmationModal(true);
+    };
+
+
+    // Updates api and closes Confirmation Modal when update confirmed
+    const handleUpdateConfirm = async () => {
         const formData = new FormData();
 
         formData.append('job_id', job_id)
@@ -157,7 +175,19 @@ function EditInvoiceForm() {
                 setErrors({ message: ["There was an error submitting the form."] });
                 }
             };
-        };
+
+        setShowConfirmationModal(false);
+    };
+
+    // Handles modal's confirmation
+    const handleModalConfirm = () => {
+        confirmationModalContent.confirmAction();
+    };
+
+    // This function will be used to close the modal without taking action
+    const handleModalClose = () => {
+        setShowConfirmationModal(false);
+    };
 
     // Text fields component to be rendered in form
     const textFields = (
@@ -261,7 +291,7 @@ function EditInvoiceForm() {
              {/* Display success message */}
              {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={(e) => e.preventDefault()}>
                 <div>EditInvoiceForm</div>
 
                         <div className="card">
@@ -275,10 +305,18 @@ function EditInvoiceForm() {
                 </Button>
                 <Button
                 variant="success"
-                type="submit">
+                onClick={handleSubmit}>
                     Update Invoice
                 </Button>
             </Form>
+            {/* Confirmation Modal */}
+            <ConfirmationModal
+            showModal={showConfirmationModal}
+            handleClose={handleModalClose}
+            handleConfirm={handleModalConfirm}
+            title={confirmationModalContent.title}
+            body={confirmationModalContent.body}
+            />
         </Col>
         </Container>
   )
