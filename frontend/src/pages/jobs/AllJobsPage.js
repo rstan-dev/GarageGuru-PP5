@@ -30,7 +30,7 @@ function AllJobsPage({ message, filter = "" }) {
     });
 
     const [query, setQuery] = useState ("");
-    const [orderingField, setOrderingField] = useState(null);
+    const [orderingField, setOrderingField] = useState('-created_at');
 
     useEffect(() => {
         if (!currentUser) {
