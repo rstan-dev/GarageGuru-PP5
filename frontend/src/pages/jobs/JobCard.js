@@ -24,7 +24,12 @@ const JobCard = (props) => {
         assigned_to,
         status,
         image,
-        commentsCount,
+        comment_count,
+        has_invoice,
+        invoice_details
+      } = props;
+
+      const {
         inv_id,
         inv_owner,
         job_assigned_to,
@@ -38,7 +43,7 @@ const JobCard = (props) => {
         inv_due_date,
         amount,
         invoice_status,
-      } = props;
+      } = invoice_details || {};
 
       // const invoiceId = invoiceData.id
       // const invoiceFirstname = invoiceData.customer_firstname
@@ -47,7 +52,7 @@ const JobCard = (props) => {
       const is_owner = currentUser?.username === owner;
       const [assignedUsername, setAssignedUsername] = useState()
 
-      console.log(commentsCount)
+      console.log(comment_count)
       console.log(id)
       console.log(inv_id)
 
@@ -195,17 +200,24 @@ const JobCard = (props) => {
                 <div className={styles.CommentEyes}>
                   <Link to={`/jobs/${id}`}>
                     <i className="fa-regular fa-comment"></i>
-                    <p>{commentsCount}</p>
+                    <p>{comment_count}</p>
                   </Link>
 
+                  {!has_invoice ? (
                   <Link to={{
-                  pathname: "/invoices/addinvoice",
-                  state: { jobId: id }
-                }}>
+                    pathname: "/invoices/addinvoice",
+                    state: { jobId: id }
+                  }}>
+                    <Button variant="primary">
+                      Add Invoice
+                    </Button>
+                  </Link>
+                ) : (
                   <Button variant="primary">
-                    Add Invoice
-                  </Button>
-                </Link>
+                      View Invoice
+                    </Button>
+                )}
+
                   <div>
                     <i className="fa-regular fa-eye"></i>
                   </div>
@@ -233,17 +245,24 @@ const JobCard = (props) => {
                 <div className={styles.CommentEyes}>
                 <Link to={`/jobs/${id}`}>
                     <i className="fa-regular fa-comment"></i>
-                    <p>{commentsCount}</p>
+                    <p>{comment_count}</p>
                 </Link>
 
-                <Link to={{
-                  pathname: "/invoices/addinvoice",
-                  state: { jobId: id }
-                }}>
+                {!has_invoice ? (
+                  <Link to={{
+                    pathname: "/invoices/addinvoice",
+                    state: { jobId: id }
+                  }}>
+                    <Button variant="primary">
+                      Add Invoice
+                    </Button>
+                  </Link>
+                ) : (
                   <Button variant="primary">
-                    Add Invoice
-                  </Button>
-                </Link>
+                      View Invoice
+                    </Button>
+                )}
+
                 <div>
                     <i className="fa-regular fa-eye"></i>
                   </div>

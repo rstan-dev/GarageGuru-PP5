@@ -52,7 +52,7 @@ function AllJobsPage({ message, filter = "" }) {
         setHasLoaded(false);
         fetchJobs();
 
-    }, [pathname, currentUser, filter, query, orderingField]);
+    }, [pathname, currentUser, filter, query, orderingField, history]);
 
 
     const handleOrderBy = (field) => {
