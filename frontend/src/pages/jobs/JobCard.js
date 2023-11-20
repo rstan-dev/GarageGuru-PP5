@@ -220,6 +220,13 @@ const JobCard = (props) => {
                       View Invoice
                     </Button>
                 )}
+                <div>
+                  <Link to={`/invoices/${id}/edit-invoice`}>
+                      <Button variant="primary">
+                        Edit Invoice
+                      </Button>
+                  </Link>
+                </div>
 
                   <div>
                     <i className="fa-regular fa-eye"></i>
@@ -265,6 +272,13 @@ const JobCard = (props) => {
                       View Invoice
                     </Button>
                 )}
+                <div>
+                  <Link to={`/invoices/${id}/edit-invoice`}>
+                      <Button variant="primary">
+                        Edit Invoice
+                      </Button>
+                  </Link>
+                </div>
 
                 <div>
                     <i className="fa-regular fa-eye"></i>

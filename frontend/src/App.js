@@ -16,6 +16,7 @@ import JobPage from './pages/jobs/JobPage';
 import AllJobsPage from './pages/jobs/AllJobsPage';
 import EditJobForm from './pages/jobs/EditJobForm';
 import AddInvoiceForm from './pages/invoices/AddInvoiceForm';
+import EditInvoiceForm from './pages/invoices/EditInvoiceForm';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
               <Route exact path="/jobs/:id" render={() => <JobPage />} />
               <Route exact path="/jobs/:id/edit-job" render={() => <EditJobForm />} />
               <Route exact path="/invoices/addinvoice" render={() => <AddInvoiceForm />} />
+              <Route exact path="/invoices/:id/edit-invoice" render={() => <EditInvoiceForm />} />
               <Route render={() => <PageNotFound />} />
           </Switch>
           </Container>
