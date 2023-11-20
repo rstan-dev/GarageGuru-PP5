@@ -61,7 +61,7 @@ class JobList(generics.ListCreateAPIView):
     ]
 
     def get_queryset(self):
-        queryset = Job.objects.all()
+        queryset = Job.objects.all().annotate(comment_count=Count('comments'))
         # Apply the filters from the filter backends manually
         for backend in list(self.filter_backends):
             queryset = backend().filter_queryset(self.request, queryset, self)
