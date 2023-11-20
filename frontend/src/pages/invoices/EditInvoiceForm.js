@@ -44,11 +44,6 @@ function EditInvoiceForm() {
 
     // Gets original Invoice data to populate form
     useEffect(() => {
-        if ((currentUser.username !== inv_owner) || (currentUser.username !== job_assigned_to)) {
-            // Redirect to AllJobs page if currentUser is not invoice owner or assigned user.
-            history.push("/");
-            return;
-          }
 
         const handleMount = async () => {
           try {
@@ -82,13 +77,19 @@ function EditInvoiceForm() {
                     inv_due_date,
                     invoice_status
                 });
+
+                if (currentUser && (currentUser.username !== inv_owner && currentUser.username !== job_assigned_to)) {
+                    // Redirect to home page if currentUser is neither invoice owner nor assigned user.
+                    history.push("/");
+                    return;
+                }
             }
           } catch (err) {
             // console.log(err);
           }
         };
         handleMount();
-      }, [history, id]);
+      }, [history, id, currentUser, inv_owner, job_assigned_to]);
 
     // handle any changes to main form
     const handleChange = (event) => {
