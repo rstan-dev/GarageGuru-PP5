@@ -16,6 +16,7 @@ class JobSerializer(serializers.ModelSerializer):
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
+    has_invoice = serializers.SerializerMethodField()
 
     assigned_to = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(),
@@ -48,10 +49,14 @@ class JobSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    def get_has_invoice(self, obj):
+        # Check if the job has an associated invoice
+        return hasattr(obj, 'invoice')
+
     class Meta:
         model = Job
         fields = [
             'id', 'owner', 'assigned_to', 'job_type',
             'job_details', 'status', 'created_at', 'updated_at',
-            'image', 'is_owner', 'image_filter', 'due_date'
+            'image', 'is_owner', 'image_filter', 'due_date', 'has_invoice'
         ]
