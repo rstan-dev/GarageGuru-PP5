@@ -125,7 +125,15 @@ const JobCard = (props) => {
                     <Card>
                       <Card.Header>
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        Invoice Details:
+                        {has_invoice  ? (
+                          <div>
+                        Click To View Invoice Details:
+                        </div>
+                        ) : (
+                          <div>
+                          No Invoice Details To Display
+                          </div>
+                        )}
                         </Accordion.Toggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="0">
