@@ -11,7 +11,7 @@ import styles from '../../styles/AddEditInvoice.module.css'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios';
-import { axiosReq } from '../../api/axiosDefaults';
+import { axiosReq, axiosRes } from '../../api/axiosDefaults';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
 function EditInvoiceForm() {
@@ -179,6 +179,32 @@ function EditInvoiceForm() {
         setShowConfirmationModal(false);
     };
 
+     // Handles the delete button
+     const handleDelete = () => {
+
+        setConfirmationModalContent({
+            title: 'Confirm Invoice Deletion',
+            body: 'Are you sure you want to delete this invoice? This action cannot be undone.',
+            confirmAction: handleDeleteConfirm, // Reference to the function that performs the delete
+            });
+        setShowConfirmationModal(true);
+    }
+
+    // Submits the delete request after modal confirmation
+    const handleDeleteConfirm = async () => {
+        try {
+        await axiosRes.delete(`/invoices/${inv_id}/`);
+            setSuccessMessage('Invoice has been deleted successfully');
+            successTimeoutRef.current = setTimeout(() => {
+                setSuccessMessage('');
+                history.goBack();
+            }, 1500);
+        } catch (err) {
+            console.log(err);
+        };
+        setShowConfirmationModal(false);
+    };
+
     // Handles modal's confirmation
     const handleModalConfirm = () => {
         confirmationModalContent.confirmAction();
@@ -307,6 +333,11 @@ function EditInvoiceForm() {
                 variant="success"
                 onClick={handleSubmit}>
                     Update Invoice
+                </Button>
+                <Button
+                variant="danger"
+                onClick={handleDelete}>
+                    Delete Invoice
                 </Button>
             </Form>
             {/* Confirmation Modal */}
