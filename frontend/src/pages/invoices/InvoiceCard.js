@@ -6,7 +6,23 @@ import Tooltip from 'react-bootstrap/Tooltip'
 
 import styles from '../../styles/InvoiceCard.module.css'
 
-const InvoiceCard = () => {
+const InvoiceCard = (props) => {
+
+  const {
+    inv_id,
+    inv_owner,
+    job_assigned_to,
+    job_id,
+    customer_firstname,
+    customer_lastname,
+    customer_email,
+    customer_phone,
+    inv_created_at,
+    inv_updated_at,
+    inv_due_date,
+    amount,
+    invoice_status,
+  } = props
 
 
   return (
@@ -20,39 +36,39 @@ const InvoiceCard = () => {
                     <tbody>
                       <tr>
                         <th>Invoice Number:</th>
-                        <td>Placeholder Inv No</td>
+                        <td>{inv_id}</td>
                       </tr>
                       <tr>
                         <th>Customer:</th>
-                        <td>Placeholder Customer Name</td>
+                        <td>{customer_firstname} {" "} {customer_lastname}</td>
                       </tr>
                       <tr>
                         <th>Email:</th>
-                        <td>Placeholder Email</td>
+                        <td>{customer_email}</td>
                       </tr>
                       <tr>
                         <th>Phone:</th>
-                        <td>Placeholder Phone</td>
+                        <td>{customer_phone}</td>
                       </tr>
                       <tr>
                         <th>Amount:</th>
-                        <td>£Placeholder Amount</td>
+                        <td>£{amount}</td>
                       </tr>
                       <tr>
                         <th>Invoice Due:</th>
-                        <td>Placeholder Due date</td>
+                        <td>{inv_due_date}</td>
                       </tr>
                       <tr>
                         <th>Invoice Staus:</th>
-                        <td>Placeholder Inv Status</td>
+                        <td>{invoice_status}</td>
                       </tr>
                       <tr>
                         <th>Updated on:</th>
-                        <td>Placeholder Updated date</td>
+                        <td>{inv_updated_at}</td>
                       </tr>
                       <tr>
                         <th>Created by:</th>
-                        <td>Placeholder owner username</td>
+                        <td>{inv_owner}</td>
                       </tr>
                     </tbody>
                   </table>

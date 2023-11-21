@@ -19,6 +19,7 @@ import AddInvoiceForm from './pages/invoices/AddInvoiceForm';
 import EditInvoiceForm from './pages/invoices/EditInvoiceForm';
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import InvoiceCard from './pages/invoices/InvoiceCard';
+import InvoicePage from './pages/invoices/InvoicePage';
 
 
 function App() {
@@ -97,7 +98,7 @@ function App() {
               <Route exact path="/jobs/:id/edit-job" render={() => <EditJobForm />} />
               <Route exact path="/invoices/addinvoice" render={() => <AddInvoiceForm />} />
               <Route exact path="/invoices/:id/edit-invoice" render={() => <EditInvoiceForm />} />
-              <Route exact path="/invoices/:id/" render={() => <InvoiceCard />} />
+              <Route exact path="/invoices/:id" render={() => <InvoicePage />} />
               <Route render={() => <PageNotFound />} />
           </Switch>
           </Container>
