@@ -59,6 +59,10 @@ class JobList(generics.ListCreateAPIView):
         'updated_at',
         'due_date',
     ]
+    filterset_fields = [
+        'owner__username',
+        'assigned_to__username',
+    ]
 
     def get_queryset(self):
         queryset = Job.objects.all().annotate(comment_count=Count('comments'))
