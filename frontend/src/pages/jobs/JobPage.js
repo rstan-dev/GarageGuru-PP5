@@ -8,6 +8,7 @@ import CommentSection from '../comments/CommentSection';
 import InfiniteScroll from "react-infinite-scroll-component";
 import Asset from '../../components/Asset';
 import { fetchMoreData } from '../../utils/utils';
+import axios from 'axios';
 
 function JobPage() {
     const { id } = useParams();
@@ -17,6 +18,7 @@ function JobPage() {
     const profileName = currentUser?.username
     const [comments, setComments] = useState({ results: []});
     const [commentsCount, setCommentsCount] = useState(0);
+    const [invoice, setInvoice] = useState({ results: []});
     const history = useHistory();
 
     // Retrieve an array of jobs by id
@@ -28,28 +30,33 @@ function JobPage() {
           }
         const handleMount = async () => {
             try {
-                const [{ data: job }, { data: comments }] = await Promise.all([
+                const [{ data: job }, { data: comments }, { data: invoice }] = await Promise.all([
                     axiosReq.get(`/jobs/${id}/`),
-                    axiosReq.get(`/comments/?job=${id}`)
+                    axiosReq.get(`/comments/?job=${id}`),
+                    axiosReq.get(`/invoices/?job_id=${id}`)
                 ])
                 setJob({ results: [job]})
                 setComments(comments)
                 setCommentsCount(comments.count)
+                setInvoice({ ...invoice })
             } catch(error) {
                 console.log(error)
             }
         }
         handleMount()
-    }, [id]);
+    }, [id, currentUser, history]);
 
     console.log(comments)
     console.log(commentsCount)
+    console.log("Invoice Data:", invoice.results)
+    console.log("Job Data:", job)
 
     return (
     <div>JobPage
         < JobCard
         {...job.results[0]}
         commentsCount={commentsCount}
+        {...invoice.results[0]}
         />
         {currentUser ? (
         < AddCommentForm

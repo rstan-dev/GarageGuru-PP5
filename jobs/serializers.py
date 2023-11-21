@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Job
+from invoices.serializers import InvoiceSerializer
 
 
 class JobSerializer(serializers.ModelSerializer):
@@ -16,6 +17,9 @@ class JobSerializer(serializers.ModelSerializer):
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
+    has_invoice = serializers.SerializerMethodField()
+    comment_count = serializers.IntegerField(read_only=True)
+    invoice_details = serializers.SerializerMethodField()
 
     assigned_to = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(),
@@ -48,10 +52,21 @@ class JobSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    def get_has_invoice(self, obj):
+        # Check if the job has an associated invoice
+        return hasattr(obj, 'invoice')
+
+    def get_invoice_details(self, obj):
+        invoice = getattr(obj, 'invoice', None)
+        if invoice:
+            return InvoiceSerializer(invoice).data
+        return None
+
     class Meta:
         model = Job
         fields = [
             'id', 'owner', 'assigned_to', 'job_type',
             'job_details', 'status', 'created_at', 'updated_at',
-            'image', 'is_owner', 'image_filter', 'due_date'
+            'image', 'is_owner', 'image_filter', 'due_date', 'has_invoice',
+            'comment_count', 'invoice_details',
         ]

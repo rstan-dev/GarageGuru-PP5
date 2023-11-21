@@ -30,7 +30,9 @@ function AllJobsPage({ message, filter = "" }) {
     });
 
     const [query, setQuery] = useState ("");
-    const [orderingField, setOrderingField] = useState(null);
+    const [orderingField, setOrderingField] = useState('-created_at');
+
+    console.log(`Request URL: /jobs/?${filter}search=${query}&ordering=${orderingField}`);
 
     useEffect(() => {
         if (!currentUser) {
@@ -52,7 +54,7 @@ function AllJobsPage({ message, filter = "" }) {
         setHasLoaded(false);
         fetchJobs();
 
-    }, [pathname, currentUser, filter, query, orderingField]);
+    }, [pathname, currentUser, filter, query, orderingField, history]);
 
 
     const handleOrderBy = (field) => {
@@ -65,7 +67,6 @@ function AllJobsPage({ message, filter = "" }) {
     return (
         <Container className={styles.JobCard}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
-                <h1>All Jobs</h1>
                 <div className={styles.CardBlock}>
                     {
                     // Status Block //

@@ -15,9 +15,16 @@ import AddJobForm from './pages/jobs/AddJobForm';
 import JobPage from './pages/jobs/JobPage';
 import AllJobsPage from './pages/jobs/AllJobsPage';
 import EditJobForm from './pages/jobs/EditJobForm';
+import AddInvoiceForm from './pages/invoices/AddInvoiceForm';
+import EditInvoiceForm from './pages/invoices/EditInvoiceForm';
+import { useCurrentUser } from "./contexts/CurrentUserContext";
 
 
 function App() {
+  const currentUser = useCurrentUser();
+  const currentUsername = currentUser?.username || "";
+
+  console.log(currentUsername)
 
   return (
 
@@ -25,8 +32,56 @@ function App() {
           < NavBar />
           < Container className={styles.Content}>
             <Switch>
-              <Route exact path="/" render={() => < AllJobsPage message="No Jobs Found..." /> } />
-              <Route exact path="/myjobs" render={() => <h1>My Jobs</h1>} />
+              {/* ALL JOBS PAGE */}
+              <Route
+              exact
+              path="/"
+              render={() =>
+              <>
+              <h1>Viewing All Jobs</h1>
+              < AllJobsPage message="No Jobs Found..." />
+              </> } />
+
+              {/* MY JOBS PAGE */}
+              <Route
+              exact
+              path="/myjobs"
+              render={() =>
+              <>
+              <h1>Viewing My Jobs - Created By Me</h1>
+              {
+                currentUser ? (
+              < AllJobsPage message="No Jobs Found..."
+              filter={`owner__username=${currentUsername}&`}
+              />
+              ) : (
+                <div>Loading...</div>
+              )
+              }
+              </>
+              }
+              />
+
+              {/* ASSIGNED JOBS PAGE */}
+              <Route
+              exact
+              path="/assigned"
+              render={() =>
+              <>
+              <h1>Viewing Assigned Jobs - Assigned To Me</h1>
+              {
+                currentUser ? (
+              < AllJobsPage message="No Jobs Found..."
+              filter={`assigned_to__username=${currentUsername}&`}
+              />
+              ) : (
+                <div>Loading...</div>
+              )
+              }
+              </>
+              }
+              />
+
               <Route exact path="/jobs/addjob" render={() => <AddJobForm />} />
               <Route exact path="/assigned" render={() => <h1>Assigned Jobs</h1>} />
               <Route exact path="/watched" render={() => <h1>Watched Jobs</h1>} />
@@ -39,6 +94,8 @@ function App() {
               <Route exact path="/profile/change-username" render={() => <ChangeUsernameForm />} />
               <Route exact path="/jobs/:id" render={() => <JobPage />} />
               <Route exact path="/jobs/:id/edit-job" render={() => <EditJobForm />} />
+              <Route exact path="/invoices/addinvoice" render={() => <AddInvoiceForm />} />
+              <Route exact path="/invoices/:id/edit-invoice" render={() => <EditInvoiceForm />} />
               <Route render={() => <PageNotFound />} />
           </Switch>
           </Container>

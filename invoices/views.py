@@ -2,8 +2,8 @@ from rest_framework import status, permissions, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
-from .models import Job
-from .serializers import JobSerializer
+from .models import Invoice
+from .serializers import InvoiceSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
 from django.db.models import Count
 from rest_framework.pagination import PageNumberPagination
@@ -12,17 +12,17 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class CustomPagination(PageNumberPagination):
     """
-    View to add a count of all status types to pagination data
+    View to add a count of all invoice status types to pagination data
     """
     def get_paginated_response(self, data):
         # Gets the total counts for each status according to filter set
         request = self.request
-        filtered_queryset = request.filtered_queryset if hasattr(request, 'filtered_queryset') else Job.objects.all()
-        status_counts = filtered_queryset.values('status').annotate(total=Count('status')).order_by()
-        status_counts_dict = {item['status']: item['total'] for item in status_counts}
+        filtered_queryset = request.filtered_queryset if hasattr(request, 'filtered_queryset') else Invoice.objects.all()
+        invoice_status_counts = filtered_queryset.values('invoice_status').annotate(total=Count('invoice_status')).order_by()
+        invoice_status_counts_dict = {item['invoice_status']: item['total'] for item in invoice_status_counts}
 
         return Response({
-            'status_counts': status_counts_dict,  # Include the counts
+            'invoice_status_counts': invoice_status_counts_dict,  # Include the counts
             'count': self.page.paginator.count,
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
@@ -30,15 +30,15 @@ class CustomPagination(PageNumberPagination):
         })
 
 
-class JobList(generics.ListCreateAPIView):
+class InvoiceList(generics.ListCreateAPIView):
     """
-    View to retrieve a list of jobs or create a new job using the
+    View to retrieve a list of invoices or create a new invoice using the
     perform_create function.
     serializer_class renders form.
-    permission_classes requires users to be logged in to create a
-    job card.
+    permission_classes requires users to be logged in to create an
+    invoice card.
     """
-    serializer_class = JobSerializer
+    serializer_class = InvoiceSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = CustomPagination
     filter_backends = [
@@ -48,11 +48,14 @@ class JobList(generics.ListCreateAPIView):
     ]
     search_fields = [
         'owner__username',
-        'job_type',
-        'job_details',
+        'job',
         'assigned_to__username',
-        'status',
+        'invoice_status',
         'id',
+        'customer_firstname',
+        'customer_lastname',
+        'customer_email',
+        'cusotmer_phone',
     ]
     ordering_fields = [
         'created_at',
@@ -60,12 +63,11 @@ class JobList(generics.ListCreateAPIView):
         'due_date',
     ]
     filterset_fields = [
-        'owner__username',
-        'assigned_to__username',
+        'job_id'
     ]
 
     def get_queryset(self):
-        queryset = Job.objects.all().annotate(comment_count=Count('comments'))
+        queryset = Invoice.objects.all()
         # Apply the filters from the filter backends manually
         for backend in list(self.filter_backends):
             queryset = backend().filter_queryset(self.request, queryset, self)
@@ -77,12 +79,12 @@ class JobList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class JobDetail(generics.RetrieveUpdateDestroyAPIView):
+class InvoiceDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    Retrieve, edit or delete a job card according to job id and
+    Retrieve, edit or delete an invoice card according to invoice id and
     if the owner is logged in.
     """
-    serializer_class = JobSerializer
+    serializer_class = InvoiceSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Job.objects.all()
+    queryset = Invoice.objects.all()
 
