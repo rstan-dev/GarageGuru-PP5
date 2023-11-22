@@ -95,13 +95,13 @@ function AddInvoiceForm() {
 
         const formData = new FormData();
 
-        formData.append('job', jobId)
+        formData.append('job_id', jobId)
         formData.append('customer_firstname', customer_firstname)
         formData.append('customer_lastname', customer_lastname)
         formData.append('customer_email', customer_email)
         formData.append('customer_phone', customer_phone)
         formData.append('amount', amount)
-        formData.append('due_date', due_date)
+        formData.append('inv_due_date', due_date)
         formData.append('invoice_status', invoice_status)
 
         try {
