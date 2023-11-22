@@ -6,6 +6,7 @@ import Tooltip from 'react-bootstrap/Tooltip'
 import Button from 'react-bootstrap/Button';
 
 import styles from '../../styles/InvoiceCard.module.css'
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
 
 const InvoiceCard = (props) => {
 
@@ -28,7 +29,8 @@ const InvoiceCard = (props) => {
     status,
   } = props
 
-
+  const currentUser = useCurrentUser();
+  const is_owner = currentUser?.username === inv_owner;
 
 
   return (
@@ -108,21 +110,24 @@ const InvoiceCard = (props) => {
 
                 {/* Desktop Display */}
                 <div className="col-md-4 d-none d-md-block text-center">
-                    <div className="text-right">
-                      <Link to={`/`}>
-                        <OverlayTrigger
-                          placement="top"
-                          overlay={
-                            <Tooltip id="tooltip-pencil">
-                              Edit Invoice
-                            </Tooltip>
-                          }>
-                          <span className={styles.PencilIcon}>
-                          <i className="fa-solid fa-pencil"></i>
-                          </span>
-                        </OverlayTrigger>
-                      </Link>
-                    </div>
+                    { (is_owner || job_assigned_to === currentUser) ? (
+                      <div className="text-right">
+                        <Link to={`/invoices/${inv_id}/edit-invoice`}>
+                          <OverlayTrigger
+                            placement="top"
+                            overlay={
+                              <Tooltip id="tooltip-pencil">
+                                Edit Invoice
+                              </Tooltip>
+                            }>
+                            <span className={styles.PencilIcon}>
+                            <i className="fa-solid fa-pencil"></i>
+                            </span>
+                          </OverlayTrigger>
+                        </Link>
+                      </div>
+                    ) : null
+                    }
                   </div>
            </div>
           </div>
