@@ -5,16 +5,17 @@ import InvoiceCard from './InvoiceCard';
 
 function InvoicePage() {
     const { id } = useParams();
-    const [invoice, setInvoice] = useState({ results: []})
+    const [invoice, setInvoice] = useState({ results: []});
+    const [jobDetails, setJobDetails] = useState(null);
+    const job_id = invoice.results[0]?.job_id
 
     useEffect(() => {
         const handleMount = async () => {
           try {
-            const [{ data: invoice }] = await Promise.all([
-              axiosReq.get(`/invoices/${id}`),
-            ]);
+            // Fetch invoice details by id from params
+            const [{ data: invoice }] = await Promise.all([axiosReq.get(`/invoices/${id}`),]);
+              console.log("Fetched Invoice Data:", invoice);
             setInvoice({ results: [invoice] });
-            console.log(invoice)
           } catch (err) {
             console.log(err);
           }
@@ -23,11 +24,36 @@ function InvoicePage() {
         handleMount();
       }, [id]);
 
+      useEffect(() => {
+        const fetchJobData = async () => {
+          try {
+           // Fetch job details by job_id from the invoice
+             if (job_id) {
+              const jobData = await axiosReq.get(`/jobs/${job_id}`);
+              console.log("Fetched Job Data:", jobData);
+              setJobDetails(jobData.data);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchJobData();
+      }, [job_id] );
+
+      console.log("Invoice results:", invoice.results[0])
+      console.log("Invoice results job_id:", invoice.results[0]?.job_id)
+      console.log("Job results:", jobDetails)
+
     return (
     <>
     <div>Invoice Page</div>
     < InvoiceCard
-    {...invoice.results[0]}/>
+    {...invoice.results[0]}
+    {...jobDetails}
+    />
+    {/* <div>
+      No Invoice to display
+    </div> */}
     </>
   )
 }

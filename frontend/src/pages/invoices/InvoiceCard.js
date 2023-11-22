@@ -3,6 +3,7 @@ import { Link  } from "react-router-dom";
 
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip'
+import Button from 'react-bootstrap/Button';
 
 import styles from '../../styles/InvoiceCard.module.css'
 
@@ -22,7 +23,12 @@ const InvoiceCard = (props) => {
     inv_due_date,
     amount,
     invoice_status,
+    id,
+    job_type,
+    status,
   } = props
+
+
 
 
   return (
@@ -69,6 +75,32 @@ const InvoiceCard = (props) => {
                       <tr>
                         <th>Created by:</th>
                         <td>{inv_owner}</td>
+                      </tr>
+                      <tr>
+                        <th>
+                          Job Details:
+                          <Link to={`/jobs/${id}`}>
+                          <Button variant="primary">View Job</Button>
+                          </Link>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          <div>
+                            Job No:
+                          </div>
+                          <div>
+                            Job Type:
+                          </div>
+                          <div>
+                            Job Status:
+                          </div>
+                        </th>
+                        <td>
+                        <div>{id}</div>
+                        <div>{job_type}</div>
+                        <div>{status}</div>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
