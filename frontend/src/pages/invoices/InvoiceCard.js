@@ -112,7 +112,7 @@ const InvoiceCard = (props) => {
                 <div className="col-md-4 d-none d-md-block text-center">
                     { (is_owner || job_assigned_to === currentUser) ? (
                       <div className="text-right">
-                        <Link to={`/invoices/${inv_id}/edit-invoice`}>
+                        <Link to={`/invoices/${id}/edit-invoice`}>
                           <OverlayTrigger
                             placement="top"
                             overlay={

@@ -225,9 +225,11 @@ const JobCard = (props) => {
                     </Button>
                   </Link>
                 ) : has_invoice ? (
-                  <Button variant="primary">
-                      View Invoice
+                  <Link to={`/invoices/${inv_id}/`}>
+                    <Button variant="primary">
+                        View Invoice
                     </Button>
+                  </Link>
                 ) : null
                 }
 
@@ -286,9 +288,11 @@ const JobCard = (props) => {
                     </Button>
                   </Link>
                 ) : has_invoice ? (
-                  <Button variant="primary">
-                      View Invoice
+                  <Link to={`/invoices/${inv_id}/`}>
+                    <Button variant="primary">
+                        View Invoice
                     </Button>
+                    </Link>
                 ) : null
                 }
 
