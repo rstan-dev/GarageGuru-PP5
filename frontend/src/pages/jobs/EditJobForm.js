@@ -9,7 +9,6 @@ import Alert from 'react-bootstrap/Alert';
 
 import styles from '../../styles/AddEditJob.module.css'
 
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios';
 import { axiosReq, axiosRes } from '../../api/axiosDefaults';
@@ -18,7 +17,6 @@ import ConfirmationModal from '../../components/ConfirmationModal';
 
 function EditJobForm() {
 
-    const currentUser = useCurrentUser();
     const [users, setUsers] = useState([]);
     const  {id} = useParams()
 
@@ -33,7 +31,7 @@ function EditJobForm() {
         is_owner: null
       });
 
-    const {job_type, job_details, image, due_date, assigned_to, status, is_owner } = jobData;
+    const {job_type, job_details, image, due_date, assigned_to, status } = jobData;
 
     const imageInput = useRef()
     const [errors, setErrors] = useState({});
@@ -57,7 +55,7 @@ function EditJobForm() {
 
             is_owner ? setJobData({ job_type, job_details, image, due_date, assigned_to, status, }) : history.push("/")
           } catch (err) {
-            // console.log(err);
+            console.log(err);
           }
         };
         handleMount();
@@ -69,7 +67,6 @@ function EditJobForm() {
         const fetchProfiles = async () => {
             try {
                 const { data } = await axiosReq.get(`/profiles/`)
-                console.log(data)
                 setUsers(data.results);
             } catch(err) {
                 console.log(err)
@@ -164,9 +161,7 @@ function EditJobForm() {
                 }, 1500);
         } catch (err) {
             if (axios.isAxiosError(err) && err.response) {
-                console.log(err.response.data);
-                console.log(err.response.status);
-                console.log(err.response.headers);
+                console.log(err);
                 if (err.response.status !== 401) {
                     setErrors(err.response.data);
                 }

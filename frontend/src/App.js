@@ -26,8 +26,6 @@ function App() {
   const currentUser = useCurrentUser();
   const currentUsername = currentUser?.username || "";
 
-  console.log(currentUsername)
-
   return (
 
         <div className={styles.App}>

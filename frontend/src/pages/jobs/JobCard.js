@@ -32,15 +32,12 @@ const JobCard = (props) => {
       const {
         inv_id,
         inv_owner,
-        job_assigned_to,
-        job_id,
         customer_firstname,
         customer_lastname,
         customer_email,
         customer_phone,
-        inv_created_at,
-        inv_updated_at,
         inv_due_date,
+        inv_updated_at,
         amount,
         invoice_status,
       } = invoice_details || {};
@@ -64,12 +61,6 @@ const JobCard = (props) => {
           };
           getProfileUsername();
         }, [assigned_to]);
-
-
-        console.log(`Job No: ${id}`)
-        console.log(`Has Invoice: ${has_invoice}`)
-        console.log(`Is Owner: ${is_owner}`)
-        console.log(`Assigned User: ${assigned_to}`)
 
       return (
 

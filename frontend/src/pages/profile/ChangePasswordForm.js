@@ -50,7 +50,6 @@ const ChangePasswordForm = () => {
       }, 1500);
       } catch (err) {
         console.log(err);
-        console.log(userData)
         setErrors(err.response?.data);
 
       }

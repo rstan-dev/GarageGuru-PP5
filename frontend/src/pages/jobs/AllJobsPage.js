@@ -32,8 +32,6 @@ function AllJobsPage({ message, filter = "" }) {
     const [query, setQuery] = useState ("");
     const [orderingField, setOrderingField] = useState('-created_at');
 
-    console.log(`Request URL: /jobs/?${filter}search=${query}&ordering=${orderingField}`);
-
     useEffect(() => {
         if (!currentUser) {
             // Redirect to login only if currentUser is explicitly null (not undefined)
@@ -62,8 +60,6 @@ function AllJobsPage({ message, filter = "" }) {
         // and due date
         setOrderingField(field);
       };
-
-      console.log(`Jobs Data`, jobs)
 
 
     return (

@@ -14,12 +14,10 @@ const InvoiceCard = (props) => {
     inv_id,
     inv_owner,
     job_assigned_to,
-    job_id,
     customer_firstname,
     customer_lastname,
     customer_email,
     customer_phone,
-    inv_created_at,
     inv_updated_at,
     inv_due_date,
     amount,
@@ -34,9 +32,6 @@ const InvoiceCard = (props) => {
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === inv_owner;
-
-  console.log(`Job Prop ID: ${jobId}`)
-
 
   return (
     <div className={styles.CardBlock}>

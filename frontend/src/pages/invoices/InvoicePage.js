@@ -30,7 +30,6 @@ function InvoicePage() {
            // Fetch job details by job_id from the invoice
              if (job_id) {
               const jobData = await axiosReq.get(`/jobs/${job_id}`);
-              console.log("Fetched Job Data:", jobData);
               setJobDetails(jobData.data);
           }
         } catch (err) {
@@ -39,10 +38,6 @@ function InvoicePage() {
       };
       fetchJobData();
       }, [job_id] );
-
-      console.log("Invoice results:", invoice.results[0])
-      console.log("Invoice results job_id:", invoice.results[0]?.job_id)
-      console.log("Job results:", jobDetails)
 
     return (
     <>

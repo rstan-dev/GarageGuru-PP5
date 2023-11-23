@@ -16,7 +16,6 @@ import ConfirmationModal from '../../components/ConfirmationModal';
 
 function EditInvoiceForm() {
     const currentUser = useCurrentUser();
-    const [users, setUsers] = useState([]);
     const  {id} = useParams()
 
     // initialize state of invoice data
@@ -164,9 +163,7 @@ function EditInvoiceForm() {
                 }, 1500);
         } catch (err) {
             if (axios.isAxiosError(err) && err.response) {
-                console.log(err.response.data);
-                console.log(err.response.status);
-                console.log(err.response.headers);
+                console.log(err);
                 if (err.response.status !== 401) {
                     setErrors(err.response.data);
                 }

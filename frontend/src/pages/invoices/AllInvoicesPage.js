@@ -56,7 +56,6 @@ function AllInvoicesPage() {
             try {
                 const response = await axiosReq.get(`/jobs/`);
                 const jobsData = response.data.results;
-                console.log("Fetched jobs data:", jobsData);
                 setJobs(jobsData);
                 setHasLoaded(true);
             } catch (err) {
@@ -73,10 +72,6 @@ function AllInvoicesPage() {
         // and due date
         setOrderingField(field);
       };
-
-    console.log(`Jobs Data results:`, jobs)
-    console.log(`Invocies Data results:`, invoices.results)
-
 
     return (
     <>
