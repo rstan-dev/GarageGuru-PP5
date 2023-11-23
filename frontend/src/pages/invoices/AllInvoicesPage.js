@@ -15,6 +15,8 @@ function AllInvoicesPage() {
     const currentUser = useCurrentUser();
     const [invoices, setInvoices] = useState({ results: []});
     const history = useHistory();
+    const [jobs, setJobs] = useState([]);
+
 
     useEffect(() => {
         if (!currentUser) {
@@ -33,7 +35,22 @@ function AllInvoicesPage() {
         };
         fetchInvoices();
 
+        const fetchJobs = async () => {
+            try {
+                const response = await axiosReq.get(`/jobs/`);
+                const jobsData = response.data.results;
+                console.log("Fetched jobs data:", jobsData);
+                setJobs(jobsData);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchJobs();
+
     }, [ currentUser, history ]);
+
+    console.log(`Jobs Data results:`, jobs)
+    console.log(`Invocies Data results:`, invoices.results)
 
 
     return (
@@ -44,13 +61,21 @@ function AllInvoicesPage() {
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
                 <div className={styles.CardBlock}>
                     { invoices.results?.length ? (
-                        invoices.results.map((invoice) => (
-                            <InvoiceCard
-                            key ={invoice.id}
-                            {...invoice}
-                            setInvoices={setInvoices}
+                        invoices.results.map((invoice) => {
+                            // Find the corresponding job for this invoice
+                            const relatedJob = jobs.find(job => job.id === invoice.job_id);
+
+                            return (
+                                <InvoiceCard
+                                    key={invoice.id}
+                                    {...invoice}
+                                    jobId={relatedJob?.id}
+                                    jobType={relatedJob?.job_type}
+                                    jobStatus={relatedJob?.status}
+                                    setInvoices={setInvoices}
                             />
-                        ))
+                            );
+                            })
                         ) : (
                             <Asset
                             icon={"fa-solid fa-clipboard-question"}

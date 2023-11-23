@@ -27,10 +27,15 @@ const InvoiceCard = (props) => {
     id,
     job_type,
     status,
+    jobId,
+    jobType,
+    jobStatus,
   } = props
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === inv_owner;
+
+  console.log(`Job Prop ID: ${jobId}`)
 
 
   return (
@@ -81,7 +86,7 @@ const InvoiceCard = (props) => {
                       <tr>
                         <th>
                           Job Details:
-                          <Link to={`/jobs/${id}`}>
+                          <Link to={`/jobs/${id || jobId}`}>
                           <Button variant="primary">View Job</Button>
                           </Link>
                         </th>
@@ -99,9 +104,9 @@ const InvoiceCard = (props) => {
                           </div>
                         </th>
                         <td>
-                        <div>{id}</div>
-                        <div>{job_type}</div>
-                        <div>{status}</div>
+                        <div>{id || jobId}</div>
+                        <div>{job_type || jobType }</div>
+                        <div>{status || jobStatus}</div>
                         </td>
                       </tr>
                     </tbody>
