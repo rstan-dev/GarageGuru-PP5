@@ -1,0 +1,28 @@
+.CardBlock {
+    padding-top: 25px;
+}
+
+i {
+    font-size: 1.5rem;
+    align-items: center;
+}
+
+th i {
+    padding-right: 5px;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
+.PencilIcon i {
+    color: #454545;
+    font-size: 2rem;
+    padding-bottom: 20px;
+
+}
+
+.InvoiceCardHeader {
+    font-size: 2rem;
+    font-weight: 400;
+}

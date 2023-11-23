@@ -49,7 +49,6 @@ const ChangeUsernameForm = () => {
       }, 1500);
       } catch (err) {
         console.log(err);
-        console.log(username)
         setErrors(err.response?.data);
 
       }

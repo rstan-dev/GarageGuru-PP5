@@ -8,7 +8,6 @@ import CommentSection from '../comments/CommentSection';
 import InfiniteScroll from "react-infinite-scroll-component";
 import Asset from '../../components/Asset';
 import { fetchMoreData } from '../../utils/utils';
-import axios from 'axios';
 
 function JobPage() {
     const { id } = useParams();
@@ -45,11 +44,6 @@ function JobPage() {
         }
         handleMount()
     }, [id, currentUser, history]);
-
-    console.log(comments)
-    console.log(commentsCount)
-    console.log("Invoice Data:", invoice.results)
-    console.log("Job Data:", job)
 
     return (
     <div>JobPage

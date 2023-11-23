@@ -18,13 +18,13 @@ import EditJobForm from './pages/jobs/EditJobForm';
 import AddInvoiceForm from './pages/invoices/AddInvoiceForm';
 import EditInvoiceForm from './pages/invoices/EditInvoiceForm';
 import { useCurrentUser } from "./contexts/CurrentUserContext";
+import InvoicePage from './pages/invoices/InvoicePage';
+import AllInvoicesPage from './pages/invoices/AllInvoicesPage';
 
 
 function App() {
   const currentUser = useCurrentUser();
   const currentUsername = currentUser?.username || "";
-
-  console.log(currentUsername)
 
   return (
 
@@ -94,8 +94,10 @@ function App() {
               <Route exact path="/profile/change-username" render={() => <ChangeUsernameForm />} />
               <Route exact path="/jobs/:id" render={() => <JobPage />} />
               <Route exact path="/jobs/:id/edit-job" render={() => <EditJobForm />} />
+              <Route exact path="/all-invoices" render={() => <AllInvoicesPage />} />
               <Route exact path="/invoices/addinvoice" render={() => <AddInvoiceForm />} />
               <Route exact path="/invoices/:id/edit-invoice" render={() => <EditInvoiceForm />} />
+              <Route exact path="/invoices/:id" render={() => <InvoicePage />} />
               <Route render={() => <PageNotFound />} />
           </Switch>
           </Container>

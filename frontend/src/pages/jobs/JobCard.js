@@ -32,15 +32,12 @@ const JobCard = (props) => {
       const {
         inv_id,
         inv_owner,
-        job_assigned_to,
-        job_id,
         customer_firstname,
         customer_lastname,
         customer_email,
         customer_phone,
-        inv_created_at,
-        inv_updated_at,
         inv_due_date,
+        inv_updated_at,
         amount,
         invoice_status,
       } = invoice_details || {};
@@ -64,8 +61,6 @@ const JobCard = (props) => {
           };
           getProfileUsername();
         }, [assigned_to]);
-
-
 
       return (
 
@@ -211,9 +206,7 @@ const JobCard = (props) => {
 
                   {/* Display Add and Edit Invoice Buttons if either invoice
                 owner or assigned user are logged in */}
-                  { ((!has_invoice && is_owner) ||
-                  (!has_invoice && (assigned_to === currentUser.pk)))
-                  ? (
+                  {  (!has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
                   <Link to={{
                     pathname: "/invoices/addinvoice",
                     state: { jobId: id }
@@ -222,14 +215,16 @@ const JobCard = (props) => {
                       Add Invoice
                     </Button>
                   </Link>
-                ) : (
-                  <Button variant="primary">
-                      View Invoice
+                ) : has_invoice ? (
+                  <Link to={`/invoices/${inv_id}/`}>
+                    <Button variant="primary">
+                        View Invoice
                     </Button>
-                )}
-                 {((has_invoice && is_owner) ||
-                (has_invoice && (assigned_to === currentUser.pk)))
-                ? (
+                  </Link>
+                ) : null
+                }
+
+                 {(has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
                 <div>
                   <Link to={`/invoices/${id}/edit-invoice`}>
                       <Button variant="primary">
@@ -274,11 +269,7 @@ const JobCard = (props) => {
                     <p>{comment_count}</p>
                 </Link>
 
-                {/* Display Add and Edit Invoice Buttons if either invoice
-                owner or assigned user are logged in */}
-                {((!has_invoice && is_owner) ||
-                (!has_invoice && (assigned_to === currentUser.pk)))
-                ? (
+                {  (!has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
                   <Link to={{
                     pathname: "/invoices/addinvoice",
                     state: { jobId: id }
@@ -287,14 +278,16 @@ const JobCard = (props) => {
                       Add Invoice
                     </Button>
                   </Link>
-                ) : (
-                  <Button variant="primary">
-                      View Invoice
+                ) : has_invoice ? (
+                  <Link to={`/invoices/${inv_id}/`}>
+                    <Button variant="primary">
+                        View Invoice
                     </Button>
-                )}
-                {((has_invoice && is_owner) ||
-                (has_invoice && (assigned_to === currentUser.pk)))
-                ? (
+                    </Link>
+                ) : null
+                }
+
+                 {(has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
                 <div>
                   <Link to={`/invoices/${id}/edit-invoice`}>
                       <Button variant="primary">

@@ -8,19 +8,14 @@ import Alert from 'react-bootstrap/Alert';
 
 import styles from '../../styles/AddEditInvoice.module.css'
 
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { useHistory, useLocation } from "react-router-dom";
 import axios from 'axios';
 import { axiosReq } from '../../api/axiosDefaults';
 
 function AddInvoiceForm() {
-    const currentUser = useCurrentUser();
-    const [users, setUsers] = useState([]);
     const location = useLocation();
     const jobId = parseInt(location.state?.jobId, 10);
     const [errors, setErrors] = useState({});
-
-    console.log(`Job Id: ${jobId}`)
 
     // initialize state of invoice data
     const [invoiceData, setInvoiceData] = useState({
@@ -34,7 +29,7 @@ function AddInvoiceForm() {
         invoice_status: 'Pending'
       });
 
-    const {job, customer_firstname, customer_lastname, customer_email,
+    const {customer_firstname, customer_lastname, customer_email,
             customer_phone, amount, due_date, invoice_status} = invoiceData
     const [successMessage, setSuccessMessage] = useState('');
     const successTimeoutRef = useRef();
@@ -95,13 +90,13 @@ function AddInvoiceForm() {
 
         const formData = new FormData();
 
-        formData.append('job', jobId)
+        formData.append('job_id', jobId)
         formData.append('customer_firstname', customer_firstname)
         formData.append('customer_lastname', customer_lastname)
         formData.append('customer_email', customer_email)
         formData.append('customer_phone', customer_phone)
         formData.append('amount', amount)
-        formData.append('due_date', due_date)
+        formData.append('inv_due_date', due_date)
         formData.append('invoice_status', invoice_status)
 
         try {
@@ -113,9 +108,7 @@ function AddInvoiceForm() {
                 }, 1500);
         } catch (err) {
             if (axios.isAxiosError(err) && err.response) {
-                console.log(err.response.data);
-                console.log(err.response.status);
-                console.log(err.response.headers);
+                console.log(err);
                 if (err.response.status !== 401) {
                     setErrors(err.response.data);
                 }

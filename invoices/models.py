@@ -12,7 +12,13 @@ class Invoice(models.Model):
     Invoice model, related to User and Job
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    job = models.OneToOneField(Job, related_name='invoice', on_delete=models.CASCADE)
+    job = models.OneToOneField(
+        Job,
+        related_name='invoice',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        )
     customer_firstname = models.CharField(max_length=200)
     customer_lastname = models.CharField(max_length=200)
     customer_email = models.EmailField(blank=True)

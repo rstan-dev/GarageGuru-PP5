@@ -77,7 +77,6 @@ const EditProfileForm = () => {
     if (imageFile?.current?.files[0]) {
       formData.append("image", imageFile?.current?.files[0]);
     }
-    console.log("FormData:", formData);
 
     try {
       const { data } = await axiosReq.put(`/profiles/${currentUserId}/`, formData);
@@ -86,7 +85,6 @@ const EditProfileForm = () => {
         profile_image: data.image,
       }));
       setSuccessMessage('Profile updated successfully');
-      console.log("FormData afterupate:", formData)
       setTimeout(() => {
         setSuccessMessage('');
         history.goBack();
@@ -96,7 +94,6 @@ const EditProfileForm = () => {
       setErrors(err.response?.data);
     }
   };
-
 
 return (
       <Container className={styles.EditProfileForm}>

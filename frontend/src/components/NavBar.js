@@ -46,6 +46,10 @@ const NavBar = () => {
             <i className="fa-solid fa-eye"></i>
             <span className={styles.Label}>Watching</span>
         </NavLink>
+        <NavLink to="/all-invoices" className={styles.NavLinks} >
+            <i className="fa-solid fa-cash-register"></i>
+            <span className={styles.Label}>Invoices</span>
+        </NavLink>
         <NavLink
             to="/login"
             className={styles.NavLinks}

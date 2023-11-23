@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { useHistory } from "react-router-dom";
+import { axiosReq } from '../../api/axiosDefaults';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import styles from '../../styles/AllJobsPage.module.css'
-import { axiosReq } from '../../api/axiosDefaults';
-import { useCurrentUser } from '../../contexts/CurrentUserContext';
-import JobCard from './JobCard';
+import styles from '../../styles/AllInvoicesPage.module.css'
+import InvoiceCard from './InvoiceCard';
 import Asset from '../../components/Asset';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from '../../utils/utils';
-import { useHistory } from "react-router-dom";
 
-function AllJobsPage({ message, filter = "" }) {
+function AllInvoicesPage() {
 
-    const [jobs, setJobs] = useState({ results: []});
-    const [hasLoaded, setHasLoaded] = useState(false);
-    const { pathname } = useLocation();
     const currentUser = useCurrentUser();
+    const [invoices, setInvoices] = useState({ results: []});
     const history = useHistory();
+    const [jobs, setJobs] = useState([]);
 
     const [statusCounts, setStatusCounts] = useState({
         Pending: 0,
-        Underway: 0,
-        Completed: 0,
+        Invoiced: 0,
+        Paid: 0,
     });
 
     const [query, setQuery] = useState ("");
-    const [orderingField, setOrderingField] = useState('-created_at');
+    const [orderingField, setOrderingField] = useState('-updated_at');
+    const [hasLoaded, setHasLoaded] = useState(false);
+
 
     useEffect(() => {
         if (!currentUser) {
@@ -39,11 +39,24 @@ function AllJobsPage({ message, filter = "" }) {
             return;
           }
 
+        const fetchInvoices = async () => {
+            try {
+                const {data} = await axiosReq.get(`/invoices/?search=${query}&ordering=${orderingField}`);
+                setInvoices(data);
+                setStatusCounts(data.invoice_status_counts);
+                setHasLoaded(true);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        setHasLoaded(false);
+        fetchInvoices();
+
         const fetchJobs = async () => {
             try {
-                const {data} = await axiosReq.get(`/jobs/?${filter}search=${query}&ordering=${orderingField}`);
-                setJobs(data);
-                setStatusCounts(data.status_counts);
+                const response = await axiosReq.get(`/jobs/`);
+                const jobsData = response.data.results;
+                setJobs(jobsData);
                 setHasLoaded(true);
             } catch (err) {
                 console.log(err);
@@ -52,8 +65,7 @@ function AllJobsPage({ message, filter = "" }) {
         setHasLoaded(false);
         fetchJobs();
 
-    }, [pathname, currentUser, filter, query, orderingField, history]);
-
+    }, [ currentUser, history, query, orderingField ]);
 
     const handleOrderBy = (field) => {
         // sets the ordering field state for created date, updated date
@@ -61,11 +73,14 @@ function AllJobsPage({ message, filter = "" }) {
         setOrderingField(field);
       };
 
-
     return (
-        <Container className={styles.JobCard}>
+    <>
+    <div>AllInvoicesPage</div>
+
+    <Container className={styles.InvoiceCard}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
                 <div className={styles.CardBlock}>
+
                     {
                     // Status Block //
                     }
@@ -88,13 +103,13 @@ function AllJobsPage({ message, filter = "" }) {
 
                         </div>
                         <div className="col-md-4"
-                            onClick={() => {setQuery("Underway")}}>
+                            onClick={() => {setQuery("Invoiced")}}>
                             <div className="card">
                                 <div className="card-body text-center">
-                                    <i className={`fa-solid fa-hourglass-half ${styles['UnderwayIcon']}`}></i>
-                                    <h2 className="card-title">Underway</h2>
-                                    {statusCounts.Underway ? (
-                                            <p className="card-text">{statusCounts.Underway}</p>
+                                    <i className={`fa-solid fa-hourglass-half ${styles['InvoicedIcon']}`}></i>
+                                    <h2 className="card-title">Invoiced</h2>
+                                    {statusCounts.Invoiced ? (
+                                            <p className="card-text">{statusCounts.Invoiced}</p>
                                         ) : (
                                             <p className="card-text">0</p>
                                         )}
@@ -102,13 +117,13 @@ function AllJobsPage({ message, filter = "" }) {
                             </div>
                         </div>
                         <div className="col-md-4"
-                            onClick={() => {setQuery("Completed")}}>
+                            onClick={() => {setQuery("Paid")}}>
                             <div className="card">
                                 <div className="card-body text-center">
-                                <i className={`fa-solid fa-flag-checkered ${styles['CompletedIcon']}`}></i>
-                                <h2 className="card-title">Completed</h2>
-                                    {statusCounts.Completed ? (
-                                        <p className="card-text">{statusCounts.Completed}</p>
+                                <i className={`fa-solid fa-flag-checkered ${styles['PaidIcon']}`}></i>
+                                <h2 className="card-title">Paid</h2>
+                                    {statusCounts.Paid ? (
+                                        <p className="card-text">{statusCounts.Paid}</p>
                                     ) : (
                                         <p className="card-text">0</p>
                                     )}
@@ -116,6 +131,11 @@ function AllJobsPage({ message, filter = "" }) {
                             </div>
                         </div>
                     </div>
+
+                    {
+                    // Order By Filter //
+                    }
+
                     <p className="text-md-end">Order by:</p>
                     <div className={`row ${styles.OrderBySection}`}>
 
@@ -128,8 +148,9 @@ function AllJobsPage({ message, filter = "" }) {
                         <div className="col-md-4">
                             <Button onClick={() => handleOrderBy('due_date')} variant="secondary">Due Date</Button>
                         </div>
-
                     </div>
+
+
                     {
                     // Search bar //
                     }
@@ -141,37 +162,59 @@ function AllJobsPage({ message, filter = "" }) {
                         <Form.Control
                         type="text"
                         className="mr-sm-2"
-                        placeholder="Search jobs"
+                        placeholder="Search invoices"
                         value={query}
                         onChange={(event) => setQuery(event.target.value)}
                         />
                     </Form>
-                    </div>
 
-                        {hasLoaded ? (
-                        <>
-                        { jobs?.results?.length ? (
-                            <InfiniteScroll
-                              children={
-                                jobs.results.map((job) => (
-                                    <JobCard key={job.id} {...job} setJobs={setJobs}/>
-                                ))
-                              }
-                              dataLength={jobs.results.length}
-                              loader={<Asset spinner />}
-                              hasMore={!!jobs.next}
-                              next={() => fetchMoreData(jobs, setJobs)}
-                            />
-                        ) : (
-                            <Asset icon={"fa-solid fa-clipboard-question"} message={"No Jobs to display"} />
-                        )}
-                        </>
-                        ) : (
-                            <Asset spinner message={"loading jobs"} />
-                        )}
-            </Col>
-        </Container>
+
+                    {
+                    // Invoice Cards //
+                    }
+
+                    {hasLoaded ? (
+                    <>
+                    { invoices.results?.length ? (
+                        <InfiniteScroll
+                        children={
+                            invoices.results.map((invoice) => {
+                                // Find the corresponding job for this invoice
+                                const relatedJob = jobs.find(job => job.id === invoice.job_id);
+
+                                return (
+                                    <InvoiceCard
+                                        key={invoice.id}
+                                        {...invoice}
+                                        jobId={relatedJob?.id}
+                                        jobType={relatedJob?.job_type}
+                                        jobStatus={relatedJob?.status}
+                                        setInvoices={setInvoices}
+                                    />
+                                );
+                                })
+                        }
+                        dataLength={invoices.results.length}
+                        loader={<Asset spinner />}
+                        hasMore={!!invoices.next}
+                        next={() => fetchMoreData(jobs, setJobs)}
+                        />
+                    ) : (
+                    <Asset
+                    icon={"fa-solid fa-clipboard-question"}
+                    message={"No Jobs to display"}
+                    />
+            )}
+                    </>
+                    ) : (
+                        <Asset spinner message={"loading jobs"} />
+                    )}
+
+                </div>
+                </Col>
+    </Container>
+    </>
   )
 }
 
-export default AllJobsPage
+export default AllInvoicesPage

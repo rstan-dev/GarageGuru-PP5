@@ -51,14 +51,14 @@ function AddJobForm() {
               assigned_to: currentUser.pk
             }));
           }
-        }, [currentUser]);
+        }, [currentUser, history]);
 
     // Get list of profiles to populate assigned_to dropdown
     useEffect(() => {
         const fetchProfiles = async () => {
             try {
                 const { data } = await axiosReq.get(`/profiles/`)
-                console.log(data)
+
                 setUsers(data.results);
             } catch(err) {
                 console.log(err)
@@ -151,9 +151,7 @@ function AddJobForm() {
             }, 1500);
     } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
-            console.log(err.response.data);
-            console.log(err.response.status);
-            console.log(err.response.headers);
+            console.log(err);
             if (err.response.status !== 401) {
                 setErrors(err.response.data);
             }
