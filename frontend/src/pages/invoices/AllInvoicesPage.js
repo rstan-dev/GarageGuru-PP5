@@ -11,6 +11,8 @@ import Button from 'react-bootstrap/Button';
 import styles from '../../styles/AllInvoicesPage.module.css'
 import InvoiceCard from './InvoiceCard';
 import Asset from '../../components/Asset';
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from '../../utils/utils';
 
 function AllInvoicesPage() {
 
@@ -27,6 +29,7 @@ function AllInvoicesPage() {
 
     const [query, setQuery] = useState ("");
     const [orderingField, setOrderingField] = useState('-updated_at');
+    const [hasLoaded, setHasLoaded] = useState(false);
 
 
     useEffect(() => {
@@ -41,10 +44,12 @@ function AllInvoicesPage() {
                 const {data} = await axiosReq.get(`/invoices/?search=${query}&ordering=${orderingField}`);
                 setInvoices(data);
                 setStatusCounts(data.invoice_status_counts);
+                setHasLoaded(true);
             } catch (err) {
                 console.log(err);
             }
         };
+        setHasLoaded(false);
         fetchInvoices();
 
         const fetchJobs = async () => {
@@ -53,10 +58,12 @@ function AllInvoicesPage() {
                 const jobsData = response.data.results;
                 console.log("Fetched jobs data:", jobsData);
                 setJobs(jobsData);
+                setHasLoaded(true);
             } catch (err) {
                 console.log(err);
             }
         };
+        setHasLoaded(false);
         fetchJobs();
 
     }, [ currentUser, history, query, orderingField ]);
@@ -78,7 +85,8 @@ function AllInvoicesPage() {
     <Container className={styles.InvoiceCard}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
                 <div className={styles.CardBlock}>
-                {
+
+                    {
                     // Status Block //
                     }
 
@@ -169,27 +177,42 @@ function AllInvoicesPage() {
                     {
                     // Invoice Cards //
                     }
-                    { invoices.results?.length ? (
-                        invoices.results.map((invoice) => {
-                            // Find the corresponding job for this invoice
-                            const relatedJob = jobs.find(job => job.id === invoice.job_id);
 
-                            return (
-                                <InvoiceCard
-                                    key={invoice.id}
-                                    {...invoice}
-                                    jobId={relatedJob?.id}
-                                    jobType={relatedJob?.job_type}
-                                    jobStatus={relatedJob?.status}
-                                    setInvoices={setInvoices}
-                            />
-                            );
-                            })
-                        ) : (
-                            <Asset
-                            icon={"fa-solid fa-clipboard-question"}
-                            message={"No Jobs to display"}
-                            />
+                    {hasLoaded ? (
+                    <>
+                    { invoices.results?.length ? (
+                        <InfiniteScroll
+                        children={
+                            invoices.results.map((invoice) => {
+                                // Find the corresponding job for this invoice
+                                const relatedJob = jobs.find(job => job.id === invoice.job_id);
+
+                                return (
+                                    <InvoiceCard
+                                        key={invoice.id}
+                                        {...invoice}
+                                        jobId={relatedJob?.id}
+                                        jobType={relatedJob?.job_type}
+                                        jobStatus={relatedJob?.status}
+                                        setInvoices={setInvoices}
+                                    />
+                                );
+                                })
+                        }
+                        dataLength={invoices.results.length}
+                        loader={<Asset spinner />}
+                        hasMore={!!invoices.next}
+                        next={() => fetchMoreData(jobs, setJobs)}
+                        />
+                    ) : (
+                    <Asset
+                    icon={"fa-solid fa-clipboard-question"}
+                    message={"No Jobs to display"}
+                    />
+            )}
+                    </>
+                    ) : (
+                        <Asset spinner message={"loading jobs"} />
                     )}
 
                 </div>
