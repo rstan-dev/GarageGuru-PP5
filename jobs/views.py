@@ -66,6 +66,12 @@ class JobList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = Job.objects.all().annotate(comment_count=Count('comments'))
+        watched_by = self.request.query_params.get('watched_by', None)
+
+        if watched_by is not None:
+            # Filter jobs based on whether they are being watched by a given user
+            queryset = queryset.filter(watch__owner__id=watched_by)
+
         # Apply the filters from the filter backends manually
         for backend in list(self.filter_backends):
             queryset = backend().filter_queryset(self.request, queryset, self)

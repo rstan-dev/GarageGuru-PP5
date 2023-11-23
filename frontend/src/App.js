@@ -84,7 +84,23 @@ function App() {
 
               <Route exact path="/jobs/addjob" render={() => <AddJobForm />} />
               <Route exact path="/assigned" render={() => <h1>Assigned Jobs</h1>} />
-              <Route exact path="/watched" render={() => <h1>Watched Jobs</h1>} />
+              <Route exact path="/watched"
+              render={() =>
+              <>
+              <h1>Viewing My Watched Jobs</h1>
+              {
+                currentUser ? (
+              < AllJobsPage message="No Jobs Found..."
+              filter={`watched_by=${currentUser.pk}&`}
+              />
+              ) : (
+                <div>Loading...</div>
+              )
+              }
+              </>
+              }
+              />
+
               <Route exact path="/login" render={() => <LoginForm />} />
               <Route exact path="/logout" render={() => <h1>Logout</h1>} />
               <Route exact path="/register" render={() => <RegisterForm />} />
