@@ -17,6 +17,14 @@ function AllInvoicesPage() {
     const history = useHistory();
     const [jobs, setJobs] = useState([]);
 
+    const [statusCounts, setStatusCounts] = useState({
+        Pending: 0,
+        Invoiced: 0,
+        Paid: 0,
+    });
+
+    const [query, setQuery] = useState ("");
+
 
     useEffect(() => {
         if (!currentUser) {
@@ -47,7 +55,7 @@ function AllInvoicesPage() {
         };
         fetchJobs();
 
-    }, [ currentUser, history ]);
+    }, [ currentUser, history, query ]);
 
     console.log(`Jobs Data results:`, jobs)
     console.log(`Invocies Data results:`, invoices.results)
@@ -60,6 +68,61 @@ function AllInvoicesPage() {
     <Container className={styles.InvoiceCard}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
                 <div className={styles.CardBlock}>
+                {
+                    // Status Block //
+                    }
+
+                    <p>Filter by:</p>
+                    <div className={`row ${styles['StatusBlock']}`}>
+                        <div className="col-md-4"
+                            onClick={() => {setQuery("Pending")}}>
+                            <div className="card">
+                                <div className="card-body text-center">
+                                    <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
+                                    <h2 className="card-title">Pending</h2>
+                                    {statusCounts.Pending ? (
+                                            <p className="card-text">{statusCounts.Pending}</p>
+                                        ) : (
+                                            <p className="card-text">0</p>
+                                        )}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="col-md-4"
+                            onClick={() => {setQuery("Invoiced")}}>
+                            <div className="card">
+                                <div className="card-body text-center">
+                                    <i className={`fa-solid fa-hourglass-half ${styles['InvoicedIcon']}`}></i>
+                                    <h2 className="card-title">Invoiced</h2>
+                                    {statusCounts.Invoiced ? (
+                                            <p className="card-text">{statusCounts.Invoiced}</p>
+                                        ) : (
+                                            <p className="card-text">0</p>
+                                        )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-4"
+                            onClick={() => {setQuery("Paid")}}>
+                            <div className="card">
+                                <div className="card-body text-center">
+                                <i className={`fa-solid fa-flag-checkered ${styles['PaidIcon']}`}></i>
+                                <h2 className="card-title">Paid</h2>
+                                    {statusCounts.Paid ? (
+                                        <p className="card-text">{statusCounts.Paid}</p>
+                                    ) : (
+                                        <p className="card-text">0</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {
+                    // Invoice Cards //
+                    }
                     { invoices.results?.length ? (
                         invoices.results.map((invoice) => {
                             // Find the corresponding job for this invoice

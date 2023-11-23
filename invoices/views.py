@@ -48,14 +48,15 @@ class InvoiceList(generics.ListCreateAPIView):
     ]
     search_fields = [
         'owner__username',
-        'job',
-        'assigned_to__username',
-        'invoice_status',
         'id',
         'customer_firstname',
         'customer_lastname',
         'customer_email',
         'cusotmer_phone',
+        'due_date',
+        'job__id',
+        'job__job_type'
+        'invoice_status',
     ]
     ordering_fields = [
         'created_at',

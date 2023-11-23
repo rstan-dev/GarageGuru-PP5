@@ -17,12 +17,12 @@
     font-size: 2rem;
 }
 
-.UnderwayIcon {
+.InvoicedIcon {
     color: orange;
     font-size: 2rem;
 }
 
-.CompletedIcon {
+.PaidIcon {
     color: green;
     font-size: 2rem;
 }
