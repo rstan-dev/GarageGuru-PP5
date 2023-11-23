@@ -5,6 +5,8 @@ import { axiosReq } from '../../api/axiosDefaults';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import styles from '../../styles/AllInvoicesPage.module.css'
 import InvoiceCard from './InvoiceCard';
@@ -24,6 +26,7 @@ function AllInvoicesPage() {
     });
 
     const [query, setQuery] = useState ("");
+    const [orderingField, setOrderingField] = useState('-updated_at');
 
 
     useEffect(() => {
@@ -35,7 +38,7 @@ function AllInvoicesPage() {
 
         const fetchInvoices = async () => {
             try {
-                const {data} = await axiosReq.get(`/invoices/?search=${query}`);
+                const {data} = await axiosReq.get(`/invoices/?search=${query}&ordering=${orderingField}`);
                 setInvoices(data);
                 setStatusCounts(data.invoice_status_counts);
             } catch (err) {
@@ -56,7 +59,13 @@ function AllInvoicesPage() {
         };
         fetchJobs();
 
-    }, [ currentUser, history, query ]);
+    }, [ currentUser, history, query, orderingField ]);
+
+    const handleOrderBy = (field) => {
+        // sets the ordering field state for created date, updated date
+        // and due date
+        setOrderingField(field);
+      };
 
     console.log(`Jobs Data results:`, jobs)
     console.log(`Invocies Data results:`, invoices.results)
@@ -119,6 +128,42 @@ function AllInvoicesPage() {
                             </div>
                         </div>
                     </div>
+
+                    {
+                    // Order By Filter //
+                    }
+
+                    <p className="text-md-end">Order by:</p>
+                    <div className={`row ${styles.OrderBySection}`}>
+
+                        <div className="col-md-4">
+                            <Button onClick={() => handleOrderBy('-created_at')} variant="secondary">Recently Created</Button>
+                        </div>
+                        <div className="col-md-4">
+                            <Button onClick={() => handleOrderBy('-updated_at')} variant="secondary">Recently Updated</Button>
+                        </div>
+                        <div className="col-md-4">
+                            <Button onClick={() => handleOrderBy('due_date')} variant="secondary">Due Date</Button>
+                        </div>
+                    </div>
+
+
+                    {
+                    // Search bar //
+                    }
+                    <i className={`fas fa-search ${styles.SearchIcon}`} />
+                    <Form
+                    className={styles.SearchBar}
+                    onSubmit={(event) => event.preventDefault()}
+                    >
+                        <Form.Control
+                        type="text"
+                        className="mr-sm-2"
+                        placeholder="Search invoices"
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
+                        />
+                    </Form>
 
 
                     {
