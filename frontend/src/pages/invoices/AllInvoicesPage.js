@@ -37,6 +37,7 @@ function AllInvoicesPage() {
             try {
                 const {data} = await axiosReq.get(`/invoices/`);
                 setInvoices(data);
+                setStatusCounts(data.invoice_status_counts);
             } catch (err) {
                 console.log(err);
             }
