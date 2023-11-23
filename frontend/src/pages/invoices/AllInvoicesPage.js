@@ -35,7 +35,7 @@ function AllInvoicesPage() {
 
         const fetchInvoices = async () => {
             try {
-                const {data} = await axiosReq.get(`/invoices/`);
+                const {data} = await axiosReq.get(`/invoices/?search=${query}`);
                 setInvoices(data);
                 setStatusCounts(data.invoice_status_counts);
             } catch (err) {

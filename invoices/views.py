@@ -52,10 +52,10 @@ class InvoiceList(generics.ListCreateAPIView):
         'customer_firstname',
         'customer_lastname',
         'customer_email',
-        'cusotmer_phone',
+        'customer_phone',
         'due_date',
         'job__id',
-        'job__job_type'
+        'job__job_type',
         'invoice_status',
     ]
     ordering_fields = [
