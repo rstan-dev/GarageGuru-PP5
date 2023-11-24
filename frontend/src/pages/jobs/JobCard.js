@@ -10,6 +10,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import styles from '../../styles/JobCard.module.css'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { axiosReq } from '../../api/axiosDefaults';
+import { axiosRes } from "../../api/axiosDefaults";
 
 const JobCard = (props) => {
 
@@ -26,7 +27,9 @@ const JobCard = (props) => {
         image,
         comment_count,
         has_invoice,
-        invoice_details
+        invoice_details,
+        watch_id,
+        setJobs,
       } = props;
 
       const {
@@ -61,6 +64,44 @@ const JobCard = (props) => {
           };
           getProfileUsername();
         }, [assigned_to]);
+
+        console.log(`Watch_id: ${watch_id}`)
+
+        const handleWatch = async () => {
+          try {
+            const { data } = await axiosRes.post("/watchers/", { job: id });
+            setJobs((prevJobs) => ({
+              ...prevJobs,
+              results: prevJobs.results.map((job) => {
+                return job.id === id
+                  ? { ...job, watch_id: data.id }
+                  : job;
+              }),
+            }));
+          } catch (err) {
+            // console.log(err);
+          }
+        };
+
+        const handleUnwatch = async () => {
+          try {
+            await axiosRes.delete(`/watchers/${watch_id}/`);
+            setJobs((prevJobs) => ({
+              ...prevJobs,
+              results: prevJobs.results.map((job) => {
+                return job.id === id
+                  ? { ...job, watch_id: null }
+                  : job;
+              }),
+            }));
+          } catch (err) {
+            // console.log(err);
+          }
+        };
+
+
+
+
 
       return (
 
@@ -198,7 +239,8 @@ const JobCard = (props) => {
                 {/* Job Image Placement */}
                 <Card.Img src={image} alt={job_type} />
 
-                <div className={styles.CommentEyes}>
+                {/* Comment Bubble Icon */}
+                <div className={styles.CommentBubble}>
                   <Link to={`/jobs/${id}`}>
                     <i className="fa-regular fa-comment"></i>
                     <p>{comment_count}</p>
@@ -236,9 +278,25 @@ const JobCard = (props) => {
                   null
                 )}
 
-                  <div>
+              {/* Watching Icon */}
+                  { watch_id ? (
+                  <div
+                  className={`${styles.EyeWatched }`}
+                  onClick={handleUnwatch}
+                  >
                     <i className="fa-regular fa-eye"></i>
                   </div>
+                  ) : (
+                    <div
+                  className={`${styles.EyeUnwatched}`}
+                  onClick={handleWatch}
+                  >
+                    <i className="fa-regular fa-eye"></i>
+                  </div>
+
+                  )}
+
+
                 </div>
               </div>
 
@@ -263,7 +321,7 @@ const JobCard = (props) => {
                 {/* Job Image Placement */}
                 <Card.Img src={image} alt={job_type} />
 
-                <div className={styles.CommentEyes}>
+                <div className={styles.CommentBubble}>
                 <Link to={`/jobs/${id}`}>
                     <i className="fa-regular fa-comment"></i>
                     <p>{comment_count}</p>
@@ -299,12 +357,27 @@ const JobCard = (props) => {
                   null
                 )}
 
-                <div>
+                {/* Watching Icon */}
+                { watch_id ? (
+                  <div
+                  className={`${styles.EyeWatched }`}
+                  onClick={handleUnwatch}
+                  >
                     <i className="fa-regular fa-eye"></i>
                   </div>
+                  ) : (
+                    <div
+                  className={`${styles.EyeUnwatched}`}
+                  onClick={handleWatch}
+                  >
+                    <i className="fa-regular fa-eye"></i>
+                  </div>
+
+                  )}
+
+
                 </div>
               </div>
-
               </div>
             </div>
           </div>

@@ -20,10 +20,28 @@ th i {
     color: #004AAD;
 }
 
-.CommentEyes i {
+.CommentBubble i {
     padding: 10px;
     padding-top: 50px;
     font-size: 2rem;
+}
+
+.Eye i {
+    padding: 10px;
+    padding-top: 50px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.EyeUnwatched i {
+    color: grey;
+    cursor: pointer;
+}
+
+.EyeWatched i {
+    color: green;
+    cursor: pointer;
+
 }
 
 h2 {
@@ -45,3 +63,4 @@ p {
     font-size: 2rem;
     font-weight: 400;
 }
+
