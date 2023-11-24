@@ -30,6 +30,7 @@ const JobCard = (props) => {
         invoice_details,
         watch_id,
         setJobs,
+        jobs,
       } = props;
 
       const {
@@ -85,19 +86,18 @@ const JobCard = (props) => {
 
         const handleUnwatch = async () => {
           try {
-            await axiosRes.delete(`/watchers/${watch_id}/`);
-            setJobs((prevJobs) => ({
-              ...prevJobs,
-              results: prevJobs.results.map((job) => {
-                return job.id === id
-                  ? { ...job, watch_id: null }
-                  : job;
-              }),
-            }));
+              setJobs(prevJobs => ({
+                  ...prevJobs,
+                  results: prevJobs.results.filter(job => job.id !== id)
+              }));
+
+              await axiosRes.delete(`/watchers/${watch_id}/`);
+              // No need to refetch, UI already updated
           } catch (err) {
-            // console.log(err);
+              console.log(err);
+              setJobs(jobs); // Revert state on error
           }
-        };
+      };
 
 
 

@@ -154,7 +154,7 @@ function AllJobsPage({ message, filter = "" }) {
                             <InfiniteScroll
                               children={
                                 jobs.results.map((job) => (
-                                    <JobCard key={job.id} {...job} setJobs={setJobs}/>
+                                    <JobCard key={job.id} {...job} setJobs={setJobs} jobs={jobs}/>
                                 ))
                               }
                               dataLength={jobs.results.length}
