@@ -54,6 +54,15 @@ function AllJobsPage({ message, filter = "" }) {
 
     }, [pathname, currentUser, filter, query, orderingField, history]);
 
+    const refetchJobsAndCounts = async () => {
+        try {
+            const { data } = await axiosReq.get(`/jobs/?${filter}search=${query}&ordering=${orderingField}`);
+            setJobs(data);
+            setStatusCounts(data.status_counts);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const handleOrderBy = (field) => {
         // sets the ordering field state for created date, updated date
@@ -154,7 +163,11 @@ function AllJobsPage({ message, filter = "" }) {
                             <InfiniteScroll
                               children={
                                 jobs.results.map((job) => (
-                                    <JobCard key={job.id} {...job} setJobs={setJobs}/>
+                                    <JobCard
+                                    key={job.id} {...job}
+                                    setJobs={setJobs}
+                                    jobs={jobs}
+                                    onUnwatch={refetchJobsAndCounts}/>
                                 ))
                               }
                               dataLength={jobs.results.length}

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Job
 from invoices.serializers import InvoiceSerializer
+from watchers.models import Watch
 
 
 class JobSerializer(serializers.ModelSerializer):
@@ -14,12 +15,15 @@ class JobSerializer(serializers.ModelSerializer):
 
     get_is_owner method checks if the user making the request is the owner of
     the profile.
+
+    get_watch_id retreives the associated watch id for the job.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     has_invoice = serializers.SerializerMethodField()
     comment_count = serializers.IntegerField(read_only=True)
     invoice_details = serializers.SerializerMethodField()
+    watch_id = serializers.SerializerMethodField()
 
     assigned_to = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(),
@@ -62,11 +66,21 @@ class JobSerializer(serializers.ModelSerializer):
             return InvoiceSerializer(invoice).data
         return None
 
+    def get_watch_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            watch = Watch.objects.filter(
+                owner=user, job=obj).first()
+            return watch.id if watch else None
+        else:
+            return None
+
     class Meta:
         model = Job
         fields = [
             'id', 'owner', 'assigned_to', 'job_type',
             'job_details', 'status', 'created_at', 'updated_at',
             'image', 'is_owner', 'image_filter', 'due_date', 'has_invoice',
-            'comment_count', 'invoice_details',
+            'comment_count', 'invoice_details', 'watch_id'
         ]
+
