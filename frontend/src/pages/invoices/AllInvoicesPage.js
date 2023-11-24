@@ -184,7 +184,7 @@ function AllInvoicesPage() {
 
                                 return (
                                     <InvoiceCard
-                                        key={invoice.id}
+                                        key={invoice.inv_id}
                                         {...invoice}
                                         jobId={relatedJob?.id}
                                         jobType={relatedJob?.job_type}

@@ -56,18 +56,17 @@ const JobCard = (props) => {
       // Assigned To user in JobCard
       useEffect(() => {
         const getProfileUsername = async () => {
-          try {
-            await axiosReq.get(`/profiles/${assigned_to}/`).then((response) => {
-              setAssignedUsername(response.data.owner)
-              });
+          if (assigned_to) {
+            try {
+              const response = await axiosReq.get(`/profiles/${assigned_to}/`);
+              setAssignedUsername(response.data.owner);
             } catch (error) {
               console.log(error);
             }
-          };
-          getProfileUsername();
-        }, [assigned_to]);
-
-        console.log(`Watch_id: ${watch_id}`)
+          }
+        };
+        getProfileUsername();
+      }, [assigned_to]);
 
         const handleWatch = async () => {
           try {
@@ -101,10 +100,6 @@ const JobCard = (props) => {
               setJobs(jobs);
           }
       };
-
-
-
-
 
       return (
 

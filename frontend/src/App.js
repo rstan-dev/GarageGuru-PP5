@@ -83,7 +83,6 @@ function App() {
               />
 
               <Route exact path="/jobs/addjob" render={() => <AddJobForm />} />
-              <Route exact path="/assigned" render={() => <h1>Assigned Jobs</h1>} />
               <Route exact path="/watched"
               render={() =>
               <>

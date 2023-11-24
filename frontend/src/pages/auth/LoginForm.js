@@ -54,6 +54,8 @@ function LoginForm() {
         <Container className={styles.LoginRegisterForm}>
             <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
                 <h1> Log In</h1>
+                <p>Welcome to GarageGuru, the dynamic job card management app.</p>
+                <p>Please login to manage, monitor, and assign jobs effortlessly, ensuring smooth operations in your service center."</p>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="username">
                         <Form.Label>Username</Form.Label>
