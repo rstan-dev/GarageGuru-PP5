@@ -31,6 +31,7 @@ const JobCard = (props) => {
         watch_id,
         setJobs,
         jobs,
+        onUnwatch,
       } = props;
 
       const {
@@ -93,6 +94,7 @@ const JobCard = (props) => {
               }));
 
               await axiosRes.delete(`/watchers/${watch_id}/`);
+              onUnwatch();
           } catch (err) {
               console.log(err);
               // reverts the state if there is an error
