@@ -85,6 +85,7 @@ const JobCard = (props) => {
         };
 
         const handleUnwatch = async () => {
+          // Updates the UI by removing the unwatched job before calling axiosRes.delete
           try {
               setJobs(prevJobs => ({
                   ...prevJobs,
@@ -92,10 +93,10 @@ const JobCard = (props) => {
               }));
 
               await axiosRes.delete(`/watchers/${watch_id}/`);
-              // No need to refetch, UI already updated
           } catch (err) {
               console.log(err);
-              setJobs(jobs); // Revert state on error
+              // reverts the state if there is an error
+              setJobs(jobs);
           }
       };
 
