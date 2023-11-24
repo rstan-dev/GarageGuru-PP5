@@ -5,7 +5,7 @@ from django.http import Http404
 from .models import Job
 from .serializers import JobSerializer
 from drf_api.permissions import IsOwnerOrReadOnly
-from django.db.models import Count
+from django.db.models import Count, Subquery, OuterRef
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -14,15 +14,9 @@ class CustomPagination(PageNumberPagination):
     """
     View to add a count of all status types to pagination data
     """
-    def get_paginated_response(self, data):
-        # Gets the total counts for each status according to filter set
-        request = self.request
-        filtered_queryset = request.filtered_queryset if hasattr(request, 'filtered_queryset') else Job.objects.all()
-        status_counts = filtered_queryset.values('status').annotate(total=Count('status')).order_by()
-        status_counts_dict = {item['status']: item['total'] for item in status_counts}
-
+    def get_paginated_response(self, data, status_counts=None):
         return Response({
-            'status_counts': status_counts_dict,  # Include the counts
+            'status_counts': status_counts or {},
             'count': self.page.paginator.count,
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
@@ -64,13 +58,37 @@ class JobList(generics.ListCreateAPIView):
         'assigned_to__username',
     ]
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            status_counts = self.calculate_status_counts(queryset)
+            return self.paginator.get_paginated_response(serializer.data, status_counts=status_counts)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def calculate_status_counts(self, queryset):
+        # First, get a distinct set of job IDs from the filtered queryset
+        distinct_jobs = queryset.values('id').distinct()
+
+        # Then, count the statuses within this distinct set
+        status_counts = Job.objects.filter(
+            id__in=Subquery(distinct_jobs.values('id'))
+        ).values('status').annotate(total=Count('status')).order_by()
+
+        return {item['status']: item['total'] for item in status_counts}
+
     def get_queryset(self):
-        queryset = Job.objects.all().annotate(comment_count=Count('comments'))
+        queryset = Job.objects.all().annotate(comment_count=Count('comments')).order_by('-created_at')
+        print("Queryset after filtering:", queryset.query)
         watched_by = self.request.query_params.get('watched_by', None)
 
         if watched_by is not None:
             # Filter jobs based on whether they are being watched by a given user
-            queryset = queryset.filter(watch__owner__id=watched_by)
+            queryset = queryset.filter(watch__owner__id=watched_by).distinct()
 
         # Apply the filters from the filter backends manually
         for backend in list(self.filter_backends):
