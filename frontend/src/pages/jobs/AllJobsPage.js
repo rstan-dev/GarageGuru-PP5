@@ -31,6 +31,7 @@ function AllJobsPage({ message, filter = "" }) {
 
     const [query, setQuery] = useState ("");
     const [orderingField, setOrderingField] = useState('-created_at');
+    const [selectedStatus, setSelectedStatus] = useState(null);
 
     useEffect(() => {
         if (!currentUser) {
@@ -82,8 +83,8 @@ function AllJobsPage({ message, filter = "" }) {
                     <p>Filter by:</p>
                     <div className={`row ${styles['StatusBlock']}`}>
                         <div className="col-md-4"
-                            onClick={() => {setQuery("Pending")}}>
-                            <div className="card">
+                            onClick={() => {setQuery("Pending"); setSelectedStatus("Pending");}}>
+                            <div className={`card ${styles.CardPointer} ${selectedStatus === 'Pending' ? styles['PendingBorder'] : ''}`}>
                                 <div className="card-body text-center">
                                     <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
                                     <h2 className="card-title">Pending</h2>
@@ -97,8 +98,8 @@ function AllJobsPage({ message, filter = "" }) {
 
                         </div>
                         <div className="col-md-4"
-                            onClick={() => {setQuery("Underway")}}>
-                            <div className="card">
+                            onClick={() => {setQuery("Underway"); setSelectedStatus("Underway");}}>
+                            <div className={`card ${styles.CardPointer} ${selectedStatus === 'Underway' ? styles['UnderwayBorder'] : ''}`}>
                                 <div className="card-body text-center">
                                     <i className={`fa-solid fa-hourglass-half ${styles['UnderwayIcon']}`}></i>
                                     <h2 className="card-title">Underway</h2>
@@ -111,8 +112,8 @@ function AllJobsPage({ message, filter = "" }) {
                             </div>
                         </div>
                         <div className="col-md-4"
-                            onClick={() => {setQuery("Completed")}}>
-                            <div className="card">
+                            onClick={() => {setQuery("Completed"); setSelectedStatus("Completed");}}>
+                            <div className={`card ${styles.CardPointer} ${selectedStatus === 'Completed' ? styles['CompletedBorder'] : ''}`}>
                                 <div className="card-body text-center">
                                 <i className={`fa-solid fa-flag-checkered ${styles['CompletedIcon']}`}></i>
                                 <h2 className="card-title">Completed</h2>

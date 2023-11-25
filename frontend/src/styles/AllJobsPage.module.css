@@ -9,7 +9,10 @@
 /* Status block styles */
 .StatusBlock {
     padding-bottom: 25px;
+}
 
+.CardPointer {
+    cursor: pointer;
 }
 
 .PendingIcon {
@@ -25,6 +28,18 @@
 .CompletedIcon {
     color: green;
     font-size: 2rem;
+}
+
+.PendingBorder {
+    border-color: red;
+}
+
+.UnderwayBorder {
+    border-color: orange;
+}
+
+.CompletedBorder {
+    border-color: green;
 }
 
 /* Search Bar styles */
