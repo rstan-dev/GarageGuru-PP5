@@ -34,13 +34,8 @@ const JobCard = (props) => {
 
       const {
         inv_id,
-        inv_owner,
         customer_firstname,
         customer_lastname,
-        customer_email,
-        customer_phone,
-        inv_due_date,
-        inv_updated_at,
         amount,
         invoice_status,
       } = invoice_details || {};
@@ -124,37 +119,43 @@ const JobCard = (props) => {
       );
 
       // Reusable component for Displaying View or Edit Invoice Button
-      const DispalyEditInvoiceButton = () => (
+      const DisplayEditViewInvoiceButton = () => (
         <>
-        {  (!has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
-          <Link to={{
-            pathname: "/invoices/addinvoice",
-            state: { jobId: id }
-          }}>
-            <Button variant="primary">
-              Add Invoice
-            </Button>
-          </Link>
-        ) : has_invoice ? (
-          <Link to={`/invoices/${inv_id}/`}>
-            <Button variant="primary">
-                View Invoice
-            </Button>
-          </Link>
-        ) : null
-        }
+        {has_invoice ? (
+      <div className={styles.InvoiceButtonContainer}>
+        <Link to={`/invoices/${inv_id}/`}>
+          <Button variant="primary">
+            View Full Invoice
+          </Button>
+        </Link>
 
-         {(has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
-        <div>
+        {(is_owner || assigned_to === currentUser.pk) && (
           <Link to={`/invoices/${id}/edit-invoice`}>
-              <Button variant="primary">
-                Edit Invoice
-              </Button>
+            <Button variant="primary">
+              Edit Invoice
+            </Button>
           </Link>
-        </div>
-        ) : (
-          null
         )}
+      </div>
+    ) : (
+      null
+    )}
+        </>
+      );
+
+      // Reusable component for Displaying Add Invoice Button
+      const DisplayAddInvoiceButton = () => (
+        <>
+        {(!has_invoice && (is_owner || assigned_to === currentUser.pk)) && (
+        <Link to={{
+          pathname: "/invoices/addinvoice",
+          state: { jobId: id }
+        }}>
+          <Button variant="primary">
+            Add Invoice
+          </Button>
+        </Link>
+      )}
         </>
       );
 
@@ -231,20 +232,16 @@ const JobCard = (props) => {
                   <Accordion defaultActiveKey="1">
                     <Card>
                       <Card.Header>
-                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        {has_invoice  ? (
-                          <div>
-                        Click To View Invoice Details:
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                            {has_invoice ? "Click To View Invoice Summary" : <span className={styles.NoInvoiceLink}>No Invoice Details To Display</span>}
+                          </Accordion.Toggle>
+                          <DisplayAddInvoiceButton />
                         </div>
-                        ) : (
-                          <div>
-                          No Invoice Details To Display
-                          </div>
-                        )}
-                        </Accordion.Toggle>
-                        </Card.Header>
+                      </Card.Header>
                         <Accordion.Collapse eventKey="0">
                           <Card.Body>
+                          <DisplayEditViewInvoiceButton />
                           <table className="table table-striped">
                             <tbody>
                               <tr>
@@ -256,32 +253,12 @@ const JobCard = (props) => {
                                 <td>{customer_firstname} {" "} {customer_lastname}</td>
                               </tr>
                               <tr>
-                                <th>Email:</th>
-                                <td>{customer_email}</td>
-                              </tr>
-                              <tr>
-                                <th>Phone:</th>
-                                <td>{customer_phone}</td>
-                              </tr>
-                              <tr>
                                 <th>Amount:</th>
                                 <td>£{amount}</td>
                               </tr>
                               <tr>
-                                <th>Invoice Due:</th>
-                                <td>{inv_due_date}</td>
-                              </tr>
-                              <tr>
-                                <th>Invoice Staus:</th>
+                                <th>Invoice Status:</th>
                                 <td>{invoice_status}</td>
-                              </tr>
-                              <tr>
-                                <th>Updated on:</th>
-                                <td>{inv_updated_at}</td>
-                              </tr>
-                              <tr>
-                                <th>Created by:</th>
-                                <td>{inv_owner}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -297,14 +274,13 @@ const JobCard = (props) => {
                   {is_owner && <EditJobCardLink />}
                   <JobImage />
                   <CommentBubble />
-                  <DispalyEditInvoiceButton />
+
                   <DisplayWatchIcon />
                 </div>
 
                 {/* Mobile Display */}
                 <div className="col-12 d-md-none mt-3 text-center">
                     {is_owner && <EditJobCardLink />}
-                    <DispalyEditInvoiceButton />
                     <CommentBubble />
                     <DisplayWatchIcon />
                     <JobImage />

@@ -93,3 +93,18 @@ p {
     opacity: 1;
     visibility: visible;
 }
+
+.NoInvoiceLink {
+    color: #454545;
+    cursor: default;
+}
+
+.DisplayAddEditViewInvoice {
+    margin-left: 10px;
+}
+
+.InvoiceButtonContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
