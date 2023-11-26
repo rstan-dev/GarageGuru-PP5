@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link  } from "react-router-dom";
 
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip'
 import Button from 'react-bootstrap/Button';
 
 import styles from '../../styles/InvoiceCard.module.css'
@@ -112,19 +110,10 @@ const InvoiceCard = (props) => {
                 <div className="col-md-4 d-none d-md-block text-center">
                     { (is_owner || job_assigned_to === currentUser) ? (
                       <div className="text-right">
-                        <Link to={`/invoices/${id}/edit-invoice`}>
-                          <OverlayTrigger
-                            transition={false}
-                            placement="top"
-                            overlay={
-                              <Tooltip id="tooltip-pencil">
-                                Edit Invoice
-                              </Tooltip>
-                            }>
+                        <Link to={`/invoices/${id}/edit-invoice`} data-tooltip="Edit Invoice">
                             <span className={styles.PencilIcon}>
                             <i className="fa-solid fa-pencil"></i>
                             </span>
-                          </OverlayTrigger>
                         </Link>
                       </div>
                     ) : null
