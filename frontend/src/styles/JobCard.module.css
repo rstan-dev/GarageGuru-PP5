@@ -21,26 +21,25 @@ th i {
 }
 
 .CommentBubble i {
-    padding: 10px;
-    padding-top: 50px;
     font-size: 2rem;
+    margin-right: 5px;
 }
 
 .Eye i {
-    padding: 10px;
-    padding-top: 50px;
-    font-size: 2rem;
+    font-size: 3rem;
     cursor: pointer;
 }
 
 .EyeUnwatched i {
     color: grey;
     cursor: pointer;
+    font-size: 2rem;
 }
 
 .EyeWatched i {
     color: green;
     cursor: pointer;
+    font-size: 2rem;
 
 }
 
@@ -60,7 +59,7 @@ p {
 }
 
 .JobCardHeader {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 400;
 }
 
@@ -107,4 +106,12 @@ p {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+}
+
+.CommentWatchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
 }

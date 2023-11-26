@@ -113,7 +113,7 @@ const JobCard = (props) => {
         <div className={styles.CommentBubble}>
           <Link to={`/jobs/${id}`}>
             <i className="fa-regular fa-comment"></i>
-            <p>{comment_count}</p>
+            <span>{comment_count} commenting</span>
           </Link>
         </div>
       );
@@ -185,7 +185,10 @@ const JobCard = (props) => {
         <div className={styles.CardBlock}>
           <div className="card">
             <div className="card-body">
-            <p className={styles.JobCardHeader}>JOBCARD</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <p className={styles.JobCardHeader}>JOBCARD</p>
+                {is_owner && <EditJobCardLink />}
+              </div>
               <div className="row">
                 <div className="col-md-8">
                   <table className="table table-striped">
@@ -228,6 +231,10 @@ const JobCard = (props) => {
                       </tr>
                     </tbody>
                   </table>
+                  <div className={styles.CommentWatchContainer}>
+                  <CommentBubble />
+                  <DisplayWatchIcon />
+                  </div>
 
                   <Accordion defaultActiveKey="1">
                     <Card>
@@ -271,18 +278,11 @@ const JobCard = (props) => {
 
                 {/* Desktop Display */}
                 <div className="col-md-4 d-none d-md-block text-center">
-                  {is_owner && <EditJobCardLink />}
                   <JobImage />
-                  <CommentBubble />
-
-                  <DisplayWatchIcon />
                 </div>
 
                 {/* Mobile Display */}
                 <div className="col-12 d-md-none mt-3 text-center">
-                    {is_owner && <EditJobCardLink />}
-                    <CommentBubble />
-                    <DisplayWatchIcon />
                     <JobImage />
                 </div>
               </div>
