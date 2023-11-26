@@ -114,6 +114,7 @@ const InvoiceCard = (props) => {
                       <div className="text-right">
                         <Link to={`/invoices/${id}/edit-invoice`}>
                           <OverlayTrigger
+                            transition={false}
                             placement="top"
                             overlay={
                               <Tooltip id="tooltip-pencil">
