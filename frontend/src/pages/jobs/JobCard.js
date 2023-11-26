@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import { Link  } from "react-router-dom";
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
@@ -104,16 +102,10 @@ const JobCard = (props) => {
       // Reusable component for EditJobCard
       const EditJobCardLink = () => (
         <div className="text-right">
-          <Link to={`/jobs/${id}/edit-job`} >
-            <OverlayTrigger
-              transition={false}
-              placement="top"
-              overlay={<Tooltip id="tooltip-pencil">Edit JobCard</Tooltip>}
-            >
-              <span className={styles.PencilIcon}>
-                <i className="fa-solid fa-pencil"></i>
-              </span>
-            </OverlayTrigger>
+          <Link to={`/jobs/${id}/edit-job`} data-tooltip="Edit JobCard">
+            <span className={styles.PencilIcon}>
+              <i className="fa-solid fa-pencil"></i>
+            </span>
           </Link>
         </div>
       );
