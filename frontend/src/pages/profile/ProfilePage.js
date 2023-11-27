@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -13,10 +13,10 @@ const ProfilePage = () => {
     const currentUser = useCurrentUser();
     const currentUserId = currentUser?currentUser.pk : null;
     const history = useHistory();
+    const {id} = useParams();
 
 
     const [profileData, setProfileData] = useState({
-      id: '',
       name: '',
       bio: '',
       image: '',
@@ -24,7 +24,7 @@ const ProfilePage = () => {
       is_owner: false,
     })
 
-    const { id, name, bio, image, created_at, is_owner } = profileData;
+    const { name, bio, image, created_at, is_owner } = profileData;
 
     useEffect(() => {
       if (!currentUser) {
@@ -35,7 +35,7 @@ const ProfilePage = () => {
 
       const fetchProfileData = async () => {
         try {
-          const { data } = await axiosReq.get(`/profiles/${currentUserId}/`);
+          const { data } = await axiosReq.get(`/profiles/${id}/`);
           setProfileData(data);
         } catch (error) {
           console.log(error);
@@ -43,7 +43,7 @@ const ProfilePage = () => {
       };
 
       fetchProfileData();
-    }, [currentUserId, currentUser, history]);
+    }, [currentUserId, currentUser, history, id]);
 
     return (
          <Container>

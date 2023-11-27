@@ -11,6 +11,7 @@ import { removeTokenTimestamp } from '../utils/utils';
 const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
+    const currentUserId = currentUser?currentUser.pk : null;
 
     const { expanded, setExpanded, ref } = useToggleMenu();
 
@@ -71,7 +72,7 @@ const NavBar = () => {
             <i className="fa-solid fa-power-off"></i>
             <span className={styles.Label}>Logout</span>
         </NavLink>
-        <NavLink to="/profile"
+        <NavLink to={`/profile/${currentUserId}`}
         className={styles.NavLinks}
         activeClassName={styles.Active}>
             <i className="fa-solid fa-circle-user"></i>
