@@ -36,9 +36,10 @@ th i {
     color: grey;
 }
 
-.Eye i {
-    font-size: 3rem;
+.EyeUnwatched i:hover {
+    font-size: 2.25rem;
     cursor: pointer;
+    color: green;
 }
 
 .EyeUnwatched i {
@@ -51,7 +52,6 @@ th i {
     color: green;
     cursor: pointer;
     font-size: 2rem;
-
 }
 
 h2 {
