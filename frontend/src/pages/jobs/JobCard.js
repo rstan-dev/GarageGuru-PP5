@@ -142,7 +142,7 @@ const JobCard = (props) => {
         </Link>
 
         {(is_owner || assigned_to === currentUser.pk) && (
-          <Link to={`/invoices/${id}/edit-invoice`}>
+          <Link to={`/invoices/${inv_id}/edit-invoice`}>
             <Button variant="primary">
               Edit Invoice
             </Button>
