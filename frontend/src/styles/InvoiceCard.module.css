@@ -56,3 +56,9 @@ p {
     opacity: 1;
     visibility: visible;
 }
+
+.JobButtonContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}

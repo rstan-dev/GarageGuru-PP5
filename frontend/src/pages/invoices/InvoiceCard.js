@@ -2,6 +2,8 @@ import React from 'react'
 import { Link  } from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
 
 import styles from '../../styles/InvoiceCard.module.css'
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
@@ -33,11 +35,35 @@ const InvoiceCard = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === inv_owner;
 
+  // Reusable component for EditInvoiceCard
+  const EditInvoiceCardLink = () => (
+    <div className="text-right">
+      <Link to={`/invoices/${inv_id}/edit-invoice`} data-tooltip="Edit Invoice">
+        <span className={styles.PencilIcon}>
+          <i className="fa-solid fa-pencil"></i>
+        </span>
+      </Link>
+    </div>
+  );
+
+  // Reusable component to display View Job button
+  const DisplayViewJobButton = () => (
+
+    <div className={styles.JobButtonContainer}>
+    <Link to={`/jobs/${id || jobId}`}>
+      <Button variant="primary">View Job</Button>
+    </Link>
+    </div>
+  )
+
   return (
     <div className={styles.CardBlock}>
       <div className="card">
         <div className="card-body">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <p className={styles.InvoiceCardHeader}>INVOICE CARD</p>
+          { (is_owner || job_assigned_to === currentUser) && <EditInvoiceCardLink />}
+        </div>
             <div className="row">
               <div className="col-md-8">
                 <table className="table table-striped">
@@ -90,53 +116,50 @@ const InvoiceCard = (props) => {
                           </Link>
                           </td>
                       </tr>
+                      </tbody>
+                      </table>
+
+                      <Accordion defaultActiveKey="1">
+                    <Card>
+                      <Card.Header>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                            Click To View Job Summary
+                          </Accordion.Toggle>
+                        </div>
+                      </Card.Header>
+
+                      <Accordion.Collapse eventKey="0">
+                      <Card.Body>
+                      <DisplayViewJobButton />
+
+                      <table className="table table-striped">
+                      <tbody>
                       <tr>
-                        <th>
-                          Job Details:
-                          <Link to={`/jobs/${id || jobId}`}>
-                          <Button variant="primary">View Job</Button>
-                          </Link>
-                        </th>
+                        <th>Job No:</th>
+                        <td>{id || jobId}</td>
                       </tr>
                       <tr>
-                        <th>
-                          <div>
-                            Job No:
-                          </div>
-                          <div>
-                            Job Type:
-                          </div>
-                          <div>
-                            Job Status:
-                          </div>
-                        </th>
-                        <td>
-                        <div>{id || jobId}</div>
-                        <div>{job_type || jobType }</div>
-                        <div>{status || jobStatus}</div>
-                        </td>
+                        <th>Job Type:</th>
+                        <td>{job_type || jobType }</td>
+                      </tr>
+                      <tr>
+                        <th>Job Status:</th>
+                        <td>{status || jobStatus}</td>
                       </tr>
                     </tbody>
                   </table>
+                  </Card.Body>
+                  </Accordion.Collapse>
+                  </Card>
+                  </Accordion>
+
                 </div>
 
-                {/* Desktop Display */}
-                <div className="col-md-4 d-none d-md-block text-center">
-                    { (is_owner || job_assigned_to === currentUser) ? (
-                      <div className="text-right">
-                        <Link to={`/invoices/${id}/edit-invoice`} data-tooltip="Edit Invoice">
-                            <span className={styles.PencilIcon}>
-                            <i className="fa-solid fa-pencil"></i>
-                            </span>
-                        </Link>
-                      </div>
-                    ) : null
-                    }
-                  </div>
+              </div>
            </div>
           </div>
         </div>
-      </div>
   )
 }
 
