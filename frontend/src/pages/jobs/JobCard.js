@@ -219,9 +219,11 @@ const JobCard = (props) => {
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-user"></i>Created By:</th>
-                        <Link to={`/profile/${owner_id}`}>
-                          <td>{owner}</td>
-                        </Link>
+                          <td>
+                            <Link to={`/profile/${owner_id}`}>
+                            {owner}
+                            </Link>
+                          </td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-calendar-days"></i>Created on:</th>
@@ -237,9 +239,11 @@ const JobCard = (props) => {
                       </tr>
                       <tr>
                         <th><i className="fa-regular fa-id-badge"></i>Assigned to:</th>
-                        <Link to={`/profile/${assigned_to}`}>
-                        <td>{assignedUsername}</td>
-                        </Link>
+                        <td>
+                          <Link to={`/profile/${assigned_to}`}>
+                          {assignedUsername}
+                          </Link>
+                        </td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-circle-question"></i>Status:</th>
