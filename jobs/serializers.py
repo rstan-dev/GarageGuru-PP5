@@ -19,6 +19,7 @@ class JobSerializer(serializers.ModelSerializer):
     get_watch_id retreives the associated watch id for the job.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
+    owner_id = serializers.ReadOnlyField(source='owner.id')
     is_owner = serializers.SerializerMethodField()
     has_invoice = serializers.SerializerMethodField()
     comment_count = serializers.IntegerField(read_only=True)
@@ -78,7 +79,7 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = [
-            'id', 'owner', 'assigned_to', 'job_type',
+            'id', 'owner', 'owner_id', 'assigned_to', 'job_type',
             'job_details', 'status', 'created_at', 'updated_at',
             'image', 'is_owner', 'image_filter', 'due_date', 'has_invoice',
             'comment_count', 'invoice_details', 'watch_id'

@@ -15,6 +15,7 @@ const JobCard = (props) => {
       const {
         id,
         owner,
+        owner_id,
         job_type,
         job_details,
         created_at,
@@ -43,6 +44,9 @@ const JobCard = (props) => {
       const currentUser = useCurrentUser();
       const is_owner = currentUser?.username === owner;
       const [assignedUsername, setAssignedUsername] = useState()
+
+      console.log(`Owner: ${owner.id}`)
+      console.log(`Assigned_user: ${assigned_to}`)
 
 
       // gets Profile id and sets corresponding username to display as
@@ -219,7 +223,9 @@ const JobCard = (props) => {
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-user"></i>Created By:</th>
-                        <td>{owner}</td>
+                        <Link to={`/profile/${owner_id}`}>
+                          <td>{owner}</td>
+                        </Link>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-calendar-days"></i>Created on:</th>
@@ -235,7 +241,9 @@ const JobCard = (props) => {
                       </tr>
                       <tr>
                         <th><i className="fa-regular fa-id-badge"></i>Assigned to:</th>
+                        <Link to={`/profile/${assigned_to}`}>
                         <td>{assignedUsername}</td>
+                        </Link>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-circle-question"></i>Status:</th>
