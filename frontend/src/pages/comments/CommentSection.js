@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Link  } from "react-router-dom";
 import Image from 'react-bootstrap/Image'
 import Button from "react-bootstrap/Button";
 import styles from "../../styles/CommentSection.module.css"
@@ -10,6 +11,7 @@ const CommentSection = (props) => {
 
     const {
         profile_image,
+        profile_id,
         owner,
         updated_at,
         comment_detail,
@@ -27,6 +29,7 @@ const CommentSection = (props) => {
     <div className={`card ${styles.CommentSection}`}>
             <div className="row">
                 <div className={`col ${styles.ProfileSection}`}>
+                    <Link to={`/profile/${profile_id}`}>
                     <Image
                         className={styles.ProfileImage}
                         src={profile_image}
@@ -36,6 +39,7 @@ const CommentSection = (props) => {
                     <p className={styles.ProfileName}>
                         {owner}
                     </p>
+                    </Link>
                     <p className={styles.CommentUpdated}>
                         {updated_at}
                     </p>
