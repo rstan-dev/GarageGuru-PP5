@@ -110,12 +110,24 @@ const JobCard = (props) => {
 
       // Reusable component for Comments Icon
       const CommentBubble = () => (
-        <div className={styles.CommentBubble}>
+        <>
+        {comment_count > 0 ? (
+        <div className={styles.CommentBubbleActive}>
           <Link to={`/jobs/${id}`}>
             <i className="fa-regular fa-comment"></i>
             <span>{comment_count} commenting</span>
           </Link>
         </div>
+        ) : (
+          <div className={styles.CommentBubbleGrey}>
+            <Link to={`/jobs/${id}`}>
+              <i className="fa-regular fa-comment"></i>
+              <span>leave a comment</span>
+            </Link>
+          </div>
+
+        )}
+        </>
       );
 
       // Reusable component for Displaying View or Edit Invoice Button

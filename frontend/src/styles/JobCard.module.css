@@ -20,9 +20,20 @@ th i {
     color: #004AAD;
 }
 
-.CommentBubble i {
+.CommentBubbleActive i {
     font-size: 2rem;
     margin-right: 5px;
+}
+
+.CommentBubbleGrey i {
+    font-size: 2rem;
+    margin-right: 5px;
+    color: grey;
+    text-decoration: none;
+}
+
+.CommentBubbleGrey span {
+    color: grey;
 }
 
 .Eye i {
