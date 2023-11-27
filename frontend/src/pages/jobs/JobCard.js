@@ -45,10 +45,6 @@ const JobCard = (props) => {
       const is_owner = currentUser?.username === owner;
       const [assignedUsername, setAssignedUsername] = useState()
 
-      console.log(`Owner: ${owner.id}`)
-      console.log(`Assigned_user: ${assigned_to}`)
-
-
       // gets Profile id and sets corresponding username to display as
       // Assigned To user in JobCard
       useEffect(() => {

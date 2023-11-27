@@ -14,7 +14,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
     """
     inv_id = serializers.IntegerField(source='id', read_only=True)
     inv_owner = serializers.ReadOnlyField(source='owner.username')
+    inv_owner_id = serializers.ReadOnlyField(source='owner.id')
     job_assigned_to = serializers.ReadOnlyField(source='job.assigned_to.username')
+    job_assigned_to_id = serializers.ReadOnlyField(source='job.assigned_to.id')
     is_inv_owner = serializers.SerializerMethodField()
     job_id = serializers.IntegerField()
 
@@ -34,7 +36,7 @@ class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice
         fields = [
-            'inv_id', 'inv_owner', 'job_assigned_to', 'is_inv_owner', 'job_id',
+            'inv_id', 'inv_owner', 'inv_owner_id', 'job_assigned_to', 'job_assigned_to_id', 'is_inv_owner', 'job_id',
             'customer_firstname', 'customer_lastname', 'customer_email', 'customer_phone', 'inv_created_at', 'inv_updated_at','inv_due_date', 'amount', 'invoice_status'
         ]
 

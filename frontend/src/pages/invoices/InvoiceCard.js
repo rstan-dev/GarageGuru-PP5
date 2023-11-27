@@ -11,7 +11,9 @@ const InvoiceCard = (props) => {
   const {
     inv_id,
     inv_owner,
+    inv_owner_id,
     job_assigned_to,
+    job_assigned_to_id,
     customer_firstname,
     customer_lastname,
     customer_email,
@@ -74,7 +76,19 @@ const InvoiceCard = (props) => {
                       </tr>
                       <tr>
                         <th>Created by:</th>
-                        <td>{inv_owner}</td>
+                          <td>
+                            <Link to={`/profile/${inv_owner_id}`}>
+                              {inv_owner}
+                            </Link>
+                          </td>
+                      </tr>
+                      <tr>
+                        <th>Job Assigned To:</th>
+                          <td>
+                          <Link to={`/profile/${job_assigned_to_id}`}>
+                            {job_assigned_to}
+                          </Link>
+                          </td>
                       </tr>
                       <tr>
                         <th>
