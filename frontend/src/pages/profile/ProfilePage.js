@@ -88,7 +88,7 @@ const ProfilePage = () => {
                 Edit Profile
               </Button>
             </Link>
-            <Link to="/profile/change-username">
+            <Link to={`/profile/${id}/change-username`}>
                 <Button variant="warning">
                   Edit Username
                 </Button>
