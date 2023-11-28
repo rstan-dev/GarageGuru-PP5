@@ -21,9 +21,8 @@ function RegisterForm() {
     })
 
     const {username, password1, password2} = registerData;
-
     const [errors, setErrors] = useState({})
-
+    const [successMessage, setSuccessMessage] = useState('');
     const history = useHistory()
 
     const handleChange = (event) => {
@@ -37,7 +36,11 @@ function RegisterForm() {
         event.preventDefault();
         try {
             await axios.post('dj-rest-auth/registration/', registerData);
-            history.push('/login');
+            setSuccessMessage('Congratulations you have successfully registered to GarageGuru.  You will be redirected to the login page shortly');
+            setTimeout(() => {
+                setSuccessMessage('');
+                history.push('/login');
+            }, 2500);
 
         } catch(error) {
             setErrors(error.response?.data)
@@ -47,6 +50,8 @@ function RegisterForm() {
     return (
         <Container className={styles.LoginRegisterForm}>
             <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
+                 {/* Display success message */}
+                {successMessage && <Alert variant="success">{successMessage}</Alert>}
                 <h1>Register for an account</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="username">
