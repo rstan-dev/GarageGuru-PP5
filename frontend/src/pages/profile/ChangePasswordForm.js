@@ -9,12 +9,14 @@ import Alert from "react-bootstrap/Alert";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 
 const ChangePasswordForm = () => {
     const history = useHistory();
     const currentUser = useCurrentUser();
+    const currentUserId = currentUser?currentUser.pk : null;
+    const {id} = useParams()
 
     const [userData, setUserData] = useState({
       new_password1: "",
@@ -33,11 +35,11 @@ const ChangePasswordForm = () => {
       };
 
     useEffect(() => {
-    if (!currentUser) {
-      // redirect user if they are not the owner of this profile
-      history.push("/login");
+      if (!currentUser || currentUserId !== parseInt(id)) {
+        // redirect user if they are not the owner of this profile
+        history.push("/");
     }
-    }, [currentUser, history]);
+    }, [currentUser, history, currentUserId, id]);
 
     const handleSubmit = async (event) => {
       event.preventDefault();
