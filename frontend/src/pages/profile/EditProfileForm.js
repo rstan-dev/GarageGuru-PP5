@@ -12,6 +12,7 @@ import styles from "../../styles/EditProfile.module.css"
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Link } from "react-router-dom";
+import ConfirmationModal from '../../components/ConfirmationModal';
 
 const EditProfileForm = () => {
   const currentUser = useCurrentUser();
@@ -20,8 +21,6 @@ const EditProfileForm = () => {
   const history = useHistory();
   const imageFile = useRef();
   const  {id} = useParams()
-
-
 
   const [editProfileData, setEditProfileData] = useState({
     name: "",
@@ -33,6 +32,13 @@ const EditProfileForm = () => {
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [confirmationModalContent, setConfirmationModalContent] = useState({
+      title: '',
+      body: '',
+      confirmAction: () => {},
+    });
 
   useEffect(() => {
     let isMounted = true; // Flag to track if the component is mounted
@@ -63,6 +69,9 @@ const EditProfileForm = () => {
     }
 
     handleMount();
+    return () => {
+      isMounted = false; // Set the flag to false when the component unmounts
+    };
   }, [currentUserId, currentUser, history, id]);
 
   const handleChange = (event) => {
@@ -73,8 +82,20 @@ const EditProfileForm = () => {
   };
 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  // Handles update submission using confrimationModal to verify user actions
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    setConfirmationModalContent({
+        title: 'Confirm Profile Update',
+        body: 'Are you sure you want to update your profile?',
+        confirmAction: handleUpdateConfirm, // References the function that performs the update
+      });
+    setShowConfirmationModal(true);
+  };
+
+  // Updates api and closes Confirmation Modal when update confirmed
+  const handleUpdateConfirm = async (event) => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("bio", bio);
@@ -98,6 +119,17 @@ const EditProfileForm = () => {
     } catch (err) {
       setErrors(err.response?.data);
     }
+    setShowConfirmationModal(false);
+  };
+
+  // Handles modal's confirmation
+  const handleModalConfirm = () => {
+    confirmationModalContent.confirmAction();
+  };
+
+  // This function will be used to close the modal without taking action
+  const handleModalClose = () => {
+      setShowConfirmationModal(false);
   };
 
 return (
@@ -112,7 +144,7 @@ return (
 
                 <h1> Edit Profile</h1>
 
-                <Form onSubmit={(handleSubmit)}>
+                <Form onSubmit={(e) => e.preventDefault()}>
                     <Form.Group>
                     {image && (
                       <figure>
@@ -171,22 +203,26 @@ return (
                     </Form.Group>
                     <Button
                       variant="success"
-                      type="submit">
+                      onClick={handleSubmit}>
                       Update
                     </Button>
-                    <Link to="/profile">
+                    <Link to={`/profile/${id}`}>
                       <Button variant="warning">
                         Cancel
                       </Button>
                     </Link>
                 </Form>
-
+                {/* Confirmation Modal */}
+                <ConfirmationModal
+                showModal={showConfirmationModal}
+                handleClose={handleModalClose}
+                handleConfirm={handleModalConfirm}
+                title={confirmationModalContent.title}
+                body={confirmationModalContent.body}
+                />
             </Col>
-
     </Container>
-
 )
-
 }
 
 export default EditProfileForm;
