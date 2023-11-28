@@ -27,6 +27,8 @@ const ProfilePage = () => {
     const { name, bio, image, created_at, is_owner } = profileData;
 
     useEffect(() => {
+      let isMounted = true; // Flag to track if the component is mounted
+
       if (!currentUser) {
         // Redirect to login only if currentUser is explicitly null (not undefined)
         history.push("/login");
@@ -36,13 +38,18 @@ const ProfilePage = () => {
       const fetchProfileData = async () => {
         try {
           const { data } = await axiosReq.get(`/profiles/${id}/`);
+          if (isMounted) {
           setProfileData(data);
+          }
         } catch (error) {
           console.log(error);
         }
       };
 
       fetchProfileData();
+      return () => {
+        isMounted = false; // Set the flag to false when the component unmounts
+      };
     }, [currentUserId, currentUser, history, id]);
 
     return (
