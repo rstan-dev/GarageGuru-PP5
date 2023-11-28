@@ -17,6 +17,7 @@ const CommentSection = (props) => {
         comment_detail,
         setComments,
         id,
+        setCommentsCount,
     } = props
 
     const [displayEditForm, setDisplayEditForm] = useState(false)
@@ -52,6 +53,7 @@ const CommentSection = (props) => {
                             comment_detail={comment_detail}
                             setDisplayEditForm={setDisplayEditForm}
                             setComments={setComments}
+                            setCommentsCount={setCommentsCount}
                             />
                     </div>
                 ) : (

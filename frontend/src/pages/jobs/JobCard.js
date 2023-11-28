@@ -31,7 +31,10 @@ const JobCard = (props) => {
         setJobs,
         jobs,
         onUnwatch,
+        commentsCount
       } = props;
+
+      console.log(`commentsCount Prop: ${commentsCount} `)
 
       const {
         inv_id,
@@ -111,11 +114,11 @@ const JobCard = (props) => {
       // Reusable component for Comments Icon
       const CommentBubble = () => (
         <>
-        {comment_count > 0 ? (
+        {commentsCount > 0 ? (
         <div className={styles.CommentBubbleActive}>
           <Link to={`/jobs/${id}`}>
             <i className="fa-regular fa-comment"></i>
-            <span>{comment_count} commenting</span>
+            <span>{commentsCount} commenting</span>
           </Link>
         </div>
         ) : (

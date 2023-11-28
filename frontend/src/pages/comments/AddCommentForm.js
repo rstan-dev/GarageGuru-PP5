@@ -8,7 +8,7 @@ import styles from "../../styles/AddEditComment.module.css"
 import { axiosRes } from "../../api/axiosDefaults";
 
 function AddCommentForm(props) {
-  const { job, setJob, setComments, profileImage, profileName } = props;
+  const { job, setJob, setComments, setCommentsCount, profileImage, profileName } = props;
   const [comment_detail, setComment_detail] = useState("");
 
   const handleChange = (event) => {
@@ -26,6 +26,7 @@ function AddCommentForm(props) {
         ...prevComments,
         results: [data, ...prevComments.results],
       }));
+      setCommentsCount(prevCount => prevCount + 1);
       setJob((prevJob) => ({
         results: [
           {
