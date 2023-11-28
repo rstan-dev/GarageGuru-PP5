@@ -321,7 +321,7 @@ function EditJobForm() {
             {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
             <Form onSubmit={(e) => e.preventDefault()}>
-                <div>AddJobForm</div>
+                <div>EditJobForm</div>
 
                         <div className="card">
                         {textFields}

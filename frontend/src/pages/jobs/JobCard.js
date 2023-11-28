@@ -48,17 +48,23 @@ const JobCard = (props) => {
       // gets Profile id and sets corresponding username to display as
       // Assigned To user in JobCard
       useEffect(() => {
+        let isMounted = true; // Flag to track if the component is mounted
         const getProfileUsername = async () => {
           if (assigned_to) {
             try {
               const response = await axiosReq.get(`/profiles/${assigned_to}/`);
+              if (isMounted) {
               setAssignedUsername(response.data.owner);
+              }
             } catch (error) {
               console.log(error);
             }
           }
         };
         getProfileUsername();
+        return () => {
+          isMounted = false; // Set the flag to false when the component unmounts
+        };
       }, [assigned_to]);
 
         const handleWatch = async () => {
