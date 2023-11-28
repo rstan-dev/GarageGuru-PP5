@@ -8,6 +8,7 @@ import useToggleMenu from "../hooks/useToggleMenu";
 import axios from "axios";
 import { removeTokenTimestamp } from '../utils/utils';
 
+
 const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
@@ -17,7 +18,7 @@ const NavBar = () => {
 
     const handleLogOut = async () => {
         try {
-            await axios.post("dj-rest-auth/logout/");
+            await axios.post("/dj-rest-auth/logout/");
             setCurrentUser(null)
             removeTokenTimestamp()
         } catch (err) {
@@ -65,7 +66,7 @@ const NavBar = () => {
             <span className={styles.Label}>Invoices</span>
         </NavLink>
         <NavLink
-            to="/login"
+            to={"/login"}
             className={styles.NavLinks}
             activeClassName={styles.Active}
             onClick={handleLogOut}>
