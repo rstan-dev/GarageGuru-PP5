@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -19,6 +19,7 @@ const EditProfileForm = () => {
   const currentUserId = currentUser?currentUser.pk : null;
   const history = useHistory();
   const imageFile = useRef();
+  const  {id} = useParams()
 
 
 
@@ -34,31 +35,35 @@ const EditProfileForm = () => {
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
+    let isMounted = true; // Flag to track if the component is mounted
+
     const handleMount = async () => {
       try {
-        const {data} = await axiosReq.get(`/profiles/${currentUserId}/`)
+        const {data} = await axiosReq.get(`/profiles/${id}/`)
         const { name, bio, image } = data;
+        if (isMounted) {
         setEditProfileData({
           name,
           bio,
           image,
           });
+        }
       } catch(error) {
         console.log(error)
         if (error.response?.status === 401) {
           history.push("/login");
         } else {
-          history.push("/profile")
+          history.push("/")
         }
       }
     };
 
-    if (!currentUser) {
-      history.push("/login");
+    if (!currentUser || currentUserId !== parseInt(id)) {
+      history.push("/");
     }
 
     handleMount();
-  }, [currentUserId, currentUser, history]);
+  }, [currentUserId, currentUser, history, id]);
 
   const handleChange = (event) => {
     setEditProfileData({
@@ -79,7 +84,7 @@ const EditProfileForm = () => {
     }
 
     try {
-      const { data } = await axiosReq.put(`/profiles/${currentUserId}/`, formData);
+      const { data } = await axiosReq.put(`/profiles/${id}/`, formData);
       setCurrentUser((currentUser) => ({
         ...currentUser,
         profile_image: data.image,

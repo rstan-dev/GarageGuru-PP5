@@ -82,7 +82,7 @@ const ProfilePage = () => {
             <p>
               is_owner: {is_owner ? "true" : "false"}
             </p>
-            <Link to="/profile/edit-profile">
+            <Link to={`/profile/${id}/edit-profile`}>
               <Button
                 variant="warning">
                 Edit Profile

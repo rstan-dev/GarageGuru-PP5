@@ -104,7 +104,7 @@ function App() {
               <Route exact path="/logout" render={() => <h1>Logout</h1>} />
               <Route exact path="/register" render={() => <RegisterForm />} />
               <Route exact path="/profile/:id" render={() => <ProfilePage />} />
-              <Route exact path="/profile/edit-profile" render={() => <EditProfileForm />} />
+              <Route exact path="/profile/:id/edit-profile" render={() => <EditProfileForm />} />
               <Route exact path="/profile/change-password" render={() => <ChangePasswordForm />} />
               <Route exact path="/profile/change-username" render={() => <ChangeUsernameForm />} />
               <Route exact path="/jobs/:id" render={() => <JobPage />} />
