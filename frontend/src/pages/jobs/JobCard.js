@@ -24,7 +24,6 @@ const JobCard = (props) => {
         assigned_to,
         status,
         image,
-        comment_count,
         has_invoice,
         invoice_details,
         watch_id,
@@ -33,8 +32,6 @@ const JobCard = (props) => {
         onUnwatch,
         commentsCount
       } = props;
-
-      console.log(`commentsCount Prop: ${commentsCount} `)
 
       const {
         inv_id,

@@ -17,7 +17,7 @@ import { axiosReq } from '../../api/axiosDefaults';
 function AddJobForm() {
     const currentUser = useCurrentUser();
     const [users, setUsers] = useState([]);
-
+    const isMounted = useRef(true);
 
     // initialize state of job data
     const [jobData, setJobData] = useState({
@@ -50,7 +50,12 @@ function AddJobForm() {
               ...prevState,
               assigned_to: currentUser.pk
             }));
-          }
+          };
+
+        return () => {
+            isMounted.current = false; // Set isMounted to false on component unmount
+        }
+
         }, [currentUser, history]);
 
     // Get list of profiles to populate assigned_to dropdown
@@ -58,13 +63,17 @@ function AddJobForm() {
         const fetchProfiles = async () => {
             try {
                 const { data } = await axiosReq.get(`/profiles/`)
-
+                if (isMounted.current) {
                 setUsers(data.results);
+                }
             } catch(err) {
                 console.log(err)
             }
         };
         fetchProfiles();
+        return () => {
+            isMounted.current = false; // Set isMounted to false on component unmount
+        };
     }, []);
 
     // Get current date to use as default in due_date
@@ -144,11 +153,15 @@ function AddJobForm() {
 
     try {
         const {data} = await axiosReq.post('/jobs/', formData)
+        if (isMounted.current) {
         setSuccessMessage('Job has been added successfully');
         successTimeoutRef.current = setTimeout(() => {
-            setSuccessMessage('');
-            history.push(`/jobs/${data.id}`)
+            if (isMounted.current) {
+                setSuccessMessage('');
+                history.push(`/jobs/${data.id}`)
+            }
             }, 1500);
+        }
     } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
             console.log(err);
