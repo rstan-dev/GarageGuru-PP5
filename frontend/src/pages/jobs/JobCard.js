@@ -25,6 +25,7 @@ const JobCard = (props) => {
         status,
         image,
         has_invoice,
+        comment_count,
         invoice_details,
         watch_id,
         setJobs,
@@ -115,13 +116,16 @@ const JobCard = (props) => {
       const JobImage = () => <Card.Img src={image} alt={job_type} />;
 
       // Reusable component for Comments Icon
-      const CommentBubble = () => (
+      const CommentBubble = () => {
+        const displayCommentCount = commentsCount ?? comment_count;
+
+        return (
         <>
-        {commentsCount > 0 ? (
+        {displayCommentCount > 0 ? (
         <div className={styles.CommentBubbleActive}>
           <Link to={`/jobs/${id}`}>
             <i className="fa-regular fa-comment"></i>
-            <span>{commentsCount} commenting</span>
+            <span>{displayCommentCount} commenting</span>
           </Link>
         </div>
         ) : (
@@ -134,7 +138,8 @@ const JobCard = (props) => {
 
         )}
         </>
-      );
+        )
+        };
 
       // Reusable component for Displaying View or Edit Invoice Button
       const DisplayEditViewInvoiceButton = () => (
