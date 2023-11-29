@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import styles from "../../styles/CommentSection.module.css"
 import EditCommentForm from './EditCommentForm'
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import AddReplyCommentForm from './AddReplyCommentForm';
 
 
 const CommentSection = (props) => {
@@ -84,22 +85,31 @@ const CommentSection = (props) => {
                 ) : (
                     <div className="col-10">
                         <div className={styles.CommentDetail}>
-                        {comment_detail}
+                            {comment_detail}
+                        </div>
+                        {is_owner && !displayEditForm && (
+                        <div className="col-12 text-right">
+                            <Button
+                            onClick={() => setDisplayEditForm(true)}
+                            >
+                            Edit
+                            </Button>
+                        </div>
+                        )}
+                        <div>
+                            <div className={styles.ReplyHeader}>Reply to this comment</div>
+                            <AddReplyCommentForm
+                            id={id}
+                            profile_image={profile_image}
+                            profile_owner={owner}
+                            />
                         </div>
                         <div>
-                        {renderReplies()}
+                            {renderReplies()}
                         </div>
                     </div>
                 )}
-                {is_owner && !displayEditForm && (
-                    <div className="col-12 text-right">
-                        <Button
-                        onClick={() => setDisplayEditForm(true)}
-                        >
-                        Edit
-                        </Button>
-                    </div>
-                )}
+
 
             </div>
 

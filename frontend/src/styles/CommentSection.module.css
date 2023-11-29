@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    margin-top: 15px;
 }
 
 .ProfileName {
@@ -32,4 +33,13 @@
 .CommentDetail {
     padding-top: 25px;
     color:black
+}
+
+.ReplyHeader {
+    padding-top: 50px;
+    margin-bottom: -25px;
+    font-size: 15px;
+    font-weight: bold;
+    color: grey;
+    border-bottom: 1px solid rgb(175, 175, 175);
 }

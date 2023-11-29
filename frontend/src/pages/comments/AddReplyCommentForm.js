@@ -6,10 +6,17 @@ import Image from "react-bootstrap/Image";
 import styles from "../../styles/AddEditComment.module.css"
 
 import { axiosRes } from "../../api/axiosDefaults";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-function AddCommentForm(props) {
-  const { job, setJob, setComments, setCommentsCount, profileImage, profileName } = props;
+function AddReplyCommentForm(props) {
+  const { id, setComments, setCommentsCount } = props;
   const [comment_detail, setComment_detail] = useState("");
+  const parent = id;
+  const currentUser = useCurrentUser();
+  const profileImage = currentUser?.profile_image
+  const profileName = currentUser?.username
+
+  console.log(`Parent ID: ${parent}` )
 
   const handleChange = (event) => {
     setComment_detail(event.target.value);
@@ -17,23 +24,31 @@ function AddCommentForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!parent) {
+      console.error("No parent comment ID provided for the reply");
+      return;
+    }
+
     try {
-      const { data } = await axiosRes.post("/comments/", {
+      const payload = {
         comment_detail,
-        job,
+        parent,
+      };
+
+
+      const { data } = await axiosRes.post("/comments/", payload);
+
+      setComments(prevComments => {
+        // Find the parent comment and update its replies array
+        const updatedComments = prevComments.map(comment => {
+          if (comment.id === parent) {
+            return { ...comment, replies: [...comment.replies, data] };
+          }
+          return comment;
+        });
+
+        return { ...prevComments, results: updatedComments };
       });
-      setComments((prevComments) => ({
-        ...prevComments,
-        results: [data, ...prevComments.results],
-      }));
-      setCommentsCount(prevCount => prevCount + 1);
-      setJob((prevJob) => ({
-        results: [
-          {
-            ...prevJob.results[0],
-          },
-        ],
-      }));
       setComment_detail("");
     } catch (err) {
       console.log(err);
@@ -81,4 +96,4 @@ function AddCommentForm(props) {
   );
 }
 
-export default AddCommentForm;
+export default AddReplyCommentForm;

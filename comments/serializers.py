@@ -84,4 +84,4 @@ class CommentReplySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['reply_id', 'reply_owner', 'reply_comment_detail', 'reply_created_at', 'reply_updated_at']
+        fields = ['reply_id', 'reply_owner', 'reply_comment_detail', 'reply_created_at', 'reply_updated_at', 'parent']
