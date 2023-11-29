@@ -17,14 +17,16 @@ const ProfilePage = () => {
 
 
     const [profileData, setProfileData] = useState({
+      owner: '',
       name: '',
       bio: '',
       image: '',
       created_at: '',
+      updated_at: '',
       is_owner: false,
     })
 
-    const { name, bio, image, created_at, is_owner } = profileData;
+    const { owner, name, bio, image, created_at, updated_at, is_owner } = profileData;
 
     useEffect(() => {
       let isMounted = true; // Flag to track if the component is mounted
@@ -57,8 +59,7 @@ const ProfilePage = () => {
       <Row>
         <Col md={4}>
           <div className="profile-image">
-            <h1>Profile Page </h1>
-            <h2>Username: Welcome {currentUser?.username}! </h2>
+            <h1>Profile Page For {owner} </h1>
             <Image
               src={image}
               alt="Profile"
@@ -76,12 +77,15 @@ const ProfilePage = () => {
               Bio: {bio}
             </p>
             <p>
-              Created: {created_at}
+              Staff Member since: {created_at}
+            </p>
+            <p>
+              Profile updated on: {updated_at}
             </p>
             <p>User Id: {id}</p>
-            <p>
-              is_owner: {is_owner ? "true" : "false"}
-            </p>
+
+            {is_owner ? (
+              <>
             <Link to={`/profile/${id}/edit-profile`}>
               <Button
                 variant="warning">
@@ -98,6 +102,10 @@ const ProfilePage = () => {
                 Edit Password
               </Button>
             </Link>
+            </>
+            ) : (
+              null
+            )}
           </div>
         </Col>
       </Row>
