@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link  } from "react-router-dom";
 import Image from 'react-bootstrap/Image'
 import Button from "react-bootstrap/Button";
+import Card from 'react-bootstrap/Card';
 import styles from "../../styles/CommentSection.module.css"
 import EditCommentForm from './EditCommentForm'
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -18,12 +19,36 @@ const CommentSection = (props) => {
         setComments,
         id,
         setCommentsCount,
+        replies,
     } = props
 
     const [displayEditForm, setDisplayEditForm] = useState(false)
 
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
+
+    const renderReplies = () => {
+        return replies.map((reply) => (
+            <Card key={reply.reply_id} className={styles.CommentSection}>
+                <div className="row">
+                    <div className={`col ${styles.ProfileSection}`}>
+                        <p className={styles.ProfileName}>
+                            {reply.reply_owner}
+                        </p>
+                        <p className={styles.CommentUpdated}>
+                            {reply.reply_updated_at}
+                        </p>
+                    </div>
+                        <div className="col-10">
+                            <div className={styles.CommentDetail}>
+                            {reply.reply_comment_detail}
+                            </div>
+                        </div>
+                    </div>
+
+            </Card>
+        ));
+    };
 
   return (
 
@@ -61,6 +86,9 @@ const CommentSection = (props) => {
                         <div className={styles.CommentDetail}>
                         {comment_detail}
                         </div>
+                        <div>
+                        {renderReplies()}
+                        </div>
                     </div>
                 )}
                 {is_owner && !displayEditForm && (
@@ -72,7 +100,9 @@ const CommentSection = (props) => {
                         </Button>
                     </div>
                 )}
+
             </div>
+
     </div>
   )
 }
