@@ -71,6 +71,8 @@ function AllJobsPage({ message, filter = "" }) {
         setOrderingField(field);
       };
 
+    console.log(`Jobs: ${jobs}`)
+
 
     return (
         <Container className={styles.JobCard}>
