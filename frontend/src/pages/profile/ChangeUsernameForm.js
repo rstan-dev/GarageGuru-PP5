@@ -9,30 +9,31 @@ import Alert from "react-bootstrap/Alert";
 
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 
 const ChangeUsernameForm = () => {
     const history = useHistory();
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
-
-
     const [username, setUsername] = useState("")
-
     const [errors, setErrors] = useState({});
     const [successMessage, setSuccessMessage] = useState('');
+    const {id} = useParams()
+    const currentUserId = currentUser?currentUser.pk : null;
 
     const handleChange = (event) => {
         setUsername(event.target.value)
         };
 
     useEffect(() => {
-    if (!currentUser) {
+    if (!currentUser || currentUserId !== parseInt(id)) {
       // redirect user if they are not the owner of this profile
-      history.push("/login");
+      history.push("/");
+    } else {
+      setUsername(currentUser.username);
     }
-    }, [currentUser, history]);
+    }, [currentUser, history, currentUserId, id]);
 
     const handleSubmit = async (event) => {
       event.preventDefault();

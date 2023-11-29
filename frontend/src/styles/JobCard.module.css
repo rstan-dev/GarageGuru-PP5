@@ -20,28 +20,38 @@ th i {
     color: #004AAD;
 }
 
-.CommentBubble i {
-    padding: 10px;
-    padding-top: 50px;
+.CommentBubbleActive i {
     font-size: 2rem;
+    margin-right: 5px;
 }
 
-.Eye i {
-    padding: 10px;
-    padding-top: 50px;
+.CommentBubbleGrey i {
     font-size: 2rem;
+    margin-right: 5px;
+    color: grey;
+    text-decoration: none;
+}
+
+.CommentBubbleGrey span {
+    color: grey;
+}
+
+.EyeUnwatched i:hover {
+    font-size: 2.25rem;
     cursor: pointer;
+    color: green;
 }
 
 .EyeUnwatched i {
     color: grey;
     cursor: pointer;
+    font-size: 2rem;
 }
 
 .EyeWatched i {
     color: green;
     cursor: pointer;
-
+    font-size: 2rem;
 }
 
 h2 {
@@ -60,7 +70,59 @@ p {
 }
 
 .JobCardHeader {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 400;
 }
 
+[data-tooltip] {
+    position: relative;
+    cursor: pointer;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: normal;
+    word-wrap: break-word;
+    z-index: 1;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 4px 8px;
+    margin-right: 10px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.NoInvoiceLink {
+    color: #454545;
+    cursor: default;
+}
+
+.DisplayAddEditViewInvoice {
+    margin-left: 10px;
+}
+
+.InvoiceButtonContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.CommentWatchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}

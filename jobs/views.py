@@ -108,5 +108,9 @@ class JobDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = JobSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Job.objects.all()
+
+    def get_queryset(self):
+        # Annotate the queryset with comment_count
+        return Job.objects.annotate(comment_count=Count('comments'))
+
 

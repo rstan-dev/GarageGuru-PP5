@@ -59,6 +59,7 @@ function JobPage() {
         job={id}
         setJob={setJob}
         setComments={setComments}
+        setCommentsCount={setCommentsCount}
         />
         ) : comments.results.length ? (
             "comments"
@@ -73,6 +74,7 @@ function JobPage() {
                         key={comment.id} {...comment}
                         setJob={setJob}
                         setComments={setComments}
+                        setCommentsCount={setCommentsCount}
                         />
                     ))
                 }

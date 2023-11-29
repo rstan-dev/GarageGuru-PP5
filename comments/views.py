@@ -26,6 +26,23 @@ class CommentList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+    def get_queryset(self):
+        """
+        Optionally restricts the returned comments to be only top-level comments
+        for a given job, unless specified otherwise.
+
+        If 'parent' param is provided, filter by parent ID (for replies)
+
+        By default, show only top-level comments (parent is None)
+        """
+        queryset = super().get_queryset()
+        parent = self.request.query_params.get('parent')
+        if parent is not None:
+            queryset = queryset.filter(parent_id=parent)
+        else:
+            queryset = queryset.filter(parent__isnull=True)
+        return queryset
+
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """

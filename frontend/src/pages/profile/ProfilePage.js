@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -13,20 +13,24 @@ const ProfilePage = () => {
     const currentUser = useCurrentUser();
     const currentUserId = currentUser?currentUser.pk : null;
     const history = useHistory();
+    const {id} = useParams();
 
 
     const [profileData, setProfileData] = useState({
-      id: '',
+      owner: '',
       name: '',
       bio: '',
       image: '',
       created_at: '',
+      updated_at: '',
       is_owner: false,
     })
 
-    const { id, name, bio, image, created_at, is_owner } = profileData;
+    const { owner, name, bio, image, created_at, updated_at, is_owner } = profileData;
 
     useEffect(() => {
+      let isMounted = true; // Flag to track if the component is mounted
+
       if (!currentUser) {
         // Redirect to login only if currentUser is explicitly null (not undefined)
         history.push("/login");
@@ -35,23 +39,27 @@ const ProfilePage = () => {
 
       const fetchProfileData = async () => {
         try {
-          const { data } = await axiosReq.get(`/profiles/${currentUserId}/`);
+          const { data } = await axiosReq.get(`/profiles/${id}/`);
+          if (isMounted) {
           setProfileData(data);
+          }
         } catch (error) {
           console.log(error);
         }
       };
 
       fetchProfileData();
-    }, [currentUserId, currentUser, history]);
+      return () => {
+        isMounted = false; // Set the flag to false when the component unmounts
+      };
+    }, [currentUserId, currentUser, history, id]);
 
     return (
          <Container>
       <Row>
         <Col md={4}>
           <div className="profile-image">
-            <h1>Profile Page </h1>
-            <h2>Username: Welcome {currentUser?.username}! </h2>
+            <h1>Profile Page For {owner} </h1>
             <Image
               src={image}
               alt="Profile"
@@ -69,28 +77,35 @@ const ProfilePage = () => {
               Bio: {bio}
             </p>
             <p>
-              Created: {created_at}
+              Staff Member since: {created_at}
+            </p>
+            <p>
+              Profile updated on: {updated_at}
             </p>
             <p>User Id: {id}</p>
-            <p>
-              is_owner: {is_owner ? "true" : "false"}
-            </p>
-            <Link to="/profile/edit-profile">
+
+            {is_owner ? (
+              <>
+            <Link to={`/profile/${id}/edit-profile`}>
               <Button
                 variant="warning">
                 Edit Profile
               </Button>
             </Link>
-            <Link to="/profile/change-username">
+            <Link to={`/profile/${id}/change-username`}>
                 <Button variant="warning">
                   Edit Username
                 </Button>
             </Link>
-            <Link to="/profile/change-password">
+            <Link to={`/profile/${id}/change-password`}>
               <Button variant="warning">
                 Edit Password
               </Button>
             </Link>
+            </>
+            ) : (
+              null
+            )}
           </div>
         </Col>
       </Row>

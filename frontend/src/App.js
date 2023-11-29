@@ -83,7 +83,6 @@ function App() {
               />
 
               <Route exact path="/jobs/addjob" render={() => <AddJobForm />} />
-              <Route exact path="/assigned" render={() => <h1>Assigned Jobs</h1>} />
               <Route exact path="/watched"
               render={() =>
               <>
@@ -104,10 +103,10 @@ function App() {
               <Route exact path="/login" render={() => <LoginForm />} />
               <Route exact path="/logout" render={() => <h1>Logout</h1>} />
               <Route exact path="/register" render={() => <RegisterForm />} />
-              <Route exact path="/profile" render={() => <ProfilePage />} />
-              <Route exact path="/profile/edit-profile" render={() => <EditProfileForm />} />
-              <Route exact path="/profile/change-password" render={() => <ChangePasswordForm />} />
-              <Route exact path="/profile/change-username" render={() => <ChangeUsernameForm />} />
+              <Route exact path="/profile/:id" render={() => <ProfilePage />} />
+              <Route exact path="/profile/:id/edit-profile" render={() => <EditProfileForm />} />
+              <Route exact path="/profile/:id/change-password" render={() => <ChangePasswordForm />} />
+              <Route exact path="/profile/:id/change-username" render={() => <ChangeUsernameForm />} />
               <Route exact path="/jobs/:id" render={() => <JobPage />} />
               <Route exact path="/jobs/:id/edit-job" render={() => <EditJobForm />} />
               <Route exact path="/all-invoices" render={() => <AllInvoicesPage />} />

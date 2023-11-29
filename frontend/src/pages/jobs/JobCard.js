@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import { Link  } from "react-router-dom";
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
@@ -17,6 +15,7 @@ const JobCard = (props) => {
       const {
         id,
         owner,
+        owner_id,
         job_type,
         job_details,
         created_at,
@@ -25,24 +24,19 @@ const JobCard = (props) => {
         assigned_to,
         status,
         image,
-        comment_count,
         has_invoice,
         invoice_details,
         watch_id,
         setJobs,
         jobs,
         onUnwatch,
+        commentsCount
       } = props;
 
       const {
         inv_id,
-        inv_owner,
         customer_firstname,
         customer_lastname,
-        customer_email,
-        customer_phone,
-        inv_due_date,
-        inv_updated_at,
         amount,
         invoice_status,
       } = invoice_details || {};
@@ -51,23 +45,27 @@ const JobCard = (props) => {
       const is_owner = currentUser?.username === owner;
       const [assignedUsername, setAssignedUsername] = useState()
 
-
       // gets Profile id and sets corresponding username to display as
       // Assigned To user in JobCard
       useEffect(() => {
+        let isMounted = true; // Flag to track if the component is mounted
         const getProfileUsername = async () => {
-          try {
-            await axiosReq.get(`/profiles/${assigned_to}/`).then((response) => {
-              setAssignedUsername(response.data.owner)
-              });
+          if (assigned_to) {
+            try {
+              const response = await axiosReq.get(`/profiles/${assigned_to}/`);
+              if (isMounted) {
+              setAssignedUsername(response.data.owner);
+              }
             } catch (error) {
               console.log(error);
             }
-          };
-          getProfileUsername();
-        }, [assigned_to]);
-
-        console.log(`Watch_id: ${watch_id}`)
+          }
+        };
+        getProfileUsername();
+        return () => {
+          isMounted = false; // Set the flag to false when the component unmounts
+        };
+      }, [assigned_to]);
 
         const handleWatch = async () => {
           try {
@@ -102,16 +100,113 @@ const JobCard = (props) => {
           }
       };
 
+      // Reusable component for EditJobCard
+      const EditJobCardLink = () => (
+        <div className="text-right">
+          <Link to={`/jobs/${id}/edit-job`} data-tooltip="Edit JobCard">
+            <span className={styles.PencilIcon}>
+              <i className="fa-solid fa-pencil"></i>
+            </span>
+          </Link>
+        </div>
+      );
 
+      // Reusable component for JobCard Image
+      const JobImage = () => <Card.Img src={image} alt={job_type} />;
 
+      // Reusable component for Comments Icon
+      const CommentBubble = () => (
+        <>
+        {commentsCount > 0 ? (
+        <div className={styles.CommentBubbleActive}>
+          <Link to={`/jobs/${id}`}>
+            <i className="fa-regular fa-comment"></i>
+            <span>{commentsCount} commenting</span>
+          </Link>
+        </div>
+        ) : (
+          <div className={styles.CommentBubbleGrey}>
+            <Link to={`/jobs/${id}`}>
+              <i className="fa-regular fa-comment"></i>
+              <span>leave a comment</span>
+            </Link>
+          </div>
 
+        )}
+        </>
+      );
+
+      // Reusable component for Displaying View or Edit Invoice Button
+      const DisplayEditViewInvoiceButton = () => (
+        <>
+        {has_invoice ? (
+      <div className={styles.InvoiceButtonContainer}>
+        <Link to={`/invoices/${inv_id}/`}>
+          <Button variant="primary">
+            View Full Invoice
+          </Button>
+        </Link>
+
+        {(is_owner || assigned_to === currentUser.pk) && (
+          <Link to={`/invoices/${inv_id}/edit-invoice`}>
+            <Button variant="primary">
+              Edit Invoice
+            </Button>
+          </Link>
+        )}
+      </div>
+    ) : (
+      null
+    )}
+        </>
+      );
+
+      // Reusable component for Displaying Add Invoice Button
+      const DisplayAddInvoiceButton = () => (
+        <>
+        {(!has_invoice && (is_owner || assigned_to === currentUser.pk)) && (
+        <Link to={{
+          pathname: "/invoices/addinvoice",
+          state: { jobId: id }
+        }}>
+          <Button variant="primary">
+            Add Invoice
+          </Button>
+        </Link>
+      )}
+        </>
+      );
+
+      // Reusable component for displaying Watching Icon
+      const DisplayWatchIcon = () => (
+        <>
+        { watch_id ? (
+          <div
+            className={`${styles.EyeWatched }`}
+            onClick={handleUnwatch}
+          >
+            <i className="fa-regular fa-eye"></i>
+          </div>
+          ) : (
+            <div
+            className={`${styles.EyeUnwatched}`}
+            onClick={handleWatch}
+          >
+            <i className="fa-regular fa-eye"></i>
+          </div>
+          )}
+        </>
+      )
 
       return (
 
         <div className={styles.CardBlock}>
           <div className="card">
             <div className="card-body">
-            <p className={styles.JobCardHeader}>JOBCARD</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <p className={styles.JobCardHeader}>JOBCARD</p>
+                {is_owner && <EditJobCardLink />}
+              </div>
               <div className="row">
                 <div className="col-md-8">
                   <table className="table table-striped">
@@ -130,7 +225,11 @@ const JobCard = (props) => {
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-user"></i>Created By:</th>
-                        <td>{owner}</td>
+                          <td>
+                            <Link to={`/profile/${owner_id}`}>
+                            {owner}
+                            </Link>
+                          </td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-calendar-days"></i>Created on:</th>
@@ -146,7 +245,11 @@ const JobCard = (props) => {
                       </tr>
                       <tr>
                         <th><i className="fa-regular fa-id-badge"></i>Assigned to:</th>
-                        <td>{assignedUsername}</td>
+                        <td>
+                          <Link to={`/profile/${assigned_to}`}>
+                          {assignedUsername}
+                          </Link>
+                        </td>
                       </tr>
                       <tr>
                         <th><i className="fa-solid fa-circle-question"></i>Status:</th>
@@ -154,24 +257,24 @@ const JobCard = (props) => {
                       </tr>
                     </tbody>
                   </table>
+                  <div className={styles.CommentWatchContainer}>
+                  <CommentBubble />
+                  <DisplayWatchIcon />
+                  </div>
 
                   <Accordion defaultActiveKey="1">
                     <Card>
                       <Card.Header>
-                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        {has_invoice  ? (
-                          <div>
-                        Click To View Invoice Details:
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                            {has_invoice ? "Click To View Invoice Summary" : <span className={styles.NoInvoiceLink}>No Invoice Details To Display</span>}
+                          </Accordion.Toggle>
+                          <DisplayAddInvoiceButton />
                         </div>
-                        ) : (
-                          <div>
-                          No Invoice Details To Display
-                          </div>
-                        )}
-                        </Accordion.Toggle>
-                        </Card.Header>
+                      </Card.Header>
                         <Accordion.Collapse eventKey="0">
                           <Card.Body>
+                          <DisplayEditViewInvoiceButton />
                           <table className="table table-striped">
                             <tbody>
                               <tr>
@@ -183,32 +286,12 @@ const JobCard = (props) => {
                                 <td>{customer_firstname} {" "} {customer_lastname}</td>
                               </tr>
                               <tr>
-                                <th>Email:</th>
-                                <td>{customer_email}</td>
-                              </tr>
-                              <tr>
-                                <th>Phone:</th>
-                                <td>{customer_phone}</td>
-                              </tr>
-                              <tr>
                                 <th>Amount:</th>
                                 <td>£{amount}</td>
                               </tr>
                               <tr>
-                                <th>Invoice Due:</th>
-                                <td>{inv_due_date}</td>
-                              </tr>
-                              <tr>
-                                <th>Invoice Staus:</th>
+                                <th>Invoice Status:</th>
                                 <td>{invoice_status}</td>
-                              </tr>
-                              <tr>
-                                <th>Updated on:</th>
-                                <td>{inv_updated_at}</td>
-                              </tr>
-                              <tr>
-                                <th>Created by:</th>
-                                <td>{inv_owner}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -221,166 +304,13 @@ const JobCard = (props) => {
 
                 {/* Desktop Display */}
                 <div className="col-md-4 d-none d-md-block text-center">
-                  {is_owner ? (
-                    <div className="text-right">
-                      <Link to={`/jobs/${id}/edit-job`}>
-                        <OverlayTrigger
-                          placement="top"
-                          overlay={
-                            <Tooltip id="tooltip-pencil">
-                              Edit JobCard
-                            </Tooltip>
-                          }>
-                          <span className={styles.PencilIcon}>
-                          <i className="fa-solid fa-pencil"></i>
-                          </span>
-                        </OverlayTrigger>
-                      </Link>
-                    </div>
-                    ) : null}
-
-                {/* Job Image Placement */}
-                <Card.Img src={image} alt={job_type} />
-
-                {/* Comment Bubble Icon */}
-                <div className={styles.CommentBubble}>
-                  <Link to={`/jobs/${id}`}>
-                    <i className="fa-regular fa-comment"></i>
-                    <p>{comment_count}</p>
-                  </Link>
-
-                  {/* Display Add and Edit Invoice Buttons if either invoice
-                owner or assigned user are logged in */}
-                  {  (!has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
-                  <Link to={{
-                    pathname: "/invoices/addinvoice",
-                    state: { jobId: id }
-                  }}>
-                    <Button variant="primary">
-                      Add Invoice
-                    </Button>
-                  </Link>
-                ) : has_invoice ? (
-                  <Link to={`/invoices/${inv_id}/`}>
-                    <Button variant="primary">
-                        View Invoice
-                    </Button>
-                  </Link>
-                ) : null
-                }
-
-                 {(has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
-                <div>
-                  <Link to={`/invoices/${id}/edit-invoice`}>
-                      <Button variant="primary">
-                        Edit Invoice
-                      </Button>
-                  </Link>
+                  <JobImage />
                 </div>
-                ) : (
-                  null
-                )}
 
-              {/* Watching Icon */}
-                  { watch_id ? (
-                  <div
-                  className={`${styles.EyeWatched }`}
-                  onClick={handleUnwatch}
-                  >
-                    <i className="fa-regular fa-eye"></i>
-                  </div>
-                  ) : (
-                    <div
-                  className={`${styles.EyeUnwatched}`}
-                  onClick={handleWatch}
-                  >
-                    <i className="fa-regular fa-eye"></i>
-                  </div>
-
-                  )}
-
-
+                {/* Mobile Display */}
+                <div className="col-12 d-md-none mt-3 text-center">
+                    <JobImage />
                 </div>
-              </div>
-
-              {/* Mobile Display */}
-              <div className="col-12 d-md-none mt-3 text-center">
-                    <div className="text-right">
-                      <Link to={"/"}>
-                        <OverlayTrigger
-                          placement="top"
-                          overlay={
-                            <Tooltip id="tooltip-pencil">
-                              Edit JobCard
-                            </Tooltip>
-                          }>
-                          <span className={styles.PencilIcon}>
-                          <i className="fa-solid fa-pencil"></i>
-                          </span>
-                        </OverlayTrigger>
-                      </Link>
-                    </div>
-
-                {/* Job Image Placement */}
-                <Card.Img src={image} alt={job_type} />
-
-                <div className={styles.CommentBubble}>
-                <Link to={`/jobs/${id}`}>
-                    <i className="fa-regular fa-comment"></i>
-                    <p>{comment_count}</p>
-                </Link>
-
-                {  (!has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
-                  <Link to={{
-                    pathname: "/invoices/addinvoice",
-                    state: { jobId: id }
-                  }}>
-                    <Button variant="primary">
-                      Add Invoice
-                    </Button>
-                  </Link>
-                ) : has_invoice ? (
-                  <Link to={`/invoices/${inv_id}/`}>
-                    <Button variant="primary">
-                        View Invoice
-                    </Button>
-                    </Link>
-                ) : null
-                }
-
-                 {(has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
-                <div>
-                  <Link to={`/invoices/${id}/edit-invoice`}>
-                      <Button variant="primary">
-                        Edit Invoice
-                      </Button>
-                  </Link>
-                </div>
-                ) : (
-                  null
-                )}
-
-                {/* Watching Icon */}
-                { watch_id ? (
-                  <div
-                  className={`${styles.EyeWatched }`}
-                  onClick={handleUnwatch}
-                  >
-                    <i className="fa-regular fa-eye"></i>
-                  </div>
-                  ) : (
-                    <div
-                  className={`${styles.EyeUnwatched}`}
-                  onClick={handleWatch}
-                  >
-                    <i className="fa-regular fa-eye"></i>
-                  </div>
-
-                  )}
-
-
-                </div>
-              </div>
               </div>
             </div>
           </div>

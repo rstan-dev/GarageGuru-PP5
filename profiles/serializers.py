@@ -14,6 +14,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    # Format with only date
+    created_at = serializers.DateTimeField(format="%Y-%m-%d")
+    # Format with date and time
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+
     class Meta:
         model = Profile
         fields = [

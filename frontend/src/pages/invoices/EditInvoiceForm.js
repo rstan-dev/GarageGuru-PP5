@@ -52,42 +52,25 @@ function EditInvoiceForm() {
 
         const handleMount = async () => {
           try {
-            const { data } = await axiosReq.get(`/invoices/?job_id=${id}`);
-            if (data.results && data.results.length > 0) {
-                const firstInvoice = data.results[0];
-                const {
-                    inv_id,
-                    inv_owner,
-                    job_assigned_to,
-                    job_id,
-                    customer_firstname,
-                    customer_lastname,
-                    customer_email,
-                    customer_phone,
-                    amount,
-                    inv_due_date,
-                    invoice_status,
-                } = firstInvoice;
+            const { data } = await axiosReq.get(`/invoices/${id}/`);
+            setInvoiceData({
+                inv_id: data.inv_id,
+                inv_owner: data.inv_owner,
+                job_assigned_to: data.job_assigned_to,
+                job_id: data.job_id,
+                customer_firstname: data.customer_firstname,
+                customer_lastname: data.customer_lastname,
+                customer_email: data.customer_email,
+                customer_phone: data.customer_phone,
+                amount: data.amount,
+                inv_due_date: data.inv_due_date,
+                invoice_status: data.invoice_status
+              });
 
-                setInvoiceData({
-                    inv_id,
-                    inv_owner,
-                    job_assigned_to,
-                    job_id,
-                    customer_firstname,
-                    customer_lastname,
-                    customer_email,
-                    customer_phone,
-                    amount,
-                    inv_due_date,
-                    invoice_status
-                });
-
-                if (currentUser && (currentUser.username !== inv_owner && currentUser.username !== job_assigned_to)) {
-                    // Redirect to home page if currentUser is neither invoice owner nor assigned user.
-                    history.push("/");
-                    return;
-                }
+            if (currentUser && (currentUser.username !== data.inv_owner && data.currentUser.username !== job_assigned_to)) {
+                // Redirect to home page if currentUser is neither invoice owner nor assigned user.
+                history.push("/");
+                return;
             }
           } catch (err) {
             // console.log(err);

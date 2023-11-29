@@ -13,6 +13,7 @@ const EditCommentForm = (props) => {
     comment_detail,
     setDisplayEditForm,
     setComments,
+    setCommentsCount
   } = props;
 
   const [errors, setErrors] = useState({});
@@ -88,6 +89,7 @@ const EditCommentForm = (props) => {
           ...prevComments,
           results: prevComments.results.filter((comment) => comment.id !== id),
         }));
+        setCommentsCount(prevCount => prevCount - 1);
         setSuccessMessage('Comment has been deleted successfully');
         successTimeoutRef.current = setTimeout(() => {
             setSuccessMessage('');
