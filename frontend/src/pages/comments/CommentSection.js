@@ -7,7 +7,7 @@ import styles from "../../styles/CommentSection.module.css"
 import EditCommentForm from './EditCommentForm'
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import AddReplyCommentForm from './AddReplyCommentForm';
-
+import Accordion from 'react-bootstrap/Accordion';
 
 const CommentSection = (props) => {
 
@@ -30,8 +30,11 @@ const CommentSection = (props) => {
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
 
+    console.log(`Replies:`, replies)
+
     const renderReplies = () => {
         return replies.map((reply) => (
+
             <Card key={`${id}-${reply.reply_id }`} className={styles.CommentSection}>
                 <div className="row">
                     <div className={`col ${styles.ProfileSection}`}>
@@ -49,7 +52,8 @@ const CommentSection = (props) => {
                         </div>
                     </div>
 
-            </Card>
+                </Card>
+
         ));
     };
 
@@ -110,9 +114,20 @@ const CommentSection = (props) => {
                             setJob = {setJob}
                             />
                         </div>
-                        <div>
-                            {renderReplies()}
-                        </div>
+                        <Accordion defaultActiveKey="1">
+                            <Card>
+                                <Card.Header>
+                                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                          {replies.length > 0 ? "Click to view replies" : <span className={styles.NoReplyLink}>No replies yet...</span>}
+                                    </Accordion.Toggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body>
+                                    {renderReplies()}
+                                    </Card.Body>
+                                 </Accordion.Collapse>
+                            </Card>
+                        </Accordion>
                     </div>
                 )}
 

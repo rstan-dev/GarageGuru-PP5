@@ -43,3 +43,8 @@
     color: grey;
     border-bottom: 1px solid rgb(175, 175, 175);
 }
+
+.NoReplyLink {
+    color: #454545;
+    cursor: default;
+}
