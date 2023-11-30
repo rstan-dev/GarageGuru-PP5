@@ -36,7 +36,7 @@ function JobPage() {
                 ])
                 setJob({ results: [job]})
                 setComments(comments)
-                setCommentsCount(comments.count)
+                setCommentsCount(job.comment_count)
                 setInvoice({ ...invoice })
             } catch(error) {
                 console.log(error)

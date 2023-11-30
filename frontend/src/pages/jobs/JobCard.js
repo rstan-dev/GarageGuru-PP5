@@ -117,7 +117,7 @@ const JobCard = (props) => {
 
       // Reusable component for Comments Icon
       const CommentBubble = () => {
-        const displayCommentCount = commentsCount ?? comment_count;
+        const displayCommentCount = commentsCount || comment_count;
 
         return (
         <>
