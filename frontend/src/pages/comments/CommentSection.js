@@ -31,7 +31,6 @@ const CommentSection = (props) => {
     const is_owner = currentUser?.username === owner;
 
     const renderReplies = () => {
-        console.log("Rendering replies:", replies);
         return replies.map((reply) => (
             <Card key={`${id}-${reply.reply_id }`} className={styles.CommentSection}>
                 <div className="row">

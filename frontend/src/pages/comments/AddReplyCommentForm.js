@@ -36,7 +36,6 @@ function AddReplyCommentForm(props) {
       };
 
       const { data } = await axiosRes.post("/comments/", payload);
-      console.log("New reply data:", data);
 
       const formattedReply = {
         // format the data as required in renderReplies
@@ -50,7 +49,6 @@ function AddReplyCommentForm(props) {
       }
 
       setComments(prevComments => {
-        console.log("Previous comments state:", prevComments);
         // Map through the existing comments, add the replies to comment id
         // that matches the parent id
         const updatedComments = prevComments.results.map(comment => {
