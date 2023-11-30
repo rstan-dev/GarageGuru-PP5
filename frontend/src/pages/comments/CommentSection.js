@@ -7,6 +7,7 @@ import styles from "../../styles/CommentSection.module.css"
 import EditCommentForm from './EditCommentForm'
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import AddReplyCommentForm from './AddReplyCommentForm';
+import EditReplyCommentForm from './EditReplyCommentForm'
 import Accordion from 'react-bootstrap/Accordion';
 
 const CommentSection = (props) => {
@@ -30,6 +31,7 @@ const CommentSection = (props) => {
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
 
+
     console.log(`Replies:`, replies)
 
     const renderReplies = () => {
@@ -50,7 +52,35 @@ const CommentSection = (props) => {
                             {reply.reply_comment_detail}
                             </div>
                         </div>
+                </div>
+
+                {displayEditForm ? (
+                        <div className={`col-10 ${styles.CommentDetail}`}>
+                                <EditReplyCommentForm
+                                id={reply.reply_id}
+                                profile_image={profile_image}
+                                comment_detail={comment_detail}
+                                setDisplayEditForm={setDisplayEditForm}
+                                setComments={setComments}
+                                setCommentsCount={setCommentsCount}
+                                />
+                        </div>
+                    ) : (
+                    <div className="col-10">
+                        <div className={styles.CommentDetail}>
+                            {comment_detail}
+                        </div>
+                        {is_owner && !displayEditForm && (
+                        <div className="col-12 text-right">
+                            <Button
+                            onClick={() => setDisplayEditForm(true)}
+                            >
+                            Edit
+                            </Button>
+                        </div>
+                            )}
                     </div>
+                )}
 
                 </Card>
 
