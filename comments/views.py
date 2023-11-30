@@ -2,7 +2,7 @@ from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Comment
-from . serializers import CommentSerializer, CommentDetailSerializer
+from .serializers import CommentSerializer, CommentDetailSerializer
 
 
 class CommentList(generics.ListCreateAPIView):
@@ -13,15 +13,12 @@ class CommentList(generics.ListCreateAPIView):
     permission_classes requires users to be logged in to leave a
     comment
     """
+
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Comment.objects.all()
-    filter_backends = [
-        DjangoFilterBackend
-    ]
-    filterset_fields = [
-        'job'
-    ]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["job"]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -36,7 +33,7 @@ class CommentList(generics.ListCreateAPIView):
         By default, show only top-level comments (parent is None)
         """
         queryset = super().get_queryset()
-        parent = self.request.query_params.get('parent')
+        parent = self.request.query_params.get("parent")
         if parent is not None:
             queryset = queryset.filter(parent_id=parent)
         else:
@@ -49,6 +46,7 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve, edit or delete a comment according to comment id and
     if the owner is logged in.
     """
+
     serializer_class = CommentDetailSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Comment.objects.all()
