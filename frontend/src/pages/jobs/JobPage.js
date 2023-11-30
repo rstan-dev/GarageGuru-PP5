@@ -71,6 +71,7 @@ function JobPage() {
                 children={
                     comments.results.map((comment) => (
                         <CommentSection
+                        job={id}
                         key={comment.id} {...comment}
                         setJob={setJob}
                         setComments={setComments}

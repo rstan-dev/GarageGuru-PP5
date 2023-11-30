@@ -21,6 +21,8 @@ const CommentSection = (props) => {
         id,
         setCommentsCount,
         replies,
+        job,
+        setJob,
     } = props
 
     const [displayEditForm, setDisplayEditForm] = useState(false)
@@ -29,8 +31,9 @@ const CommentSection = (props) => {
     const is_owner = currentUser?.username === owner;
 
     const renderReplies = () => {
+        console.log("Rendering replies:", replies);
         return replies.map((reply) => (
-            <Card key={reply.reply_id} className={styles.CommentSection}>
+            <Card key={`${id}-${reply.reply_id }`} className={styles.CommentSection}>
                 <div className="row">
                     <div className={`col ${styles.ProfileSection}`}>
                         <p className={styles.ProfileName}>
@@ -99,9 +102,13 @@ const CommentSection = (props) => {
                         <div>
                             <div className={styles.ReplyHeader}>Reply to this comment</div>
                             <AddReplyCommentForm
-                            id={id}
+                            id = {id}
+                            jobId={job}
                             profile_image={profile_image}
                             profile_owner={owner}
+                            setComments = {setComments}
+                            setCommentsCount={setCommentsCount}
+                            setJob = {setJob}
                             />
                         </div>
                         <div>

@@ -9,14 +9,13 @@ import { axiosRes } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 function AddReplyCommentForm(props) {
-  const { id, setComments, setCommentsCount } = props;
+  const { jobId, id, setComments, setCommentsCount } = props;
   const [comment_detail, setComment_detail] = useState("");
   const parent = id;
+  const job = jobId;
   const currentUser = useCurrentUser();
   const profileImage = currentUser?.profile_image
   const profileName = currentUser?.username
-
-  console.log(`Parent ID: ${parent}` )
 
   const handleChange = (event) => {
     setComment_detail(event.target.value);
@@ -32,28 +31,53 @@ function AddReplyCommentForm(props) {
     try {
       const payload = {
         comment_detail,
+        job,
         parent,
       };
 
-
       const { data } = await axiosRes.post("/comments/", payload);
+      console.log("New reply data:", data);
+
+      const formattedReply = {
+        // format the data as required in renderReplies
+        ...data,
+        reply_id: data.id,
+        reply_owner: data.owner,
+        reply_comment_detail: data.comment_detail,
+        reply_created_at: data.created_at,
+        reply_updated_at: data.updated_at,
+        parent: data.parent,
+      }
 
       setComments(prevComments => {
-        // Find the parent comment and update its replies array
-        const updatedComments = prevComments.map(comment => {
+        console.log("Previous comments state:", prevComments);
+        // Map through the existing comments, add the replies to comment id
+        // that matches the parent id
+        const updatedComments = prevComments.results.map(comment => {
           if (comment.id === parent) {
-            return { ...comment, replies: [...comment.replies, data] };
+            const updatedReplies = [formattedReply, ...comment.replies];
+            return {
+              ...comment,
+              replies: updatedReplies
+            };
           }
           return comment;
-        });
+          });
 
-        return { ...prevComments, results: updatedComments };
-      });
-      setComment_detail("");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+          // Return the updated state
+          return {
+            ...prevComments,
+            results: updatedComments
+          };
+          });
+
+          setCommentsCount(prevCount => prevCount + 1);
+          setComment_detail("");
+          }
+          catch (err) {
+            console.log(err);
+          }
+          };
 
   return (
     <div className={styles.CommentArea}>
