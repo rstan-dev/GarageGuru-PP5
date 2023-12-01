@@ -102,14 +102,22 @@ const JobCard = (props) => {
       };
 
       // Reusable component for EditJobCard
-      const EditJobCardLink = () => (
-        <div className="text-right">
-          <Link to={`/jobs/${id}/edit-job`} data-tooltip="Edit JobCard">
-            <span className={styles.PencilIcon}>
-              <i className="fa-solid fa-pencil"></i>
-            </span>
-          </Link>
-        </div>
+  const EditJobCardLink = () => (
+
+    <div className="text-right">
+      {is_owner ? (
+        <Link to={`/jobs/${id}/edit-job`} >
+          <Button variant="primary">
+            Edit Job Card
+          </Button>
+        </Link>
+        ) : (
+            <Button variant="outline-secondary" disabled>
+            <div>Editing unavailable.</div>
+            <div>{`Only ${owner} can edit this job`}</div>
+            </Button>
+      )}
+    </div >
       );
 
       // Reusable component for JobCard Image
@@ -210,7 +218,7 @@ const JobCard = (props) => {
             <div className="card-body">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <p className={styles.JobCardHeader}>JOBCARD</p>
-                {is_owner && <EditJobCardLink />}
+                <EditJobCardLink />
               </div>
               <div className="row">
                 <div className="col-md-8">
