@@ -69,7 +69,7 @@ const CommentSection = (props) => {
                             <Button
                             onClick={() => setEditingId(reply.reply_id)}
                             >
-                            Edit
+                            Edit Reply
                             </Button>
                         </div>
                             )}
@@ -123,7 +123,7 @@ const CommentSection = (props) => {
                             <Button
                             onClick={() => setEditingId(id)}
                             >
-                            Edit
+                            Edit Comment
                             </Button>
                         </div>
                         )}

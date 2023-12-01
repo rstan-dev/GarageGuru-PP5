@@ -107,7 +107,7 @@ function AddReplyCommentForm(props) {
                     variant="success"
                     type="submit"
                   >
-                    Add Comment
+                    Reply To Comment
                   </Button>
                 </div>
               </Form>
