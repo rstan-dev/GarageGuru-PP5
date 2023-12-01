@@ -42,7 +42,6 @@ function AddCommentForm(props) {
 
   return (
     <div className={styles.CommentArea}>
-        <p>Leave a comment</p>
         <div className="row">
             <div className={`col ${styles.ProfileSection}`}>
               <Image
@@ -71,7 +70,7 @@ function AddCommentForm(props) {
                     variant="success"
                     type="submit"
                   >
-                    Submit
+                    Add Comment
                   </Button>
                 </div>
               </Form>

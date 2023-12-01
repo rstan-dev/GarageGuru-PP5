@@ -21,13 +21,15 @@ import { useCurrentUser } from "./contexts/CurrentUserContext";
 import InvoicePage from './pages/invoices/InvoicePage';
 import AllInvoicesPage from './pages/invoices/AllInvoicesPage';
 
+import PageNotFoundLoggedOut from './components/PageNotFoundLoggedOut';
+
 
 function App() {
   const currentUser = useCurrentUser();
   const currentUsername = currentUser?.username || "";
 
-  return (
-
+  return currentUser
+    ? (
         <div className={styles.App}>
           < NavBar />
           < Container className={styles.Content}>
@@ -100,9 +102,6 @@ function App() {
               }
               />
 
-              <Route exact path="/login" render={() => <LoginForm />} />
-              <Route exact path="/logout" render={() => <h1>Logout</h1>} />
-              <Route exact path="/register" render={() => <RegisterForm />} />
               <Route exact path="/profile/:id" render={() => <ProfilePage />} />
               <Route exact path="/profile/:id/edit-profile" render={() => <EditProfileForm />} />
               <Route exact path="/profile/:id/change-password" render={() => <ChangePasswordForm />} />
@@ -117,7 +116,19 @@ function App() {
           </Switch>
           </Container>
         </div>
-  );
+  )
+  : (
+    <div className={styles.App}>
+      < NavBar />
+      < Container className={styles.Content}>
+        <Switch>
+          <Route exact path="/login" render={() => <LoginForm />} />
+          <Route exact path="/register" render={() => <RegisterForm />} />
+          <Route render={() => <PageNotFoundLoggedOut />} />
+        </Switch>
+      </Container>
+    </div>
+  )
 }
 
 export default App;

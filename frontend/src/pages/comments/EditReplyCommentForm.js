@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Alert from 'react-bootstrap/Alert';
 import ConfirmationModal from '../../components/ConfirmationModal';
 
-const EditCommentForm = (props) => {
+const EditReplyCommentForm = (props) => {
 
   // destructure props
   const {
@@ -13,10 +13,7 @@ const EditCommentForm = (props) => {
     comment_detail,
     setDisplayEditForm,
     setComments,
-    setCommentsCount,
-    isReply,
-    parentCommentId,
-
+    setCommentsCount
   } = props;
 
   const [errors, setErrors] = useState({});
@@ -49,50 +46,26 @@ const EditCommentForm = (props) => {
 }, []);
 
   // puts changes to comment api endpoint and resets the
-  // updated_time.
-  // First checks for isReply to update comment replies, else
-  // it updates parent comments.
+  // updated_time
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       await axiosRes.put(`/comments/${id}/`, {
         comment_detail: formContent.trim(),
       });
-
-      if (isReply && parentCommentId) {
-        setComments((prevComments) => {
-          // update comment replies
-          const updatedComments = prevComments.results.map((comment) => {
-            if (comment.id === parentCommentId) {
-              const updatedReplies = comment.replies.map((reply) => {
-                if (reply.reply_id === id) {
-                  return { ...reply, reply_comment_detail: formContent.trim(), updated_at: "now" };
-                }
-                return reply;
-              });
-              return { ...comment, replies: updatedReplies };
-            }
-            return comment;
-          });
-          return { ...prevComments, results: updatedComments };
-        });
-      } else {
-        setComments((prevComments) => ({
-          // update parent comments
-          ...prevComments,
-          results: prevComments.results.map((comment) => {
-            return comment.id === id
-              ? {
+      setComments((prevComments) => ({
+        ...prevComments,
+        results: prevComments.results.map((comment) => {
+          return comment.id === id
+            ? {
                 ...comment,
                 comment_detail: formContent.trim(),
                 updated_at: "now",
               }
-              : comment;
-          }),
-        }));
-      };
-
-      setDisplayEditForm();
+            : comment;
+        }),
+      }));
+      setDisplayEditForm(false);
     } catch (err) {
       console.log(err);
     }
@@ -126,7 +99,6 @@ const EditCommentForm = (props) => {
         setErrors({ message: ["There was an error deleting the comment."] });
     };
     setShowConfirmationModal(false);
-    setDisplayEditForm();
   };
 
   // Handles modal's confirmation
@@ -162,7 +134,7 @@ const EditCommentForm = (props) => {
         <div className="text-right">
           <Button
             variant="warning"
-            onClick={() => setDisplayEditForm()}
+            onClick={() => setDisplayEditForm(false)}
             type="button"
           >
             Cancel
@@ -194,4 +166,4 @@ const EditCommentForm = (props) => {
   )
 }
 
-export default EditCommentForm
+export default EditReplyCommentForm

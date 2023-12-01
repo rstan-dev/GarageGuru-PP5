@@ -12,22 +12,22 @@ class CommentSerializer(serializers.ModelSerializer):
     Adds parent field for handling the id of the parent comment
     Adds replies field for handling replies to specific comments
     """
-    owner = serializers.ReadOnlyField(source='owner.username')
+
+    owner = serializers.ReadOnlyField(source="owner.username")
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
 
     is_owner = serializers.SerializerMethodField()
-    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    profile_id = serializers.ReadOnlyField(source="owner.profile.id")
+    profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
 
-    parent = serializers.PrimaryKeyRelatedField(queryset=Comment.objects.all(),
-                                                required=False)
-    replies = serializers.SerializerMethodField(method_name='get_replies')
-
-
+    parent = serializers.PrimaryKeyRelatedField(
+        queryset=Comment.objects.all(), required=False
+    )
+    replies = serializers.SerializerMethodField(method_name="get_replies")
 
     def get_is_owner(self, obj):
-        request = self.context['request']
+        request = self.context["request"]
         return request.user == obj.owner
 
     def get_created_at(self, obj):
@@ -44,16 +44,23 @@ class CommentSerializer(serializers.ModelSerializer):
         """
         if obj.parent is None:
             replies = Comment.objects.filter(parent=obj)
-            return CommentReplySerializer(replies, many=True,
-                                        context=self.context).data
+            return CommentReplySerializer(replies, many=True, context=self.context).data
         return []
 
     class Meta:
         model = Comment
         fields = [
-            'id', 'owner', 'job', 'comment_detail', 'created_at',
-            'updated_at', 'is_owner', 'profile_id', 'profile_image',
-            'parent', 'replies',
+            "id",
+            "owner",
+            "job",
+            "comment_detail",
+            "created_at",
+            "updated_at",
+            "is_owner",
+            "profile_id",
+            "profile_image",
+            "parent",
+            "replies",
         ]
 
 
@@ -62,7 +69,8 @@ class CommentDetailSerializer(CommentSerializer):
     Comment Detail Serializer ensures a comment is always associated
     with a specific job
     """
-    job = serializers.ReadOnlyField(source='job.id')
+
+    job = serializers.ReadOnlyField(source="job.id")
 
 
 class CommentReplySerializer(serializers.ModelSerializer):
@@ -70,9 +78,10 @@ class CommentReplySerializer(serializers.ModelSerializer):
     Simplified serializer for replies, excludes parent and replies to avoid
     further nesting
     """
-    reply_id = serializers.IntegerField(source='id', read_only=True)
-    reply_owner = serializers.ReadOnlyField(source='owner.username')
-    reply_comment_detail = serializers.ReadOnlyField(source='comment_detail')
+
+    reply_id = serializers.IntegerField(source="id", read_only=True)
+    reply_owner = serializers.ReadOnlyField(source="owner.username")
+    reply_comment_detail = serializers.ReadOnlyField(source="comment_detail")
     reply_created_at = serializers.SerializerMethodField()
     reply_updated_at = serializers.SerializerMethodField()
 
@@ -84,4 +93,11 @@ class CommentReplySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['reply_id', 'reply_owner', 'reply_comment_detail', 'reply_created_at', 'reply_updated_at']
+        fields = [
+            "reply_id",
+            "reply_owner",
+            "reply_comment_detail",
+            "reply_created_at",
+            "reply_updated_at",
+            "parent",
+        ]

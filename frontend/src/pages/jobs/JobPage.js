@@ -36,7 +36,7 @@ function JobPage() {
                 ])
                 setJob({ results: [job]})
                 setComments(comments)
-                setCommentsCount(comments.count)
+                setCommentsCount(job.comment_count)
                 setInvoice({ ...invoice })
             } catch(error) {
                 console.log(error)
@@ -71,6 +71,7 @@ function JobPage() {
                 children={
                     comments.results.map((comment) => (
                         <CommentSection
+                        job={id}
                         key={comment.id} {...comment}
                         setJob={setJob}
                         setComments={setComments}
