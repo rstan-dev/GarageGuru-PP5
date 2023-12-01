@@ -7,7 +7,6 @@ import styles from "../../styles/CommentSection.module.css"
 import EditCommentForm from './EditCommentForm'
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import AddReplyCommentForm from './AddReplyCommentForm';
-import EditReplyCommentForm from './EditReplyCommentForm'
 import Accordion from 'react-bootstrap/Accordion';
 
 const CommentSection = (props) => {
@@ -26,13 +25,15 @@ const CommentSection = (props) => {
         setJob,
     } = props
 
-    const [displayEditForm, setDisplayEditForm] = useState(false)
+    const [editingId, setEditingId] = useState(null);
 
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
 
 
     console.log(`Replies:`, replies)
+    console.log(`Reply ID:`, replies.reply_id)
+    console.log(`Prop ID:`, id)
 
     const renderReplies = () => {
         return replies.map((reply) => (
@@ -47,42 +48,37 @@ const CommentSection = (props) => {
                             {reply.reply_updated_at}
                         </p>
                     </div>
-                        <div className="col-10">
-                            <div className={styles.CommentDetail}>
-                            {reply.reply_comment_detail}
-                            </div>
-                        </div>
-                </div>
 
-                {displayEditForm ? (
-                        <div className={`col-10 ${styles.CommentDetail}`}>
-                                <EditReplyCommentForm
-                                id={reply.reply_id}
-                                profile_image={profile_image}
-                                comment_detail={comment_detail}
-                                setDisplayEditForm={setDisplayEditForm}
-                                setComments={setComments}
-                                setCommentsCount={setCommentsCount}
-                                />
-                        </div>
+                    {editingId === reply.reply_id ? (
+                    <div className={`col-10 ${styles.CommentDetail}`}>
+                            <EditCommentForm
+                            id={reply.reply_id}
+                            profile_image={profile_image}
+                            comment_detail={reply.reply_comment_detail}
+                            setDisplayEditForm={() => setEditingId(null)}
+                            setComments={setComments}
+                            setCommentsCount={setCommentsCount}
+                            />
+                    </div>
                     ) : (
                     <div className="col-10">
                         <div className={styles.CommentDetail}>
-                            {comment_detail}
+                            {reply.reply_comment_detail}
                         </div>
-                        {is_owner && !displayEditForm && (
+                        {is_owner && editingId !== reply.reply_id && (
                         <div className="col-12 text-right">
                             <Button
-                            onClick={() => setDisplayEditForm(true)}
+                            onClick={() => setEditingId(reply.reply_id)}
                             >
                             Edit
                             </Button>
                         </div>
                             )}
                     </div>
-                )}
+                    )}
+                </div>
 
-                </Card>
+            </Card>
 
         ));
     };
@@ -107,13 +103,13 @@ const CommentSection = (props) => {
                         {updated_at}
                     </p>
                 </div>
-                {displayEditForm ? (
+                {editingId === id ? (
                     <div className={`col-10 ${styles.CommentDetail}`}>
                             <EditCommentForm
                             id={id}
                             profile_image={profile_image}
                             comment_detail={comment_detail}
-                            setDisplayEditForm={setDisplayEditForm}
+                            setDisplayEditForm={() => setEditingId(null)}
                             setComments={setComments}
                             setCommentsCount={setCommentsCount}
                             />
@@ -123,10 +119,10 @@ const CommentSection = (props) => {
                         <div className={styles.CommentDetail}>
                             {comment_detail}
                         </div>
-                        {is_owner && !displayEditForm && (
+                        {is_owner && editingId !== id && (
                         <div className="col-12 text-right">
                             <Button
-                            onClick={() => setDisplayEditForm(true)}
+                            onClick={() => setEditingId(id)}
                             >
                             Edit
                             </Button>

@@ -65,7 +65,7 @@ const EditCommentForm = (props) => {
             : comment;
         }),
       }));
-      setDisplayEditForm(false);
+      setDisplayEditForm();
     } catch (err) {
       console.log(err);
     }
@@ -134,7 +134,7 @@ const EditCommentForm = (props) => {
         <div className="text-right">
           <Button
             variant="warning"
-            onClick={() => setDisplayEditForm(false)}
+            onClick={() => setDisplayEditForm()}
             type="button"
           >
             Cancel
