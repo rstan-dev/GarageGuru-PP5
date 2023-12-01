@@ -126,6 +126,7 @@ const EditCommentForm = (props) => {
         setErrors({ message: ["There was an error deleting the comment."] });
     };
     setShowConfirmationModal(false);
+    setDisplayEditForm();
   };
 
   // Handles modal's confirmation
