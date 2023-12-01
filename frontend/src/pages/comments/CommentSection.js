@@ -29,13 +29,10 @@ const CommentSection = (props) => {
 
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
-
-
-    console.log(`Replies:`, replies)
-    console.log(`Reply ID:`, replies.reply_id)
-    console.log(`Prop ID:`, id)
+    const isReplyOwner = currentUser?.username;
 
     const renderReplies = () => {
+
         return replies.map((reply) => (
 
             <Card key={`${id}-${reply.reply_id }`} className={styles.CommentSection}>
@@ -67,7 +64,7 @@ const CommentSection = (props) => {
                         <div className={styles.CommentDetail}>
                             {reply.reply_comment_detail}
                         </div>
-                        {is_owner && editingId !== reply.reply_id && (
+                        {(isReplyOwner === reply.reply_owner) && editingId !== reply.reply_id && (
                         <div className="col-12 text-right">
                             <Button
                             onClick={() => setEditingId(reply.reply_id)}
