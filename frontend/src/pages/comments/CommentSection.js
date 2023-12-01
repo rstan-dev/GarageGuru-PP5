@@ -55,6 +55,8 @@ const CommentSection = (props) => {
                             id={reply.reply_id}
                             profile_image={profile_image}
                             comment_detail={reply.reply_comment_detail}
+                            isReply={true}
+                            parentCommentId={id}
                             setDisplayEditForm={() => setEditingId(null)}
                             setComments={setComments}
                             setCommentsCount={setCommentsCount}

@@ -13,7 +13,10 @@ const EditCommentForm = (props) => {
     comment_detail,
     setDisplayEditForm,
     setComments,
-    setCommentsCount
+    setCommentsCount,
+    isReply,
+    parentCommentId,
+
   } = props;
 
   const [errors, setErrors] = useState({});
@@ -46,25 +49,49 @@ const EditCommentForm = (props) => {
 }, []);
 
   // puts changes to comment api endpoint and resets the
-  // updated_time
+  // updated_time.
+  // First checks for isReply to update comment replies, else
+  // it updates parent comments.
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       await axiosRes.put(`/comments/${id}/`, {
         comment_detail: formContent.trim(),
       });
-      setComments((prevComments) => ({
-        ...prevComments,
-        results: prevComments.results.map((comment) => {
-          return comment.id === id
-            ? {
+
+      if (isReply && parentCommentId) {
+        setComments((prevComments) => {
+          // update comment replies
+          const updatedComments = prevComments.results.map((comment) => {
+            if (comment.id === parentCommentId) {
+              const updatedReplies = comment.replies.map((reply) => {
+                if (reply.reply_id === id) {
+                  return { ...reply, reply_comment_detail: formContent.trim(), updated_at: "now" };
+                }
+                return reply;
+              });
+              return { ...comment, replies: updatedReplies };
+            }
+            return comment;
+          });
+          return { ...prevComments, results: updatedComments };
+        });
+      } else {
+        setComments((prevComments) => ({
+          // update parent comments
+          ...prevComments,
+          results: prevComments.results.map((comment) => {
+            return comment.id === id
+              ? {
                 ...comment,
                 comment_detail: formContent.trim(),
                 updated_at: "now",
               }
-            : comment;
-        }),
-      }));
+              : comment;
+          }),
+        }));
+      };
+
       setDisplayEditForm();
     } catch (err) {
       console.log(err);
