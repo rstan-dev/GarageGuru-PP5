@@ -1,4 +1,4 @@
-.JobCard {
+.AllJobsContainer {
     padding-top: 50px;
 }
 
@@ -7,6 +7,10 @@
 }
 
 /* Status block styles */
+.StatusCard {
+    padding: 20px;
+}
+
 .StatusBlock {
     padding-bottom: 25px;
 }
@@ -43,6 +47,10 @@
 }
 
 /* Search Bar styles */
+.SearchBarContainer {
+    position: relative;
+}
+
 .SearchBar input {
     border-radius: 5px;
     color: #242a3d;

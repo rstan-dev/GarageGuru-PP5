@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 import styles from '../../styles/AllJobsPage.module.css'
 import { axiosReq } from '../../api/axiosDefaults';
@@ -73,14 +74,14 @@ function AllJobsPage({ message, filter = "" }) {
 
 
     return (
-        <Container className={styles.JobCard}>
+        <Container className={styles.AllJobsContainer}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
                 <div className={styles.CardBlock}>
                     {
                     // Status Block //
                     }
-
-                    <p>Filter by:</p>
+                    <Card className={styles.StatusCard}>
+                    <p>Dashboard</p>
                     <div className={`row ${styles['StatusBlock']}`}>
                         <div className="col-md-4"
                             onClick={() => {setQuery("Pending"); setSelectedStatus("Pending");}}>
@@ -142,7 +143,8 @@ function AllJobsPage({ message, filter = "" }) {
                     </div>
                     {
                     // Search bar //
-                    }
+                        }
+                    <div className={styles.SearchBarContainer}>
                     <i className={`fas fa-search ${styles.SearchIcon}`} />
                     <Form
                     className={styles.SearchBar}
@@ -157,6 +159,9 @@ function AllJobsPage({ message, filter = "" }) {
                         />
                     </Form>
                     </div>
+                    </Card>
+                </div>
+
 
                         {hasLoaded ? (
                         <>

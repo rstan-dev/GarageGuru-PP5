@@ -20,6 +20,7 @@ import EditInvoiceForm from './pages/invoices/EditInvoiceForm';
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import InvoicePage from './pages/invoices/InvoicePage';
 import AllInvoicesPage from './pages/invoices/AllInvoicesPage';
+import FixedHeader from './components/FixedHeader';
 
 import PageNotFoundLoggedOut from './components/PageNotFoundLoggedOut';
 
@@ -40,7 +41,7 @@ function App() {
               path="/"
               render={() =>
               <>
-              <h1>Viewing All Jobs</h1>
+              < FixedHeader text="Viewing All Jobs"/>
               < AllJobsPage message="No Jobs Found..." />
               </> } />
 
@@ -49,7 +50,8 @@ function App() {
               exact
               path="/myjobs"
               render={() =>
-              <>
+                <>
+
               <h1>Viewing My Jobs - Created By Me</h1>
               {
                 currentUser ? (
