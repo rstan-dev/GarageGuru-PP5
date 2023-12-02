@@ -113,8 +113,8 @@ const JobCard = (props) => {
         </Link>
         ) : (
             <Button variant="outline-secondary" disabled>
-            <div>Editing unavailable.</div>
-            <div>{`Only ${owner} can edit this job`}</div>
+            <div className={styles.DisabledButton}>Editing unavailable.</div>
+            <div className={styles.DisabledButton}>{`Only ${owner} can edit this job`}</div>
             </Button>
       )}
     </div >
@@ -147,7 +147,53 @@ const JobCard = (props) => {
         )}
         </>
         )
-        };
+      };
+
+      // Reusable component for displaying Watching Icon
+      const DisplayWatchIcon = () => (
+        <>
+        { watch_id ? (
+          <div
+            className={`${styles.EyeWatched }`}
+            onClick={handleUnwatch}
+          >
+            <i className="fa-regular fa-eye"></i>
+          </div>
+          ) : (
+            <div
+            className={`${styles.EyeUnwatched}`}
+            onClick={handleWatch}
+          >
+            <i className="fa-regular fa-eye"></i>
+          </div>
+          )}
+        </>
+      )
+
+      // Reusable component for Displaying Add Invoice Button
+      const DisplayAddInvoiceButton = () => (
+        <>
+        {(!has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
+        <Link to={{
+          pathname: "/invoices/addinvoice",
+          state: { jobId: id }
+            }}
+            className="FullWidthLink">
+          <Button variant="primary" size="lg" block>
+            Add Invoice
+          </Button>
+        </Link>
+          ) : (
+            <div className="FullWidthLink">
+              <Button variant="outline-secondary" disabled siz="lg" block>
+                <div className={styles.DisabledButton}>No invoice to display.</div>
+                <div className={styles.DisabledButton}>{`Only ${owner} or ${assignedUsername} can add an invoice`}</div>
+                </Button>
+            </div>
+          )
+    }
+        </>
+      );
 
       // Reusable component for Displaying View or Edit Invoice Button
       const DisplayEditViewInvoiceButton = () => (
@@ -174,50 +220,12 @@ const JobCard = (props) => {
         </>
       );
 
-      // Reusable component for Displaying Add Invoice Button
-      const DisplayAddInvoiceButton = () => (
-        <>
-        {(!has_invoice && (is_owner || assigned_to === currentUser.pk)) && (
-        <Link to={{
-          pathname: "/invoices/addinvoice",
-          state: { jobId: id }
-            }}
-            className="FullWidthLink">
-          <Button variant="primary" size="lg" block>
-            Add Invoice
-          </Button>
-        </Link>
-      )}
-        </>
-      );
-
-      // Reusable component for displaying Watching Icon
-      const DisplayWatchIcon = () => (
-        <>
-        { watch_id ? (
-          <div
-            className={`${styles.EyeWatched }`}
-            onClick={handleUnwatch}
-          >
-            <i className="fa-regular fa-eye"></i>
-          </div>
-          ) : (
-            <div
-            className={`${styles.EyeUnwatched}`}
-            onClick={handleWatch}
-          >
-            <i className="fa-regular fa-eye"></i>
-          </div>
-          )}
-        </>
-      )
-
       return (
 
         <div className={styles.CardBlock}>
           <div className="card">
             <div className="card-body">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className={styles.JobCardHeaderContainer}>
                 <p className={styles.JobCardHeader}>JOBCARD</p>
                 <EditJobCardLink />
               </div>

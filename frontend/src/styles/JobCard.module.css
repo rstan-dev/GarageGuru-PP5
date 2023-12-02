@@ -1,3 +1,13 @@
+/* General */
+
+h2 {
+    font-size: large;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
 .JobCard {
     padding-top: 50px;
 }
@@ -6,14 +16,42 @@
     padding-top: 25px;
 }
 
-i {
+.JobCardHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.JobCardHeader {
     font-size: 1.5rem;
+    font-weight: 400;
+}
+
+/* JobCard details */
+
+i {
     align-items: center;
 }
 
 th i {
     padding-right: 5px;
+    font-size: 1.25rem;
 }
+
+table tr {
+    font-size: 0.8em;
+}
+
+table td {
+    padding: 0.5rem !important;
+}
+
+table th {
+    padding: 0.5rem !important;
+}
+
+/* Job Image */
 
 .JobImageContainer {
     padding-top: 25px;
@@ -21,6 +59,16 @@ th i {
 
 .JobImage {
     border: solid 1px #bcbcbc;
+}
+
+/* Comments & Watch Section */
+.CommentWatchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .CommentBubbleActive i {
@@ -57,17 +105,27 @@ th i {
     font-size: 2rem;
 }
 
-h2 {
-    font-size: large;
+/* Invoice Section */
+.AddInvoiceContainer {
+    margin-bottom: 20px;
+    width: 100%;
 }
 
-p {
-    font-size: 1.5rem;
+.FullWidthLink {
+    display: block;
 }
 
-.JobCardHeader {
-    font-size: 1.5rem;
-    font-weight: 400;
+.DisabledButton {
+    color: black;
+    font-size: 0.85rem;
+}
+
+/* Invoice Accordion */
+
+.InvoiceButtonContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .CenteredToggle {
@@ -79,35 +137,10 @@ p {
 .ViewInvoiceLink {
     color: #007bff;
     cursor: pointer;
-    font-size: 1.25rem;
 }
 
 .DisplayAddEditViewInvoice {
     margin-left: 10px;
-}
-
-.InvoiceButtonContainer {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.CommentWatchContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 20px;
-}
-
-.AddInvoiceContainer {
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.FullWidthLink {
-    display: block;
-
 }
 
 

@@ -38,11 +38,19 @@ const InvoiceCard = (props) => {
   // Reusable component for EditInvoiceCard
   const EditInvoiceCardLink = () => (
     <div className="text-right">
-      <Link to={`/invoices/${inv_id}/edit-invoice`} data-tooltip="Edit Invoice">
-        <span className={styles.PencilIcon}>
-          <i className="fa-solid fa-pencil"></i>
-        </span>
-      </Link>
+      {(inv_owner === currentUser?.username || job_assigned_to === currentUser?.username) ? (
+        <Link to={`/invoices/${inv_id}/edit-invoice`}>
+          <Button variant="primary">
+            Edit Invoice
+          </Button>
+        </Link>
+      ) : (
+        <Button variant="outline-secondary" disabled>
+        <div className={styles.DisabledButton}>Editing unavailable.</div>
+        <div className={styles.DisabledButton}>{`Only ${inv_owner} or ${job_assigned_to} can edit this job`}</div>
+        </Button>
+
+      )}
     </div>
   );
 
@@ -60,9 +68,9 @@ const InvoiceCard = (props) => {
     <div className={styles.CardBlock}>
       <div className="card">
         <div className="card-body">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className={styles.InvoiceCardHeaderContainer}>
           <p className={styles.InvoiceCardHeader}>INVOICE CARD</p>
-          { (is_owner || job_assigned_to === currentUser) && <EditInvoiceCardLink />}
+          <EditInvoiceCardLink />
         </div>
             <div className="row">
               <div className="col-md-8">
@@ -122,9 +130,9 @@ const InvoiceCard = (props) => {
                       <Accordion defaultActiveKey="1">
                     <Card>
                       <Card.Header>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div className={styles.CenteredToggle}>
                           <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                            Click To View Job Summary
+                            <span className={styles.ViewJobSummaryLink}>Click To View Job Summary</span>
                           </Accordion.Toggle>
                         </div>
                       </Card.Header>
