@@ -121,7 +121,7 @@ const JobCard = (props) => {
       );
 
       // Reusable component for JobCard Image
-      const JobImage = () => <Card.Img src={image} alt={job_type} />;
+      const JobImage = () => <Card.Img src={image} alt={job_type} className={styles.JobImage} />;
 
       // Reusable component for Comments Icon
       const CommentBubble = () => {
@@ -181,8 +181,9 @@ const JobCard = (props) => {
         <Link to={{
           pathname: "/invoices/addinvoice",
           state: { jobId: id }
-        }}>
-          <Button variant="primary">
+            }}
+            className="FullWidthLink">
+          <Button variant="primary" size="lg" block>
             Add Invoice
           </Button>
         </Link>
@@ -275,48 +276,54 @@ const JobCard = (props) => {
                   <DisplayWatchIcon />
                   </div>
 
-                  <Accordion defaultActiveKey="1">
-                    <Card>
-                      <Card.Header>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                            {has_invoice ? "Click To View Invoice Summary" : <span className={styles.NoInvoiceLink}>No Invoice Details To Display</span>}
-                          </Accordion.Toggle>
-                          <DisplayAddInvoiceButton />
-                        </div>
-                      </Card.Header>
+                  {has_invoice ? (
+                    <Accordion defaultActiveKey="1">
+                      <Card>
+                        <Card.Header>
+                          <div className={styles.CenteredToggle}>
+                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                              <span className={styles.ViewInvoiceLink}>Click To View Invoice Summary</span>
+                            </Accordion.Toggle>
+
+                          </div>
+                        </Card.Header>
                         <Accordion.Collapse eventKey="0">
                           <Card.Body>
-                          <DisplayEditViewInvoiceButton />
-                          <table className="table table-striped">
-                            <tbody>
-                              <tr>
-                                <th>Invoice Number:</th>
-                                <td>{inv_id}</td>
-                              </tr>
-                              <tr>
-                                <th>Customer:</th>
-                                <td>{customer_firstname} {" "} {customer_lastname}</td>
-                              </tr>
-                              <tr>
-                                <th>Amount:</th>
-                                <td>£{amount}</td>
-                              </tr>
-                              <tr>
-                                <th>Invoice Status:</th>
-                                <td>{invoice_status}</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                            <DisplayEditViewInvoiceButton />
+                            <table className="table table-striped">
+                              <tbody>
+                                <tr>
+                                  <th>Invoice Number:</th>
+                                  <td>{inv_id}</td>
+                                </tr>
+                                <tr>
+                                  <th>Customer:</th>
+                                  <td>{customer_firstname} {" "} {customer_lastname}</td>
+                                </tr>
+                                <tr>
+                                  <th>Amount:</th>
+                                  <td>£{amount}</td>
+                                </tr>
+                                <tr>
+                                  <th>Invoice Status:</th>
+                                  <td>{invoice_status}</td>
+                                </tr>
+                              </tbody>
+                            </table>
                           </Card.Body>
                         </Accordion.Collapse>
                       </Card>
                     </Accordion>
+                  ) : (
+                      <div className={styles.AddInvoiceContainer}>
+                        <DisplayAddInvoiceButton />
+                      </div>
+                  )}
 
                 </div>
 
                 {/* Desktop Display */}
-                <div className="col-md-4 d-none d-md-block text-center">
+                <div className={`col-md-4 d-none d-md-block text-center ${styles.JobImageContainer}`}>
                   <JobImage />
                 </div>
 

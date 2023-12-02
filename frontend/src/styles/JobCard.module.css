@@ -15,9 +15,12 @@ th i {
     padding-right: 5px;
 }
 
-.DefaultCarIcon {
-    font-size: 150px;
-    color: #004AAD;
+.JobImageContainer {
+    padding-top: 25px;
+}
+
+.JobImage {
+    border: solid 1px #bcbcbc;
 }
 
 .CommentBubbleActive i {
@@ -62,21 +65,21 @@ p {
     font-size: 1.5rem;
 }
 
-.PencilIcon i {
-    color: #454545;
-    font-size: 2rem;
-    padding-bottom: 20px;
-
-}
-
 .JobCardHeader {
     font-size: 1.5rem;
     font-weight: 400;
 }
 
-.NoInvoiceLink {
-    color: #454545;
-    cursor: default;
+.CenteredToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.ViewInvoiceLink {
+    color: #007bff;
+    cursor: pointer;
+    font-size: 1.25rem;
 }
 
 .DisplayAddEditViewInvoice {
@@ -96,3 +99,15 @@ p {
     gap: 30px;
     margin-bottom: 20px;
 }
+
+.AddInvoiceContainer {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.FullWidthLink {
+    display: block;
+
+}
+
+
