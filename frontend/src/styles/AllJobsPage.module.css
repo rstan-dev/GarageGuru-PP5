@@ -1,3 +1,8 @@
+/* General */
+p {
+    font-size: 1rem;
+}
+
 .AllJobsContainer {
     padding-top: 50px;
 }
@@ -15,38 +20,56 @@
     padding-bottom: 25px;
 }
 
+/* Status Cards */
 .CardPointer {
     cursor: pointer;
 }
 
 .PendingIcon {
-    color: red;
-    font-size: 2rem;
-}
-
-.UnderwayIcon {
-    color: orange;
-    font-size: 2rem;
-}
-
-.CompletedIcon {
-    color: green;
-    font-size: 2rem;
+    color: #dc3545;
+    font-size: 1.5rem;
 }
 
 .PendingBorder {
-    border-color: red;
+    border-color: #dc3545;
+}
+
+.UnderwayIcon {
+    color: #ffc107;
+    font-size: 1.5rem;
 }
 
 .UnderwayBorder {
-    border-color: orange;
+    border-color: #ffc107;
+}
+
+.CompletedIcon {
+    color: #198754;
+    font-size: 1.5rem;
 }
 
 .CompletedBorder {
-    border-color: green;
+    border-color: #198754;
 }
 
-/* Search Bar styles */
+.SelectorButton {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+/* Order By Section */
+.OrderBySection {
+    padding-bottom: 25px;
+}
+
+.OrderByBtnContainers {
+    display: flex;
+    justify-content: center;
+}
+
+/* Search Bar Section */
 .SearchBarContainer {
     position: relative;
 }
@@ -68,8 +91,4 @@
 .SearchIcon:hover {
     cursor: default;
     color: #cfced3;
-}
-
-.OrderBySection {
-    padding-bottom: 25px;
 }
