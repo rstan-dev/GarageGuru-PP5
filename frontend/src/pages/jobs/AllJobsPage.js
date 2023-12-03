@@ -86,17 +86,17 @@ function AllJobsPage({ message, filter = "" }) {
                     // Dashboard Block //
                     }
                 <Card className={styles.StatusCard}>
-                    <p>Dashboard</p>
+                    <p className={styles.DashboardHeadings}>Dashboard</p>
                     <div className={`row ${styles['StatusBlock']}`}>
 
                         <div className="col-md-4">
                             <div
                                 className={`card ${styles.CardPointer} ${selectedStatus === 'Pending' ? styles['PendingBorder'] : ''}`}
                                 onClick={() => {setQuery("Pending"); setSelectedStatus("Pending");}}>
-                                <div className="card-body text-center">
+                                <div className={`card-body text-center ${styles.StatusIconContainer}`}>
                                     <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
-                                    <h2 className="card-title">Pending</h2>
-                                    <p className="card-text">{statusCounts.Pending || '0'}</p>
+                                    <div className={styles.Title}>Pending</div>
+                                    <div className={styles.Title}>{statusCounts.Pending || '0'}</div>
                                 </div>
                             </div>
 
@@ -117,10 +117,10 @@ function AllJobsPage({ message, filter = "" }) {
                             <div
                                 className={`card ${styles.CardPointer} ${selectedStatus === 'Underway' ? styles['UnderwayBorder'] : ''}`}
                                 onClick={() => {setQuery("Underway"); setSelectedStatus("Underway");}}>
-                                <div className="card-body text-center">
+                                    <div className={`card-body text-center ${styles.StatusIconContainer}`}>
                                     <i className={`fa-solid fa-hourglass-half ${styles['UnderwayIcon']}`}></i>
-                                    <h2 className="card-title">Underway</h2>
-                                    <p className="card-text">{statusCounts.Underway || '0'}</p>
+                                    <div className={styles.Title}>Underway</div>
+                                    <div className={styles.Title}>{statusCounts.Underway || '0'}</div>
                                 </div>
                             </div>
 
@@ -141,10 +141,10 @@ function AllJobsPage({ message, filter = "" }) {
                             <div
                                 className={`card ${styles.CardPointer} ${selectedStatus === 'Completed' ? styles['CompletedBorder'] : ''}`}
                                 onClick={() => {setQuery("Completed"); setSelectedStatus("Completed");}}>
-                                <div className="card-body text-center">
+                                <div className={`card-body text-center ${styles.StatusIconContainer}`}>
                                     <i className={`fa-solid fa-hourglass-half ${styles['CompletedIcon']}`}></i>
-                                    <h2 className="card-title">Completed</h2>
-                                    <p className="card-text">{statusCounts.Completed || '0'}</p>
+                                    <div className={styles.Title}>Completed</div>
+                                    <div className={styles.Title}>{statusCounts.Completed || '0'}</div>
                                 </div>
                             </div>
 
@@ -164,7 +164,7 @@ function AllJobsPage({ message, filter = "" }) {
                     </div>
 
                     {/* Order by section */}
-                    <p className="text-md-end">Order by:</p>
+                    <p className={`text-md-end ${styles.DashboardHeadings}`}>Order by:</p>
                     <div className={`row ${styles.OrderBySection}`}>
 
                             <div className={`col-md-4 ${styles.OrderByBtnContainers}`}>
@@ -180,7 +180,7 @@ function AllJobsPage({ message, filter = "" }) {
                     </div>
 
                         {/* Search bar section */}
-                    <p className="text-md-end">Keyword search:</p>
+                    <p className={`text-md-end ${styles.DashboardHeadings}`}>Keyword search:</p>
                     <div className={styles.SearchBarContainer}>
                     <i className={`fas fa-search ${styles.SearchIcon}`} />
                     <Form
