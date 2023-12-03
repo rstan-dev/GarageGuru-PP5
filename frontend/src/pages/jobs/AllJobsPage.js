@@ -70,7 +70,12 @@ function AllJobsPage({ message, filter = "" }) {
         // sets the ordering field state for created date, updated date
         // and due date
         setOrderingField(field);
-      };
+    };
+
+    const handleClearSearch = () => {
+        // Clears the query state when X button is clicked
+        setQuery('');
+    };
 
 
     return (
@@ -189,6 +194,11 @@ function AllJobsPage({ message, filter = "" }) {
                         value={query}
                         onChange={(event) => setQuery(event.target.value)}
                         />
+                        {query && (
+                            <div className={styles.ClearSearchButton} onClick={handleClearSearch}>
+                                <i className="fa-regular fa-circle-xmark"></i>
+                            </div>
+                        )}
                     </Form>
                     </div>
                 </Card>

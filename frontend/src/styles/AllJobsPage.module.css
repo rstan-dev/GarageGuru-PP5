@@ -76,7 +76,7 @@ p {
 
 .SearchBar input {
     border-radius: 5px;
-    color: #242a3d;
+    color: #007bff;
     padding-left: 40px;
     margin-bottom: 16px;
 }
@@ -91,4 +91,19 @@ p {
 .SearchIcon:hover {
     cursor: default;
     color: #cfced3;
+}
+
+.ClearSearchButton {
+    position: absolute;
+    right: 10px;
+    top: 25%;
+    transform: translateY(-25%);
+    border: none;
+    background: none;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.ClearSearchButton:hover {
+    color: #007bff;
 }
