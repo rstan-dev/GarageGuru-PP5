@@ -1,63 +1,62 @@
 /* General */
 h2 {
-    font-size: large;
+	font-size: large;
 }
 
 p {
-    font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 .CardBlock {
-    padding-top: 25px;
+	padding-top: 25px;
 }
 
 .InvoiceCardHeaderContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
 }
 
 .InvoiceCardHeader {
-    font-size: 1.5rem;
-    font-weight: 400;
+	font-size: 1.5rem;
+	font-weight: 400;
 }
 
 /* InvoiceCard details */
 i {
-    font-size: 1.5rem;
-    align-items: center;
+	font-size: 1.5rem;
+	align-items: center;
 }
 
 th i {
-    padding-right: 5px;
+	padding-right: 5px;
 }
 
 p {
-    font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 /* Job Section */
 .JobButtonContainer {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 10px;
 }
 
 .DisabledButton {
-    color: black;
-    font-size: 0.85rem;
+	color: black;
+	font-size: 0.85rem;
 }
 
 /* Job Accordion */
 .CenteredToggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-.ViewJobSummaryLink {
-    color: #007bff;
-    cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
+.ViewJobSummaryLink {
+	color: #007bff;
+	cursor: pointer;
+}

@@ -1,57 +1,52 @@
 /* General */
 .EditProfileForm {
-    padding-top: 75px;
+	padding-top: 75px;
 }
 
 .CardBlock {
-    padding-top: 10px;
-    padding-bottom: 25px;
-  }
+	padding-top: 10px;
+	padding-bottom: 25px;
+}
 
-  .FormCard {
-    padding: 25px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
-  }
+.FormCard {
+	padding: 25px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
 
-  .EditProfileIcon {
-    padding-right: 10px;
-    font-size: 2rem;
-  }
+.EditProfileIcon {
+	padding-right: 10px;
+	font-size: 2rem;
+}
 
 /* Form Section */
 .FormControl {
-    font-size: 0.8rem;
-    color: blue
-  }
+	font-size: 0.8rem;
+	color: blue;
+}
 
 /* Image Section */
 .ImageUploadContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
+	display: flex;
+	justify-content: center;
+	margin-bottom: 25px;
+}
 
 .UploadIcon {
-    padding-top: 15px;
-  }
+	padding-top: 15px;
+}
 
 .UploadIcon i {
-    font-size: 2.5rem;
-  }
+	font-size: 2.5rem;
+}
 
 /* Button Section */
 .BtnSection {
-    padding-bottom: 10px;
-  }
+	padding-bottom: 10px;
+}
 
 .BtnContainer {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 15px;
-    padding-top: 15px;
-  }
-
-
-
-
-
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
+	padding-top: 15px;
+}

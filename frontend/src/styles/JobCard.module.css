@@ -1,146 +1,140 @@
 /* General */
-
 h2 {
-    font-size: large;
+	font-size: large;
 }
 
 p {
-    font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 .JobCard {
-    padding-top: 50px;
+	padding-top: 50px;
 }
 
 .CardBlock {
-    padding-top: 25px;
+	padding-top: 25px;
 }
 
 .JobCardHeaderContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
 }
 
 .JobCardHeader {
-    font-size: 1.5rem;
-    font-weight: 400;
+	font-size: 1.5rem;
+	font-weight: 400;
 }
 
 /* JobCard details */
-
 i {
-    align-items: center;
+	align-items: center;
 }
 
 th i {
-    padding-right: 5px;
-    font-size: 1.25rem;
+	padding-right: 5px;
+	font-size: 1.25rem;
 }
 
 table tr {
-    font-size: 0.8em;
+	font-size: 0.8em;
 }
 
 table td {
-    padding: 0.5rem !important;
+	padding: 0.5rem !important;
 }
 
 table th {
-    padding: 0.5rem !important;
+	padding: 0.5rem !important;
 }
 
 /* Job Image */
-
 .JobImageContainer {
-    padding-top: 25px;
+	padding-top: 25px;
 }
 
 .JobImage {
-    border: solid 1px #bcbcbc;
+	border: solid 1px #bcbcbc;
 }
 
 /* Comments & Watch Section */
 .CommentWatchContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	margin-top: 25px;
+	margin-bottom: 25px;
 }
 
 .CommentBubbleActive i {
-    font-size: 2rem;
-    margin-right: 5px;
+	font-size: 2rem;
+	margin-right: 5px;
 }
 
 .CommentBubbleGrey i {
-    font-size: 2rem;
-    margin-right: 5px;
-    color: grey;
-    text-decoration: none;
+	font-size: 2rem;
+	margin-right: 5px;
+	color: grey;
+	text-decoration: none;
 }
 
 .CommentBubbleGrey span {
-    color: grey;
+	color: grey;
 }
 
 .EyeUnwatched i:hover {
-    font-size: 2.25rem;
-    cursor: pointer;
-    color: green;
+	font-size: 2.25rem;
+	cursor: pointer;
+	color: green;
 }
 
 .EyeUnwatched i {
-    color: grey;
-    cursor: pointer;
-    font-size: 2rem;
+	color: grey;
+	cursor: pointer;
+	font-size: 2rem;
 }
 
 .EyeWatched i {
-    color: green;
-    cursor: pointer;
-    font-size: 2rem;
+	color: green;
+	cursor: pointer;
+	font-size: 2rem;
 }
 
 /* Invoice Section */
 .AddInvoiceContainer {
-    margin-bottom: 20px;
-    width: 100%;
+	margin-bottom: 20px;
+	width: 100%;
 }
 
 .FullWidthLink {
-    display: block;
+	display: block;
 }
 
 .DisabledButton {
-    color: black;
-    font-size: 0.85rem;
+	color: black;
+	font-size: 0.85rem;
 }
 
 /* Invoice Accordion */
-
 .InvoiceButtonContainer {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 10px;
 }
 
 .CenteredToggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 .ViewInvoiceLink {
-    color: #007bff;
-    cursor: pointer;
+	color: #007bff;
+	cursor: pointer;
 }
 
 .DisplayAddEditViewInvoice {
-    margin-left: 10px;
+	margin-left: 10px;
 }
-
-
