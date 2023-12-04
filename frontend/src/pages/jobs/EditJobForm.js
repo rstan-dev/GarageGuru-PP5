@@ -368,9 +368,11 @@ function EditJobForm() {
                             <div className="d-flex justify-content-center">
                                 <Form.Label
                                 className="d-flex justify-content-center"
-                                htmlFor="image-upload">
+                                                        htmlFor="image-upload">
+                                <div className={styles.UploadIcon}>
                                 <i className="fa-solid fa-arrow-up-from-bracket"></i>
-                                <p>Upload an image</p>
+                                                            <p>Upload an image</p>
+                                                            </div>
                                 </Form.Label>
                             </div>
                         )}

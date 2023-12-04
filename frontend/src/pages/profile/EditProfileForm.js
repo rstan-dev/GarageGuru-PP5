@@ -172,8 +172,10 @@ return (
                   <Form.Label
                     className="d-flex justify-content-center"
                     htmlFor="image-upload">
+                    <div className={styles.UploadIcon}>
                         <i className="fas fa-upload"></i>
-                        Change Profile Image
+                      Change Profile Image
+                      </div>
                       </Form.Label>
                 </div>
                     <div className="d-flex justify-content-center">
