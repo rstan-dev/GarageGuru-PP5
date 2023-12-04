@@ -90,7 +90,8 @@ const ChangePasswordForm = () => {
                 type="password"
                 name="new_password1"
                 value={new_password1}
-                onChange={handleChange}
+                  onChange={handleChange}
+                  className={styles.FormControl}
               />
             </Form.Group>
 
@@ -106,7 +107,8 @@ const ChangePasswordForm = () => {
                 type="password"
                 name="new_password2"
                 value={new_password2}
-                onChange={handleChange}
+                  onChange={handleChange}
+                  className={styles.FormControl}
               />
             </Form.Group>
 

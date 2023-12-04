@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+import styles from "../../styles/ChangeUsernamePassword.module.css"
+
 
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
@@ -56,14 +59,26 @@ const ChangeUsernameForm = () => {
     };
 
   return (
-    <Row>
-      <Col className="py-2 mx-auto text-center" md={6}>
-        <Container >
+    <Container className={styles.ProfileForm}>
+      <Col xs={12} sm={12} md={8} lg={8} xl={8} className="mx-auto">
+
+
+          <div className={styles.CardBlock}>
           {/* Display success message */}
           {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
           {/* Display error messages */}
           {errors.response && <Alert variant="danger">{errors.response[0]}</Alert>}
+
+          <Card className={styles.FormCard}>
+                  <div className={`d-flex flex-column align-items-center`}>
+                      <p>
+                        <i className={`fa-solid fa-pencil ${styles.EditIcon}`}>
+                  </i>
+                  Change Username
+                      </p>
+            </div>
+
           <Form onSubmit={handleSubmit}>
             <Form.Group>
             {errors?.username?.map((message, index) => (
@@ -76,24 +91,35 @@ const ChangeUsernameForm = () => {
                 placeholder="choose a new username"
                 type="text"
                 value={username}
-                onChange={handleChange}
+                  onChange={handleChange}
+                  className={styles.FormControl}
               />
             </Form.Group>
 
-            <Button
-                onClick={() => history.goBack()}
+            <Row className="justify-content-center">
+            <Col md="auto" className={styles.BtnContainer}>
+                <Button
+                    onClick={() => history.goBack()}
+                    variant="warning"
             >
               Cancel
-            </Button>
-            <Button
-              type="submit"
+                </Button>
+            </Col>
+            <Col md="auto" className={styles.BtnContainer}>
+                <Button
+                    type="submit"
+                    variant="success"
             >
               Update Username
-            </Button>
-          </Form>
-        </Container>
+                </Button>
+            </Col>
+                </Row>
+            </Form>
+
+          </Card>
+          </div>
       </Col>
-    </Row>
+    </Container>
   );
 };
 
