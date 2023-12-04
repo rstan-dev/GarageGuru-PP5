@@ -13,12 +13,8 @@
     padding-top: 50px;
 }
 
-/* .InvoiceCard {
-    padding-top: 50px;
-} */
-
 .CardBlock {
-    padding-top: 25px;
+    padding-top: 10px;
 }
 
 /* Status block styles */
@@ -28,7 +24,7 @@
 }
 
 .StatusBlock {
-    padding-bottom: 25px;
+    padding-bottom: 5px;
 }
 
 /* Status Cards */

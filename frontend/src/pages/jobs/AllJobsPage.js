@@ -16,7 +16,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from '../../utils/utils';
 import { useHistory } from "react-router-dom";
 
-function AllJobsPage({ message, filter = "" }) {
+function AllJobsPage({ filter = "" }) {
 
     const [jobs, setJobs] = useState({ results: []});
     const [hasLoaded, setHasLoaded] = useState(false);
@@ -81,10 +81,8 @@ function AllJobsPage({ message, filter = "" }) {
     return (
         <Container className={styles.AllJobsContainer}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
-                <div className={styles.CardBlock}>
-                    {
-                    // Dashboard Block //
-                    }
+            <div className={styles.CardBlock}>
+                {/* Dashboard Block */ }
                 <Card className={styles.StatusCard}>
                     <p className={styles.DashboardHeadings}>Dashboard</p>
                     <div className={`row ${styles['StatusBlock']}`}>
@@ -202,7 +200,7 @@ function AllJobsPage({ message, filter = "" }) {
                     </Form>
                     </div>
                 </Card>
-                </div>
+            </div>
 
 
                         {hasLoaded ? (

@@ -81,9 +81,6 @@ function AllInvoicesPage() {
     };
 
     return (
-    <>
-    <div>AllInvoicesPage</div>
-
     <Container className={styles.AllInvoicesContainer}>
             <Col xs={12} sm={12} md={10} lg={10} xl={10}>
             <div className={styles.CardBlock}>
@@ -91,9 +88,7 @@ function AllInvoicesPage() {
                 {/* Status Block */}
                 <Card className={styles.StatusCard}>
                     <p className={styles.DashboardHeadings}>Dashboard</p>
-
                     <div className={`row ${styles['StatusBlock']}`}>
-
                                 {/* Paid Status */}
                                 <div className="col-md-4">
                                 <div
@@ -142,7 +137,6 @@ function AllInvoicesPage() {
                             </div>
                         </div>
 
-
                         {/* Paid Status */}
                         <div className="col-md-4">
                             <div
@@ -186,7 +180,6 @@ function AllInvoicesPage() {
 
                     </div>
 
-
                     {/* Search bar section */}
                     <p className={`text-md-end ${styles.DashboardHeadings}`}>Keyword search:</p>
                     <div className={styles.SearchBarContainer}>
@@ -213,11 +206,7 @@ function AllInvoicesPage() {
                 </Card>
             </div>
 
-
-                    {
-                    // Invoice Cards //
-                    }
-
+                    {/* Invoice Cards */}
                     {hasLoaded ? (
                     <>
                     { invoices.results?.length ? (
@@ -257,7 +246,6 @@ function AllInvoicesPage() {
 
                 </Col>
     </Container>
-    </>
   )
 }
 
