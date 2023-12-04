@@ -1,3 +1,6 @@
+"""
+Imports for JobSerializer
+"""
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Job
@@ -18,8 +21,9 @@ class JobSerializer(serializers.ModelSerializer):
 
     get_watch_id retreives the associated watch id for the job.
     """
-    owner = serializers.ReadOnlyField(source='owner.username')
-    owner_id = serializers.ReadOnlyField(source='owner.id')
+
+    owner = serializers.ReadOnlyField(source="owner.username")
+    owner_id = serializers.ReadOnlyField(source="owner.id")
     is_owner = serializers.SerializerMethodField()
     has_invoice = serializers.SerializerMethodField()
     comment_count = serializers.IntegerField(read_only=True)
@@ -27,8 +31,7 @@ class JobSerializer(serializers.ModelSerializer):
     watch_id = serializers.SerializerMethodField()
 
     assigned_to = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-        allow_null=True
+        queryset=User.objects.all(), allow_null=True
     )
 
     # Formats date and time
@@ -40,38 +43,43 @@ class JobSerializer(serializers.ModelSerializer):
     def validate_image(self, value):
         "check if file size is greater than 2mb"
         if value.size > 1024 * 1024 * 2:
-            raise serializers.ValidationError(
-                'Image size larger than 2mb!'
-            )
+            raise serializers.ValidationError("Image size larger than 2mb!")
         if value.image.width > 2048:
-            raise serializers.ValidationError(
-                'Image width larger than 2048px!'
-            )
+            raise serializers.ValidationError("Image width larger than 2048px!")
         if value.image.height > 2048:
-            raise serializers.ValidationError(
-                'Image height larger than 2048px!'
-            )
+            raise serializers.ValidationError("Image height larger than 2048px!")
         return value
 
     def get_is_owner(self, obj):
-        request = self.context['request']
+        """
+        Determines if the request user is the owner of the comment.
+        """
+        request = self.context["request"]
         return request.user == obj.owner
 
     def get_has_invoice(self, obj):
-        # Check if the job has an associated invoice
-        return hasattr(obj, 'invoice')
+        """
+        Determines if the job has an associated invoice.
+        """
+        return hasattr(obj, "invoice")
 
     def get_invoice_details(self, obj):
-        invoice = getattr(obj, 'invoice', None)
+        """
+        Determines if there is an invoice and returns the invoice data.
+        """
+        invoice = getattr(obj, "invoice", None)
         if invoice:
             return InvoiceSerializer(invoice).data
         return None
 
     def get_watch_id(self, obj):
-        user = self.context['request'].user
+        """
+        Determines if the user is authenticated, gets the watch id
+        associated with a user and a job.
+        """
+        user = self.context["request"].user
         if user.is_authenticated:
-            watch = Watch.objects.filter(
-                owner=user, job=obj).first()
+            watch = Watch.objects.filter(owner=user, job=obj).first()
             return watch.id if watch else None
         else:
             return None
@@ -79,9 +87,21 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = [
-            'id', 'owner', 'owner_id', 'assigned_to', 'job_type',
-            'job_details', 'status', 'created_at', 'updated_at',
-            'image', 'is_owner', 'image_filter', 'due_date', 'has_invoice',
-            'comment_count', 'invoice_details', 'watch_id'
+            "id",
+            "owner",
+            "owner_id",
+            "assigned_to",
+            "job_type",
+            "job_details",
+            "status",
+            "created_at",
+            "updated_at",
+            "image",
+            "is_owner",
+            "image_filter",
+            "due_date",
+            "has_invoice",
+            "comment_count",
+            "invoice_details",
+            "watch_id",
         ]
-
