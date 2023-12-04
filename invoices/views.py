@@ -1,3 +1,6 @@
+"""
+Imports for Invoice Views
+"""
 from rest_framework import status, permissions, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -14,20 +17,33 @@ class CustomPagination(PageNumberPagination):
     """
     View to add a count of all invoice status types to pagination data
     """
+
     def get_paginated_response(self, data):
         # Gets the total counts for each status according to filter set
         request = self.request
-        filtered_queryset = request.filtered_queryset if hasattr(request, 'filtered_queryset') else Invoice.objects.all()
-        invoice_status_counts = filtered_queryset.values('invoice_status').annotate(total=Count('invoice_status')).order_by()
-        invoice_status_counts_dict = {item['invoice_status']: item['total'] for item in invoice_status_counts}
+        filtered_queryset = (
+            request.filtered_queryset
+            if hasattr(request, "filtered_queryset")
+            else Invoice.objects.all()
+        )
+        invoice_status_counts = (
+            filtered_queryset.values("invoice_status")
+            .annotate(total=Count("invoice_status"))
+            .order_by()
+        )
+        invoice_status_counts_dict = {
+            item["invoice_status"]: item["total"] for item in invoice_status_counts
+        }
 
-        return Response({
-            'invoice_status_counts': invoice_status_counts_dict,  # Include the counts
-            'count': self.page.paginator.count,
-            'next': self.get_next_link(),
-            'previous': self.get_previous_link(),
-            'results': data,
-        })
+        return Response(
+            {
+                "invoice_status_counts": invoice_status_counts_dict,  # Include the counts
+                "count": self.page.paginator.count,
+                "next": self.get_next_link(),
+                "previous": self.get_previous_link(),
+                "results": data,
+            }
+        )
 
 
 class InvoiceList(generics.ListCreateAPIView):
@@ -38,6 +54,7 @@ class InvoiceList(generics.ListCreateAPIView):
     permission_classes requires users to be logged in to create an
     invoice card.
     """
+
     serializer_class = InvoiceSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = CustomPagination
@@ -47,27 +64,32 @@ class InvoiceList(generics.ListCreateAPIView):
         DjangoFilterBackend,
     ]
     search_fields = [
-        'owner__username',
-        'id',
-        'customer_firstname',
-        'customer_lastname',
-        'customer_email',
-        'customer_phone',
-        'due_date',
-        'job__id',
-        'job__job_type',
-        'invoice_status',
+        "owner__username",
+        "id",
+        "customer_firstname",
+        "customer_lastname",
+        "customer_email",
+        "customer_phone",
+        "due_date",
+        "job__id",
+        "job__job_type",
+        "invoice_status",
     ]
     ordering_fields = [
-        'created_at',
-        'updated_at',
-        'due_date',
+        "created_at",
+        "updated_at",
+        "due_date",
     ]
-    filterset_fields = [
-        'job_id'
-    ]
+    filterset_fields = ["job_id"]
 
     def get_queryset(self):
+        """
+        Retrieve and filter the queryset for invoices.
+
+        This method overrides or supplements the default `get_queryset` method to apply
+        custom filtering to the Invoice objects. It utilizes the filter backends defined
+        in the view to filter the queryset based on the criteria specified in the request.
+        """
         queryset = Invoice.objects.all()
         # Apply the filters from the filter backends manually
         for backend in list(self.filter_backends):
@@ -85,7 +107,7 @@ class InvoiceDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve, edit or delete an invoice card according to invoice id and
     if the owner is logged in.
     """
+
     serializer_class = InvoiceSerializer
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Invoice.objects.all()
-

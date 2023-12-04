@@ -32,9 +32,9 @@ class CommentSerializer(serializers.ModelSerializer):
     def get_is_owner(self, obj):
         """
         Determines if the request user is the owner of the comment.
+        """
         request = self.context["request"]
         return request.user == obj.owner
-        """
 
     def get_created_at(self, obj):
         """
@@ -63,6 +63,7 @@ class CommentSerializer(serializers.ModelSerializer):
         """
         Comment model fields
         """
+
         model = Comment
         fields = [
             "id",
@@ -116,6 +117,7 @@ class CommentReplySerializer(serializers.ModelSerializer):
         """
         Comment model fields
         """
+
         model = Comment
         fields = [
             "reply_id",

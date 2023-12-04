@@ -1,4 +1,3 @@
-
 """
 Imports for the Comment Model
 """
@@ -26,6 +25,7 @@ class Comment(models.Model):
         """
         Specify order by most recent created_at date
         """
+
         ordering = ["-created_at"]
 
     def __str__(self):
