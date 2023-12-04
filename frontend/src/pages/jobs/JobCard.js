@@ -177,14 +177,13 @@ const JobCard = (props) => {
         <Link to={{
           pathname: "/invoices/addinvoice",
           state: { jobId: id }
-            }}
-            className="FullWidthLink">
+            }}>
           <Button variant="primary" size="lg" block>
             Add Invoice
           </Button>
         </Link>
           ) : (
-            <div className="FullWidthLink">
+            <div>
               <Button variant="outline-secondary" disabled siz="lg" block>
                 <div className={styles.DisabledButton}>No invoice to display.</div>
                 <div className={styles.DisabledButton}>{`Only ${owner} or ${assignedUsername} can add an invoice`}</div>
