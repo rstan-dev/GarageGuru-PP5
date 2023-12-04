@@ -1,3 +1,6 @@
+"""
+Imports for Permissions
+"""
 from rest_framework import permissions
 
 
@@ -7,6 +10,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     objects based on whether the user making the request is the owner
     of the object or not.
     """
+
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
