@@ -41,7 +41,7 @@ function App() {
               path="/jobs/addjob"
               render={() =>
                 <>
-                  < FixedHeader text="Add a Job" />
+                  < FixedHeader text="Viewing Add Job" />
                   < AddJobForm />
                 </>
               }/>
