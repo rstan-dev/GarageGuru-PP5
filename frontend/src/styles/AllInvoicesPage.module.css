@@ -1,121 +1,120 @@
 /* General */
 .DashboardHeadings {
-    font-size: 1rem;
-    margin-bottom: 5px;
+	font-size: 1rem;
+	margin-bottom: 5px;
 }
 
 .Title {
-    font-size: 1rem;
-    margin-bottom: 0;
+	font-size: 1rem;
+	margin-bottom: 0;
 }
 
 .AllInvoicesContainer {
-    padding-top: 50px;
+	padding-top: 50px;
 }
 
 .CardBlock {
-    padding-top: 10px;
+	padding-top: 10px;
 }
 
 /* Status block styles */
 .StatusCard {
-    padding: 10px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+	padding: 10px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 .StatusBlock {
-    padding-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 /* Status Cards */
 .StatusIconContainer {
-    padding: 5px;
+	padding: 5px;
 }
 
 .CardPointer {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .PendingIcon {
-    color: #dc3545;
-    font-size: 1.5rem;
+	color: #dc3545;
+	font-size: 1.5rem;
 }
 
 .PendingBorder {
-    border-color: #dc3545;
+	border-color: #dc3545;
 }
 
 .InvoicedIcon {
-    color: #ffc107;
-    font-size: 1.5rem;
+	color: #ffc107;
+	font-size: 1.5rem;
 }
 
 .InvoicedBorder {
-    border-color: #ffc107;
+	border-color: #ffc107;
 }
 
 .PaidIcon {
-    color: #198754;
-    font-size: 1.5rem;
+	color: #198754;
+	font-size: 1.5rem;
 }
 
 .PaidBorder {
-    border-color: #198754;
+	border-color: #198754;
 }
 
 .SelectorButton {
-    padding-top: 15px;
-    display: flex;
-    justify-content: center;
-    padding-bottom: 15px;
+	padding-top: 15px;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
 }
 
 /* Order By Section */
 .OrderBySection {
-    padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 .OrderByBtnContainers {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 15px;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
 }
 
 /* Search Bar styles */
-
 .SearchBarContainer {
-    position: relative;
+	position: relative;
 }
 .SearchBar input {
-    border-radius: 5px;
-    color: #007bff;
-    padding-left: 40px;
-    margin-bottom: 16px;
+	border-radius: 5px;
+	color: #007bff;
+	padding-left: 40px;
+	margin-bottom: 16px;
 }
 
 .SearchIcon {
-    position: absolute;
-    font-size: 1.2rem;
-    padding: 9px;
-    padding-left: 15px;
+	position: absolute;
+	font-size: 1.2rem;
+	padding: 9px;
+	padding-left: 15px;
 }
 
 .SearchIcon:hover {
-    cursor: default;
-    color: #cfced3;
+	cursor: default;
+	color: #cfced3;
 }
 
 .ClearSearchButton {
-    position: absolute;
-    right: 10px;
-    top: 25%;
-    transform: translateY(-25%);
-    border: none;
-    background: none;
-    color: #ccc;
-    cursor: pointer;
+	position: absolute;
+	right: 10px;
+	top: 25%;
+	transform: translateY(-25%);
+	border: none;
+	background: none;
+	color: #ccc;
+	cursor: pointer;
 }
 
 .ClearSearchButton:hover {
-    color: #007bff;
+	color: #007bff;
 }

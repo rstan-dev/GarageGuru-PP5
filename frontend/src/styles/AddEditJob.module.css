@@ -1,67 +1,66 @@
 /* General */
 .AddEditJobForm {
-  padding-top: 75px;
+	padding-top: 75px;
 }
 
 .CardBlock {
-  padding-top: 10px;
-  padding-bottom: 25px;
+	padding-top: 10px;
+	padding-bottom: 25px;
 }
 
 .FormCard {
-  padding: 10px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+	padding: 10px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 .AddJobIcon {
-  padding-right: 10px;
-  font-size: 2rem;
+	padding-right: 10px;
+	font-size: 2rem;
 }
 
 /* Form Section */
 .FormControl {
-  font-size: 0.8rem;
-  color: blue
+	font-size: 0.8rem;
+	color: blue;
 }
 
 /* Button Section */
 .BtnSection {
-  padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 .BtnContainer {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 15px;
-  padding-top: 15px;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
+	padding-top: 15px;
 }
 
 /* Image Section */
 .Image {
-  max-height: 30vh;
-  max-width: 100%;
-  object-fit: contain;
-  padding-top: 15px;
+	max-height: 30vh;
+	max-width: 100%;
+	object-fit: contain;
+	padding-top: 15px;
 }
 
 .ImageUploadContainer {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 15px;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
 }
 
 .UploadIcon {
-  padding-top: 15px;
+	padding-top: 15px;
 }
 
 .UploadIcon i {
-  font-size: 2.5rem;
+	font-size: 2.5rem;
 }
 
 .ImageUpload {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 15px;
-  padding-top: 15px;
-
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
+	padding-top: 15px;
 }
