@@ -41,6 +41,7 @@
   max-height: 30vh;
   max-width: 100%;
   object-fit: contain;
+  padding-top: 15px;
 }
 
 .ImageUploadContainer {

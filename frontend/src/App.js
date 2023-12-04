@@ -94,7 +94,7 @@ function App() {
               </>
               }/>
 
-            {/* Watched JOBS PAGE */}
+            {/* WATCHED JOBS PAGE */}
             <Route exact path="/watched"
               render={() =>
               <>
@@ -128,7 +128,7 @@ function App() {
               path="/jobs/:id/edit-job"
               render={() =>
                 <>
-                  < FixedHeader text="Edit Job" />
+                  < FixedHeader text="Viewing Edit Job" />
                   <EditJobForm />
                 </>
                 } />
