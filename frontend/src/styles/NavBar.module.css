@@ -1,64 +1,62 @@
-.NavBar{
-    background-color: #004AAD;
+.NavBar {
+	background-color: #004aad;
 }
 
-.NavLinks{
-    color: white;
-    font-size: 1.5rem;
-    padding: 10px;
+.NavLinks {
+	color: white;
+	font-size: 1.5rem;
+	padding: 10px;
 }
 
 .NavLinks:hover {
-  text-decoration: none;
-  color: white;
+	text-decoration: none;
+	color: white;
 }
 
 .Active i {
-  color: yellow;
-  font-size: 2rem;
+	color: yellow;
+	font-size: 2rem;
 }
 
 .AddJobIcon {
-  margin-right: 30px;
-
+	margin-right: 30px;
 }
 
 .AddJobIcon i {
-  font-size: 2.5rem;
+	font-size: 2.5rem;
 }
 
 /* Hide the label by default */
 .NavLinks .Label {
-    display: none;
-    font-size: 0.9rem;
-    padding: 10px;
+	display: none;
+	font-size: 0.9rem;
+	padding: 10px;
 }
 
 /* Show the label when Nav.Link is hovered */
 .NavLinks:hover .Label {
-    display: inline;
+	display: inline;
 }
 
 .Username {
-  font-size: 15px;
-  padding-left: 5px;
+	font-size: 15px;
+	padding-left: 5px;
 }
 
 /* White background for toggled dropdown menu on mobile */
-@media (max-width:991px) {
-  .NavbarCollapse {
-    background-color: #004AAD;
-      }
+@media (max-width: 991px) {
+	.NavbarCollapse {
+		background-color: #004aad;
+	}
 
-  /* Reset styles for NavLinks on mobile */
-  .NavLinks {
-      font-size: 2rem; /* Adjust font size for mobile */
-      padding: 10px;
-    }
+	/* Reset styles for NavLinks on mobile */
+	.NavLinks {
+		font-size: 2rem; /* Adjust font size for mobile */
+		padding: 10px;
+	}
 
-  /* Show the label next to the icon on mobile */
-  .NavLinks .Label {
-      display: inline;
-    }
-
+	/* Show the label next to the icon on mobile */
+	.NavLinks .Label {
+		display: inline;
+	}
 }
