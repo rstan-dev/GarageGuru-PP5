@@ -149,7 +149,7 @@ function App() {
               path="/invoices/addinvoice"
               render={() =>
                 <>
-                < FixedHeader text="Add Invoice" />
+                < FixedHeader text="Viewing Add Invoice" />
                   <AddInvoiceForm />
                 </>
               } />
@@ -159,7 +159,7 @@ function App() {
               path="/invoices/:id/edit-invoice"
               render={() =>
                 <>
-                < FixedHeader text="Edit Invoice" />
+                < FixedHeader text="Viewing Edit Invoice" />
                 <EditInvoiceForm />
                 </>
               } />
@@ -178,7 +178,7 @@ function App() {
               path="/profile/:id"
               render={() =>
                 <>
-                < FixedHeader text="Viweing Profile" />
+                < FixedHeader text="Viewing Profile" />
                 <ProfilePage />
                 </>
               } />
@@ -188,7 +188,7 @@ function App() {
               path="/profile/:id/edit-profile"
               render={() =>
                 <>
-                < FixedHeader text="Edit Profile" />
+                < FixedHeader text="Viewing Edit Profile" />
                   <EditProfileForm />
                 </>
               } />
@@ -198,7 +198,7 @@ function App() {
               path="/profile/:id/change-password"
               render={() =>
                 <>
-                < FixedHeader text="Change Password" />
+                < FixedHeader text="Viewing Change Password" />
                 <ChangePasswordForm />
                 </>
               } />
@@ -208,7 +208,7 @@ function App() {
               path="/profile/:id/change-username"
               render={() =>
                 <>
-                < FixedHeader text="Change username" />
+                < FixedHeader text="Viewing Change Username" />
                 <ChangeUsernameForm />
                 </>
               } />
