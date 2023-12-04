@@ -239,7 +239,7 @@ function AddInvoiceForm() {
                 <div className={styles.CardBlock}>
                     <Card className={styles.FormCard}>
                     <p>
-                            <i className={`fa-solid fa-circle-plus ${styles.AddInvoiceIcon}`}> </i>
+                            <i className={`fa-solid fa-circle-plus ${styles.AddEditInvoiceIcon}`}> </i>
                              Add Invoice Form
                         </p>
 

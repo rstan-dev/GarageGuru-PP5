@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
 
 import styles from '../../styles/AddEditInvoice.module.css'
 
@@ -205,7 +207,8 @@ function EditInvoiceForm() {
                 type="text"
                 name="customer_firstname"
                 value={customer_firstname}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
                 />
             </Form.Group>
             {errors?.customer_firstname?.map((message, index) => (
@@ -220,7 +223,8 @@ function EditInvoiceForm() {
                 type="text"
                 name="customer_lastname"
                 value={customer_lastname}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
                 />
             </Form.Group>
             {errors?.customer_lastname?.map((message, index) => (
@@ -235,7 +239,8 @@ function EditInvoiceForm() {
                 type="email"
                 name="customer_email"
                 value={customer_email}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
                 />
             </Form.Group>
             <Form.Group controlId="customer_phone">
@@ -246,7 +251,8 @@ function EditInvoiceForm() {
                 value={customer_phone}
                 onChange={handleChange}
                 pattern="^\d{9,15}$"
-                title="Phone number must be between 9 to 15 digits."
+                    title="Phone number must be between 9 to 15 digits."
+                    className={styles.FormControl}
                 />
             </Form.Group>
 
@@ -258,7 +264,8 @@ function EditInvoiceForm() {
                 step="0.01"
                 name="amount"
                 value={amount}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
 
                 />
             </Form.Group>
@@ -270,7 +277,8 @@ function EditInvoiceForm() {
                 name="inv_due_date"
                 value={inv_due_date}
                 onChange={handleChange}
-                min={getCurrentDate()}
+                    min={getCurrentDate()}
+                    className={styles.FormControl}
                 />
             </Form.Group>
 
@@ -280,7 +288,8 @@ function EditInvoiceForm() {
                 as="select"
                 name="invoice_status"
                 value={invoice_status}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
                 >
                 <option>Select status</option>
                 <option value="Pending">Pending</option>
@@ -292,33 +301,50 @@ function EditInvoiceForm() {
       )
 
     return (
-        <Container className={styles.AddEditJobForm}>
+        <Container className={styles.AddEditInvoiceForm}>
             <Col xs={12} sm={12} md={10} lg={8} xl={6}>
              {/* Display success message */}
              {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-            <Form onSubmit={(e) => e.preventDefault()}>
-                <div>EditInvoiceForm</div>
+             <div className={styles.CardBlock}>
+                    <Card className={styles.FormCard}>
+                    <p>
+                            <i className={`fa-solid fa-pencil ${styles.AddEditInvoiceIcon}`}> </i>
+                             Edit Invoice Form
+                        </p>
 
-                        <div className="card">
+                <Form onSubmit={(e) => e.preventDefault()}>
+
+                        <div>
                             {textFields}
                         </div>
-                <Button
+
+                        <Row className="justify-content-center">
+
+<Col md="auto" className={styles.BtnContainer}>
+                            <Button
                 variant="warning"
                 onClick={() => history.goBack()}
                 >
                     Cancel
-                </Button>
+                                    </Button>
+                                </Col>
+                                <Col md="auto" className={styles.BtnContainer}>
+
                 <Button
                 variant="success"
                 onClick={handleSubmit}>
                     Update Invoice
-                </Button>
+                                    </Button>
+                                </Col>
+                                <Col md="auto" className={styles.BtnContainer}>
                 <Button
                 variant="danger"
                 onClick={handleDelete}>
                     Delete Invoice
-                </Button>
+                                    </Button>
+                                </Col>
+                                </Row>
             </Form>
             {/* Confirmation Modal */}
             <ConfirmationModal
@@ -328,7 +354,9 @@ function EditInvoiceForm() {
             title={confirmationModalContent.title}
             body={confirmationModalContent.body}
             />
-        </Col>
+        </Card>
+                </div>
+                    </Col>
         </Container>
   )
 }
