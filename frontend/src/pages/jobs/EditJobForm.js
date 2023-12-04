@@ -323,7 +323,7 @@ function EditJobForm() {
 
     return (
         <Container className={styles.AddEditJobForm}>
-            <Col xs={12} sm={12} md={10} lg={8} xl={6}>
+            <Col xs={12} sm={12} md={10} lg={8} xl={6} className="mx-auto">
             {/* Display success message */}
             {successMessage && <Alert variant="success">{successMessage}</Alert>}
 

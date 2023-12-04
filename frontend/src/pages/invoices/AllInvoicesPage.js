@@ -82,7 +82,7 @@ function AllInvoicesPage() {
 
     return (
     <Container className={styles.AllInvoicesContainer}>
-            <Col xs={12} sm={12} md={10} lg={10} xl={10}>
+            <Col xs={12} sm={12} md={10} lg={10} xl={10} className="mx-auto">
             <div className={styles.CardBlock}>
 
                 {/* Status Block */}

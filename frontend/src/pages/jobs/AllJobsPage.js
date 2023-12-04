@@ -80,7 +80,7 @@ function AllJobsPage({ filter = "" }) {
 
     return (
         <Container className={styles.AllJobsContainer}>
-            <Col xs={12} sm={12} md={10} lg={10} xl={10}>
+            <Col xs={12} sm={12} md={10} lg={10} xl={10} className="mx-auto">
             <div className={styles.CardBlock}>
                 {/* Dashboard Block */ }
                 <Card className={styles.StatusCard}>
