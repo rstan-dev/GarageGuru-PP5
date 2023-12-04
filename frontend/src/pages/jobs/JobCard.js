@@ -102,18 +102,26 @@ const JobCard = (props) => {
       };
 
       // Reusable component for EditJobCard
-      const EditJobCardLink = () => (
-        <div className="text-right">
-          <Link to={`/jobs/${id}/edit-job`} data-tooltip="Edit JobCard">
-            <span className={styles.PencilIcon}>
-              <i className="fa-solid fa-pencil"></i>
-            </span>
-          </Link>
-        </div>
+  const EditJobCardLink = () => (
+
+    <div className="text-right">
+      {is_owner ? (
+        <Link to={`/jobs/${id}/edit-job`} >
+          <Button variant="primary">
+            Edit Job Card
+          </Button>
+        </Link>
+        ) : (
+            <Button variant="outline-secondary" disabled>
+            <div className={styles.DisabledButton}>Editing unavailable.</div>
+            <div className={styles.DisabledButton}>{`Only ${owner} can edit this job`}</div>
+            </Button>
+      )}
+    </div >
       );
 
       // Reusable component for JobCard Image
-      const JobImage = () => <Card.Img src={image} alt={job_type} />;
+      const JobImage = () => <Card.Img src={image} alt={job_type} className={styles.JobImage} />;
 
       // Reusable component for Comments Icon
       const CommentBubble = () => {
@@ -139,7 +147,52 @@ const JobCard = (props) => {
         )}
         </>
         )
-        };
+      };
+
+      // Reusable component for displaying Watching Icon
+      const DisplayWatchIcon = () => (
+        <>
+        { watch_id ? (
+          <div
+            className={`${styles.EyeWatched }`}
+            onClick={handleUnwatch}
+          >
+            <i className="fa-regular fa-eye"></i>
+          </div>
+          ) : (
+            <div
+            className={`${styles.EyeUnwatched}`}
+            onClick={handleWatch}
+          >
+            <i className="fa-regular fa-eye"></i>
+          </div>
+          )}
+        </>
+      )
+
+      // Reusable component for Displaying Add Invoice Button
+      const DisplayAddInvoiceButton = () => (
+        <>
+        {(!has_invoice && (is_owner || assigned_to === currentUser.pk)) ? (
+        <Link to={{
+          pathname: "/invoices/addinvoice",
+          state: { jobId: id }
+            }}>
+          <Button variant="primary" size="lg" block>
+            Add Invoice
+          </Button>
+        </Link>
+          ) : (
+            <div>
+              <Button variant="outline-secondary" disabled siz="lg" block>
+                <div className={styles.DisabledButton}>No invoice to display.</div>
+                <div className={styles.DisabledButton}>{`Only ${owner} or ${assignedUsername} can add an invoice`}</div>
+                </Button>
+            </div>
+          )
+    }
+        </>
+      );
 
       // Reusable component for Displaying View or Edit Invoice Button
       const DisplayEditViewInvoiceButton = () => (
@@ -166,51 +219,14 @@ const JobCard = (props) => {
         </>
       );
 
-      // Reusable component for Displaying Add Invoice Button
-      const DisplayAddInvoiceButton = () => (
-        <>
-        {(!has_invoice && (is_owner || assigned_to === currentUser.pk)) && (
-        <Link to={{
-          pathname: "/invoices/addinvoice",
-          state: { jobId: id }
-        }}>
-          <Button variant="primary">
-            Add Invoice
-          </Button>
-        </Link>
-      )}
-        </>
-      );
-
-      // Reusable component for displaying Watching Icon
-      const DisplayWatchIcon = () => (
-        <>
-        { watch_id ? (
-          <div
-            className={`${styles.EyeWatched }`}
-            onClick={handleUnwatch}
-          >
-            <i className="fa-regular fa-eye"></i>
-          </div>
-          ) : (
-            <div
-            className={`${styles.EyeUnwatched}`}
-            onClick={handleWatch}
-          >
-            <i className="fa-regular fa-eye"></i>
-          </div>
-          )}
-        </>
-      )
-
       return (
 
         <div className={styles.CardBlock}>
           <div className="card">
             <div className="card-body">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className={styles.JobCardHeaderContainer}>
                 <p className={styles.JobCardHeader}>JOBCARD</p>
-                {is_owner && <EditJobCardLink />}
+                <EditJobCardLink />
               </div>
               <div className="row">
                 <div className="col-md-8">
@@ -267,48 +283,54 @@ const JobCard = (props) => {
                   <DisplayWatchIcon />
                   </div>
 
-                  <Accordion defaultActiveKey="1">
-                    <Card>
-                      <Card.Header>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                            {has_invoice ? "Click To View Invoice Summary" : <span className={styles.NoInvoiceLink}>No Invoice Details To Display</span>}
-                          </Accordion.Toggle>
-                          <DisplayAddInvoiceButton />
-                        </div>
-                      </Card.Header>
+                  {has_invoice ? (
+                    <Accordion defaultActiveKey="1">
+                      <Card>
+                        <Card.Header>
+                          <div className={styles.CenteredToggle}>
+                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                              <span className={styles.ViewInvoiceLink}>Click To View Invoice Summary</span>
+                            </Accordion.Toggle>
+
+                          </div>
+                        </Card.Header>
                         <Accordion.Collapse eventKey="0">
                           <Card.Body>
-                          <DisplayEditViewInvoiceButton />
-                          <table className="table table-striped">
-                            <tbody>
-                              <tr>
-                                <th>Invoice Number:</th>
-                                <td>{inv_id}</td>
-                              </tr>
-                              <tr>
-                                <th>Customer:</th>
-                                <td>{customer_firstname} {" "} {customer_lastname}</td>
-                              </tr>
-                              <tr>
-                                <th>Amount:</th>
-                                <td>£{amount}</td>
-                              </tr>
-                              <tr>
-                                <th>Invoice Status:</th>
-                                <td>{invoice_status}</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                            <DisplayEditViewInvoiceButton />
+                            <table className="table table-striped">
+                              <tbody>
+                                <tr>
+                                  <th>Invoice Number:</th>
+                                  <td>{inv_id}</td>
+                                </tr>
+                                <tr>
+                                  <th>Customer:</th>
+                                  <td>{customer_firstname} {" "} {customer_lastname}</td>
+                                </tr>
+                                <tr>
+                                  <th>Amount:</th>
+                                  <td>£{amount}</td>
+                                </tr>
+                                <tr>
+                                  <th>Invoice Status:</th>
+                                  <td>{invoice_status}</td>
+                                </tr>
+                              </tbody>
+                            </table>
                           </Card.Body>
                         </Accordion.Collapse>
                       </Card>
                     </Accordion>
+                  ) : (
+                      <div className={styles.AddInvoiceContainer}>
+                        <DisplayAddInvoiceButton />
+                      </div>
+                  )}
 
                 </div>
 
                 {/* Desktop Display */}
-                <div className="col-md-4 d-none d-md-block text-center">
+                <div className={`col-md-4 d-none d-md-block text-center ${styles.JobImageContainer}`}>
                   <JobImage />
                 </div>
 

@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 import styles from '../../styles/AllJobsPage.module.css'
 import { axiosReq } from '../../api/axiosDefaults';
@@ -15,7 +16,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from '../../utils/utils';
 import { useHistory } from "react-router-dom";
 
-function AllJobsPage({ message, filter = "" }) {
+function AllJobsPage({ filter = "" }) {
 
     const [jobs, setJobs] = useState({ results: []});
     const [hasLoaded, setHasLoaded] = useState(false);
@@ -69,80 +70,116 @@ function AllJobsPage({ message, filter = "" }) {
         // sets the ordering field state for created date, updated date
         // and due date
         setOrderingField(field);
-      };
+    };
+
+    const handleClearSearch = () => {
+        // Clears the query state when X button is clicked
+        setQuery('');
+    };
 
 
     return (
-        <Container className={styles.JobCard}>
-            <Col xs={12} sm={12} md={10} lg={10} xl={10}>
-                <div className={styles.CardBlock}>
-                    {
-                    // Status Block //
-                    }
-
-                    <p>Filter by:</p>
+        <Container className={styles.AllJobsContainer}>
+            <Col xs={12} sm={12} md={10} lg={10} xl={10} className="mx-auto">
+            <div className={styles.CardBlock}>
+                {/* Dashboard Block */ }
+                <Card className={styles.StatusCard}>
+                    <p className={styles.DashboardHeadings}>Dashboard</p>
                     <div className={`row ${styles['StatusBlock']}`}>
-                        <div className="col-md-4"
-                            onClick={() => {setQuery("Pending"); setSelectedStatus("Pending");}}>
-                            <div className={`card ${styles.CardPointer} ${selectedStatus === 'Pending' ? styles['PendingBorder'] : ''}`}>
-                                <div className="card-body text-center">
+
+                        <div className="col-md-4">
+                            <div
+                                className={`card ${styles.CardPointer} ${selectedStatus === 'Pending' ? styles['PendingBorder'] : ''}`}
+                                onClick={() => {setQuery("Pending"); setSelectedStatus("Pending");}}>
+                                <div className={`card-body text-center ${styles.StatusIconContainer}`}>
                                     <i className={`fa-solid fa-bell-concierge ${styles['PendingIcon']}`}></i>
-                                    <h2 className="card-title">Pending</h2>
-                                    {statusCounts.Pending ? (
-                                            <p className="card-text">{statusCounts.Pending}</p>
-                                        ) : (
-                                            <p className="card-text">0</p>
-                                        )}
+                                    <div className={styles.Title}>Pending</div>
+                                    <div className={styles.Title}>{statusCounts.Pending || '0'}</div>
                                 </div>
                             </div>
 
+                            {/* Pending Selector Button */}
+                            <div className={styles.SelectorButton}>
+                                <Button
+                                    onClick={() => { setQuery("Pending"); setSelectedStatus("Pending"); }}
+                                        variant="outline-danger"
+                                        size="sm"
+                                >
+                                Set to Pending
+                                    </Button>
+                            </div>
                         </div>
-                        <div className="col-md-4"
-                            onClick={() => {setQuery("Underway"); setSelectedStatus("Underway");}}>
-                            <div className={`card ${styles.CardPointer} ${selectedStatus === 'Underway' ? styles['UnderwayBorder'] : ''}`}>
-                                <div className="card-body text-center">
+
+                        {/* Underway Status */}
+                        <div className="col-md-4">
+                            <div
+                                className={`card ${styles.CardPointer} ${selectedStatus === 'Underway' ? styles['UnderwayBorder'] : ''}`}
+                                onClick={() => {setQuery("Underway"); setSelectedStatus("Underway");}}>
+                                    <div className={`card-body text-center ${styles.StatusIconContainer}`}>
                                     <i className={`fa-solid fa-hourglass-half ${styles['UnderwayIcon']}`}></i>
-                                    <h2 className="card-title">Underway</h2>
-                                    {statusCounts.Underway ? (
-                                            <p className="card-text">{statusCounts.Underway}</p>
-                                        ) : (
-                                            <p className="card-text">0</p>
-                                        )}
+                                    <div className={styles.Title}>Underway</div>
+                                    <div className={styles.Title}>{statusCounts.Underway || '0'}</div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-md-4"
-                            onClick={() => {setQuery("Completed"); setSelectedStatus("Completed");}}>
-                            <div className={`card ${styles.CardPointer} ${selectedStatus === 'Completed' ? styles['CompletedBorder'] : ''}`}>
-                                <div className="card-body text-center">
-                                <i className={`fa-solid fa-flag-checkered ${styles['CompletedIcon']}`}></i>
-                                <h2 className="card-title">Completed</h2>
-                                    {statusCounts.Completed ? (
-                                        <p className="card-text">{statusCounts.Completed}</p>
-                                    ) : (
-                                        <p className="card-text">0</p>
-                                    )}
-                                </div>
+
+                            {/* Underway Selector Button */}
+                            <div className={styles.SelectorButton}>
+                                <Button
+                                    onClick={() => { setQuery("Underway"); setSelectedStatus("Underway"); }}
+                                        variant="outline-warning"
+                                        size="sm"
+                                >
+                                Set to Underway
+                                    </Button>
                             </div>
                         </div>
+
+                        {/* Completed Status */}
+                        <div className="col-md-4">
+                            <div
+                                className={`card ${styles.CardPointer} ${selectedStatus === 'Completed' ? styles['CompletedBorder'] : ''}`}
+                                onClick={() => {setQuery("Completed"); setSelectedStatus("Completed");}}>
+                                <div className={`card-body text-center ${styles.StatusIconContainer}`}>
+                                    <i className={`fa-solid fa-hourglass-half ${styles['CompletedIcon']}`}></i>
+                                    <div className={styles.Title}>Completed</div>
+                                    <div className={styles.Title}>{statusCounts.Completed || '0'}</div>
+                                </div>
+                            </div>
+
+                            {/* Completed Selector Button */}
+                            <div className={styles.SelectorButton}>
+                                <Button
+                                    onClick={() => { setQuery("Completed"); setSelectedStatus("Completed"); }}
+                                        variant="outline-success"
+                                        size="sm"
+                                >
+                                Set to Completed
+                                    </Button>
+                            </div>
+                        </div>
+
+                    {/* close status block div */}
                     </div>
-                    <p className="text-md-end">Order by:</p>
+
+                    {/* Order by section */}
+                    <p className={`text-md-end ${styles.DashboardHeadings}`}>Order by:</p>
                     <div className={`row ${styles.OrderBySection}`}>
 
-                        <div className="col-md-4">
-                            <Button onClick={() => handleOrderBy('-created_at')} variant="secondary">Recently Created</Button>
+                            <div className={`col-md-4 ${styles.OrderByBtnContainers}`}>
+                            <Button onClick={() => handleOrderBy('-created_at')} variant="outline-info" size="sm">Recently Created</Button>
                         </div>
-                        <div className="col-md-4">
-                            <Button onClick={() => handleOrderBy('-updated_at')} variant="secondary">Recently Updated</Button>
+                        <div className={`col-md-4 ${styles.OrderByBtnContainers}`}>
+                            <Button onClick={() => handleOrderBy('-updated_at')} variant="outline-info" size="sm">Recently Updated</Button>
                         </div>
-                        <div className="col-md-4">
-                            <Button onClick={() => handleOrderBy('due_date')} variant="secondary">Due Date</Button>
+                        <div className={`col-md-4 ${styles.OrderByBtnContainers}`}>
+                            <Button onClick={() => handleOrderBy('due_date')} variant="outline-info" size="sm">Due Date</Button>
                         </div>
 
                     </div>
-                    {
-                    // Search bar //
-                    }
+
+                        {/* Search bar section */}
+                    <p className={`text-md-end ${styles.DashboardHeadings}`}>Keyword search:</p>
+                    <div className={styles.SearchBarContainer}>
                     <i className={`fas fa-search ${styles.SearchIcon}`} />
                     <Form
                     className={styles.SearchBar}
@@ -155,8 +192,16 @@ function AllJobsPage({ message, filter = "" }) {
                         value={query}
                         onChange={(event) => setQuery(event.target.value)}
                         />
+                        {query && (
+                            <div className={styles.ClearSearchButton} onClick={handleClearSearch}>
+                                <i className="fa-regular fa-circle-xmark"></i>
+                            </div>
+                        )}
                     </Form>
                     </div>
+                </Card>
+            </div>
+
 
                         {hasLoaded ? (
                         <>

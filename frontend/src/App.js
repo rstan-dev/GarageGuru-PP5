@@ -20,6 +20,7 @@ import EditInvoiceForm from './pages/invoices/EditInvoiceForm';
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import InvoicePage from './pages/invoices/InvoicePage';
 import AllInvoicesPage from './pages/invoices/AllInvoicesPage';
+import FixedHeader from './components/FixedHeader';
 
 import PageNotFoundLoggedOut from './components/PageNotFoundLoggedOut';
 
@@ -33,14 +34,25 @@ function App() {
         <div className={styles.App}>
           < NavBar />
           < Container className={styles.Content}>
-            <Switch>
+          <Switch>
+            {/* ADD JOB PAGE */}
+            <Route
+              exact
+              path="/jobs/addjob"
+              render={() =>
+                <>
+                  < FixedHeader text="Viewing Add Job" />
+                  < AddJobForm />
+                </>
+              }/>
+
               {/* ALL JOBS PAGE */}
               <Route
               exact
               path="/"
               render={() =>
               <>
-              <h1>Viewing All Jobs</h1>
+              < FixedHeader text="Viewing All Jobs"/>
               < AllJobsPage message="No Jobs Found..." />
               </> } />
 
@@ -49,8 +61,8 @@ function App() {
               exact
               path="/myjobs"
               render={() =>
-              <>
-              <h1>Viewing My Jobs - Created By Me</h1>
+                <>
+              < FixedHeader text="Viewing My Jobs - created by me"/>
               {
                 currentUser ? (
               < AllJobsPage message="No Jobs Found..."
@@ -61,8 +73,7 @@ function App() {
               )
               }
               </>
-              }
-              />
+              }/>
 
               {/* ASSIGNED JOBS PAGE */}
               <Route
@@ -70,7 +81,7 @@ function App() {
               path="/assigned"
               render={() =>
               <>
-              <h1>Viewing Assigned Jobs - Assigned To Me</h1>
+              < FixedHeader text="Viewing Assigned Jobs - assigned to me"/>
               {
                 currentUser ? (
               < AllJobsPage message="No Jobs Found..."
@@ -81,14 +92,13 @@ function App() {
               )
               }
               </>
-              }
-              />
+              }/>
 
-              <Route exact path="/jobs/addjob" render={() => <AddJobForm />} />
-              <Route exact path="/watched"
+            {/* WATCHED JOBS PAGE */}
+            <Route exact path="/watched"
               render={() =>
               <>
-              <h1>Viewing My Watched Jobs</h1>
+              < FixedHeader text="Viewing Watched Jobs - watched by me"/>
               {
                 currentUser ? (
               < AllJobsPage message="No Jobs Found..."
@@ -99,19 +109,111 @@ function App() {
               )
               }
               </>
+              }/>
+
+            {/* JOBS PAGES */}
+            <Route
+              exact
+              path="/jobs/:id"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing Job"/>
+                <JobPage />
+                </>
               }
               />
 
-              <Route exact path="/profile/:id" render={() => <ProfilePage />} />
-              <Route exact path="/profile/:id/edit-profile" render={() => <EditProfileForm />} />
-              <Route exact path="/profile/:id/change-password" render={() => <ChangePasswordForm />} />
-              <Route exact path="/profile/:id/change-username" render={() => <ChangeUsernameForm />} />
-              <Route exact path="/jobs/:id" render={() => <JobPage />} />
-              <Route exact path="/jobs/:id/edit-job" render={() => <EditJobForm />} />
-              <Route exact path="/all-invoices" render={() => <AllInvoicesPage />} />
-              <Route exact path="/invoices/addinvoice" render={() => <AddInvoiceForm />} />
-              <Route exact path="/invoices/:id/edit-invoice" render={() => <EditInvoiceForm />} />
-              <Route exact path="/invoices/:id" render={() => <InvoicePage />} />
+            <Route
+              exact
+              path="/jobs/:id/edit-job"
+              render={() =>
+                <>
+                  < FixedHeader text="Viewing Edit Job" />
+                  <EditJobForm />
+                </>
+                } />
+
+            {/* INVOICES PAGES */}
+            <Route
+              exact
+              path="/all-invoices"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing All Invoices" />
+                <AllInvoicesPage />
+                </>
+              } />
+
+            <Route
+              exact
+              path="/invoices/addinvoice"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing Add Invoice" />
+                  <AddInvoiceForm />
+                </>
+              } />
+
+            <Route
+              exact
+              path="/invoices/:id/edit-invoice"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing Edit Invoice" />
+                <EditInvoiceForm />
+                </>
+              } />
+
+            <Route exact path="/invoices/:id"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing Invoice" />
+                <InvoicePage />
+                </>
+              } />
+
+            {/* PROFILE PAGES */}
+            <Route
+              exact
+              path="/profile/:id"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing Profile" />
+                <ProfilePage />
+                </>
+              } />
+
+            <Route
+              exact
+              path="/profile/:id/edit-profile"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing Edit Profile" />
+                  <EditProfileForm />
+                </>
+              } />
+
+            <Route
+              exact
+              path="/profile/:id/change-password"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing Change Password" />
+                <ChangePasswordForm />
+                </>
+              } />
+
+            <Route
+              exact
+              path="/profile/:id/change-username"
+              render={() =>
+                <>
+                < FixedHeader text="Viewing Change Username" />
+                <ChangeUsernameForm />
+                </>
+              } />
+
+              {/* PAGE NOT FOUND */}
               <Route render={() => <PageNotFound />} />
           </Switch>
           </Container>
@@ -121,7 +223,8 @@ function App() {
     <div className={styles.App}>
       < NavBar />
       < Container className={styles.Content}>
-        <Switch>
+          <Switch>
+            {/* LOGIN / REGISTER PAGES */}
           <Route exact path="/login" render={() => <LoginForm />} />
           <Route exact path="/register" render={() => <RegisterForm />} />
           <Route render={() => <PageNotFoundLoggedOut />} />

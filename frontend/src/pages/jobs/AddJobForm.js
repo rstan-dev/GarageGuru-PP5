@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
 
 import styles from '../../styles/AddEditJob.module.css'
 
@@ -37,7 +39,7 @@ function AddJobForm() {
     const successTimeoutRef = useRef();
     const history = useHistory();
 
-    // Set default assigned_to to current username
+
     useEffect(() => {
         if (!currentUser) {
             // Redirect to login only if currentUser is explicitly null (not undefined)
@@ -46,6 +48,7 @@ function AddJobForm() {
           }
 
         if (currentUser && currentUser.pk) {
+            // Set default assigned_to to current username
             setJobData(prevState => ({
               ...prevState,
               assigned_to: currentUser.pk
@@ -53,7 +56,8 @@ function AddJobForm() {
           };
 
         return () => {
-            isMounted.current = false; // Set isMounted to false on component unmount
+            // Set isMounted to false on component unmount
+            isMounted.current = false;
         }
 
         }, [currentUser, history]);
@@ -72,10 +76,12 @@ function AddJobForm() {
         };
         fetchProfiles();
         return () => {
-            isMounted.current = false; // Set isMounted to false on component unmount
+            // Set isMounted to false on component unmount
+            isMounted.current = false;
         };
     }, []);
 
+    console.log(`Users:`, users)
     // Get current date to use as default in due_date
         const getCurrentDate = () => {
         const now = new Date();
@@ -179,13 +185,14 @@ function AddJobForm() {
       const textFields = (
         <div className='text-center'>
             <Form.Group controlId="job_type">
-                <Form.Label >Job Type:</Form.Label>
+                <Form.Label >Job Type: (required)</Form.Label>
                 <Form.Control
                 as="select"
                 name="job_type"
                 value={job_type}
                 onChange={handleChange}
                 isrequired="true"
+                className={styles.FormControl}
                 >
                 <option>Choose Job Type</option>
                 <option value="Major Service">Major Service</option>
@@ -205,9 +212,11 @@ function AddJobForm() {
                 <Form.Control
                 as="textarea"
                 name="job_details"
+                placeholder="Enter some details about the job or vehicle here..."
                 rows={2}
                 value={job_details}
                 onChange={handleChange}
+                className={styles.FormControl}
                 />
             </Form.Group>
             {errors?.job_details?.map((message, index) => (
@@ -224,6 +233,7 @@ function AddJobForm() {
                 value={assigned_to}
                 onChange={handleChange}
                 isrequired="true"
+                className={styles.FormControl}
                 >
                 <option>Choose a user</option>
                 {users.map((user) => (
@@ -247,6 +257,7 @@ function AddJobForm() {
                 value={due_date}
                 onChange={handleChange}
                 min={getCurrentDate()}
+                className={styles.FormControl}
                 />
             </Form.Group>
             {errors?.due_date?.map((message, index) => (
@@ -262,6 +273,7 @@ function AddJobForm() {
                 name="status"
                 value={status}
                 onChange={handleChange}
+                className={styles.FormControl}
                 >
                 <option>Select status</option>
                 <option value="Pending">Pending</option>
@@ -280,64 +292,90 @@ function AddJobForm() {
 
     return (
         <Container className={styles.AddEditJobForm}>
-            <Col xs={12} sm={12} md={10} lg={8} xl={6}>
+            <Col xs={12} sm={12} md={10} lg={8} xl={6} className="mx-auto">
             {/* Display success message */}
-            {successMessage && <Alert variant="success">{successMessage}</Alert>}
+                {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-            <Form onSubmit={handleSubmit}>
-                <div>AddJobForm</div>
+            <div className={styles.CardBlock}>
 
-                        <div className="card">
+                    <Card className={styles.FormCard}>
+                        <p>
+                            <i className={`fa-solid fa-circle-plus ${styles.AddJobIcon}`}> </i>
+                             Add Job Form
+                        </p>
+
+                        <Form onSubmit={handleSubmit}>
+
+                        <div>
                         {textFields}
 
+                        <Card>
                         <Form.Group className="text-center">
-                        {image ? (
-                            <>
-                            <figure>
-                                <Image className={styles.Image} src={image} rounded/>
-                            </figure>
-                            {errors?.image?.map((message, index) => (
-                                <Alert variant="warning" key={index}>
-                                    {message}
-                                </Alert>
-                            ))}
+                                        {image ? (
+                                            <>
+                                                <figure>
+                                                    <Image className={styles.Image} src={image} rounded />
+                                                </figure>
+                                                {errors?.image?.map((message, index) => (
+                                                    <Alert variant="warning" key={index}>
+                                                        {message}
+                                                    </Alert>
+                                                ))}
 
-                            <div>
-                            <Form.Label
-                                className="d-flex justify-content-center"
-                                htmlFor="image-upload">
-                                <p>Change image</p>
-                                </Form.Label>
-                            </div>
-                            </>
-                        ) : (
-                            <Form.Label
-                                className="d-flex justify-content-center"
-                                htmlFor="image-upload">
-                                <i className="fa-solid fa-arrow-up-from-bracket"></i>
-                                <p>Upload an image</p>
-                                </Form.Label>
-                        )}
-                                <Form.File
-                                id="image-upload"
-                                accept="image/*"
-                                ref={imageInput}
-                                onChange={handleUploadImage}
-                                />
-                            </Form.Group>
+                                                <div>
+                                                    <Form.Label
+                                                        className="d-flex justify-content-center"
+                                                        htmlFor="image-upload">
+                                                        <p>Change image</p>
+                                                    </Form.Label>
+                                                </div>
+                                            </>
+                                        ) : (
+                                                <div className="d-flex justify-content-center">
+                                                <Form.Label
+                                                className={`d-flex align-items-center${styles.ImageUploadContainer}`}
+                                                htmlFor="image-upload">
+                                                        <div className={styles.UploadIcon}>
+                                                        <i className="fa-solid fa-arrow-up-from-bracket" ></i>
+                                                            <p>Upload an image</p>
+                                                        </div>
+
+                                                    </Form.Label>
+                                                </div>
+
+                                            )}
+                                        <div className="d-flex justify-content-center">
+                                        <Form.File
+                                            id="image-upload"
+                                            accept="image/*"
+                                            ref={imageInput}
+                                            onChange={handleUploadImage}
+                                            className={styles.ImageUpload}
+                                            />
+                                        </div>
+                        </Form.Group>
+                        </Card>
                         </div>
-                <Button
-                variant="warning"
-                onClick={() => history.goBack()}
-                >
-                    Cancel
-                </Button>
-                <Button
-                variant="success"
-                type="submit">
-                    Add Job
-                </Button>
-            </Form>
+                        <Row className="justify-content-center">
+
+    <Col md="auto" className={styles.BtnContainer}>
+        <Button
+            variant="warning"
+            onClick={() => history.goBack()}>
+            Cancel
+        </Button>
+    </Col>
+    <Col md="auto" className={styles.BtnContainer}>
+        <Button
+            variant="success"
+            type="submit">
+            Add Job
+        </Button>
+    </Col>
+</Row>
+                </Form>
+        </Card>
+        </div>
         </Col>
         </Container>
     )

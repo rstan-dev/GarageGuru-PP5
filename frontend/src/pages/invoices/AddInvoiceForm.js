@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
 
 import styles from '../../styles/AddEditInvoice.module.css'
 
@@ -127,9 +129,12 @@ function AddInvoiceForm() {
                 <Form.Label >Customer First Name:</Form.Label>
                 <Form.Control
                 type="text"
-                name="customer_firstname"
+                    name="customer_firstname"
+                    placeholder="enter first name"
                 value={customer_firstname}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
+
                 />
             </Form.Group>
             {errors?.customer_firstname?.map((message, index) => (
@@ -144,7 +149,9 @@ function AddInvoiceForm() {
                 type="text"
                 name="customer_lastname"
                 value={customer_lastname}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
+                    placeholder="enter last name"
                 />
             </Form.Group>
             {errors?.customer_lastname?.map((message, index) => (
@@ -159,7 +166,9 @@ function AddInvoiceForm() {
                 type="email"
                 name="customer_email"
                 value={customer_email}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
+                    placeholder="enter email"
                 />
             </Form.Group>
             <Form.Group controlId="customer_phone">
@@ -170,7 +179,9 @@ function AddInvoiceForm() {
                 value={customer_phone}
                 onChange={handleChange}
                 pattern="^\d{9,15}$"
-                title="Phone number must be between 9 to 15 digits."
+                    title="Phone number must be between 9 to 15 digits."
+                    className={styles.FormControl}
+                    placeholder="enter phone no"
                 />
             </Form.Group>
 
@@ -182,7 +193,9 @@ function AddInvoiceForm() {
                 step="0.01"
                 name="amount"
                 value={amount}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
+                    placeholder="enter invoice amount"
 
                 />
             </Form.Group>
@@ -194,17 +207,19 @@ function AddInvoiceForm() {
                 name="due_date"
                 value={due_date}
                 onChange={handleChange}
-                min={getCurrentDate()}
+                    min={getCurrentDate()}
+                    className={styles.FormControl}
                 />
             </Form.Group>
 
             <Form.Group controlId="invoice_status">
-                <Form.Label >Status:</Form.Label>
+                <Form.Label >Invoice Status:</Form.Label>
                 <Form.Control
                 as="select"
                 name="invoice_status"
                 value={invoice_status}
-                onChange={handleChange}
+                    onChange={handleChange}
+                    className={styles.FormControl}
                 >
                 <option>Select status</option>
                 <option value="Pending">Pending</option>
@@ -216,30 +231,46 @@ function AddInvoiceForm() {
       )
 
     return (
-        <Container className={styles.AddEditJobForm}>
-            <Col xs={12} sm={12} md={10} lg={8} xl={6}>
+        <Container className={styles.AddEditInvoiceForm}>
+            <Col xs={12} sm={12} md={10} lg={8} xl={6} className="mx-auto">
              {/* Display success message */}
-             {successMessage && <Alert variant="success">{successMessage}</Alert>}
+                {successMessage && <Alert variant="success">{successMessage}</Alert>}
+
+                <div className={styles.CardBlock}>
+                    <Card className={styles.FormCard}>
+                    <p>
+                            <i className={`fa-solid fa-circle-plus ${styles.AddEditInvoiceIcon}`}> </i>
+                             Add Invoice Form
+                        </p>
 
             <Form onSubmit={handleSubmit}>
-                <div>AddInvoiceForm</div>
 
-                        <div className="card">
+                        <div>
                             {textFields}
                         </div>
+
+                        <Row className="justify-content-center">
+
+                <Col md="auto" className={styles.BtnContainer}>
                 <Button
                 variant="warning"
                 onClick={() => history.goBack()}
                 >
                     Cancel
-                </Button>
+                                    </Button>
+                                </Col>
+                 <Col md="auto" className={styles.BtnContainer}>
                 <Button
                 variant="success"
                 type="submit">
                     Add Invoice
                 </Button>
+                </Col>
+                </Row>
             </Form>
-        </Col>
+            </Card>
+                </div>
+            </Col>
         </Container>
   )
 }

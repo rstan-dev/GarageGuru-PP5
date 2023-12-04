@@ -7,6 +7,9 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+
 
 import styles from "../../styles/LoginRegister.module.css"
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
@@ -53,9 +56,16 @@ function LoginForm() {
     return (
         <Container className={styles.LoginRegisterForm}>
             <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
-                <h1> Log In</h1>
-                <p>Welcome to GarageGuru, the dynamic job card management app.</p>
-                <p>Please login to manage, monitor, and assign jobs effortlessly, ensuring smooth operations in your service center."</p>
+            <div className={styles.CardBlock}>
+                    <Card className={styles.FormCard}>
+                        <div className={`d-flex flex-column align-items-center ${styles.Intro}`}>
+                            <h1>
+                                <i className={`fa-solid fa-right-to-bracket ${styles.LoginRegisterIcon}`}> </i>
+                                Login
+                            </h1>
+                            <p>Welcome to GarageGuru, the dynamic job card management app.</p>
+                            <p>Manage, Monitor, & Assign jobs Effortlessly...</p>
+                        </div>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="username">
                         <Form.Label>Username</Form.Label>
@@ -64,7 +74,8 @@ function LoginForm() {
                             placeholder="Enter your username"
                             name="username"
                             value={username}
-                            onChange={handleChange}/>
+                                    onChange={handleChange}
+                                    className={styles.FormControl}/>
                     </Form.Group>
                     {errors.username?.map((message, index) => (
                         <Alert key={index} variant="warning">
@@ -79,7 +90,8 @@ function LoginForm() {
                             placeholder="Enter Password"
                             name="password"
                             value={password}
-                            onChange={handleChange} />
+                                    onChange={handleChange}
+                                    className={styles.FormControl}    />
                     </Form.Group>
                     {errors.password?.map((message, index) => (
                         <Alert key={index} variant="warning">
@@ -87,18 +99,29 @@ function LoginForm() {
                         </Alert>
                     ))}
 
-                    <Button variant="primary" type="submit">
-                        Log In
-                    </Button>
-                    {errors.non_field_errors?.map((message, index) => (
-                        <Alert variant="warning" key={index} className="mt-3">
-                        {message}
-                        </Alert>
-                    ))}
+                    <Row className="justify-content-center">
+
+                                <Col md="12" className={styles.BtnContainer}>
+                                    <div className={styles.FullWidthLink}>
+                                    <Button variant="primary" type="submit" size="lg" block>
+                                Log In
+                                        </Button>
+                                </div>
+                            {errors.non_field_errors?.map((message, index) => (
+                                <Alert variant="warning" key={index} className="mt-3">
+                                {message}
+                                </Alert>
+                            ))}
+                                </Col>
+                            </Row>
+                            <div className={`d-flex flex-column align-items-center ${styles.LoginRegisterSection}`}>
                     <Link to="/register">
                         <p>Don't have an account?<br/>Click here to register</p>
-                    </Link>
-                </Form>
+                                </Link>
+                                </div>
+                    </Form>
+                    </Card>
+                    </div>
             </Col>
         </Container>
     )

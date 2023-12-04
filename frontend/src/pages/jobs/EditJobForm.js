@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
 
 import styles from '../../styles/AddEditJob.module.css'
 
@@ -221,7 +223,8 @@ function EditJobForm() {
                 name="job_type"
                 value={job_type}
                 onChange={handleChange}
-                isrequired="true"
+                      isrequired="true"
+                      className={styles.FormControl}
                 >
                 <option>Choose Job Type</option>
                 <option value="Major Service">Major Service</option>
@@ -243,7 +246,8 @@ function EditJobForm() {
                 name="job_details"
                 rows={2}
                 value={job_details}
-                onChange={handleChange}
+                      onChange={handleChange}
+                      className={styles.FormControl}
                 />
             </Form.Group>
             {errors?.job_details?.map((message, index) => (
@@ -259,7 +263,8 @@ function EditJobForm() {
                 name="assigned_to"
                 value={assigned_to}
                 onChange={handleChange}
-                isrequired="true"
+                      isrequired="true"
+                      className={styles.FormControl}
                 >
                 <option>Choose a user</option>
                 {users.map((user) => (
@@ -282,7 +287,8 @@ function EditJobForm() {
                 name="due_date"
                 value={due_date}
                 onChange={handleChange}
-                min={getCurrentDate()}
+                      min={getCurrentDate()}
+                      className={styles.FormControl}
                 />
             </Form.Group>
             {errors?.due_date?.map((message, index) => (
@@ -297,7 +303,8 @@ function EditJobForm() {
                 as="select"
                 name="status"
                 value={status}
-                onChange={handleChange}
+                      onChange={handleChange}
+                      className={styles.FormControl}
                 >
                 <option>Select status</option>
                 <option value="Pending">Pending</option>
@@ -316,15 +323,23 @@ function EditJobForm() {
 
     return (
         <Container className={styles.AddEditJobForm}>
-            <Col xs={12} sm={12} md={10} lg={8} xl={6}>
+            <Col xs={12} sm={12} md={10} lg={8} xl={6} className="mx-auto">
             {/* Display success message */}
             {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
-            <Form onSubmit={(e) => e.preventDefault()}>
-                <div>EditJobForm</div>
+                <div className={styles.CardBlock}>
+                    <Card className={styles.FormCard}>
+                    <p>
+                        <i className={`fa-solid fa-pencil ${styles.AddJobIcon}`}> </i>
+                             Edit Job Form
+                        </p>
 
-                        <div className="card">
-                        {textFields}
+                <Form onSubmit={(e) => e.preventDefault()}>
+
+                        <div>
+                                {textFields}
+
+                        <Card>
                         {/* Image & Image Change Field */}
                         <Form.Group className="text-center">
                         {image ? (
@@ -341,43 +356,64 @@ function EditJobForm() {
                             <div>
                             <Form.Label
                                 className="d-flex justify-content-center"
-                                htmlFor="image-upload">
+                                                        htmlFor="image-upload">
+                                <div className={styles.UploadIcon}>
+                                <i className="fa-solid fa-arrow-up-from-bracket" ></i>
                                 <p>Change image</p>
+                                </div>
                                 </Form.Label>
                             </div>
                             </>
                         ) : (
-                            <Form.Label
+                            <div className="d-flex justify-content-center">
+                                <Form.Label
                                 className="d-flex justify-content-center"
-                                htmlFor="image-upload">
+                                                        htmlFor="image-upload">
+                                <div className={styles.UploadIcon}>
                                 <i className="fa-solid fa-arrow-up-from-bracket"></i>
-                                <p>Upload an image</p>
+                                                            <p>Upload an image</p>
+                                                            </div>
                                 </Form.Label>
+                            </div>
                         )}
+                                <div className="d-flex justify-content-center">
                                 <Form.File
                                 id="image-upload"
                                 accept="image/*"
                                 ref={imageInput}
                                 onChange={handleUploadImage}
                                 />
-                            </Form.Group>
-                        </div>
+                                </div>
+                                    </Form.Group>
+                                    </Card>
+                            </div>
+                            <Row className="justify-content-center">
+
+    <Col md="auto" className={styles.BtnContainer}>
                 <Button
                 variant="warning"
                 onClick={() => history.goBack()}
                 >
                     Cancel
-                </Button>
+                                </Button>
+                            </Col>
+
+    <Col md="auto" className={styles.BtnContainer}>
                 <Button
                 variant="success"
                 onClick={handleSubmit}>
                     Update Job
-                </Button>
+                                </Button>
+                            </Col>
+
+    <Col md="auto" className={styles.BtnContainer}>
                 <Button
                 variant="danger"
                 onClick={handleDelete}>
                     Delete Job
-                </Button>
+                                </Button>
+                            </Col>
+                            </Row>
             </Form>
             {/* Confirmation Modal */}
             <ConfirmationModal
@@ -386,7 +422,9 @@ function EditJobForm() {
             handleConfirm={handleModalConfirm}
             title={confirmationModalContent.title}
             body={confirmationModalContent.body}
-            />
+                    />
+        </Card>
+        </div>
         </Col>
         </Container>
     )

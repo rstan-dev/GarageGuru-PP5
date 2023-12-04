@@ -1,14 +1,35 @@
-.InvoiceCard {
+/* General */
+.DashboardHeadings {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.Title {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.AllInvoicesContainer {
     padding-top: 50px;
 }
 
 .CardBlock {
-    padding-top: 25px;
+    padding-top: 10px;
 }
 
 /* Status block styles */
+.StatusCard {
+    padding: 10px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
 .StatusBlock {
-    padding-bottom: 25px;
+    padding-bottom: 5px;
+}
+
+/* Status Cards */
+.StatusIconContainer {
+    padding: 5px;
 }
 
 .CardPointer {
@@ -16,36 +37,58 @@
 }
 
 .PendingIcon {
-    color: red;
-    font-size: 2rem;
-}
-
-.InvoicedIcon {
-    color: orange;
-    font-size: 2rem;
-}
-
-.PaidIcon {
-    color: green;
-    font-size: 2rem;
+    color: #dc3545;
+    font-size: 1.5rem;
 }
 
 .PendingBorder {
-    border-color: red;
+    border-color: #dc3545;
+}
+
+.InvoicedIcon {
+    color: #ffc107;
+    font-size: 1.5rem;
 }
 
 .InvoicedBorder {
-    border-color: orange;
+    border-color: #ffc107;
+}
+
+.PaidIcon {
+    color: #198754;
+    font-size: 1.5rem;
 }
 
 .PaidBorder {
-    border-color: green;
+    border-color: #198754;
+}
+
+.SelectorButton {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+/* Order By Section */
+.OrderBySection {
+    padding-bottom: 10px;
+}
+
+.OrderByBtnContainers {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 15px;
 }
 
 /* Search Bar styles */
+
+.SearchBarContainer {
+    position: relative;
+}
 .SearchBar input {
     border-radius: 5px;
-    color: #242a3d;
+    color: #007bff;
     padding-left: 40px;
     margin-bottom: 16px;
 }
@@ -62,6 +105,17 @@
     color: #cfced3;
 }
 
-.OrderBySection {
-    padding-bottom: 25px;
+.ClearSearchButton {
+    position: absolute;
+    right: 10px;
+    top: 25%;
+    transform: translateY(-25%);
+    border: none;
+    background: none;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.ClearSearchButton:hover {
+    color: #007bff;
 }

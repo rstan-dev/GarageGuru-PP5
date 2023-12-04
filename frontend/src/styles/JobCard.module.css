@@ -1,3 +1,13 @@
+/* General */
+
+h2 {
+    font-size: large;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
 .JobCard {
     padding-top: 50px;
 }
@@ -6,18 +16,59 @@
     padding-top: 25px;
 }
 
-i {
+.JobCardHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.JobCardHeader {
     font-size: 1.5rem;
+    font-weight: 400;
+}
+
+/* JobCard details */
+
+i {
     align-items: center;
 }
 
 th i {
     padding-right: 5px;
+    font-size: 1.25rem;
 }
 
-.DefaultCarIcon {
-    font-size: 150px;
-    color: #004AAD;
+table tr {
+    font-size: 0.8em;
+}
+
+table td {
+    padding: 0.5rem !important;
+}
+
+table th {
+    padding: 0.5rem !important;
+}
+
+/* Job Image */
+
+.JobImageContainer {
+    padding-top: 25px;
+}
+
+.JobImage {
+    border: solid 1px #bcbcbc;
+}
+
+/* Comments & Watch Section */
+.CommentWatchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .CommentBubbleActive i {
@@ -54,64 +105,22 @@ th i {
     font-size: 2rem;
 }
 
-h2 {
-    font-size: large;
+/* Invoice Section */
+.AddInvoiceContainer {
+    margin-bottom: 20px;
+    width: 100%;
 }
 
-p {
-    font-size: 1.5rem;
+.FullWidthLink {
+    display: block;
 }
 
-.PencilIcon i {
-    color: #454545;
-    font-size: 2rem;
-    padding-bottom: 20px;
-
+.DisabledButton {
+    color: black;
+    font-size: 0.85rem;
 }
 
-.JobCardHeader {
-    font-size: 1.5rem;
-    font-weight: 400;
-}
-
-[data-tooltip] {
-    position: relative;
-    cursor: pointer;
-}
-
-[data-tooltip]::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: normal;
-    word-wrap: break-word;
-    z-index: 1;
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 4px 8px;
-    margin-right: 10px;
-    border-radius: 4px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-}
-
-[data-tooltip]:hover::after {
-    opacity: 1;
-    visibility: visible;
-}
-
-.NoInvoiceLink {
-    color: #454545;
-    cursor: default;
-}
-
-.DisplayAddEditViewInvoice {
-    margin-left: 10px;
-}
+/* Invoice Accordion */
 
 .InvoiceButtonContainer {
     display: flex;
@@ -119,10 +128,19 @@ p {
     margin-bottom: 10px;
 }
 
-.CommentWatchContainer {
+.CenteredToggle {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    margin-bottom: 20px;
+  }
+
+.ViewInvoiceLink {
+    color: #007bff;
+    cursor: pointer;
 }
+
+.DisplayAddEditViewInvoice {
+    margin-left: 10px;
+}
+
+

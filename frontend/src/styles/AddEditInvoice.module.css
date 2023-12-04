@@ -1,4 +1,38 @@
+/* General */
 .AddEditInvoiceForm {
-  padding-top: 50px;
+  padding-top: 75px;
+}
+
+.CardBlock {
+  padding-top: 10px;
+  padding-bottom: 25px;
+}
+
+.FormCard {
+  padding: 10px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.AddEditInvoiceIcon {
+  padding-right: 10px;
+  font-size: 2rem;
+}
+
+/* Form Section */
+.FormControl {
+  font-size: 0.8rem;
+  color: blue
+}
+
+/* Button Section */
+.BtnSection {
+  padding-bottom: 10px;
+}
+
+.BtnContainer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 15px;
+  padding-top: 15px;
 }
 
