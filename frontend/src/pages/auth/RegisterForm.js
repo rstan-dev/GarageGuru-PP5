@@ -4,6 +4,8 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
 import { Alert } from "react-bootstrap";
 
 import styles from "../../styles/LoginRegister.module.css"
@@ -50,9 +52,17 @@ function RegisterForm() {
     return (
         <Container className={styles.LoginRegisterForm}>
             <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
-                 {/* Display success message */}
+                {/* Display success message */}
                 {successMessage && <Alert variant="success">{successMessage}</Alert>}
-                <h1>Register for an account</h1>
+            <div className={styles.CardBlock}>
+                    <Card className={styles.FormCard}>
+                        <div className={`d-flex flex-column align-items-center ${styles.Intro}`}>
+                            <h1>
+                                <i className={`fa-solid fa-solid fa-user-plus ${styles.LoginRegisterIcon}`}> </i>
+                                Register for an Account
+                            </h1>
+                            <p>Sign up to GarageGuru, the dynamic job card management app.</p>
+                        </div>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="username">
                         <Form.Label>Username</Form.Label>
@@ -62,28 +72,28 @@ function RegisterForm() {
                             name="username"
                             value={username}
                             onChange={handleChange}
-                            />
+                            className={styles.FormControl}/>
                     </Form.Group>
                     {errors.username?.map((message, index) => (
-                    <Alert variant="warning" key={index}>
-                    {message}
-                    </Alert>
+                        <Alert key={index} variant="warning">
+                            {message}
+                        </Alert>
                     ))}
 
                     <Form.Group controlId="password1">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>Choose Password</Form.Label>
                         <Form.Control
                             type="password"
-                            placeholder="Enter a password"
+                            placeholder="Enter a password at least 8 characters"
                             name="password1"
                             value={password1}
-                            onChange={handleChange}
-                             />
+                                    onChange={handleChange}
+                                    className={styles.FormControl}    />
                     </Form.Group>
                     {errors.password1?.map((message, index) => (
-                    <Alert variant="warning" key={index}>
-                    {message}
-                    </Alert>
+                        <Alert key={index} variant="warning">
+                            {message}
+                        </Alert>
                     ))}
 
                     <Form.Group controlId="password2">
@@ -94,28 +104,40 @@ function RegisterForm() {
                             name="password2"
                             value={password2}
                             onChange={handleChange}
-                             />
+                            className={styles.FormControl}    />
                     </Form.Group>
                     {errors.password2?.map((message, index) => (
-                    <Alert variant="warning" key={index}>
-                    {message}
-                    </Alert>
-                    ))}
-
-                    <Button variant="primary" type="submit">
-                        Register
-                    </Button>
-                    {errors.non_field_errors?.map((message, index) => (
-                        <Alert variant="warning" key={index} className="mt-3">
-                        {message}
+                        <Alert key={index} variant="warning">
+                            {message}
                         </Alert>
                     ))}
+
+                    <Row className="justify-content-center">
+
+                                <Col md="12" className={styles.BtnContainer}>
+                                    <div className={styles.FullWidthLink}>
+                                    <Button variant="primary" type="submit" size="lg" block>
+                                Register
+                                        </Button>
+                                </div>
+                            {errors.non_field_errors?.map((message, index) => (
+                                <Alert variant="warning" key={index} className="mt-3">
+                                {message}
+                                </Alert>
+                            ))}
+                                </Col>
+                            </Row>
+                            <div className={`d-flex flex-column align-items-center ${styles.LoginRegisterSection}`}>
                     <Link to="/login">
                         <p>Already have an account?<br/>Click here to log in</p>
-                    </Link>
-                </Form>
+                                </Link>
+                                </div>
+                    </Form>
+                    </Card>
+                    </div>
             </Col>
         </Container>
+
     )
     }
 

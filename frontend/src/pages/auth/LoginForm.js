@@ -60,7 +60,7 @@ function LoginForm() {
                     <Card className={styles.FormCard}>
                         <div className={`d-flex flex-column align-items-center ${styles.Intro}`}>
                             <h1>
-                                <i className={`fa-solid fa-right-to-bracket ${styles.LoginIcon}`}> </i>
+                                <i className={`fa-solid fa-right-to-bracket ${styles.LoginRegisterIcon}`}> </i>
                                 Login
                             </h1>
                             <p>Welcome to GarageGuru, the dynamic job card management app.</p>
@@ -114,7 +114,7 @@ function LoginForm() {
                             ))}
                                 </Col>
                             </Row>
-                            <div className={`d-flex flex-column align-items-center ${styles.RegisterSection}`}>
+                            <div className={`d-flex flex-column align-items-center ${styles.LoginRegisterSection}`}>
                     <Link to="/register">
                         <p>Don't have an account?<br/>Click here to register</p>
                                 </Link>

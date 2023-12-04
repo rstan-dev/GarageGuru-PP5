@@ -1,6 +1,6 @@
 /* General */
 .LoginRegisterForm {
-    padding-top: 75px;
+    padding-top: 50px;
 }
 
 .CardBlock {
@@ -14,7 +14,7 @@
   }
 
 /* Intro Section */
-.LoginIcon {
+.LoginRegisterIcon {
     padding-right: 10px;
     font-size: 2rem;
   }
@@ -47,7 +47,7 @@
 }
 
   /* Register Section */
-.RegisterSection {
+.LoginRegisterSection {
     text-align: center;
   }
 
