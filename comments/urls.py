@@ -1,3 +1,6 @@
+"""
+Imports for Comment URLs
+"""
 from django.urls import path
 from comments import views
 

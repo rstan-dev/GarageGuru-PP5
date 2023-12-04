@@ -1,3 +1,7 @@
+
+"""
+Imports for the Comment Model
+"""
 from django.db import models
 from django.contrib.auth.models import User
 from jobs.models import Job
@@ -19,7 +23,13 @@ class Comment(models.Model):
     comment_detail = models.TextField()
 
     class Meta:
+        """
+        Specify order by most recent created_at date
+        """
         ordering = ["-created_at"]
 
     def __str__(self):
-        return self.comment_detail
+        """
+        Return comment_detail
+        """
+        return str(self.comment_detail)
