@@ -4,7 +4,9 @@ import { useHistory, useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
 import { Image } from "react-bootstrap";
 import styles from "../../styles/EditProfile.module.css"
@@ -134,7 +136,7 @@ const EditProfileForm = () => {
 
 return (
       <Container className={styles.EditProfileForm}>
-            <Col xs={12} sm={12} md={8} lg={6} xl={6} className="mx-auto">
+            <Col xs={12} sm={12} md={8} lg={8} xl={8} className="mx-auto">
                 {/* Display success message */}
                 {successMessage && <Alert variant="success">{successMessage}</Alert>}
 
@@ -142,16 +144,23 @@ return (
                 {errors.name && <Alert variant="danger">{errors.name[0]}</Alert>}
                 {errors.bio && <Alert variant="danger">{errors.bio[0]}</Alert>}
 
-                <h1> Edit Profile</h1>
+                <div className={styles.CardBlock}>
+                    <Card className={styles.FormCard}>
+                        <div className={`d-flex flex-column align-items-center ${styles.Intro}`}>
+                            <h1>
+                                <i className={`fa-solid fa-pencil ${styles.EditProfileIcon}`}> </i>
+                                Edit Profile Page
+                            </h1>
+                        </div>
 
                 <Form onSubmit={(e) => e.preventDefault()}>
-                    <Form.Group>
+                <Card className={styles.ImageUploadContainer}>
+            <Form.Group className="text-center">
                     {image && (
                       <figure>
                         <Image
                         src={image}
-                        fluid
-                        roundedCircle />
+                        fluid />
                       </figure>
                     )}
                     {errors?.image?.map((message, idx) => (
@@ -160,12 +169,14 @@ return (
                       </Alert>
                     ))}
                     <div>
-                      <Form.Label htmlFor="image-upload">
+                  <Form.Label
+                    className="d-flex justify-content-center"
+                    htmlFor="image-upload">
                         <i className="fas fa-upload"></i>
                         Change Profile Image
                       </Form.Label>
-                    </div>
-
+                </div>
+                    <div className="d-flex justify-content-center">
                     <Form.File
                       id="image-upload"
                       ref={imageFile}
@@ -178,9 +189,10 @@ return (
                           });
                         }
                       }}
-                    />
-
-                    </Form.Group>
+                  />
+                  </div>
+            </Form.Group>
+            </Card>
                     <Form.Group controlId="name">
                         <Form.Label>Update Name</Form.Label>
                         <Form.Control
@@ -188,7 +200,8 @@ return (
                             type="text"
                             name="name"
                             value={name}
-                            onChange={handleChange}
+                onChange={handleChange}
+                className={styles.FormControl}
                             />
                     </Form.Group>
                     <Form.Group controlId="bio">
@@ -197,20 +210,30 @@ return (
                             as="textarea"
                             name="bio"
                             value={bio}
-                            rows={7}
-                            onChange={handleChange}
+                            rows={4}
+                onChange={handleChange}
+                className={styles.FormControl}
                             />
-                    </Form.Group>
-                    <Button
-                      variant="success"
-                      onClick={handleSubmit}>
-                      Update
-                    </Button>
+            </Form.Group>
+
+            <Row className="justify-content-center">
+
+    <Col md="auto" className={styles.BtnContainer}>
                     <Link to={`/profile/${id}`}>
                       <Button variant="warning">
                         Cancel
                       </Button>
-                    </Link>
+                </Link>
+                </Col>
+
+                <Col md="auto" className={styles.BtnContainer}>
+                <Button
+                      variant="success"
+                      onClick={handleSubmit}>
+                      Update Profile
+                </Button>
+            </Col>
+            </Row>
                 </Form>
                 {/* Confirmation Modal */}
                 <ConfirmationModal
@@ -220,7 +243,9 @@ return (
                 title={confirmationModalContent.title}
                 body={confirmationModalContent.body}
                 />
-            </Col>
+        </Card>
+        </div>
+        </Col>
     </Container>
 )
 }
