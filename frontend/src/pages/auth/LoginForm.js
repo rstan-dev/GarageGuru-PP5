@@ -105,7 +105,6 @@ function LoginForm() {
 									{message}
 								</Alert>
 							))}
-
 							<Form.Group controlId='password'>
 								<Form.Label>Password</Form.Label>
 								<Form.Control
