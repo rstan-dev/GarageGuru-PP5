@@ -51,11 +51,6 @@ function AllJobsPage({ filter = "" }) {
 	 * Applies filters and ordering based on the component's state and props.
 	 */
 	useEffect(() => {
-		if (!currentUser) {
-			// Redirect to login only if currentUser is explicitly null (not undefined)
-			history.push("/login");
-			return;
-		}
 
 		const fetchJobs = async () => {
 			try {
