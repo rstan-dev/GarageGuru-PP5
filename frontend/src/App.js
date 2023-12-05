@@ -21,6 +21,7 @@ import { useCurrentUser } from "./contexts/CurrentUserContext";
 import InvoicePage from "./pages/invoices/InvoicePage";
 import AllInvoicesPage from "./pages/invoices/AllInvoicesPage";
 import FixedHeader from "./components/FixedHeader";
+import Asset from "../../components/Asset";
 
 import PageNotFoundLoggedOut from "./components/PageNotFoundLoggedOut";
 
@@ -70,7 +71,10 @@ function App() {
 										filter={`owner__username=${currentUsername}&`}
 									/>
 								) : (
-									<div>Loading...</div>
+									<Asset
+										spinner
+										message={"loading jobs"}
+									/>
 								)}
 							</>
 						)}
@@ -89,7 +93,10 @@ function App() {
 										filter={`assigned_to__username=${currentUsername}&`}
 									/>
 								) : (
-									<div>Loading...</div>
+									<Asset
+										spinner
+										message={"loading jobs"}
+									/>
 								)}
 							</>
 						)}
@@ -108,7 +115,10 @@ function App() {
 										filter={`watched_by=${currentUser.pk}&`}
 									/>
 								) : (
-									<div>Loading...</div>
+									<Asset
+										spinner
+										message={"loading jobs"}
+									/>
 								)}
 							</>
 						)}
