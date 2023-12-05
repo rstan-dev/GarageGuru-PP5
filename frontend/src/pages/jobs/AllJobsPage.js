@@ -51,7 +51,6 @@ function AllJobsPage({ filter = "" }) {
 	 * Applies filters and ordering based on the component's state and props.
 	 */
 	useEffect(() => {
-
 		const fetchJobs = async () => {
 			try {
 				const { data } = await axiosReq.get(
@@ -109,14 +108,12 @@ function AllJobsPage({ filter = "" }) {
 				xl={10}
 				className='mx-auto'>
 				<div className={styles.CardBlock}>
-
-                    {/* Dashboard Block */}
+					{/* Dashboard Block */}
 					<Card className={styles.StatusCard}>
 						<p className={styles.DashboardHeadings}>Dashboard</p>
 						<div className={`row ${styles["StatusBlock"]}`}>
-
-                            {/* Pending Status */}
-                            <div className='col-md-4'>
+							{/* Pending Status */}
+							<div className='col-md-4'>
 								<div
 									className={`card ${styles.CardPointer} ${
 										selectedStatus === "Pending" ? styles["PendingBorder"] : ""

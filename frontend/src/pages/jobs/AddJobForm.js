@@ -320,8 +320,7 @@ function AddJobForm() {
 				lg={8}
 				xl={6}
 				className='mx-auto'>
-
-                {/* Display success message */}
+				{/* Display success message */}
 				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
 				<div className={styles.CardBlock}>

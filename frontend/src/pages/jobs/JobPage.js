@@ -40,11 +40,6 @@ function JobPage() {
 	 * Applies the fetched data to the component's state.
 	 */
 	useEffect(() => {
-		if (!currentUser) {
-			// Redirect to login only if currentUser is explicitly null (not undefined)
-			history.push("/login");
-			return;
-		}
 		const handleMount = async () => {
 			try {
 				const [{ data: job }, { data: comments }, { data: invoice }] =
