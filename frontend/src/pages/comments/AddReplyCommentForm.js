@@ -102,7 +102,7 @@ function AddReplyCommentForm(props) {
 	};
 
 	return (
-		<div className={styles.CommentArea}>
+		<div className={styles.ReplyCommentArea}>
 			<div className='row'>
 				<div className={`col ${styles.ProfileSection}`}>
 					<Image
@@ -117,17 +117,19 @@ function AddReplyCommentForm(props) {
 					<Form onSubmit={handleSubmit}>
 						<Form.Group>
 							<Form.Control
-								placeholder='add a comment...'
+								placeholder='add a reply to this comment...'
 								as='textarea'
 								value={comment_detail}
 								onChange={handleChange}
 								rows={2}
+								className={styles.FormControl}
 							/>
 						</Form.Group>
 						<div className={`text-right ${styles.SubmitButton}`}>
 							<Button
-								variant='success'
-								type='submit'>
+								variant='outline-success'
+								type='submit'
+								size='sm'>
 								Reply To Comment
 							</Button>
 						</div>

@@ -1,15 +1,17 @@
+/* Main Comment Section */
 .ProfileSection {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 .ProfileName {
-	font-size: 15px;
-	margin: 5px;
+	font-size: 12px;
+	margin: 0px 5px 0px 5px;
+	text-align: center;
 }
 
 .ProfileImage {
@@ -22,22 +24,24 @@
 
 .CommentUpdated {
 	font-size: 10px;
-	margin: 5px;
+	margin: 0px 5px 0px 5px;
+	text-align: center;
 }
 
 .CommentSection {
 	margin-bottom: 15px;
-	margin-top: 15px;
+	padding: 0px 20px 20px 20px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 .CommentDetail {
-	padding-top: 25px;
-	color: black;
+	padding-top: 15px;
+	color: #454545;
+	font-size: 0.8rem;
 }
 
 .ReplyHeader {
-	padding-top: 50px;
-	margin-bottom: -25px;
+	padding-top: 25px;
 	font-size: 15px;
 	font-weight: bold;
 	color: grey;
@@ -47,4 +51,43 @@
 .NoReplyLink {
 	color: #454545;
 	cursor: default;
+}
+
+/* Accordion Reply Comment Section */
+.ReplyAccordionHeader {
+	font-size: 15px;
+}
+
+.ReplyProfileSection {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	margin-top: 10px;
+	margin-left: 5px;
+	padding: 5px;
+}
+
+.ReplyProfileName {
+	font-size: 12px;
+	margin: 0px 5px 0px 5px;
+	text-align: center;
+}
+
+.ReplyCommentUpdated {
+	font-size: 10px;
+	margin: 0px 5px 0px 5px;
+	text-align: center;
+}
+
+.ReplyCommentSection {
+	margin-bottom: 15px;
+	padding: 0px 5px 5px 5px;
+}
+
+.ReplyCommentDetail {
+	padding-top: 15px;
+	color: #454545;
+	font-size: 0.8rem;
 }

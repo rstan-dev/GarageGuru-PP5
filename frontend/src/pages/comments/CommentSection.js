@@ -47,15 +47,17 @@ const CommentSection = (props) => {
 		return replies.map((reply) => (
 			<Card
 				key={`${id}-${reply.reply_id}`}
-				className={styles.CommentSection}>
+				className={styles.ReplyCommentSection}>
 				<div className='row'>
-					<div className={`col ${styles.ProfileSection}`}>
-						<p className={styles.ProfileName}>{reply.reply_owner}</p>
-						<p className={styles.CommentUpdated}>{reply.reply_updated_at}</p>
+					<div className={`col ${styles.ReplyProfileSection}`}>
+						<p className={styles.ReplyProfileName}>{reply.reply_owner}</p>
+						<p className={styles.ReplyCommentUpdated}>
+							{reply.reply_updated_at}
+						</p>
 					</div>
 
 					{editingId === reply.reply_id ? (
-						<div className={`col-10 ${styles.CommentDetail}`}>
+						<div className={`col-10 ${styles.ReplyCommentDetail}`}>
 							<EditCommentForm
 								id={reply.reply_id}
 								profile_image={profile_image}
@@ -69,13 +71,16 @@ const CommentSection = (props) => {
 						</div>
 					) : (
 						<div className='col-10'>
-							<div className={styles.CommentDetail}>
+							<div className={styles.ReplyCommentDetail}>
 								{reply.reply_comment_detail}
 							</div>
 							{isReplyOwner === reply.reply_owner &&
 								editingId !== reply.reply_id && (
 									<div className='col-12 text-right'>
-										<Button onClick={() => setEditingId(reply.reply_id)}>
+										<Button
+											onClick={() => setEditingId(reply.reply_id)}
+											variant='outline-primary'
+											size='sm'>
 											Edit Reply
 										</Button>
 									</div>
@@ -118,7 +123,12 @@ const CommentSection = (props) => {
 						<div className={styles.CommentDetail}>{comment_detail}</div>
 						{is_owner && editingId !== id && (
 							<div className='col-12 text-right'>
-								<Button onClick={() => setEditingId(id)}>Edit Comment</Button>
+								<Button
+									onClick={() => setEditingId(id)}
+									variant='outline-primary'
+									size='sm'>
+									Edit Comment
+								</Button>
 							</div>
 						)}
 						<div>
@@ -139,7 +149,8 @@ const CommentSection = (props) => {
 									<Accordion.Toggle
 										as={Button}
 										variant='link'
-										eventKey='0'>
+										eventKey='0'
+										className={styles.ReplyAccordionHeader}>
 										{replies.length > 0 ? (
 											"Click to view replies"
 										) : (

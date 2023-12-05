@@ -8,6 +8,7 @@ import CommentSection from "../comments/CommentSection";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Asset from "../../components/Asset";
 import { fetchMoreData } from "../../utils/utils";
+import styles from "../../styles/JobPage.module.css";
 
 /**
  * JobPage Component
@@ -72,20 +73,23 @@ function JobPage() {
 				{...invoice.results[0]}
 			/>
 			{currentUser ? (
-				<AddCommentForm
-					profileImage={profileImage}
-					profileName={profileName}
-					job={id}
-					setJob={setJob}
-					setComments={setComments}
-					setCommentsCount={setCommentsCount}
-				/>
+				<>
+					<p className={styles.CommentTitle}>Leave a comment</p>
+					<AddCommentForm
+						profileImage={profileImage}
+						profileName={profileName}
+						job={id}
+						setJob={setJob}
+						setComments={setComments}
+						setCommentsCount={setCommentsCount}
+					/>
+				</>
 			) : comments.results.length ? (
 				"comments"
 			) : null}
 			{comments.results.length ? (
 				<>
-					<p>Previous comments</p>
+					<p className={styles.CommentTitle}>Previous comments</p>
 					<InfiniteScroll
 						children={comments.results.map((comment) => (
 							<CommentSection

@@ -241,7 +241,7 @@ const JobCard = (props) => {
 
 	return (
 		<div className={styles.CardBlock}>
-			<div className='card'>
+			<div className={`card ${styles.JobCard}`}>
 				<div className='card-body'>
 					<div className={styles.JobCardHeaderContainer}>
 						<p className={styles.JobCardHeader}>JOBCARD</p>

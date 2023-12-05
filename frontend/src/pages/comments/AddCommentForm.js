@@ -72,36 +72,44 @@ function AddCommentForm(props) {
 	};
 
 	return (
-		<div className={styles.CommentArea}>
-			<div className='row'>
-				<div className={`col ${styles.ProfileSection}`}>
-					<Image
-						className={styles.ProfileImage}
-						src={profileImage}
-						alt='Profile'
-						fluid
-					/>
-					<p className={styles.ProfileName}>{profileName}</p>
-				</div>
-				<div className='col-10'>
-					<Form onSubmit={handleSubmit}>
-						<Form.Group>
-							<Form.Control
-								placeholder='add a comment...'
-								as='textarea'
-								value={comment_detail}
-								onChange={handleChange}
-								rows={2}
-							/>
-						</Form.Group>
-						<div className={`text-right ${styles.SubmitButton}`}>
-							<Button
-								variant='success'
-								type='submit'>
-								Add Comment
-							</Button>
+		<div>
+			<div className='card'>
+				<div className={`card-body ${styles.CardBody}`}>
+					<div className={styles.CommentArea}>
+						<div className='row'>
+							<div className={`col ${styles.ProfileSection}`}>
+								<Image
+									className={styles.ProfileImage}
+									src={profileImage}
+									alt='Profile'
+									fluid
+								/>
+								<p className={styles.ProfileName}>{profileName}</p>
+							</div>
+							<div className='col-10'>
+								<Form onSubmit={handleSubmit}>
+									<Form.Group>
+										<Form.Control
+											placeholder='add a comment...'
+											as='textarea'
+											value={comment_detail}
+											onChange={handleChange}
+											rows={2}
+											className={styles.FormControl}
+										/>
+									</Form.Group>
+									<div className={`text-right ${styles.SubmitButton}`}>
+										<Button
+											variant='outline-success'
+											type='submit'
+											size='sm'>
+											Add Comment
+										</Button>
+									</div>
+								</Form>
+							</div>
 						</div>
-					</Form>
+					</div>
 				</div>
 			</div>
 		</div>

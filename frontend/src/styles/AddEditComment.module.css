@@ -1,5 +1,16 @@
+.CardBody {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+
+}
+
 .CommentArea {
-	padding-top: 35px;
+	padding-top: 5px;
+}
+
+.ReplyCommentArea {
+	padding-top: 25px;
 }
 
 .ProfileSection {
@@ -11,7 +22,7 @@
 }
 
 .ProfileName {
-	font-size: 15px;
+	font-size: 12px;
 	margin: 5px;
 }
 
@@ -23,6 +34,14 @@
 	margin: 5px;
 }
 
+/* Form Section */
+.FormControl {
+	font-size: 0.8rem;
+	color: blue;
+}
+
 .SubmitButton {
 	padding-bottom: 10px;
 }
+
+
