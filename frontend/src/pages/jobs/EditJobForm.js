@@ -177,7 +177,7 @@ function EditJobForm() {
 		setConfirmationModalContent({
 			title: "Confirm Job Update",
 			body: "Are you sure you want to update this job?",
-			confirmAction: handleUpdateConfirm, // References the function that performs the update
+			confirmAction: handleUpdateConfirm, // References the function that performs the update.
 		});
 		setShowConfirmationModal(true);
 	};

@@ -37,7 +37,7 @@ function AllJobsPage({ filter = "" }) {
 	});
 
 	// State for managing search queries and ordering of jobs, and the
-	// selected status
+	// selected status.
 	const [query, setQuery] = useState("");
 	const [orderingField, setOrderingField] = useState("-created_at");
 	const [selectedStatus, setSelectedStatus] = useState(null);
@@ -90,7 +90,7 @@ function AllJobsPage({ filter = "" }) {
 
 	/**
 	 * Sets the ordering field state for created date, updated date
-	 * and due date
+	 * and due date.
 	 **/
 	const handleOrderBy = (field) => {
 		setOrderingField(field);
@@ -100,7 +100,7 @@ function AllJobsPage({ filter = "" }) {
 	 * Clears the search query state.
 	 */
 	const handleClearSearch = () => {
-		// Clears the query state when X button is clicked
+		// Clears the query state when X button is clicked.
 		setQuery("");
 	};
 

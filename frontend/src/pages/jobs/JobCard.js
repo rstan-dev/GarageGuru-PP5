@@ -52,7 +52,7 @@ const JobCard = (props) => {
 	const currentUser = useCurrentUser();
 	const is_owner = currentUser?.username === owner;
 
-	// State for managing assigned users username
+	// State for managing assigned users username.
 	const [assignedUsername, setAssignedUsername] = useState();
 
 	/**
@@ -96,7 +96,7 @@ const JobCard = (props) => {
 
 	// Handles logic for unwatching a job.
 	const handleUnwatch = async () => {
-		// Updates the UI by removing the unwatched job before calling axiosRes.delete
+		// Updates the UI by removing the unwatched job before calling axiosRes.delete.
 		try {
 			setJobs((prevJobs) => ({
 				...prevJobs,
@@ -107,7 +107,7 @@ const JobCard = (props) => {
 			onUnwatch();
 		} catch (err) {
 			console.log(err);
-			// reverts the state if there is an error.
+			// Reverts the state if there is an error.
 			setJobs(jobs);
 		}
 	};
@@ -186,7 +186,7 @@ const JobCard = (props) => {
 		</>
 	);
 
-	// Reusable component for Displaying Add Invoice Button.
+	// Reusable component for displaying Add Invoice Button.
 	const DisplayAddInvoiceButton = () => (
 		<>
 			{!has_invoice && (is_owner || assigned_to === currentUser.pk) ? (
@@ -220,7 +220,7 @@ const JobCard = (props) => {
 		</>
 	);
 
-	// Reusable component for Displaying View or Edit Invoice Button.
+	// Reusable component for displaying View or Edit Invoice Button.
 	const DisplayEditViewInvoiceButton = () => (
 		<>
 			{has_invoice ? (

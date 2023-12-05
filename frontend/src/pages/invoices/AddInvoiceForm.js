@@ -190,7 +190,6 @@ function AddInvoiceForm() {
 					{message}
 				</Alert>
 			))}
-
 			<Form.Group controlId='customer_email'>
 				<Form.Label>Email:</Form.Label>
 				<Form.Control
@@ -215,7 +214,6 @@ function AddInvoiceForm() {
 					placeholder='enter phone no'
 				/>
 			</Form.Group>
-
 			<Form.Group controlId='amount'>
 				<Form.Label>Amount:</Form.Label>
 				<Form.Control
@@ -229,7 +227,6 @@ function AddInvoiceForm() {
 					placeholder='enter invoice amount'
 				/>
 			</Form.Group>
-
 			<Form.Group controlId='due_date'>
 				<Form.Label>Due Date:</Form.Label>
 				<Form.Control
@@ -241,7 +238,6 @@ function AddInvoiceForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
-
 			<Form.Group controlId='invoice_status'>
 				<Form.Label>Invoice Status:</Form.Label>
 				<Form.Control
@@ -268,6 +264,7 @@ function AddInvoiceForm() {
 				lg={8}
 				xl={6}
 				className='mx-auto'>
+
 				{/* Display success message */}
 				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 

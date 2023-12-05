@@ -1,6 +1,10 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
+/*
+  Reusable Modal to offer a user the chance to Confirm or Cancel
+  the request
+*/
 const ConfirmationModal = ({
 	showModal,
 	handleClose,
@@ -8,7 +12,6 @@ const ConfirmationModal = ({
 	title,
 	body,
 }) => {
-	// Reusable Modal to offer a user the chance to Confirm or Cancel the request
 	return (
 		<Modal
 			show={showModal}

@@ -45,7 +45,7 @@ const EditProfileForm = () => {
 	const { name, bio, image } = editProfileData;
 
 	// State for managing form errors and success messages, displaying confirmation
-	//modal and its content.
+	// modal and its content.
 	const [errors, setErrors] = useState({});
 	const [successMessage, setSuccessMessage] = useState("");
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -63,7 +63,7 @@ const EditProfileForm = () => {
 	 * Handles redirection based on user authentication and authorization.
 	 */
 	useEffect(() => {
-		let isMounted = true; // Flag to track if the component is mounted
+		let isMounted = true; // Flag to track if the component is mounted.
 
 		const handleMount = async () => {
 			try {
@@ -92,7 +92,7 @@ const EditProfileForm = () => {
 
 		handleMount();
 		return () => {
-			isMounted = false; // Set the flag to false when the component unmounts
+			isMounted = false; // Set the flag to false when the component unmounts.
 		};
 	}, [currentUserId, currentUser, history, id]);
 
@@ -116,7 +116,7 @@ const EditProfileForm = () => {
 		setConfirmationModalContent({
 			title: "Confirm Profile Update",
 			body: "Are you sure you want to update your profile?",
-			confirmAction: handleUpdateConfirm, // References the function that performs the update
+			confirmAction: handleUpdateConfirm, // References the function that performs the update.
 		});
 		setShowConfirmationModal(true);
 	};
@@ -171,7 +171,7 @@ const EditProfileForm = () => {
 				xl={8}
 				className='mx-auto'>
 
-        {/* Display success message */}
+        		{/* Display success message */}
 				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
 				{/* Display error messages */}
@@ -278,7 +278,7 @@ const EditProfileForm = () => {
 							</Row>
 						</Form>
 
-            {/* Confirmation Modal */}
+            			{/* Confirmation Modal */}
 						<ConfirmationModal
 							showModal={showConfirmationModal}
 							handleClose={handleModalClose}

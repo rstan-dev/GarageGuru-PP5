@@ -2,6 +2,9 @@ import React from "react";
 import styles from "../styles/FixedHeader.module.css";
 import Container from "react-bootstrap/Container";
 
+/*
+  Reusable Header to display the current page
+*/
 const FixedHeader = ({ text }) => {
 	return (
 		<div className={styles.FixedHeader}>

@@ -101,7 +101,7 @@ function EditInvoiceForm() {
 					return;
 				}
 			} catch (err) {
-				// console.log(err);
+				console.log(err);
 			}
 		};
 		handleMount();
@@ -252,7 +252,6 @@ function EditInvoiceForm() {
 					{message}
 				</Alert>
 			))}
-
 			<Form.Group controlId='customer_lastname'>
 				<Form.Label>Customer Last Name:</Form.Label>
 				<Form.Control
@@ -270,7 +269,6 @@ function EditInvoiceForm() {
 					{message}
 				</Alert>
 			))}
-
 			<Form.Group controlId='customer_email'>
 				<Form.Label>Email:</Form.Label>
 				<Form.Control

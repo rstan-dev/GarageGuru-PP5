@@ -87,7 +87,7 @@ function AllInvoicesPage() {
 	 * Handles the ordering field state based on the selected field.
 	 **/
 	const handleOrderBy = (field) => {
-		// sets the ordering field state for created date, updated date
+		// Sets the ordering field state for created date, updated date
 		// and due date
 		setOrderingField(field);
 	};
@@ -111,7 +111,7 @@ function AllInvoicesPage() {
 				className='mx-auto'>
 				<div className={styles.CardBlock}>
 
-                    {/* Status Block */}
+                    {/* Dashboard Section */}
 					<Card className={styles.StatusCard}>
 						<p className={styles.DashboardHeadings}>Dashboard</p>
 						<div className={`row ${styles["StatusBlock"]}`}>

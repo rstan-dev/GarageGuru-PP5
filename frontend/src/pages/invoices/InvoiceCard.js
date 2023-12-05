@@ -158,11 +158,9 @@ const InvoiceCard = (props) => {
 											</Accordion.Toggle>
 										</div>
 									</Card.Header>
-
 									<Accordion.Collapse eventKey='0'>
 										<Card.Body>
 											<DisplayViewJobButton />
-
 											<table className='table table-striped'>
 												<tbody>
 													<tr>

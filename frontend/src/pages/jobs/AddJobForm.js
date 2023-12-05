@@ -61,7 +61,7 @@ function AddJobForm() {
 		}
 
 		if (currentUser && currentUser.pk) {
-			// Set default assigned_to to current username
+			// Set default assigned_to to current username.
 			setJobData((prevState) => ({
 				...prevState,
 				assigned_to: currentUser.pk,
@@ -69,12 +69,12 @@ function AddJobForm() {
 		}
 
 		return () => {
-			// Set isMounted to false on component unmount
+			// Set isMounted to false on component unmount.
 			isMounted.current = false;
 		};
 	}, [currentUser, history]);
 
-	// Get list of profiles to populate assigned_to dropdown
+	// Get list of profiles to populate assigned_to dropdown.
 	useEffect(() => {
 		const fetchProfiles = async () => {
 			try {
@@ -88,12 +88,12 @@ function AddJobForm() {
 		};
 		fetchProfiles();
 		return () => {
-			// Set isMounted to false on component unmount
+			// Set isMounted to false on component unmount.
 			isMounted.current = false;
 		};
 	}, []);
 
-	// Get current date to use as default in due_date
+	// Get current date to use as default in due_date.
 	const getCurrentDate = () => {
 		const now = new Date();
 		const year = now.getFullYear();
@@ -102,7 +102,7 @@ function AddJobForm() {
 		return `${year}-${month}-${day}`;
 	};
 
-	// Sets the due_date field to curent date when form initially loads
+	// Sets the due_date field to curent date when form initially loads.
 	useEffect(() => {
 		const currentDate = getCurrentDate();
 		setJobData((prevState) => ({
@@ -132,7 +132,7 @@ function AddJobForm() {
 		}
 	};
 
-	// Clears the success message timeout function
+	// Clears the success message timeout function.
 	useEffect(() => {
 		return () => {
 			if (successTimeoutRef.current) {
@@ -199,7 +199,7 @@ function AddJobForm() {
 		}
 	};
 
-	// Text fields component to be rendered in form
+	// Text fields component to be rendered in form.
 	const textFields = (
 		<div className='text-center'>
 			<Form.Group controlId='job_type'>

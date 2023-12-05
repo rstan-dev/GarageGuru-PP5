@@ -94,7 +94,7 @@ const ChangeUsernameForm = () => {
 				className='mx-auto'>
 				<div className={styles.CardBlock}>
 
-          {/* Display success message */}
+          			{/* Display success message */}
 					{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
 					{/* Display error messages */}

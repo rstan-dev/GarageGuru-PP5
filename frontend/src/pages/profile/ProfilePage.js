@@ -47,7 +47,7 @@ const ProfilePage = () => {
 	 * Applies the fetched data to the component's state. Also, handles redirection based on user authentication.
 	 */
 	useEffect(() => {
-		let isMounted = true; // Flag to track if the component is mounted
+		let isMounted = true; // Flag to track if the component is mounted.
 
 		if (!currentUser) {
 			// Redirect to login only if currentUser is explicitly null (not undefined)
@@ -68,7 +68,7 @@ const ProfilePage = () => {
 
 		fetchProfileData();
 		return () => {
-			isMounted = false; // Set the flag to false when the component unmounts
+			isMounted = false; // Set the flag to false when the component unmounts.
 		};
 	}, [currentUserId, currentUser, history, id]);
 
@@ -90,7 +90,6 @@ const ProfilePage = () => {
 								Profile Page for {owner}
 							</p>
 						</div>
-
 						<Card className={styles.ImageContainer}>
 							<Image
 								src={image}
@@ -98,7 +97,6 @@ const ProfilePage = () => {
 								fluid
 							/>
 						</Card>
-
 						<table className='table table-striped'>
 							<tbody>
 								<tr>
