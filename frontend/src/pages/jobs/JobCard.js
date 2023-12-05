@@ -68,8 +68,8 @@ const JobCard = (props) => {
 					if (isMounted) {
 						setAssignedUsername(response.data.owner);
 					}
-				} catch (error) {
-					console.log(error);
+				} catch (err) {
+					console.log(err);
 				}
 			}
 		};

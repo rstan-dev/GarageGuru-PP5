@@ -57,8 +57,8 @@ function JobPage() {
 				setComments(comments);
 				setCommentsCount(job.comment_count);
 				setInvoice({ ...invoice });
-			} catch (error) {
-				console.log(error);
+			} catch (err) {
+				console.log(err);
 			}
 		};
 		handleMount();
