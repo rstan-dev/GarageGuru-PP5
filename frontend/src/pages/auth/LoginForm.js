@@ -13,7 +13,6 @@ import Row from "react-bootstrap/Row";
 import styles from "../../styles/LoginRegister.module.css";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/utils";
-import { useRedirect } from "../../hooks/useRedirect";
 
 /**
  * LoginForm Component
@@ -25,7 +24,6 @@ import { useRedirect } from "../../hooks/useRedirect";
 function LoginForm() {
 	// Custom hook to set the current user's data.
 	const setCurrentUser = useSetCurrentUser();
-	useRedirect("loggedIn");
 
 	// State for managing login form data.
 	const [logInData, setlogInData] = useState({
@@ -117,6 +115,7 @@ function LoginForm() {
 									value={password}
 									onChange={handleChange}
 									className={styles.FormControl}
+									autoComplete="off"
 								/>
 							</Form.Group>
 							{errors.password?.map((message, index) => (

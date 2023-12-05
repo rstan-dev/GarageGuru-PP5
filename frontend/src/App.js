@@ -21,9 +21,7 @@ import { useCurrentUser } from "./contexts/CurrentUserContext";
 import InvoicePage from "./pages/invoices/InvoicePage";
 import AllInvoicesPage from "./pages/invoices/AllInvoicesPage";
 import FixedHeader from "./components/FixedHeader";
-import Asset from "../../components/Asset";
-
-import PageNotFoundLoggedOut from "./components/PageNotFoundLoggedOut";
+import Asset from "./components/Asset";
 
 function App() {
 	const currentUser = useCurrentUser();
@@ -255,7 +253,7 @@ function App() {
 						path='/register'
 						render={() => <RegisterForm />}
 					/>
-					<Route render={() => <PageNotFoundLoggedOut />} />
+					<Route render={() => <LoginForm />} />
 				</Switch>
 			</Container>
 		</div>
@@ -263,3 +261,5 @@ function App() {
 }
 
 export default App;
+
+

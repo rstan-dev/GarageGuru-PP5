@@ -11,7 +11,6 @@ import { Alert } from "react-bootstrap";
 import styles from "../../styles/LoginRegister.module.css";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom/";
-import { useRedirect } from "../../hooks/useRedirect";
 
 /**
  * RegisterForm Component
@@ -20,8 +19,6 @@ import { useRedirect } from "../../hooks/useRedirect";
  * It handles user input, form submission, and displays success or error messages.
  **/
 function RegisterForm() {
-	useRedirect("loggedIn");
-
 	// State for managing registration form data.
 	const [registerData, setRegisterData] = useState({
 		username: "",
