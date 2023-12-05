@@ -53,7 +53,7 @@ function App() {
 						render={() => (
 							<>
 								<FixedHeader text='Viewing All Jobs' />
-								<AllJobsPage message='No Jobs Found...' />
+								<AllJobsPage />
 							</>
 						)}
 					/>
@@ -67,7 +67,6 @@ function App() {
 								<FixedHeader text='Viewing My Jobs - created by me' />
 								{currentUser ? (
 									<AllJobsPage
-										message='No Jobs Found...'
 										filter={`owner__username=${currentUsername}&`}
 									/>
 								) : (
@@ -89,7 +88,6 @@ function App() {
 								<FixedHeader text='Viewing Assigned Jobs - assigned to me' />
 								{currentUser ? (
 									<AllJobsPage
-										message='No Jobs Found...'
 										filter={`assigned_to__username=${currentUsername}&`}
 									/>
 								) : (
@@ -111,7 +109,6 @@ function App() {
 								<FixedHeader text='Viewing Watched Jobs - watched by me' />
 								{currentUser ? (
 									<AllJobsPage
-										message='No Jobs Found...'
 										filter={`watched_by=${currentUser.pk}&`}
 									/>
 								) : (
