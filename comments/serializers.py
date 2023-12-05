@@ -1,3 +1,6 @@
+"""
+Imports for CommentSerializer
+"""
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from comments.models import Comment
@@ -27,13 +30,22 @@ class CommentSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField(method_name="get_replies")
 
     def get_is_owner(self, obj):
+        """
+        Determines if the request user is the owner of the comment.
+        """
         request = self.context["request"]
         return request.user == obj.owner
 
     def get_created_at(self, obj):
+        """
+        Provides a human-readable representation of the comment's creation time.
+        """
         return naturaltime(obj.created_at)
 
     def get_updated_at(self, obj):
+        """
+        Provides a human-readable representation of the comment's updated time.
+        """
         return naturaltime(obj.updated_at)
 
     def get_replies(self, obj):
@@ -48,6 +60,10 @@ class CommentSerializer(serializers.ModelSerializer):
         return []
 
     class Meta:
+        """
+        Comment model fields
+        """
+
         model = Comment
         fields = [
             "id",
@@ -86,12 +102,22 @@ class CommentReplySerializer(serializers.ModelSerializer):
     reply_updated_at = serializers.SerializerMethodField()
 
     def get_reply_created_at(self, obj):
+        """
+        Provides a human-readable representation of the comment's creation time.
+        """
         return naturaltime(obj.created_at)
 
     def get_reply_updated_at(self, obj):
+        """
+        Provides a human-readable representation of the comment's updated time.
+        """
         return naturaltime(obj.updated_at)
 
     class Meta:
+        """
+        Comment model fields
+        """
+
         model = Comment
         fields = [
             "reply_id",

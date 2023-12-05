@@ -1,65 +1,52 @@
 /* General */
 .LoginRegisterForm {
-    padding-top: 50px;
+	padding-top: 50px;
 }
 
 .CardBlock {
-    padding-top: 10px;
-    padding-bottom: 25px;
-  }
+	padding-top: 10px;
+	padding-bottom: 25px;
+}
 
-  .FormCard {
-    padding: 10px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
-  }
+.FormCard {
+	padding: 10px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
 
 /* Intro Section */
 .LoginRegisterIcon {
-    padding-right: 10px;
-    font-size: 2rem;
-  }
+	padding-right: 10px;
+	font-size: 2rem;
+}
 
 .Intro {
-  text-align: center;
+	text-align: center;
 }
 
 /* Form Section */
 .FormControl {
-    font-size: 0.8rem;
-    color: blue
-  }
+	font-size: 0.8rem;
+	color: blue;
+}
 
 /* Button Section */
 .BtnSection {
-    padding-bottom: 10px;
-  }
-
-.BtnContainer {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 15px;
-    padding-top: 15px;
-  }
-
-.FullWidthLink {
-    display: block;
-    width: 100%;
+	padding-bottom: 10px;
 }
 
-  /* Register Section */
+.BtnContainer {
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
+
+.FullWidthLink {
+	display: block;
+	width: 100%;
+}
+
+/* Register Section */
 .LoginRegisterSection {
-    text-align: center;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
+	text-align: center;
+}

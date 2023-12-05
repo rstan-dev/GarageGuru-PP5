@@ -1,21 +1,21 @@
 .FixedHeader {
-    position: fixed;
-    top: 75px;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    padding: 10px 0;
+	position: fixed;
+	top: 75px;
+	left: 0;
+	width: 100%;
+	background-color: white;
+	padding: 10px 0;
 
-    z-index: 1000;
+	z-index: 1000;
 }
 
 .FixedHeader h1 {
-    margin: 0;
-    font-size: 1.25rem;
-    align-items: center;
-    justify-content: center;
+	margin: 0;
+	font-size: 1.25rem;
+	align-items: center;
+	justify-content: center;
 }
 
 .card {
-    border: none !important;
+	border: none !important;
 }

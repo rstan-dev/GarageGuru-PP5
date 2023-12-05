@@ -1,35 +1,34 @@
 /* General */
 .ProfileForm {
-    padding-top: 75px;
+	padding-top: 75px;
 }
 
 .CardBlock {
-    padding-top: 10px;
-    padding-bottom: 25px;
-  }
+	padding-top: 10px;
+	padding-bottom: 25px;
+}
 
 .FormCard {
-    padding: 25px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
-  }
+	padding: 25px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
 
 .ProfileIcon {
-    padding-right: 10px;
-    font-size: 2rem;
-  }
+	padding-right: 10px;
+	font-size: 2rem;
+}
 
 /* Image Section */
 .ImageContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
+	display: flex;
+	justify-content: center;
+	margin-bottom: 25px;
+}
 
 /* Button Section */
-
 .BtnContainer {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 15px;
-    padding-top: 15px;
-  }
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
+	padding-top: 15px;
+}

@@ -1,6 +1,9 @@
+"""
+Imports for the jobs config
+"""
 from django.apps import AppConfig
 
 
 class JobsConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'jobs'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "jobs"

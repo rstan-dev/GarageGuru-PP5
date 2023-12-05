@@ -1,3 +1,6 @@
+"""
+Imports for Comment Views
+"""
 from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_api.permissions import IsOwnerOrReadOnly

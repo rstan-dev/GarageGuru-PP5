@@ -1,3 +1,6 @@
+"""
+Imports for CommentTests
+"""
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from jobs.models import Job
@@ -10,6 +13,9 @@ from rest_framework import status
 class CommentModelTest(APITestCase):
     @classmethod
     def setUpTestData(cls):
+        """
+        Automatically runs before every test method
+        """
         testuser1 = User.objects.create_user(
             username="testuser1", password="testpw1234"
         )
