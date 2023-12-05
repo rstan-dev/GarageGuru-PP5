@@ -52,14 +52,8 @@ function AddJobForm() {
 
 	const history = useHistory();
 
-	// Effect to handle redirection and default value setting on component mount.
+	// Effect to handle default username value setting on component mount.
 	useEffect(() => {
-		if (!currentUser) {
-			// Redirect to login only if currentUser is explicitly null (not undefined)
-			history.push("/login");
-			return;
-		}
-
 		if (currentUser && currentUser.pk) {
 			// Set default assigned_to to current username.
 			setJobData((prevState) => ({
