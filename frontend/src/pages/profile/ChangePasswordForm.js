@@ -52,7 +52,7 @@ const ChangePasswordForm = () => {
 	};
 
 	useEffect(() => {
-		if (!currentUser || currentUserId !== parseInt(id)) {
+		if (currentUserId !== parseInt(id)) {
 			// redirect user if they are not the owner of this profile.
 			history.push("/");
 		}
