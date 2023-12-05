@@ -102,7 +102,7 @@ function EditJobForm() {
 		const fetchProfiles = async () => {
 			try {
 				const { data } = await axiosReq.get(`/profiles/`);
-				setUsers(data.results);
+				setUsers(data);
 			} catch (err) {
 				console.log(err);
 			}

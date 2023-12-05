@@ -80,7 +80,7 @@ function AddJobForm() {
 			try {
 				const { data } = await axiosReq.get(`/profiles/`);
 				if (isMounted.current) {
-					setUsers(data.results);
+					setUsers(data);
 				}
 			} catch (err) {
 				console.log(err);
