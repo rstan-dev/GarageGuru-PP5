@@ -49,12 +49,6 @@ const ProfilePage = () => {
 	useEffect(() => {
 		let isMounted = true; // Flag to track if the component is mounted.
 
-		if (!currentUser) {
-			// Redirect to login only if currentUser is explicitly null (not undefined)
-			history.push("/login");
-			return;
-		}
-
 		const fetchProfileData = async () => {
 			try {
 				const { data } = await axiosReq.get(`/profiles/${id}/`);
