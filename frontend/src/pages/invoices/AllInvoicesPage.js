@@ -46,12 +46,6 @@ function AllInvoicesPage() {
 
 	// Effect to fetch invoices and jobs on component mount or when dependencies change.
 	useEffect(() => {
-		if (!currentUser) {
-			// Redirect to login only if currentUser is explicitly null (not undefined)
-			history.push("/login");
-			return;
-		}
-
 		// Fetches invoice data from the server and updates state.
 		const fetchInvoices = async () => {
 			try {
