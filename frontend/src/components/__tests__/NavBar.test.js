@@ -48,4 +48,23 @@ describe('NavBar Component', () => {
       expect(addJobLink).toBeInTheDocument();
     });
 
+    it('renders All Jobs link when user is logged in', () => {
+        // Setup mock return values
+        UserContext.useCurrentUser.mockReturnValue({ pk: 1, username: 'testuser' });
+        UserContext.useSetCurrentUser.mockReturnValue(jest.fn());
+
+        // Render the NavBar component
+        render(
+          <Router>
+            <NavBar />
+          </Router>
+        );
+
+        // Assert that the All Jobs link is in the document
+        const allJobsLink = screen.getByRole('link', { name: 'All Jobs' });
+        expect(allJobsLink).toBeInTheDocument();
+    });
+
+    jest.clearAllMocks()
+
   });
