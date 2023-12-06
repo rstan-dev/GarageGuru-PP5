@@ -133,6 +133,7 @@ class CommentModelTest(APITestCase):
             0,
         )
 
+
 class CommentReply(APITestCase):
     @classmethod
     def setUpTestData(cls):
@@ -153,7 +154,11 @@ class CommentReply(APITestCase):
             status="Pending",
             assigned_to=cls.testuser2,
         )
-        cls.parent_comment = Comment.objects.create(owner=cls.testuser1, job=cls.test_job, comment_detail="Test comment")
+        cls.parent_comment = Comment.objects.create(
+            owner=cls.testuser1,
+            job=cls.test_job,
+            comment_detail="Test comment",
+        )
 
     def test_reply_creation(self):
         """
@@ -166,7 +171,7 @@ class CommentReply(APITestCase):
         reply_data = {
             "comment_detail": "Test reply",
             "job": Job.objects.first().id,
-            "parent": self.parent_comment.id  # Ref to the parent comment
+            "parent": self.parent_comment.id,  # Ref to the parent comment
         }
 
         response = self.client.post("/comments/", reply_data)
@@ -183,29 +188,71 @@ class CommentReply(APITestCase):
         """
         self.client.login(username="testuser1", password="testpw1234")
 
-        reply1 = Comment.objects.create(owner=self.testuser1, comment_detail="Test reply 1", parent=self.parent_comment, job=self.test_job)
-        reply2 = Comment.objects.create(owner=self.testuser1, comment_detail="Test reply 2", parent=self.parent_comment, job=self.test_job)
+        reply1 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 1",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
+        reply2 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 2",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
 
         reply_to_retrieve = reply1
         response = self.client.get(f"/comments/{reply1.id}/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['comment_detail'], reply1.comment_detail)
-        self.assertEqual(response.data['parent'], reply1.parent.id)
+        self.assertEqual(
+            response.data["comment_detail"], reply1.comment_detail
+        )
+        self.assertEqual(response.data["parent"], reply1.parent.id)
 
     def test_update_reply(self):
-            """
-            Test that a user can update a reply they created and the changes are saved.
-            """
-            self.client.login(username="testuser1", password="testpw1234")
+        """
+        Test that a user can update a reply they created and the changes
+        are saved.
+        """
+        self.client.login(username="testuser1", password="testpw1234")
 
-            reply1 = Comment.objects.create(owner=self.testuser1, comment_detail="Test reply 1", parent=self.parent_comment, job=self.test_job)
-            reply2 = Comment.objects.create(owner=self.testuser1, comment_detail="Test reply 2", parent=self.parent_comment, job=self.test_job)
+        reply1 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 1",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
+        reply2 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 2",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
 
+        updated_data = {"comment_detail": "Updated reply text"}
 
-            updated_data = {"comment_detail": "Updated reply text"}
+        response = self.client.put(f"/comments/{reply1.id}/", updated_data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-            response = self.client.put(f"/comments/{reply1.id}/", updated_data)
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
+        updated_reply = Comment.objects.get(id=reply1.id)
+        self.assertEqual(updated_reply.comment_detail, "Updated reply text")
 
-            updated_reply = Comment.objects.get(id=reply1.id)
-            self.assertEqual(updated_reply.comment_detail, "Updated reply text")
+    def test_delete_reply(self):
+        """
+        Test that a user can delete a reply they created.
+        """
+        self.client.login(username="testuser1", password="testpw1234")
+
+        reply1 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 1",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
+
+        response = self.client.delete(f"/comments/{reply1.id}/")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # Verifies that the reply is deleted
+        with self.assertRaises(Comment.DoesNotExist):
+            Comment.objects.get(id=reply1.id)
