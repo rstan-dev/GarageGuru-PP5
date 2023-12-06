@@ -14,7 +14,9 @@ class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, blank=True)
     bio = models.TextField(blank=True)
-    image = models.ImageField(upload_to="images/", default="../default_profile")
+    image = models.ImageField(
+        upload_to="images/", default="../default_profile"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

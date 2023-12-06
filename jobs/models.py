@@ -18,7 +18,9 @@ class Job(models.Model):
     Choices are defined for job_type and status.
     """
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="job_owner")
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="job_owner"
+    )
     assigned_to = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, related_name="assigned_to"
     )
@@ -27,13 +29,17 @@ class Job(models.Model):
         max_length=75, choices=JOB_TYPE_CHOICES, default="Placeholder"
     )
     job_details = models.TextField(blank=True)
-    status = models.CharField(max_length=75, choices=STATUS_CHOICES, default="Pending")
+    status = models.CharField(
+        max_length=75, choices=STATUS_CHOICES, default="Pending"
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     due_date = models.DateField(blank=True, null=True)
 
-    image = models.ImageField(upload_to="images/", default="../default_job", blank=True)
+    image = models.ImageField(
+        upload_to="images/", default="../default_job", blank=True
+    )
     image_filter = models.CharField(
         max_length=50, choices=IMAGE_FILTER_CHOICES, default="normal"
     )

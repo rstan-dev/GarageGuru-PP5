@@ -11,17 +11,22 @@ class InvoiceSerializer(serializers.ModelSerializer):
     Serializes specific Invoice model fields into JSON data.
 
     Sets unique names for inv_id, inv_owner, job_assigned_to, job_id,
-    inv_created_at and inv_updated_at to avoid clashing with job model field names.
+    inv_created_at and inv_updated_at to avoid clashing with job model
+    field names.
 
-    get_is_inv_owner method checks if the user making the request is the owner of
-    the profile.
+    get_is_inv_owner method checks if the user making the request is
+    the owner of the profile.
     """
 
     inv_id = serializers.IntegerField(source="id", read_only=True)
     inv_owner = serializers.ReadOnlyField(source="owner.username")
     inv_owner_id = serializers.ReadOnlyField(source="owner.id")
-    job_assigned_to = serializers.ReadOnlyField(source="job.assigned_to.username")
-    job_assigned_to_id = serializers.ReadOnlyField(source="job.assigned_to.id")
+    job_assigned_to = serializers.ReadOnlyField(
+        source="job.assigned_to.username"
+    )
+    job_assigned_to_id = serializers.ReadOnlyField(
+        source="job.assigned_to.id"
+    )
     is_inv_owner = serializers.SerializerMethodField()
     job_id = serializers.IntegerField()
 
@@ -33,7 +38,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
         source="updated_at", format="%Y-%m-%d %H:%M:%S", read_only=True
     )
     # Format with only date
-    inv_due_date = serializers.DateField(source="due_date", format="%Y-%m-%d")
+    inv_due_date = serializers.DateField(
+        source="due_date", format="%Y-%m-%d"
+    )
 
     def get_is_inv_owner(self, obj):
         """

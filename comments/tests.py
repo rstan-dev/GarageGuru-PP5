@@ -102,7 +102,10 @@ class CommentModelTest(APITestCase):
         response = self.client.post("/comments/", data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(
-            Comment.objects.filter(comment_detail="New Test Comment").count(), 1
+            Comment.objects.filter(
+                comment_detail="New Test Comment"
+            ).count(),
+            1,
         )
 
     def test_logged_out_user_cannot_create_a_comment(self):
@@ -124,5 +127,132 @@ class CommentModelTest(APITestCase):
             [status.HTTP_403_FORBIDDEN, status.HTTP_401_UNAUTHORIZED],
         )
         self.assertEqual(
-            Comment.objects.filter(comment_detail="Another Test Comment").count(), 0
+            Comment.objects.filter(
+                comment_detail="Another Test Comment"
+            ).count(),
+            0,
         )
+
+
+class CommentReply(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Create users, job, and comment as in your existing tests
+        """
+        Automatically runs before every test method
+        """
+        cls.testuser1 = User.objects.create_user(
+            username="testuser1", password="testpw1234"
+        )
+        cls.testuser2 = User.objects.create_user(
+            username="testuser2", password="testpw1234"
+        )
+        cls.test_job = Job.objects.create(
+            owner=cls.testuser1,
+            job_type="MOT",
+            job_details="test details",
+            status="Pending",
+            assigned_to=cls.testuser2,
+        )
+        cls.parent_comment = Comment.objects.create(
+            owner=cls.testuser1,
+            job=cls.test_job,
+            comment_detail="Test comment",
+        )
+
+    def test_reply_creation(self):
+        """
+        Test a user can create a reply to an existing comment and the reply
+        is associated with the parent comment.
+        """
+        self.client.login(username="testuser1", password="testpw1234")
+
+        # Data for creating a reply
+        reply_data = {
+            "comment_detail": "Test reply",
+            "job": Job.objects.first().id,
+            "parent": self.parent_comment.id,  # Ref to the parent comment
+        }
+
+        response = self.client.post("/comments/", reply_data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # Fetch the created reply and verify its content and association
+        reply = Comment.objects.get(comment_detail="Test reply")
+        self.assertEqual(reply.comment_detail, "Test reply")
+        self.assertEqual(reply.parent.id, self.parent_comment.id)
+
+    def test_retrieve_specific_reply(self):
+        """
+        Test if a user can retrieve a specific reply.
+        """
+        self.client.login(username="testuser1", password="testpw1234")
+
+        reply1 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 1",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
+        reply2 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 2",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
+
+        reply_to_retrieve = reply1
+        response = self.client.get(f"/comments/{reply1.id}/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            response.data["comment_detail"], reply1.comment_detail
+        )
+        self.assertEqual(response.data["parent"], reply1.parent.id)
+
+    def test_update_reply(self):
+        """
+        Test that a user can update a reply they created and the changes
+        are saved.
+        """
+        self.client.login(username="testuser1", password="testpw1234")
+
+        reply1 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 1",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
+        reply2 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 2",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
+
+        updated_data = {"comment_detail": "Updated reply text"}
+
+        response = self.client.put(f"/comments/{reply1.id}/", updated_data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        updated_reply = Comment.objects.get(id=reply1.id)
+        self.assertEqual(updated_reply.comment_detail, "Updated reply text")
+
+    def test_delete_reply(self):
+        """
+        Test that a user can delete a reply they created.
+        """
+        self.client.login(username="testuser1", password="testpw1234")
+
+        reply1 = Comment.objects.create(
+            owner=self.testuser1,
+            comment_detail="Test reply 1",
+            parent=self.parent_comment,
+            job=self.test_job,
+        )
+
+        response = self.client.delete(f"/comments/{reply1.id}/")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # Verifies that the reply is deleted
+        with self.assertRaises(Comment.DoesNotExist):
+            Comment.objects.get(id=reply1.id)

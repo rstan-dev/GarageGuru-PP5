@@ -35,8 +35,12 @@ class JobSerializer(serializers.ModelSerializer):
     )
 
     # Formats date and time
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
-    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+    created_at = serializers.DateTimeField(
+        format="%Y-%m-%d %H:%M:%S", read_only=True
+    )
+    updated_at = serializers.DateTimeField(
+        format="%Y-%m-%d %H:%M:%S", read_only=True
+    )
     # Format with only date
     due_date = serializers.DateField(format="%Y-%m-%d")
 
@@ -45,9 +49,13 @@ class JobSerializer(serializers.ModelSerializer):
         if value.size > 1024 * 1024 * 2:
             raise serializers.ValidationError("Image size larger than 2mb!")
         if value.image.width > 2048:
-            raise serializers.ValidationError("Image width larger than 2048px!")
+            raise serializers.ValidationError(
+                "Image width larger than 2048px!"
+            )
         if value.image.height > 2048:
-            raise serializers.ValidationError("Image height larger than 2048px!")
+            raise serializers.ValidationError(
+                "Image height larger than 2048px!"
+            )
         return value
 
     def get_is_owner(self, obj):

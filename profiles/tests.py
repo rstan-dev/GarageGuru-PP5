@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 from rest_framework import status
 from .serializers import ProfileSerializer
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class ProfileListViewTests(APITestCase):
@@ -102,8 +103,14 @@ class ProfileDetailViewTests(APITestCase):
         self.client.login(username="testuser1", password="testpw1234")
 
         profile = Profile.objects.get(owner=self.testuser1)
+        data = {
+            "name": "Updated Name",
+            "bio": "Updated Bio",
+            "created_at": "2023-11-28 16:41:31",
+            "updated_at": "2023-11-28 16:41:31",
+        }
         response = self.client.put(
-            f"/profiles/{profile.id}/", {"name": "Updated Name", "bio": "Updated Bio"}
+            f"/profiles/{profile.id}/", data, format="multipart"
         )
         profile.refresh_from_db()
         self.assertEqual(profile.name, "Updated Name")
@@ -120,6 +127,7 @@ class ProfileDetailViewTests(APITestCase):
         profile1 = Profile.objects.get(owner=self.testuser1)
         profile2 = Profile.objects.get(owner=self.testuser2)
         response = self.client.put(
-            f"/profiles/{profile2.id}/", {"name": "Updated Name", "bio": "Updated Bio"}
+            f"/profiles/{profile2.id}/",
+            {"name": "Updated Name", "bio": "Updated Bio"},
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

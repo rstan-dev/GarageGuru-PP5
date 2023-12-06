@@ -60,7 +60,8 @@ class InvoiceListViewTests(APITestCase):
         specific job.
         It verifies that the invoice is created in the database and that the
         HTTP response status is 201 (Created).
-        It also verifies there is an invoice object with a specific invoice amount.
+        It also verifies there is an invoice object with a specific invoice
+        amount.
         """
         self.client.login(username="testuser1", password="testpw1234")
         data = {
@@ -125,22 +126,26 @@ class InvoiceDetailViewTests(APITestCase):
 
     def test_user_can_retrieve_invoice_with_valid_invocie_id(self):
         """
-        Tests a logged-in user can retrieve all the invoice details using the correct id
-        Verified with a HTTP 200 status.
+        Tests a logged-in user can retrieve all the invoice details using
+        the correct id verified with a HTTP 200 status.
         """
         self.client.login(username="testuser1", password="testpw1234")
         response = self.client.get("/invoices/1/")
         self.assertEqual(response.data["inv_owner"], "testuser1")
-        self.assertEqual(response.data["customer_firstname"], "TestFirstName")
-        self.assertEqual(response.data["customer_lastname"], "TestSecondName")
+        self.assertEqual(
+            response.data["customer_firstname"], "TestFirstName"
+        )
+        self.assertEqual(
+            response.data["customer_lastname"], "TestSecondName"
+        )
         self.assertEqual(response.data["inv_due_date"], "2023-11-15")
         self.assertEqual(response.data["amount"], "100.00")
         self.assertEqual(response.data["invoice_status"], "Pending")
 
     def test_user_cannot_retrieve_invoice_with_invalid_id(self):
         """
-        Tests a user cannot retrieve any invoice details using an incorrect id
-        Verified with a HTTP 404 status.
+        Tests a user cannot retrieve any invoice details using an incorrect
+        id verified with a HTTP 404 status.
         """
         response = self.client.get("/invoices/101/")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

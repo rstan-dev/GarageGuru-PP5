@@ -4,20 +4,38 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('jobs', '0001_initial'),
+        ("jobs", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='job',
-            name='job_type',
-            field=models.CharField(choices=[('Placeholder', 'Please select a job type'), ('Major Service', 'Major Service'), ('Minor Service', 'Minor Service'), ('MOT', 'MOT'), ('Tyre Change', 'Tyre Change')], default='Placeholder', max_length=75),
+            model_name="job",
+            name="job_type",
+            field=models.CharField(
+                choices=[
+                    ("Placeholder", "Please select a job type"),
+                    ("Major Service", "Major Service"),
+                    ("Minor Service", "Minor Service"),
+                    ("MOT", "MOT"),
+                    ("Tyre Change", "Tyre Change"),
+                ],
+                default="Placeholder",
+                max_length=75,
+            ),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='status',
-            field=models.CharField(choices=[('Pending', 'Pending'), ('Underway', 'Underway'), ('Completed', 'Completed'), ('Overdue', 'Overdue')], default='Pending', max_length=75),
+            model_name="job",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("Pending", "Pending"),
+                    ("Underway", "Underway"),
+                    ("Completed", "Completed"),
+                    ("Overdue", "Overdue"),
+                ],
+                default="Pending",
+                max_length=75,
+            ),
         ),
     ]

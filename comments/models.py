@@ -13,9 +13,15 @@ class Comment(models.Model):
     """
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, related_name="comments", on_delete=models.CASCADE)
+    job = models.ForeignKey(
+        Job, related_name="comments", on_delete=models.CASCADE
+    )
     parent = models.ForeignKey(
-        "self", on_delete=models.CASCADE, null=True, blank=True, related_name="replies"
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="replies",
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
