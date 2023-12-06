@@ -192,4 +192,20 @@ class CommentReply(APITestCase):
         self.assertEqual(response.data['comment_detail'], reply1.comment_detail)
         self.assertEqual(response.data['parent'], reply1.parent.id)
 
+    def test_update_reply(self):
+            """
+            Test that a user can update a reply they created and the changes are saved.
+            """
+            self.client.login(username="testuser1", password="testpw1234")
 
+            reply1 = Comment.objects.create(owner=self.testuser1, comment_detail="Test reply 1", parent=self.parent_comment, job=self.test_job)
+            reply2 = Comment.objects.create(owner=self.testuser1, comment_detail="Test reply 2", parent=self.parent_comment, job=self.test_job)
+
+
+            updated_data = {"comment_detail": "Updated reply text"}
+
+            response = self.client.put(f"/comments/{reply1.id}/", updated_data)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+            updated_reply = Comment.objects.get(id=reply1.id)
+            self.assertEqual(updated_reply.comment_detail, "Updated reply text")
