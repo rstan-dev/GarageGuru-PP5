@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 from rest_framework import status
 from .serializers import ProfileSerializer
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class ProfileListViewTests(APITestCase):
@@ -102,10 +103,13 @@ class ProfileDetailViewTests(APITestCase):
         self.client.login(username="testuser1", password="testpw1234")
 
         profile = Profile.objects.get(owner=self.testuser1)
-        response = self.client.put(
-            f"/profiles/{profile.id}/",
-            {"name": "Updated Name", "bio": "Updated Bio"},
-        )
+        data = {
+            "name": "Updated Name",
+            "bio": "Updated Bio",
+            "created_at": "2023-11-28 16:41:31",
+            "updated_at": "2023-11-28 16:41:31",
+        }
+        response = self.client.put(f"/profiles/{profile.id}/", data, format='multipart')
         profile.refresh_from_db()
         self.assertEqual(profile.name, "Updated Name")
         self.assertEqual(profile.bio, "Updated Bio")
