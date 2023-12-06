@@ -125,7 +125,6 @@ class JobList(generics.ListCreateAPIView):
             .annotate(comment_count=Count("comments"))
             .order_by("-created_at")
         )
-        print("Queryset after filtering:", queryset.query)
         watched_by = self.request.query_params.get("watched_by", None)
 
         if watched_by is not None:

@@ -72,7 +72,6 @@ class InvoiceListViewTests(APITestCase):
             "amount": "101.00",
         }
         response = self.client.post("/invoices/", data)
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Invoice.objects.filter(amount="101.00").count(), 1)
 
