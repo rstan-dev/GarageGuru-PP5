@@ -61,7 +61,6 @@ function JobPage() {
 
 	return (
 		<div>
-			JobPage
 			<JobCard
 				{...job.results[0]}
 				commentsCount={commentsCount}

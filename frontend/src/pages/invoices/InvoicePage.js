@@ -59,7 +59,6 @@ function InvoicePage() {
 
 	return (
 		<>
-			<div>Invoice Page</div>
 			<InvoiceCard
 				{...invoice.results[0]}
 				{...jobDetails}
