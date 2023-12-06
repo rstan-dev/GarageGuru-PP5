@@ -116,6 +116,23 @@ describe('NavBar Component', () => {
         expect(watchingLink).toBeInTheDocument();
     });
 
+    it('renders Invoices link when user is logged in', () => {
+        // Setup mock return values
+        UserContext.useCurrentUser.mockReturnValue({ pk: 1, username: 'testuser' });
+        UserContext.useSetCurrentUser.mockReturnValue(jest.fn());
+
+        // Render the NavBar component
+        render(
+          <Router>
+            <NavBar />
+          </Router>
+        );
+
+        // Assert that the Invoices link is in the document
+        const invoicesLink = screen.getByRole('link', { name: 'Invoices' });
+        expect(invoicesLink).toBeInTheDocument();
+    });
+
 
 
     jest.clearAllMocks()
