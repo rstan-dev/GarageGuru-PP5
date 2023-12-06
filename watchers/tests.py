@@ -16,7 +16,9 @@ class WatchModelTest(APITestCase):
         """
         Automatically runs before every test method
         """
-        cls.testuser = User.objects.create_user(username="testuser", password="testpw1234")
+        cls.testuser = User.objects.create_user(
+            username="testuser", password="testpw1234"
+        )
         cls.test_job = Job.objects.create(
             owner=cls.testuser,
             job_type="MOT",
@@ -40,3 +42,12 @@ class WatchModelTest(APITestCase):
         Watch.objects.create(owner=self.testuser, job=self.test_job)
         with self.assertRaises(IntegrityError):
             Watch.objects.create(owner=self.testuser, job=self.test_job)
+
+    def test_watch_deletion(self):
+        """
+        Test that deleting a watch removes it from the database.
+        """
+        watch = Watch.objects.create(owner=self.testuser, job=self.test_job)
+        watch_id = watch.id
+        watch.delete()
+        self.assertFalse(Watch.objects.filter(id=watch_id).exists())
