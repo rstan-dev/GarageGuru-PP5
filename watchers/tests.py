@@ -7,6 +7,7 @@ from jobs.models import Job
 from .models import Watch
 from .serializers import WatchSerializer
 from rest_framework import status
+from django.db import IntegrityError
 
 
 class WatchModelTest(APITestCase):
@@ -31,3 +32,11 @@ class WatchModelTest(APITestCase):
         watch = Watch.objects.create(owner=self.testuser, job=self.test_job)
         self.assertIsNotNone(watch.created_at)
         self.assertEqual(Watch.objects.count(), 1)
+
+    def test_watch_unique_constraint(self):
+        """
+        Test that the same user cannot watch the same job more than once.
+        """
+        Watch.objects.create(owner=self.testuser, job=self.test_job)
+        with self.assertRaises(IntegrityError):
+            Watch.objects.create(owner=self.testuser, job=self.test_job)
