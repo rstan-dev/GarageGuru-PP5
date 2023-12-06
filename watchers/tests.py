@@ -51,3 +51,12 @@ class WatchModelTest(APITestCase):
         watch_id = watch.id
         watch.delete()
         self.assertFalse(Watch.objects.filter(id=watch_id).exists())
+
+    def test_watch_retrieval(self):
+        """
+        Test that a watch job can be retrieved from the database.
+        """
+        watch = Watch.objects.create(owner=self.testuser, job=self.test_job)
+        watch_id = watch.id
+        response = self.client.get(f"/jobs/?{watch_id}/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
