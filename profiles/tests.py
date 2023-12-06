@@ -109,7 +109,9 @@ class ProfileDetailViewTests(APITestCase):
             "created_at": "2023-11-28 16:41:31",
             "updated_at": "2023-11-28 16:41:31",
         }
-        response = self.client.put(f"/profiles/{profile.id}/", data, format='multipart')
+        response = self.client.put(
+            f"/profiles/{profile.id}/", data, format="multipart"
+        )
         profile.refresh_from_db()
         self.assertEqual(profile.name, "Updated Name")
         self.assertEqual(profile.bio, "Updated Bio")

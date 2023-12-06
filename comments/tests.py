@@ -132,3 +132,48 @@ class CommentModelTest(APITestCase):
             ).count(),
             0,
         )
+
+class CommentReply(APITestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Create users, job, and comment as in your existing tests
+        """
+        Automatically runs before every test method
+        """
+        testuser1 = User.objects.create_user(
+            username="testuser1", password="testpw1234"
+        )
+        testuser2 = User.objects.create_user(
+            username="testuser2", password="testpw1234"
+        )
+        test_job = Job.objects.create(
+            owner=testuser1,
+            job_type="MOT",
+            job_details="test details",
+            status="Pending",
+            assigned_to=testuser2,
+        )
+        cls.parent_comment = Comment.objects.create(owner=testuser1, job=test_job, comment_detail="Test comment")
+
+    def test_reply_creation(self):
+        """
+        Test a user can create a reply to an existing comment and the reply
+        is associated with the parent comment.
+        """
+        self.client.login(username="testuser1", password="testpw1234")
+
+        # Data for creating a reply
+        reply_data = {
+            "comment_detail": "Test reply",
+            "job": Job.objects.first().id,
+            "parent": self.parent_comment.id  # Ref to the parent comment
+        }
+
+        response = self.client.post("/comments/", reply_data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # Fetch the created reply and verify its content and association
+        reply = Comment.objects.get(comment_detail="Test reply")
+        self.assertEqual(reply.comment_detail, "Test reply")
+        self.assertEqual(reply.parent.id, self.parent_comment.id)
+
