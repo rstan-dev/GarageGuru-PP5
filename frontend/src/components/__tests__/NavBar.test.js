@@ -133,6 +133,23 @@ describe('NavBar Component', () => {
         expect(invoicesLink).toBeInTheDocument();
     });
 
+    it('renders Logout link when user is logged in', () => {
+        // Setup mock return values
+        UserContext.useCurrentUser.mockReturnValue({ pk: 1, username: 'testuser' });
+        UserContext.useSetCurrentUser.mockReturnValue(jest.fn());
+
+        // Render the NavBar component
+        render(
+          <Router>
+            <NavBar />
+          </Router>
+        );
+
+        // Assert that the Logout link is in the document
+        const logoutLink = screen.getByRole('link', { name: 'Logout' });
+        expect(logoutLink).toBeInTheDocument();
+    });
+
 
 
     jest.clearAllMocks()
