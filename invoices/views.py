@@ -32,12 +32,14 @@ class CustomPagination(PageNumberPagination):
             .order_by()
         )
         invoice_status_counts_dict = {
-            item["invoice_status"]: item["total"] for item in invoice_status_counts
+            item["invoice_status"]: item["total"]
+            for item in invoice_status_counts
         }
 
         return Response(
             {
-                "invoice_status_counts": invoice_status_counts_dict,  # Include the counts
+                # Include the counts
+                "invoice_status_counts": invoice_status_counts_dict,
                 "count": self.page.paginator.count,
                 "next": self.get_next_link(),
                 "previous": self.get_previous_link(),
@@ -86,14 +88,17 @@ class InvoiceList(generics.ListCreateAPIView):
         """
         Retrieve and filter the queryset for invoices.
 
-        This method overrides or supplements the default `get_queryset` method to apply
-        custom filtering to the Invoice objects. It utilizes the filter backends defined
-        in the view to filter the queryset based on the criteria specified in the request.
+        This method overrides or supplements the default `get_queryset`
+        method to apply custom filtering to the Invoice objects. It utilizes
+        the filter backends defined in the view to filter the queryset based
+        on the criteria specified in the request.
         """
         queryset = Invoice.objects.all()
         # Apply the filters from the filter backends manually
         for backend in list(self.filter_backends):
-            queryset = backend().filter_queryset(self.request, queryset, self)
+            queryset = backend().filter_queryset(
+                self.request, queryset, self
+            )
         # Assign the filtered queryset to the request for use in pagination
         self.request.filtered_queryset = queryset
         return queryset

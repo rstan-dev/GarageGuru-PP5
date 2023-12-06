@@ -8,7 +8,8 @@ from .models import Profile
 class ProfileSerializer(serializers.ModelSerializer):
     """
     Serializes specific Profile model fields into JSON data.
-    get_is_owner method checks if the user making the request is the owner of the profile.
+    get_is_owner method checks if the user making the request is the
+    owner of the profile.
     """
 
     owner = serializers.ReadOnlyField(source="owner.username")

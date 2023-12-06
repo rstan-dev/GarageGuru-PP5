@@ -103,7 +103,8 @@ class ProfileDetailViewTests(APITestCase):
 
         profile = Profile.objects.get(owner=self.testuser1)
         response = self.client.put(
-            f"/profiles/{profile.id}/", {"name": "Updated Name", "bio": "Updated Bio"}
+            f"/profiles/{profile.id}/",
+            {"name": "Updated Name", "bio": "Updated Bio"},
         )
         profile.refresh_from_db()
         self.assertEqual(profile.name, "Updated Name")
@@ -120,6 +121,7 @@ class ProfileDetailViewTests(APITestCase):
         profile1 = Profile.objects.get(owner=self.testuser1)
         profile2 = Profile.objects.get(owner=self.testuser2)
         response = self.client.put(
-            f"/profiles/{profile2.id}/", {"name": "Updated Name", "bio": "Updated Bio"}
+            f"/profiles/{profile2.id}/",
+            {"name": "Updated Name", "bio": "Updated Bio"},
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

@@ -22,7 +22,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
-    profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
+    profile_image = serializers.ReadOnlyField(
+        source="owner.profile.image.url"
+    )
 
     parent = serializers.PrimaryKeyRelatedField(
         queryset=Comment.objects.all(), required=False
@@ -38,13 +40,15 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_created_at(self, obj):
         """
-        Provides a human-readable representation of the comment's creation time.
+        Provides a human-readable representation of the comment's creation
+        time.
         """
         return naturaltime(obj.created_at)
 
     def get_updated_at(self, obj):
         """
-        Provides a human-readable representation of the comment's updated time.
+        Provides a human-readable representation of the comment's updated
+        time.
         """
         return naturaltime(obj.updated_at)
 
@@ -56,7 +60,9 @@ class CommentSerializer(serializers.ModelSerializer):
         """
         if obj.parent is None:
             replies = Comment.objects.filter(parent=obj)
-            return CommentReplySerializer(replies, many=True, context=self.context).data
+            return CommentReplySerializer(
+                replies, many=True, context=self.context
+            ).data
         return []
 
     class Meta:
@@ -103,13 +109,15 @@ class CommentReplySerializer(serializers.ModelSerializer):
 
     def get_reply_created_at(self, obj):
         """
-        Provides a human-readable representation of the comment's creation time.
+        Provides a human-readable representation of the comment's creation
+        time.
         """
         return naturaltime(obj.created_at)
 
     def get_reply_updated_at(self, obj):
         """
-        Provides a human-readable representation of the comment's updated time.
+        Provides a human-readable representation of the comment's updated
+        time.
         """
         return naturaltime(obj.updated_at)
 

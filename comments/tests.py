@@ -102,7 +102,10 @@ class CommentModelTest(APITestCase):
         response = self.client.post("/comments/", data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(
-            Comment.objects.filter(comment_detail="New Test Comment").count(), 1
+            Comment.objects.filter(
+                comment_detail="New Test Comment"
+            ).count(),
+            1,
         )
 
     def test_logged_out_user_cannot_create_a_comment(self):
@@ -124,5 +127,8 @@ class CommentModelTest(APITestCase):
             [status.HTTP_403_FORBIDDEN, status.HTTP_401_UNAUTHORIZED],
         )
         self.assertEqual(
-            Comment.objects.filter(comment_detail="Another Test Comment").count(), 0
+            Comment.objects.filter(
+                comment_detail="Another Test Comment"
+            ).count(),
+            0,
         )

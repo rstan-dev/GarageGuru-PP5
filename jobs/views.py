@@ -69,11 +69,12 @@ class JobList(generics.ListCreateAPIView):
         """
         Retrieve a list of objects and return them in a paginated format.
 
-        This method overrides the default `list` method to provide custom functionality in
-        retrieving and serializing data. It first filters the queryset based on the provided
-        request parameters. Then, it applies pagination to the filtered queryset. If pagination
-        is applied, a paginated response is returned with the serialized data and additional
-        metadata, such as status counts.
+        This method overrides the default `list` method to provide custom
+        functionality in retrieving and serializing data. It first filters
+        the queryset based on the provided request parameters. Then, it
+        applies pagination to the filtered queryset. If pagination is applied,
+        a paginated response is returned with the serialized data and
+        additional metadata, such as status counts.
         """
         queryset = self.filter_queryset(self.get_queryset())
 
@@ -109,14 +110,15 @@ class JobList(generics.ListCreateAPIView):
         """
         Retrieve and filter the queryset for Jobs.
 
-        This method overrides the default `get_queryset` to apply custom filtering and
-        annotations to the Job objects. It starts by fetching all Job objects and annotating
-        each with a count of its related comments. The queryset is then ordered by the
-        creation date of the jobs in descending order.
+        This method overrides the default `get_queryset` to apply custom
+        filtering and annotations to the Job objects. It starts by fetching
+        all Job objects and annotating each with a count of its related
+        comments. The queryset is then ordered by the creation date of the
+        jobs in descending order.
 
-        The method also supports additional filtering based on a 'watched_by' query parameter.
-        If 'watched_by' is provided, the method filters the jobs to include only those
-        being watched by the specified user.
+        The method also supports additional filtering based on a 'watched_by'
+        query parameter. If 'watched_by' is provided, the method filters the
+        jobs to include only those being watched by the specified user.
         """
         queryset = (
             Job.objects.all()
@@ -127,13 +129,19 @@ class JobList(generics.ListCreateAPIView):
         watched_by = self.request.query_params.get("watched_by", None)
 
         if watched_by is not None:
-            # Filter jobs based on whether they are being watched by a given user
-            queryset = queryset.filter(watch__owner__id=watched_by).distinct()
+            # Filter jobs based on whether they are being watched by
+            # a given user
+            queryset = queryset.filter(
+                watch__owner__id=watched_by
+            ).distinct()
 
         # Apply the filters from the filter backends manually
         for backend in list(self.filter_backends):
-            queryset = backend().filter_queryset(self.request, queryset, self)
-        # Assign the filtered queryset to the request for use in pagination
+            queryset = backend().filter_queryset(
+                self.request, queryset, self
+            )
+        # Assign the filtered queryset to the request for use
+        # in pagination
         self.request.filtered_queryset = queryset
         return queryset
 

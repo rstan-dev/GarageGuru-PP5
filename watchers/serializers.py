@@ -25,9 +25,12 @@ class WatchSerializer(serializers.ModelSerializer):
         This method overrides the default `create` method to handle the
         creation of new instances with the provided validated data. If the
         creation process encounters an IntegrityError, typically indicating
-        a potential duplicate record, the method raises a custom ValidationError.
+        a potential duplicate record, the method raises a custom
+        ValidationError.
         """
         try:
             return super().create(validated_data)
         except IntegrityError:
-            raise serializers.ValidationError({"detail": "possible duplicate"})
+            raise serializers.ValidationError(
+                {"detail": "possible duplicate"}
+            )

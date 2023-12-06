@@ -28,8 +28,8 @@ class CommentList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         """
-        Optionally restricts the returned comments to be only top-level comments
-        for a given job, unless specified otherwise.
+        Optionally restricts the returned comments to be only top-level
+        comments for a given job, unless specified otherwise.
 
         If 'parent' param is provided, filter by parent ID (for replies)
 

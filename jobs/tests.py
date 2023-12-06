@@ -25,9 +25,11 @@ class JobListViewTests(APITestCase):
         """
         Test that a user can retrieve a list of all jobs.
 
-        This test checks if a user, after logging in, can successfully retrieve a list of all jobs.
-        It creates a sample job in the database and then sends a GET request to the jobs endpoint
-        to fetch the list of jobs. The test verifies that the HTTP response status is 200 (OK)
+        This test checks if a user, after logging in, can successfully
+        retrieve a list of all jobs.
+        It creates a sample job in the database and then sends a GET request
+        to the jobs endpoint to fetch the list of jobs. The test verifies
+        that the HTTP response status is 200 (OK)
         """
         testuser1 = User.objects.get(username="testuser1")
         testuser2 = User.objects.get(username="testuser2")
