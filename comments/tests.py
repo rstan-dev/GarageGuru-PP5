@@ -140,20 +140,20 @@ class CommentReply(APITestCase):
         """
         Automatically runs before every test method
         """
-        testuser1 = User.objects.create_user(
+        cls.testuser1 = User.objects.create_user(
             username="testuser1", password="testpw1234"
         )
-        testuser2 = User.objects.create_user(
+        cls.testuser2 = User.objects.create_user(
             username="testuser2", password="testpw1234"
         )
-        test_job = Job.objects.create(
-            owner=testuser1,
+        cls.test_job = Job.objects.create(
+            owner=cls.testuser1,
             job_type="MOT",
             job_details="test details",
             status="Pending",
-            assigned_to=testuser2,
+            assigned_to=cls.testuser2,
         )
-        cls.parent_comment = Comment.objects.create(owner=testuser1, job=test_job, comment_detail="Test comment")
+        cls.parent_comment = Comment.objects.create(owner=cls.testuser1, job=cls.test_job, comment_detail="Test comment")
 
     def test_reply_creation(self):
         """
@@ -176,4 +176,20 @@ class CommentReply(APITestCase):
         reply = Comment.objects.get(comment_detail="Test reply")
         self.assertEqual(reply.comment_detail, "Test reply")
         self.assertEqual(reply.parent.id, self.parent_comment.id)
+
+    def test_retrieve_specific_reply(self):
+        """
+        Test if a user can retrieve a specific reply.
+        """
+        self.client.login(username="testuser1", password="testpw1234")
+
+        reply1 = Comment.objects.create(owner=self.testuser1, comment_detail="Test reply 1", parent=self.parent_comment, job=self.test_job)
+        reply2 = Comment.objects.create(owner=self.testuser1, comment_detail="Test reply 2", parent=self.parent_comment, job=self.test_job)
+
+        reply_to_retrieve = reply1
+        response = self.client.get(f"/comments/{reply1.id}/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['comment_detail'], reply1.comment_detail)
+        self.assertEqual(response.data['parent'], reply1.parent.id)
+
 
