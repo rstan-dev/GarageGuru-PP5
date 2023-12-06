@@ -31,6 +31,7 @@ class JobListViewTests(APITestCase):
         to the jobs endpoint to fetch the list of jobs. The test verifies
         that the HTTP response status is 200 (OK)
         """
+        self.client.login(username="testuser1", password="testpw1234")
         testuser1 = User.objects.get(username="testuser1")
         testuser2 = User.objects.get(username="testuser2")
         Job.objects.create(
@@ -39,6 +40,7 @@ class JobListViewTests(APITestCase):
             job_details="test details",
             status="Pending",
             assigned_to=testuser2,
+            due_date="2023-12-10",
         )
         response = self.client.get("/jobs/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -61,6 +63,7 @@ class JobListViewTests(APITestCase):
                 "job_details": "test details",
                 "status": "Pending",
                 "assigned_to": testuser2.id,
+                "due_date": "2023-12-10",
             },
         )
         count = Job.objects.count()
@@ -80,6 +83,7 @@ class JobListViewTests(APITestCase):
                 "job_details": "test details",
                 "status": "Pending",
                 "assigned_to": testuser2,
+                "due_date": "2023-12-10",
             },
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -103,6 +107,7 @@ class JobDetailViewTests(APITestCase):
             job_details="test details",
             status="Pending",
             assigned_to=testuser2,
+            due_date="2023-12-10",
         )
         Job.objects.create(
             pk=2,
@@ -111,6 +116,7 @@ class JobDetailViewTests(APITestCase):
             job_details="more test details",
             status="Pending",
             assigned_to=testuser2,
+            due_date="2023-12-10",
         )
 
     def test_user_can_retrieve_job_with_valid_job_id(self):
@@ -164,6 +170,7 @@ class JobUpdateTest(APITestCase):
             job_details="Initial job details",
             status="Pending",
             assigned_to=self.user,
+            due_date="2023-12-10",
         )
 
     def test_user_can_update_own_job_card(self):
@@ -176,6 +183,7 @@ class JobUpdateTest(APITestCase):
             "job_details": "Updated job details",
             "status": "Pending",
             "assigned_to": self.job.assigned_to.id,
+            "due_date": "2023-12-10",
         }
 
         url = f"/jobs/{self.job.id}/"
