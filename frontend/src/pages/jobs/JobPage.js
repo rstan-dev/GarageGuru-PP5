@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import JobCard from "./JobCard";
@@ -34,6 +34,7 @@ function JobPage() {
 	const [invoice, setInvoice] = useState({ results: [] });
 
 	const history = useHistory();
+	const isMountedRef = useRef(true);
 
 	/**
 	 * Fetches job, comments, and invoice data from the server when the component mounts or the job ID changes.
@@ -48,15 +49,23 @@ function JobPage() {
 						axiosReq.get(`/comments/?job=${id}`),
 						axiosReq.get(`/invoices/?job_id=${id}`),
 					]);
-				setJob({ results: [job] });
-				setComments(comments);
-				setCommentsCount(job.comment_count);
-				setInvoice({ ...invoice });
+				if (isMountedRef.current) {
+					setJob({ results: [job] });
+					setComments(comments);
+					setCommentsCount(job.comment_count);
+					setInvoice({ ...invoice });
+				}
 			} catch (err) {
-				console.log(err);
+				if (isMountedRef.current) {
+					console.log(err);
+				}
 			}
 		};
 		handleMount();
+
+		return () => {
+			isMountedRef.current = false;
+		};
 	}, [id, currentUser, history]);
 
 	return (

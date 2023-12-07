@@ -67,43 +67,42 @@ const EditCommentForm = (props) => {
 			});
 
 			if (isMountedRef.current) {
-
-			if (isReply && parentCommentId) {
-				setComments((prevComments) => {
-					// update comment replies
-					const updatedComments = prevComments.results.map((comment) => {
-						if (comment.id === parentCommentId) {
-							const updatedReplies = comment.replies.map((reply) => {
-								if (reply.reply_id === id) {
-									return {
-										...reply,
-										reply_comment_detail: formContent.trim(),
-										updated_at: "now",
-									};
-								}
-								return reply;
-							});
-							return { ...comment, replies: updatedReplies };
-						}
-						return comment;
+				if (isReply && parentCommentId) {
+					setComments((prevComments) => {
+						// update comment replies
+						const updatedComments = prevComments.results.map((comment) => {
+							if (comment.id === parentCommentId) {
+								const updatedReplies = comment.replies.map((reply) => {
+									if (reply.reply_id === id) {
+										return {
+											...reply,
+											reply_comment_detail: formContent.trim(),
+											updated_at: "now",
+										};
+									}
+									return reply;
+								});
+								return { ...comment, replies: updatedReplies };
+							}
+							return comment;
+						});
+						return { ...prevComments, results: updatedComments };
 					});
-					return { ...prevComments, results: updatedComments };
-				});
-			} else {
-				// update parent comments
-				setComments((prevComments) => ({
-					...prevComments,
-					results: prevComments.results.map((comment) => {
-						return comment.id === id
-							? {
-									...comment,
-									comment_detail: formContent.trim(),
-									updated_at: "now",
-							  }
-							: comment;
-					}),
-				}));
-			}
+				} else {
+					// update parent comments
+					setComments((prevComments) => ({
+						...prevComments,
+						results: prevComments.results.map((comment) => {
+							return comment.id === id
+								? {
+										...comment,
+										comment_detail: formContent.trim(),
+										updated_at: "now",
+								  }
+								: comment;
+						}),
+					}));
+				}
 
 				setDisplayEditForm();
 			}
@@ -140,24 +139,26 @@ const EditCommentForm = (props) => {
 				setComments((prevComments) => {
 					// If it's a reply, filter out the reply from the corresponding parent comment
 					if (isReply && parentCommentId) {
-					  return {
-						...prevComments,
-						results: prevComments.results.map((comment) => {
-						  if (comment.id === parentCommentId) {
-							return {
-							  ...comment,
-							  replies: comment.replies.filter((reply) => reply.id !== id),
-							};
-						  }
-						  return comment;
-						}),
-					  };
+						return {
+							...prevComments,
+							results: prevComments.results.map((comment) => {
+								if (comment.id === parentCommentId) {
+									return {
+										...comment,
+										replies: comment.replies.filter((reply) => reply.id !== id),
+									};
+								}
+								return comment;
+							}),
+						};
 					} else {
-					  // If it's a parent comment, filter it out directly from the results
-					  return {
-						...prevComments,
-						results: prevComments.results.filter((comment) => comment.id !== id),
-					  };
+						// If it's a parent comment, filter it out directly from the results
+						return {
+							...prevComments,
+							results: prevComments.results.filter(
+								(comment) => comment.id !== id
+							),
+						};
 					}
 				});
 
@@ -178,8 +179,10 @@ const EditCommentForm = (props) => {
 				setErrors({ message: ["There was an error deleting the comment."] });
 			}
 		}
-		setShowConfirmationModal(false);
-		setDisplayEditForm();
+		if (isMountedRef.current) {
+			setShowConfirmationModal(false);
+			setDisplayEditForm();
+		}
 	};
 
 	/**
