@@ -36,6 +36,17 @@ const EditCommentForm = (props) => {
 	});
 
 	const successTimeoutRef = useRef();
+	const isMountedRef = useRef(true);
+
+	// useEffect for handling component mount and unmount
+	useEffect(() => {
+		return () => {
+			isMountedRef.current = false;
+			if (successTimeoutRef.current) {
+				clearTimeout(successTimeoutRef.current);
+			}
+		};
+	}, []);
 
 	/**
 	 * Handles changes to form.
@@ -43,17 +54,6 @@ const EditCommentForm = (props) => {
 	const handleChange = (event) => {
 		setFormContent(event.target.value);
 	};
-
-	/**
-	 * Clears the success message timeout function
-	 **/
-	useEffect(() => {
-		return () => {
-			if (successTimeoutRef.current) {
-				clearTimeout(successTimeoutRef.current);
-			}
-		};
-	}, []);
 
 	// puts changes to comment api endpoint and resets the
 	// updated_time.
@@ -65,6 +65,8 @@ const EditCommentForm = (props) => {
 			await axiosRes.put(`/comments/${id}/`, {
 				comment_detail: formContent.trim(),
 			});
+
+			if (isMountedRef.current) {
 
 			if (isReply && parentCommentId) {
 				setComments((prevComments) => {
@@ -103,9 +105,13 @@ const EditCommentForm = (props) => {
 				}));
 			}
 
-			setDisplayEditForm();
+				setDisplayEditForm();
+			}
 		} catch (err) {
-			console.log(err);
+			if (isMountedRef.current) {
+				console.log(err);
+				setErrors({ message: ["There was an error updating this comment."] });
+			}
 		}
 	};
 
@@ -113,12 +119,14 @@ const EditCommentForm = (props) => {
 	 * Handles the delete button
 	 **/
 	const handleDelete = async () => {
-		setConfirmationModalContent({
-			title: "Confirm Comment Deletion",
-			body: "Are you sure you want to delete this comment? This action cannot be undone.",
-			confirmAction: handleDeleteConfirm, // Reference to the function that performs the delete
-		});
-		setShowConfirmationModal(true);
+		if (isMountedRef.current) {
+			setConfirmationModalContent({
+				title: "Confirm Comment Deletion",
+				body: "Are you sure you want to delete this comment? This action cannot be undone.",
+				confirmAction: handleDeleteConfirm, // Reference to the function that performs the delete
+			});
+			setShowConfirmationModal(true);
+		}
 	};
 
 	/**
@@ -128,34 +136,47 @@ const EditCommentForm = (props) => {
 		try {
 			await axiosRes.delete(`/comments/${id}/`);
 
-			// Update the comments list
-			setComments((prevComments) => ({
-				...prevComments,
-				results: prevComments.results.map((comment) => {
-					// Check if this comment has the reply that was deleted
-					if (comment.replies.some((reply) => reply.id === id)) {
-						// Return the comment with the reply filtered out
-						return {
-							...comment,
-							replies: comment.replies.filter((reply) => reply.id !== id),
-						};
+			if (isMountedRef.current) {
+				setComments((prevComments) => {
+					// If it's a reply, filter out the reply from the corresponding parent comment
+					if (isReply && parentCommentId) {
+					  return {
+						...prevComments,
+						results: prevComments.results.map((comment) => {
+						  if (comment.id === parentCommentId) {
+							return {
+							  ...comment,
+							  replies: comment.replies.filter((reply) => reply.id !== id),
+							};
+						  }
+						  return comment;
+						}),
+					  };
+					} else {
+					  // If it's a parent comment, filter it out directly from the results
+					  return {
+						...prevComments,
+						results: prevComments.results.filter((comment) => comment.id !== id),
+					  };
 					}
-					// If this comment doesn't have the deleted reply, return it as is
-					return comment;
-				}),
-			}));
+				});
 
-			// Decrement the comments count
-			setCommentsCount((prevCount) => prevCount - 1);
+				// Decrement the comments count
+				setCommentsCount((prevCount) => prevCount - 1);
 
-			// Sets the success message with timeout
-			setSuccessMessage("Comment has been deleted successfully");
-			successTimeoutRef.current = setTimeout(() => {
-				setSuccessMessage("");
-			}, 1500);
+				// Sets the success message with timeout
+				setSuccessMessage("Comment has been deleted successfully");
+				successTimeoutRef.current = setTimeout(() => {
+					setSuccessMessage("");
+				}, 1500);
+				setShowConfirmationModal(false);
+				setDisplayEditForm();
+			}
 		} catch (err) {
-			console.log(err);
-			setErrors({ message: ["There was an error deleting the comment."] });
+			if (isMountedRef.current) {
+				console.log(err);
+				setErrors({ message: ["There was an error deleting the comment."] });
+			}
 		}
 		setShowConfirmationModal(false);
 		setDisplayEditForm();
@@ -165,14 +186,18 @@ const EditCommentForm = (props) => {
 	 * Handles modal's confirmation
 	 **/
 	const handleModalConfirm = () => {
-		confirmationModalContent.confirmAction();
+		if (isMountedRef.current) {
+			confirmationModalContent.confirmAction();
+		}
 	};
 
 	/**
 	 * Close the modal without taking action
 	 **/
 	const handleModalClose = () => {
-		setShowConfirmationModal(false);
+		if (isMountedRef.current) {
+			setShowConfirmationModal(false);
+		}
 	};
 
 	return (
