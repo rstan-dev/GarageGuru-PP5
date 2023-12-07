@@ -14,9 +14,11 @@ import { axiosReq } from "../../api/axiosDefaults";
 /**
  * ProfilePage Component
  *
- * This component renders a page displaying detailed information about a specific user's profile.
- * It fetches the profile data from the server based on the profile ID obtained from the URL parameters
- * and manages the display of this information.
+ * This component renders a page displaying detailed information
+ * about a specific user's profile.
+ * It fetches the profile data from the server based on the profile
+ * ID obtained from the URL parameters * and manages the display of
+ * this information.
  */
 const ProfilePage = () => {
 	// Fetches current user details for authentication checks.
@@ -32,19 +34,28 @@ const ProfilePage = () => {
 		name: "",
 		bio: "",
 		image: "",
-		created_at: "",
-		updated_at: "",
+		display_created_at: "",
+		display_updated_at: "",
 		is_owner: false,
 	});
 
-	const { owner, name, bio, image, created_at, updated_at, is_owner } =
-		profileData;
+	const {
+		owner,
+		name,
+		bio,
+		image,
+		display_created_at,
+		display_updated_at,
+		is_owner,
+	} = profileData;
 
 	const history = useHistory();
 
 	/**
-	 * Fetches profile data from the server when the component mounts or when dependencies change.
-	 * Applies the fetched data to the component's state. Also, handles redirection based on user authentication.
+	 * Fetches profile data from the server when the component mounts or
+	 * when dependencies change.
+	 * Applies the fetched data to the component's state. Also, handles
+	 * redirection based on user authentication.
 	 */
 	useEffect(() => {
 		let isMounted = true; // Flag to track if the component is mounted.
@@ -110,14 +121,14 @@ const ProfilePage = () => {
 										<i className='fa-solid fa-calendar-days'></i>Staff member
 										since:
 									</th>
-									<td>{created_at}</td>
+									<td>{display_created_at}</td>
 								</tr>
 								<tr>
 									<th>
 										<i className='fa-solid fa-calendar-plus'></i>Profile last
 										updated:
 									</th>
-									<td>{updated_at}</td>
+									<td>{display_updated_at}</td>
 								</tr>
 								<tr>
 									<th>
