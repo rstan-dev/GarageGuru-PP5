@@ -3,7 +3,7 @@ Imports for Comment Views
 """
 from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_api.permissions import IsOwnerOrReadOnly
+from drf_api.permissions import IsOwnerOrReplyOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer
 
@@ -51,5 +51,5 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
 
     serializer_class = CommentDetailSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReplyOwnerOrReadOnly]
     queryset = Comment.objects.all()

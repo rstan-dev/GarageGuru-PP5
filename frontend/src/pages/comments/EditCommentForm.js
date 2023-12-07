@@ -131,7 +131,18 @@ const EditCommentForm = (props) => {
 			// Update the comments list
 			setComments((prevComments) => ({
 				...prevComments,
-				results: prevComments.results.filter((comment) => comment.id !== id),
+				results: prevComments.results.map((comment) => {
+					// Check if this comment has the reply that was deleted
+					if (comment.replies.some((reply) => reply.id === id)) {
+						// Return the comment with the reply filtered out
+						return {
+							...comment,
+							replies: comment.replies.filter((reply) => reply.id !== id),
+						};
+					}
+					// If this comment doesn't have the deleted reply, return it as is
+					return comment;
+				}),
 			}));
 
 			// Decrement the comments count

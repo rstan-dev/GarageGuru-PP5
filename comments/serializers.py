@@ -109,14 +109,14 @@ class CommentReplySerializer(serializers.ModelSerializer):
 
     def get_reply_created_at(self, obj):
         """
-        Provides a human-readable representation of the comment's creation
+        Provides a human-readable representation of the reply's creation
         time.
         """
         return naturaltime(obj.created_at)
 
     def get_reply_updated_at(self, obj):
         """
-        Provides a human-readable representation of the comment's updated
+        Provides a human-readable representation of the reply's updated
         time.
         """
         return naturaltime(obj.updated_at)
