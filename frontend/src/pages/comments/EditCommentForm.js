@@ -221,7 +221,6 @@ const EditCommentForm = (props) => {
 						onClick={() => setDisplayEditForm()}
 						type='button'
 						className={styles.ButtonSpacing}>
-
 						Cancel
 					</Button>
 					<Button
