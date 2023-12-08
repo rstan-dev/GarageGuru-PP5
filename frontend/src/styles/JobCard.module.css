@@ -61,6 +61,9 @@ table th {
 
 .JobImage {
 	border: solid 1px #bcbcbc;
+	width: 100%;
+  	height: auto;
+  	object-fit: cover;
 }
 
 /* Comments & Watch Section */
