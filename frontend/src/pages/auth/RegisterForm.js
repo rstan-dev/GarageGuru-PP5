@@ -83,8 +83,7 @@ function RegisterForm() {
 							className={`d-flex flex-column align-items-center ${styles.Intro}`}>
 							<h1>
 								<i
-									className={`fa-solid fa-solid fa-user-plus ${styles.LoginRegisterIcon}`}>
-									{" "}
+									className={`fa-solid fa-solid fa-user-plus ${styles.LoginRegisterIcon}`} aria-hidden='true'>
 								</i>
 								Register for an Account
 							</h1>
