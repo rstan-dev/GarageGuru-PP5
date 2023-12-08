@@ -29,7 +29,6 @@ function InvoicePage() {
 				const [{ data: invoice }] = await Promise.all([
 					axiosReq.get(`/invoices/${id}`),
 				]);
-				console.log("Fetched Invoice Data:", invoice);
 				setInvoice({ results: [invoice] });
 			} catch (err) {
 				console.log(err);

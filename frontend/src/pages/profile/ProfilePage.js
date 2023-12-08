@@ -14,9 +14,11 @@ import { axiosReq } from "../../api/axiosDefaults";
 /**
  * ProfilePage Component
  *
- * This component renders a page displaying detailed information about a specific user's profile.
- * It fetches the profile data from the server based on the profile ID obtained from the URL parameters
- * and manages the display of this information.
+ * This component renders a page displaying detailed information
+ * about a specific user's profile.
+ * It fetches the profile data from the server based on the profile
+ * ID obtained from the URL parameters * and manages the display of
+ * this information.
  */
 const ProfilePage = () => {
 	// Fetches current user details for authentication checks.
@@ -32,19 +34,28 @@ const ProfilePage = () => {
 		name: "",
 		bio: "",
 		image: "",
-		created_at: "",
-		updated_at: "",
+		display_created_at: "",
+		display_updated_at: "",
 		is_owner: false,
 	});
 
-	const { owner, name, bio, image, created_at, updated_at, is_owner } =
-		profileData;
+	const {
+		owner,
+		name,
+		bio,
+		image,
+		display_created_at,
+		display_updated_at,
+		is_owner,
+	} = profileData;
 
 	const history = useHistory();
 
 	/**
-	 * Fetches profile data from the server when the component mounts or when dependencies change.
-	 * Applies the fetched data to the component's state. Also, handles redirection based on user authentication.
+	 * Fetches profile data from the server when the component mounts or
+	 * when dependencies change.
+	 * Applies the fetched data to the component's state. Also, handles
+	 * redirection based on user authentication.
 	 */
 	useEffect(() => {
 		let isMounted = true; // Flag to track if the component is mounted.
@@ -80,7 +91,8 @@ const ProfilePage = () => {
 						<div className={`d-flex flex-column align-items-center`}>
 							<p>
 								<i
-									className={`fa-solid fa-circle-user ${styles.ProfileIcon}`}></i>
+									className={`fa-solid fa-circle-user ${styles.ProfileIcon}`}
+									aria-hidden='true'></i>
 								Profile Page for {owner}
 							</p>
 						</div>
@@ -89,39 +101,53 @@ const ProfilePage = () => {
 								src={image}
 								alt='Profile'
 								fluid
+								className={styles.ProfileImage}
 							/>
 						</Card>
 						<table className='table table-striped'>
 							<tbody>
 								<tr>
 									<th>
-										<i className='fa-solid fa-id-card-clip'></i>Name:
+										<i
+											className='fa-solid fa-id-card-clip'
+											aria-hidden='true'></i>
+										Name:
 									</th>
 									<td>{name}</td>
 								</tr>
 								<tr>
 									<th>
-										<i className='fa-solid fa-circle-info'></i>Bio:
+										<i
+											className='fa-solid fa-circle-info'
+											aria-hidden='true'></i>
+										Bio:
 									</th>
 									<td>{bio}</td>
 								</tr>
 								<tr>
 									<th>
-										<i className='fa-solid fa-calendar-days'></i>Staff member
-										since:
+										<i
+											className='fa-solid fa-calendar-days'
+											aria-hidden='true'></i>
+										Staff member since:
 									</th>
-									<td>{created_at}</td>
+									<td>{display_created_at}</td>
 								</tr>
 								<tr>
 									<th>
-										<i className='fa-solid fa-calendar-plus'></i>Profile last
-										updated:
+										<i
+											className='fa-solid fa-calendar-plus'
+											aria-hidden='true'></i>
+										Profile last updated:
 									</th>
-									<td>{updated_at}</td>
+									<td>{display_updated_at}</td>
 								</tr>
 								<tr>
 									<th>
-										<i className='fa-solid fa-hashtag'></i>User ID:
+										<i
+											className='fa-solid fa-hashtag'
+											aria-hidden='true'></i>
+										User ID:
 									</th>
 									<td>{id}</td>
 								</tr>

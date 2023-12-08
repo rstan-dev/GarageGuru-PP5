@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import ConfirmationModal from "../../components/ConfirmationModal";
+import styles from "../../styles/AddEditComment.module.css";
 
 /**
  * EditCommentForm Component
@@ -16,17 +17,16 @@ const EditCommentForm = (props) => {
 	const {
 		id,
 		comment_detail,
-		setDisplayEditForm,
+		onEditComplete,
 		setComments,
 		setCommentsCount,
 		isReply,
 		parentCommentId,
 	} = props;
 
-	// State for managing form errors, success messages, form content,
+	// State for managing form errors, form content,
 	// displaying the confirmation modal and managing its content.
 	const [errors, setErrors] = useState({});
-	const [successMessage, setSuccessMessage] = useState("");
 	const [formContent, setFormContent] = useState(comment_detail);
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 	const [confirmationModalContent, setConfirmationModalContent] = useState({
@@ -35,7 +35,14 @@ const EditCommentForm = (props) => {
 		confirmAction: () => {},
 	});
 
-	const successTimeoutRef = useRef();
+	const isMountedRef = useRef(true);
+
+	// useEffect for handling component mount and unmount
+	useEffect(() => {
+		return () => {
+			isMountedRef.current = false;
+		};
+	}, []);
 
 	/**
 	 * Handles changes to form.
@@ -43,17 +50,6 @@ const EditCommentForm = (props) => {
 	const handleChange = (event) => {
 		setFormContent(event.target.value);
 	};
-
-	/**
-	 * Clears the success message timeout function
-	 **/
-	useEffect(() => {
-		return () => {
-			if (successTimeoutRef.current) {
-				clearTimeout(successTimeoutRef.current);
-			}
-		};
-	}, []);
 
 	// puts changes to comment api endpoint and resets the
 	// updated_time.
@@ -66,46 +62,51 @@ const EditCommentForm = (props) => {
 				comment_detail: formContent.trim(),
 			});
 
-			if (isReply && parentCommentId) {
-				setComments((prevComments) => {
-					// update comment replies
-					const updatedComments = prevComments.results.map((comment) => {
-						if (comment.id === parentCommentId) {
-							const updatedReplies = comment.replies.map((reply) => {
-								if (reply.reply_id === id) {
-									return {
-										...reply,
-										reply_comment_detail: formContent.trim(),
-										updated_at: "now",
-									};
-								}
-								return reply;
-							});
-							return { ...comment, replies: updatedReplies };
-						}
-						return comment;
+			if (isMountedRef.current) {
+				if (isReply && parentCommentId) {
+					setComments((prevComments) => {
+						// update comment replies
+						const updatedComments = prevComments.results.map((comment) => {
+							if (comment.id === parentCommentId) {
+								const updatedReplies = comment.replies.map((reply) => {
+									if (reply.reply_id === id) {
+										return {
+											...reply,
+											reply_comment_detail: formContent.trim(),
+											updated_at: "now",
+										};
+									}
+									return reply;
+								});
+								return { ...comment, replies: updatedReplies };
+							}
+							return comment;
+						});
+						return { ...prevComments, results: updatedComments };
 					});
-					return { ...prevComments, results: updatedComments };
-				});
-			} else {
-				// update parent comments
-				setComments((prevComments) => ({
-					...prevComments,
-					results: prevComments.results.map((comment) => {
-						return comment.id === id
-							? {
-									...comment,
-									comment_detail: formContent.trim(),
-									updated_at: "now",
-							  }
-							: comment;
-					}),
-				}));
-			}
+				} else {
+					// update parent comments
+					setComments((prevComments) => ({
+						...prevComments,
+						results: prevComments.results.map((comment) => {
+							return comment.id === id
+								? {
+										...comment,
+										comment_detail: formContent.trim(),
+										updated_at: "now",
+								  }
+								: comment;
+						}),
+					}));
+				}
 
-			setDisplayEditForm();
+				onEditComplete();
+			}
 		} catch (err) {
-			console.log(err);
+			if (isMountedRef.current) {
+				console.log(err);
+				setErrors({ message: ["There was an error updating this comment."] });
+			}
 		}
 	};
 
@@ -113,12 +114,14 @@ const EditCommentForm = (props) => {
 	 * Handles the delete button
 	 **/
 	const handleDelete = async () => {
-		setConfirmationModalContent({
-			title: "Confirm Comment Deletion",
-			body: "Are you sure you want to delete this comment? This action cannot be undone.",
-			confirmAction: handleDeleteConfirm, // Reference to the function that performs the delete
-		});
-		setShowConfirmationModal(true);
+		if (isMountedRef.current) {
+			setConfirmationModalContent({
+				title: "Confirm Comment Deletion",
+				body: "Are you sure you want to delete this comment? This action cannot be undone.",
+				confirmAction: handleDeleteConfirm, // Reference to the function that performs the delete
+			});
+			setShowConfirmationModal(true);
+		}
 	};
 
 	/**
@@ -128,46 +131,73 @@ const EditCommentForm = (props) => {
 		try {
 			await axiosRes.delete(`/comments/${id}/`);
 
-			// Update the comments list
-			setComments((prevComments) => ({
-				...prevComments,
-				results: prevComments.results.filter((comment) => comment.id !== id),
-			}));
+			if (isMountedRef.current) {
+				setComments((prevComments) => {
+					// If it's a reply, filter out the reply from the corresponding parent comment
+					if (isReply && parentCommentId) {
+						return {
+							...prevComments,
+							results: prevComments.results.map((comment) => {
+								if (comment.id === parentCommentId) {
+									return {
+										...comment,
+										replies: comment.replies.filter((reply) => reply.id !== id),
+									};
+								}
+								return comment;
+							}),
+						};
+					} else {
+						// If it's a parent comment, filter it out directly from the results
+						return {
+							...prevComments,
+							results: prevComments.results.filter(
+								(comment) => comment.id !== id
+							),
+						};
+					}
+				});
 
-			// Decrement the comments count
-			setCommentsCount((prevCount) => prevCount - 1);
+				if (isMountedRef.current) {
+					// Decrement the comments count
+					setCommentsCount((prevCount) => prevCount - 1);
 
-			// Sets the success message with timeout
-			setSuccessMessage("Comment has been deleted successfully");
-			successTimeoutRef.current = setTimeout(() => {
-				setSuccessMessage("");
-			}, 1500);
+					setShowConfirmationModal(false);
+					onEditComplete();
+				}
+			}
 		} catch (err) {
-			console.log(err);
-			setErrors({ message: ["There was an error deleting the comment."] });
+			if (isMountedRef.current) {
+				console.log(err);
+				setErrors({ message: ["There was an error deleting the comment."] });
+			}
 		}
-		setShowConfirmationModal(false);
-		setDisplayEditForm();
+		if (isMountedRef.current) {
+			setShowConfirmationModal(false);
+			onEditComplete();
+		}
 	};
 
 	/**
 	 * Handles modal's confirmation
 	 **/
 	const handleModalConfirm = () => {
-		confirmationModalContent.confirmAction();
+		if (isMountedRef.current) {
+			confirmationModalContent.confirmAction();
+		}
 	};
 
 	/**
 	 * Close the modal without taking action
 	 **/
 	const handleModalClose = () => {
-		setShowConfirmationModal(false);
+		if (isMountedRef.current) {
+			setShowConfirmationModal(false);
+		}
 	};
 
 	return (
 		<>
-			{/* Display success message */}
-			{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 			<Form onSubmit={handleSubmit}>
 				<Form.Group>
 					<Form.Control
@@ -176,6 +206,7 @@ const EditCommentForm = (props) => {
 						onChange={handleChange}
 						rows={2}
 						name='comments'
+						className={styles.FormControl}
 					/>
 				</Form.Group>
 				{/* Display errors */}
@@ -188,20 +219,26 @@ const EditCommentForm = (props) => {
 				))}
 				<div className='text-right'>
 					<Button
-						variant='warning'
-						onClick={() => setDisplayEditForm()}
-						type='button'>
+						variant='outline-warning'
+						size='sm'
+						onClick={() => onEditComplete()}
+						type='button'
+						className={styles.ButtonSpacing}>
 						Cancel
 					</Button>
 					<Button
-						variant='success'
+						variant='outline-success'
+						size='sm'
 						disabled={!comment_detail.trim()}
-						type='submit'>
-						Save
+						type='submit'
+						className={styles.ButtonSpacing}>
+						Update
 					</Button>
 					<Button
-						variant='danger'
-						onClick={handleDelete}>
+						variant='outline-danger'
+						size='sm'
+						onClick={handleDelete}
+						className={styles.ButtonSpacing}>
 						Delete
 					</Button>
 				</div>

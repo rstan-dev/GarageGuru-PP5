@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+import Alert from "react-bootstrap/Alert";
 import styles from "../../styles/AddEditComment.module.css";
 
 import { axiosRes } from "../../api/axiosDefaults";
@@ -23,8 +24,12 @@ function AddCommentForm(props) {
 		profileName,
 	} = props;
 
-	// State for managing the input of the new comment.
+	// State for managing the input of the new comment, and success message.
 	const [comment_detail, setComment_detail] = useState("");
+	const [successMessage, setSuccessMessage] = useState("");
+
+	const successTimeoutRef = useRef();
+	const isMountedRef = useRef(true);
 
 	/**
 	 * Handles change events on the comment input field.
@@ -46,26 +51,34 @@ function AddCommentForm(props) {
 				job,
 			});
 
-			// Update the comments list with the new comment
-			setComments((prevComments) => ({
-				...prevComments,
-				results: [data, ...prevComments.results],
-			}));
+			if (isMountedRef.current) {
+				// Update the comments list with the new comment
+				setComments((prevComments) => ({
+					...prevComments,
+					results: [data, ...prevComments.results],
+				}));
 
-			// Increment the comments count
-			setCommentsCount((prevCount) => prevCount + 1);
+				// Increment the comments count
+				setCommentsCount((prevCount) => prevCount + 1);
 
-			// Update the job state to trigger a refresh
-			setJob((prevJob) => ({
-				results: [
-					{
-						...prevJob.results[0],
-					},
-				],
-			}));
+				// Update the job state to trigger a refresh
+				setJob((prevJob) => ({
+					results: [
+						{
+							...prevJob.results[0],
+						},
+					],
+				}));
 
-			// Reset the comment input field
-			setComment_detail("");
+				// Sets the success message with timeout
+				setSuccessMessage("Comment has been added successfully");
+				successTimeoutRef.current = setTimeout(() => {
+					setSuccessMessage("");
+				}, 1500);
+
+				// Reset the comment input field
+				setComment_detail("");
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -73,6 +86,14 @@ function AddCommentForm(props) {
 
 	return (
 		<div>
+			{/* Display success message */}
+			{successMessage && (
+				<Alert
+					className={styles.SuccessMessage}
+					variant='success'>
+					{successMessage}
+				</Alert>
+			)}
 			<div className='card'>
 				<div className={`card-body ${styles.CardBody}`}>
 					<div className={styles.CommentArea}>
@@ -86,7 +107,7 @@ function AddCommentForm(props) {
 								/>
 								<p className={styles.ProfileName}>{profileName}</p>
 							</div>
-							<div className='col-10'>
+							<div className='col-12 col-sm-10'>
 								<Form onSubmit={handleSubmit}>
 									<Form.Group>
 										<Form.Control

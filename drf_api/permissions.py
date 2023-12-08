@@ -2,6 +2,7 @@
 Imports for Permissions
 """
 from rest_framework import permissions
+from rest_framework.permissions import SAFE_METHODS
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -15,3 +16,46 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         return obj.owner == request.user
+
+
+class IsOwnerOrAssignedToOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object or users assigned
+    to the job to edit it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed for any request,
+        if request.method in SAFE_METHODS:
+            return True
+
+        is_owner = obj.owner == request.user
+
+        # Checks if the user is assigned to the job
+        is_assigned_to_job = obj.job and (
+            obj.job.assigned_to == request.user
+            or obj.job.assigned_to_id == request.user.id
+        )
+
+        return is_owner or is_assigned_to_job
+
+
+class IsOwnerOrReplyOwnerOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of a comment or owners of
+    a reply to edit their own comments.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed for any request,
+        if request.method in SAFE_METHODS:
+            return True
+
+        is_owner = obj.owner == request.user
+
+        # Checks if the object is a reply and if the user is the owner of this reply.
+        is_reply_owner = False
+        if obj.parent:
+            is_reply_owner = obj.owner == request.user
+
+        return is_owner or is_reply_owner

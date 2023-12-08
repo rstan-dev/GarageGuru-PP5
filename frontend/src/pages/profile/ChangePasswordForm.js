@@ -37,9 +37,9 @@ const ChangePasswordForm = () => {
 
 	// State for managing form errors and success messages.
 	const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
+	const [successMessage, setSuccessMessage] = useState("");
 
-  const history = useHistory();
+	const history = useHistory();
 
 	/**
 	 * Handles changes to any of the form fields and updates the corresponding state.
@@ -87,14 +87,15 @@ const ChangePasswordForm = () => {
 				xl={8}
 				className='mx-auto'>
 				<div className={styles.CardBlock}>
-
-          {/* Display success message */}
+					{/* Display success message */}
 					{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
 					<Card className={styles.FormCard}>
 						<div className={`d-flex flex-column align-items-center`}>
 							<p>
-								<i className={`fa-solid fa-pencil ${styles.EditIcon}`}></i>
+								<i
+									className={`fa-solid fa-pencil ${styles.EditIcon}`}
+									aria-hidden='true'></i>
 								Change Password
 							</p>
 						</div>

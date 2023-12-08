@@ -33,7 +33,9 @@ function EditInvoiceForm() {
 	const [invoiceData, setInvoiceData] = useState({
 		inv_id: "",
 		inv_owner: "",
+		inv_owner_id: "",
 		job_assigned_to: "",
+		job_assigned_to_id: "",
 		job_id: null,
 		customer_firstname: "",
 		customer_lastname: "",
@@ -47,7 +49,9 @@ function EditInvoiceForm() {
 	const {
 		inv_id,
 		inv_owner,
+		inv_owner_id,
 		job_assigned_to,
+		job_assigned_to_id,
 		job_id,
 		customer_firstname,
 		customer_lastname,
@@ -80,7 +84,9 @@ function EditInvoiceForm() {
 				setInvoiceData({
 					inv_id: data.inv_id,
 					inv_owner: data.inv_owner,
+					inv_owner_id: data.inv_owner_id,
 					job_assigned_to: data.job_assigned_to,
+					job_assigned_to_id: data.job_assigned_to_id,
 					job_id: data.job_id,
 					customer_firstname: data.customer_firstname,
 					customer_lastname: data.customer_lastname,
@@ -90,22 +96,20 @@ function EditInvoiceForm() {
 					inv_due_date: data.inv_due_date,
 					invoice_status: data.invoice_status,
 				});
-
-				if (
-					currentUser &&
-					currentUser.username !== data.inv_owner &&
-					data.currentUser.username !== job_assigned_to
-				) {
-					// Redirect to home page if currentUser is neither invoice owner nor assigned user.
-					history.push("/");
-					return;
-				}
 			} catch (err) {
 				console.log(err);
 			}
 		};
 		handleMount();
-	}, [history, id, currentUser, inv_owner, job_assigned_to]);
+	}, [
+		history,
+		id,
+		currentUser,
+		inv_owner,
+		job_assigned_to,
+		inv_owner_id,
+		job_assigned_to_id,
+	]);
 
 	/**
 	 * Handles changes to any of the form fields and updates the corresponding state.
@@ -134,6 +138,15 @@ function EditInvoiceForm() {
 	 **/
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		// Checks if the current user has permission to edit the invoice
+		if (
+			currentUser.pk !== inv_owner_id &&
+			currentUser.pk !== job_assigned_to_id
+		) {
+			history.push("/");
+			return;
+		}
 
 		let formErrors = {};
 
@@ -340,16 +353,21 @@ function EditInvoiceForm() {
 				lg={8}
 				xl={6}
 				className='mx-auto'>
-
-                {/* Display success message */}
-				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
+				{/* Display success message */}
+				{successMessage && (
+					<Alert
+						className={styles.SuccessMessage}
+						variant='success'>
+						{successMessage}
+					</Alert>
+				)}
 
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
 						<p>
-							<i className={`fa-solid fa-pencil ${styles.AddEditInvoiceIcon}`}>
-								{" "}
-							</i>
+							<i
+								className={`fa-solid fa-pencil ${styles.AddEditInvoiceIcon}`}
+								aria-hidden='true'></i>
 							Edit Invoice Form
 						</p>
 

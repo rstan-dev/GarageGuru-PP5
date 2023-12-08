@@ -75,7 +75,7 @@ function RegisterForm() {
 				xl={6}
 				className='mx-auto'>
 				{/* Display success message */}
-				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
+				{successMessage && <Alert className={styles.SuccessMessage} variant='success'>{successMessage}</Alert>}
 
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
@@ -83,8 +83,7 @@ function RegisterForm() {
 							className={`d-flex flex-column align-items-center ${styles.Intro}`}>
 							<h1>
 								<i
-									className={`fa-solid fa-solid fa-user-plus ${styles.LoginRegisterIcon}`}>
-									{" "}
+									className={`fa-solid fa-solid fa-user-plus ${styles.LoginRegisterIcon}`} aria-hidden='true'>
 								</i>
 								Register for an Account
 							</h1>

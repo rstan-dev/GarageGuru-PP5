@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from django.http import Http404
 from .models import Invoice
 from .serializers import InvoiceSerializer
-from drf_api.permissions import IsOwnerOrReadOnly
+from drf_api.permissions import IsOwnerOrAssignedToOrReadOnly
 from django.db.models import Count
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
@@ -114,5 +114,5 @@ class InvoiceDetail(generics.RetrieveUpdateDestroyAPIView):
     """
 
     serializer_class = InvoiceSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrAssignedToOrReadOnly]
     queryset = Invoice.objects.all()

@@ -264,17 +264,21 @@ function AddInvoiceForm() {
 				lg={8}
 				xl={6}
 				className='mx-auto'>
-
 				{/* Display success message */}
-				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
+				{successMessage && (
+					<Alert
+						className={styles.SuccessMessage}
+						variant='success'>
+						{successMessage}
+					</Alert>
+				)}
 
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
 						<p>
 							<i
-								className={`fa-solid fa-circle-plus ${styles.AddEditInvoiceIcon}`}>
-								{" "}
-							</i>
+								className={`fa-solid fa-circle-plus ${styles.AddEditInvoiceIcon}`}
+								aria-hidden='true'></i>
 							Add Invoice Form
 						</p>
 

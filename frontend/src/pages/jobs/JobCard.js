@@ -122,11 +122,14 @@ const JobCard = (props) => {
 			) : (
 				<Button
 					variant='outline-secondary'
-					disabled>
-					<div className={styles.DisabledButton}>Editing unavailable.</div>
+					disabled
+					size='sm'>
+					<div className={styles.DisabledJobEditButton}>
+						Editing unavailable.
+					</div>
 					<div
 						className={
-							styles.DisabledButton
+							styles.DisabledJobEditButton
 						}>{`Only ${owner} can edit this job`}</div>
 				</Button>
 			)}
@@ -151,14 +154,18 @@ const JobCard = (props) => {
 				{displayCommentCount > 0 ? (
 					<div className={styles.CommentBubbleActive}>
 						<Link to={`/jobs/${id}`}>
-							<i className='fa-regular fa-comment'></i>
+							<i
+								className='fa-regular fa-comment'
+								aria-hidden='true'></i>
 							<span>{displayCommentCount} commenting</span>
 						</Link>
 					</div>
 				) : (
 					<div className={styles.CommentBubbleGrey}>
 						<Link to={`/jobs/${id}`}>
-							<i className='fa-regular fa-comment'></i>
+							<i
+								className='fa-regular fa-comment'
+								aria-hidden='true'></i>
 							<span>leave a comment</span>
 						</Link>
 					</div>
@@ -174,13 +181,17 @@ const JobCard = (props) => {
 				<div
 					className={`${styles.EyeWatched}`}
 					onClick={handleUnwatch}>
-					<i className='fa-regular fa-eye'></i>
+					<i
+						className='fa-regular fa-eye'
+						aria-hidden='true'></i>
 				</div>
 			) : (
 				<div
 					className={`${styles.EyeUnwatched}`}
 					onClick={handleWatch}>
-					<i className='fa-regular fa-eye'></i>
+					<i
+						className='fa-regular fa-eye'
+						aria-hidden='true'></i>
 				</div>
 			)}
 		</>
@@ -253,25 +264,37 @@ const JobCard = (props) => {
 								<tbody>
 									<tr>
 										<th>
-											<i className='fa-solid fa-hashtag'></i>Job No:
+											<i
+												className='fa-solid fa-hashtag'
+												aria-hidden='true'></i>
+											Job No:
 										</th>
 										<td>{id}</td>
 									</tr>
 									<tr>
 										<th>
-											<i className='fa-solid fa-wrench'></i>Job Type:
+											<i
+												className='fa-solid fa-wrench'
+												aria-hidden='true'></i>
+											Job Type:
 										</th>
 										<td>{job_type}</td>
 									</tr>
 									<tr>
 										<th>
-											<i className='fa-solid fa-circle-info'></i>Details:
+											<i
+												className='fa-solid fa-circle-info'
+												aria-hidden='true'></i>
+											Details:
 										</th>
 										<td>{job_details}</td>
 									</tr>
 									<tr>
 										<th>
-											<i className='fa-solid fa-user'></i>Created By:
+											<i
+												className='fa-solid fa-user'
+												aria-hidden='true'></i>
+											Created By:
 										</th>
 										<td>
 											<Link to={`/profile/${owner_id}`}>{owner}</Link>
@@ -279,26 +302,37 @@ const JobCard = (props) => {
 									</tr>
 									<tr>
 										<th>
-											<i className='fa-solid fa-calendar-days'></i>Created on:
+											<i
+												className='fa-solid fa-calendar-days'
+												aria-hidden='true'></i>
+											Created on:
 										</th>
 										<td>{created_at}</td>
 									</tr>
 									<tr>
 										<th>
-											<i className='fa-regular fa-calendar-plus'></i> Updated
-											on:
+											<i
+												className='fa-regular fa-calendar-plus'
+												aria-hidden='true'></i>{" "}
+											Updated on:
 										</th>
 										<td>{updated_at}</td>
 									</tr>
 									<tr>
 										<th>
-											<i className='fa-regular fa-calendar-check'></i>Due date:
+											<i
+												className='fa-regular fa-calendar-check'
+												aria-hidden='true'></i>
+											Due date:
 										</th>
 										<td>{due_date}</td>
 									</tr>
 									<tr>
 										<th>
-											<i className='fa-regular fa-id-badge'></i>Assigned to:
+											<i
+												className='fa-regular fa-id-badge'
+												aria-hidden='true'></i>
+											Assigned to:
 										</th>
 										<td>
 											<Link to={`/profile/${assigned_to}`}>
@@ -308,7 +342,10 @@ const JobCard = (props) => {
 									</tr>
 									<tr>
 										<th>
-											<i className='fa-solid fa-circle-question'></i>Status:
+											<i
+												className='fa-solid fa-circle-question'
+												aria-hidden='true'></i>
+											Status:
 										</th>
 										<td>{status}</td>
 									</tr>

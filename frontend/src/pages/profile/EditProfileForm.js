@@ -170,20 +170,23 @@ const EditProfileForm = () => {
 				lg={8}
 				xl={8}
 				className='mx-auto'>
-
-        		{/* Display success message */}
-				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
-
-				{/* Display error messages */}
-				{errors.name && <Alert variant='danger'>{errors.name[0]}</Alert>}
-				{errors.bio && <Alert variant='danger'>{errors.bio[0]}</Alert>}
+				{/* Display success message */}
+				{successMessage && (
+					<Alert
+						className={styles.SuccessMessage}
+						variant='success'>
+						{successMessage}
+					</Alert>
+				)}
 
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
 						<div
 							className={`d-flex flex-column align-items-center ${styles.Intro}`}>
 							<h1>
-								<i className={`fa-solid fa-pencil ${styles.EditProfileIcon}`}>
+								<i
+									className={`fa-solid fa-pencil ${styles.EditProfileIcon}`}
+									aria-hidden='true'>
 									{" "}
 								</i>
 								Edit Profile Page
@@ -198,6 +201,7 @@ const EditProfileForm = () => {
 											<Image
 												src={image}
 												fluid
+												alt='Profile'
 											/>
 										</figure>
 									)}
@@ -213,7 +217,9 @@ const EditProfileForm = () => {
 											className='d-flex justify-content-center'
 											htmlFor='image-upload'>
 											<div className={styles.UploadIcon}>
-												<i className='fas fa-upload'></i>
+												<i
+													className='fas fa-upload'
+													aria-hidden='true'></i>
 												Change Profile Image
 											</div>
 										</Form.Label>
@@ -258,6 +264,10 @@ const EditProfileForm = () => {
 								/>
 							</Form.Group>
 
+							{/* Display error messages */}
+							{errors.name && <Alert variant='danger'>{errors.name[0]}</Alert>}
+							{errors.bio && <Alert variant='danger'>{errors.bio[0]}</Alert>}
+
 							<Row className='justify-content-center'>
 								<Col
 									md='auto'
@@ -278,7 +288,7 @@ const EditProfileForm = () => {
 							</Row>
 						</Form>
 
-            			{/* Confirmation Modal */}
+						{/* Confirmation Modal */}
 						<ConfirmationModal
 							showModal={showConfirmationModal}
 							handleClose={handleModalClose}

@@ -78,9 +78,8 @@ function LoginForm() {
 							className={`d-flex flex-column align-items-center ${styles.Intro}`}>
 							<h1>
 								<i
-									className={`fa-solid fa-right-to-bracket ${styles.LoginRegisterIcon}`}>
-									{" "}
-								</i>
+									className={`fa-solid fa-right-to-bracket ${styles.LoginRegisterIcon}`}
+									aria-hidden='true'></i>
 								Login
 							</h1>
 							<p>Welcome to GarageGuru, the dynamic job card management app.</p>
@@ -114,7 +113,7 @@ function LoginForm() {
 									value={password}
 									onChange={handleChange}
 									className={styles.FormControl}
-									autoComplete="off"
+									autoComplete='off'
 								/>
 							</Form.Group>
 							{errors.password?.map((message, index) => (

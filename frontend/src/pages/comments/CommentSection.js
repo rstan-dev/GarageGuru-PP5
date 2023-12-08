@@ -38,6 +38,10 @@ const CommentSection = (props) => {
 	const is_owner = currentUser?.username === owner;
 	const isReplyOwner = currentUser?.username;
 
+	const handleEditComplete = () => {
+		setEditingId(null);
+	};
+
 	/**
 	 * Renders the list of replies for a comment.
 	 * Each reply is rendered within a Card component, and conditionally displays
@@ -57,26 +61,26 @@ const CommentSection = (props) => {
 					</div>
 
 					{editingId === reply.reply_id ? (
-						<div className={`col-10 ${styles.ReplyCommentDetail}`}>
+						<div className={`col-8 ${styles.ReplyCommentDetail}`}>
 							<EditCommentForm
 								id={reply.reply_id}
 								profile_image={profile_image}
 								comment_detail={reply.reply_comment_detail}
 								isReply={true}
 								parentCommentId={id}
-								setDisplayEditForm={() => setEditingId(null)}
+								onEditComplete={handleEditComplete}
 								setComments={setComments}
 								setCommentsCount={setCommentsCount}
 							/>
 						</div>
 					) : (
-						<div className='col-10'>
+						<div className='col-8'>
 							<div className={styles.ReplyCommentDetail}>
 								{reply.reply_comment_detail}
 							</div>
 							{isReplyOwner === reply.reply_owner &&
 								editingId !== reply.reply_id && (
-									<div className='col-12 text-right'>
+									<div className='col-12  text-right'>
 										<Button
 											onClick={() => setEditingId(reply.reply_id)}
 											variant='outline-primary'
@@ -108,18 +112,18 @@ const CommentSection = (props) => {
 					<p className={styles.CommentUpdated}>{updated_at}</p>
 				</div>
 				{editingId === id ? (
-					<div className={`col-10 ${styles.CommentDetail}`}>
+					<div className={`col-12 col-sm-10 ${styles.CommentDetail}`}>
 						<EditCommentForm
 							id={id}
 							profile_image={profile_image}
 							comment_detail={comment_detail}
-							setDisplayEditForm={() => setEditingId(null)}
+							onEditComplete={handleEditComplete}
 							setComments={setComments}
 							setCommentsCount={setCommentsCount}
 						/>
 					</div>
 				) : (
-					<div className='col-10'>
+					<div className='col-12 col-sm-10'>
 						<div className={styles.CommentDetail}>{comment_detail}</div>
 						{is_owner && editingId !== id && (
 							<div className='col-12 text-right'>

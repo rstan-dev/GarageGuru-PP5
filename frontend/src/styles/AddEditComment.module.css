@@ -44,3 +44,18 @@
 .SubmitButton {
 	padding-bottom: 10px;
 }
+
+.ButtonSpacing {
+	margin-right: 10px;
+	margin-top: 10px;
+	font-size: x-small;
+}
+
+/* Display Success Message */
+.SuccessMessage {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
+}

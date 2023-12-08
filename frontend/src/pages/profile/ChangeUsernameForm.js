@@ -93,8 +93,7 @@ const ChangeUsernameForm = () => {
 				xl={8}
 				className='mx-auto'>
 				<div className={styles.CardBlock}>
-
-          			{/* Display success message */}
+					{/* Display success message */}
 					{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
 					{/* Display error messages */}
@@ -105,7 +104,9 @@ const ChangeUsernameForm = () => {
 					<Card className={styles.FormCard}>
 						<div className={`d-flex flex-column align-items-center`}>
 							<p>
-								<i className={`fa-solid fa-pencil ${styles.EditIcon}`}></i>
+								<i
+									className={`fa-solid fa-pencil ${styles.EditIcon}`}
+									aria-hidden='true'></i>
 								Change Username
 							</p>
 						</div>
