@@ -57,11 +57,14 @@ const InvoiceCard = (props) => {
 			) : (
 				<Button
 					variant='outline-secondary'
-					disabled>
-					<div className={styles.DisabledButton}>Editing unavailable.</div>
+					disabled
+					size='sm'>
+					<div className={styles.DisabledInvoiceEditButton}>
+						Editing unavailable.
+					</div>
 					<div
 						className={
-							styles.DisabledButton
+							styles.DisabledInvoiceEditButton
 						}>{`Only ${inv_owner} or ${job_assigned_to} can edit this job`}</div>
 				</Button>
 			)}

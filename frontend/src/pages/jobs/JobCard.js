@@ -122,9 +122,11 @@ const JobCard = (props) => {
 			) : (
 				<Button
 					variant='outline-secondary'
-						disabled
+					disabled
 					size='sm'>
-					<div className={styles.DisabledJobEditButton}>Editing unavailable.</div>
+					<div className={styles.DisabledJobEditButton}>
+						Editing unavailable.
+					</div>
 					<div
 						className={
 							styles.DisabledJobEditButton
