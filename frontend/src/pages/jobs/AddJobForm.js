@@ -326,7 +326,9 @@ function AddJobForm() {
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
 						<p>
-							<i className={`fa-solid fa-circle-plus ${styles.AddJobIcon}`}>
+							<i
+								className={`fa-solid fa-circle-plus ${styles.AddJobIcon}`}
+								aria-hidden='true'>
 								{" "}
 							</i>
 							Add Job Form
@@ -367,7 +369,9 @@ function AddJobForm() {
 													className={`d-flex align-items-center${styles.ImageUploadContainer}`}
 													htmlFor='image-upload'>
 													<div className={styles.UploadIcon}>
-														<i className='fa-solid fa-arrow-up-from-bracket'></i>
+														<i
+															className='fa-solid fa-arrow-up-from-bracket'
+															aria-hidden='true'></i>
 														<p>Upload an image</p>
 													</div>
 												</Form.Label>

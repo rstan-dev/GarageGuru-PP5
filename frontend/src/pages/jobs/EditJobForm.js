@@ -254,8 +254,7 @@ function EditJobForm() {
 	// Text fields component to be rendered in form.
 	const textFields = (
 		<div className='text-center'>
-
-            {/* Job Type Field */}
+			{/* Job Type Field */}
 			<Form.Group controlId='job_type'>
 				<Form.Label>Job Type:</Form.Label>
 				<Form.Control
@@ -383,14 +382,17 @@ function EditJobForm() {
 				lg={8}
 				xl={6}
 				className='mx-auto'>
-
-                {/* Display success message */}
+				{/* Display success message */}
 				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
 						<p>
-							<i className={`fa-solid fa-pencil ${styles.AddJobIcon}`}> </i>
+							<i
+								className={`fa-solid fa-pencil ${styles.AddJobIcon}`}
+								aria-hidden='true'>
+								{" "}
+							</i>
 							Edit Job Form
 						</p>
 
@@ -423,7 +425,9 @@ function EditJobForm() {
 														className='d-flex justify-content-center'
 														htmlFor='image-upload'>
 														<div className={styles.UploadIcon}>
-															<i className='fa-solid fa-arrow-up-from-bracket'></i>
+															<i
+																className='fa-solid fa-arrow-up-from-bracket'
+																aria-hidden='true'></i>
 															<p>Change image</p>
 														</div>
 													</Form.Label>
@@ -435,7 +439,9 @@ function EditJobForm() {
 													className='d-flex justify-content-center'
 													htmlFor='image-upload'>
 													<div className={styles.UploadIcon}>
-														<i className='fa-solid fa-arrow-up-from-bracket'></i>
+														<i
+															className='fa-solid fa-arrow-up-from-bracket'
+															aria-hidden='true'></i>
 														<p>Upload an image</p>
 													</div>
 												</Form.Label>

@@ -170,8 +170,7 @@ const EditProfileForm = () => {
 				lg={8}
 				xl={8}
 				className='mx-auto'>
-
-        		{/* Display success message */}
+				{/* Display success message */}
 				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
 				{/* Display error messages */}
@@ -183,7 +182,9 @@ const EditProfileForm = () => {
 						<div
 							className={`d-flex flex-column align-items-center ${styles.Intro}`}>
 							<h1>
-								<i className={`fa-solid fa-pencil ${styles.EditProfileIcon}`}>
+								<i
+									className={`fa-solid fa-pencil ${styles.EditProfileIcon}`}
+									aria-hidden='true'>
 									{" "}
 								</i>
 								Edit Profile Page
@@ -213,7 +214,9 @@ const EditProfileForm = () => {
 											className='d-flex justify-content-center'
 											htmlFor='image-upload'>
 											<div className={styles.UploadIcon}>
-												<i className='fas fa-upload'></i>
+												<i
+													className='fas fa-upload'
+													aria-hidden='true'></i>
 												Change Profile Image
 											</div>
 										</Form.Label>
@@ -278,7 +281,7 @@ const EditProfileForm = () => {
 							</Row>
 						</Form>
 
-            			{/* Confirmation Modal */}
+						{/* Confirmation Modal */}
 						<ConfirmationModal
 							showModal={showConfirmationModal}
 							handleClose={handleModalClose}

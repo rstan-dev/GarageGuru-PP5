@@ -91,7 +91,8 @@ const ProfilePage = () => {
 						<div className={`d-flex flex-column align-items-center`}>
 							<p>
 								<i
-									className={`fa-solid fa-circle-user ${styles.ProfileIcon}`}></i>
+									className={`fa-solid fa-circle-user ${styles.ProfileIcon}`}
+									aria-hidden='true'></i>
 								Profile Page for {owner}
 							</p>
 						</div>
@@ -106,33 +107,46 @@ const ProfilePage = () => {
 							<tbody>
 								<tr>
 									<th>
-										<i className='fa-solid fa-id-card-clip'></i>Name:
+										<i
+											className='fa-solid fa-id-card-clip'
+											aria-hidden='true'></i>
+										Name:
 									</th>
 									<td>{name}</td>
 								</tr>
 								<tr>
 									<th>
-										<i className='fa-solid fa-circle-info'></i>Bio:
+										<i
+											className='fa-solid fa-circle-info'
+											aria-hidden='true'></i>
+										Bio:
 									</th>
 									<td>{bio}</td>
 								</tr>
 								<tr>
 									<th>
-										<i className='fa-solid fa-calendar-days'></i>Staff member
-										since:
+										<i
+											className='fa-solid fa-calendar-days'
+											aria-hidden='true'></i>
+										Staff member since:
 									</th>
 									<td>{display_created_at}</td>
 								</tr>
 								<tr>
 									<th>
-										<i className='fa-solid fa-calendar-plus'></i>Profile last
-										updated:
+										<i
+											className='fa-solid fa-calendar-plus'
+											aria-hidden='true'></i>
+										Profile last updated:
 									</th>
 									<td>{display_updated_at}</td>
 								</tr>
 								<tr>
 									<th>
-										<i className='fa-solid fa-hashtag'></i>User ID:
+										<i
+											className='fa-solid fa-hashtag'
+											aria-hidden='true'></i>
+										User ID:
 									</th>
 									<td>{id}</td>
 								</tr>
