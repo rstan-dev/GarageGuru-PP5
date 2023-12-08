@@ -96,14 +96,20 @@ function EditInvoiceForm() {
 					inv_due_date: data.inv_due_date,
 					invoice_status: data.invoice_status,
 				});
-
 			} catch (err) {
 				console.log(err);
 			}
 		};
 		handleMount();
-	}, [history, id, currentUser, inv_owner, job_assigned_to, inv_owner_id,
-		job_assigned_to_id,]);
+	}, [
+		history,
+		id,
+		currentUser,
+		inv_owner,
+		job_assigned_to,
+		inv_owner_id,
+		job_assigned_to_id,
+	]);
 
 	/**
 	 * Handles changes to any of the form fields and updates the corresponding state.
@@ -347,14 +353,15 @@ function EditInvoiceForm() {
 				lg={8}
 				xl={6}
 				className='mx-auto'>
-
-                {/* Display success message */}
+				{/* Display success message */}
 				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
 						<p>
-							<i className={`fa-solid fa-pencil ${styles.AddEditInvoiceIcon}`}>
+							<i
+								className={`fa-solid fa-pencil ${styles.AddEditInvoiceIcon}`}
+								aria-hidden='true'>
 								{" "}
 							</i>
 							Edit Invoice Form

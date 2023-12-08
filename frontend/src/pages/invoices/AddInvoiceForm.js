@@ -264,7 +264,6 @@ function AddInvoiceForm() {
 				lg={8}
 				xl={6}
 				className='mx-auto'>
-
 				{/* Display success message */}
 				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
@@ -272,7 +271,8 @@ function AddInvoiceForm() {
 					<Card className={styles.FormCard}>
 						<p>
 							<i
-								className={`fa-solid fa-circle-plus ${styles.AddEditInvoiceIcon}`}>
+								className={`fa-solid fa-circle-plus ${styles.AddEditInvoiceIcon}`}
+								aria-hidden='true'>
 								{" "}
 							</i>
 							Add Invoice Form
