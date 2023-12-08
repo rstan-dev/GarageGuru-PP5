@@ -75,7 +75,7 @@ function RegisterForm() {
 				xl={6}
 				className='mx-auto'>
 				{/* Display success message */}
-				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
+				{successMessage && <Alert className={styles.SuccessMessage} variant='success'>{successMessage}</Alert>}
 
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
