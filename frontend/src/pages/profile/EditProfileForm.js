@@ -199,6 +199,7 @@ const EditProfileForm = () => {
 											<Image
 												src={image}
 												fluid
+												alt='Profile'
 											/>
 										</figure>
 									)}

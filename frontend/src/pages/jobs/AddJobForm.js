@@ -345,6 +345,7 @@ function AddJobForm() {
 														className={styles.Image}
 														src={image}
 														rounded
+														alt='Job Image'
 													/>
 												</figure>
 												{errors?.image?.map((message, index) => (
