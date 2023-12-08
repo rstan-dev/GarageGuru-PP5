@@ -204,6 +204,7 @@ const EditCommentForm = (props) => {
 						onChange={handleChange}
 						rows={2}
 						name='comments'
+						className={styles.FormControl}
 					/>
 				</Form.Group>
 				{/* Display errors */}

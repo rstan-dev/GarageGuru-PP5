@@ -107,7 +107,7 @@ function AddCommentForm(props) {
 								/>
 								<p className={styles.ProfileName}>{profileName}</p>
 							</div>
-							<div className='col-10'>
+							<div className='col-12 col-sm-10'>
 								<Form onSubmit={handleSubmit}>
 									<Form.Group>
 										<Form.Control

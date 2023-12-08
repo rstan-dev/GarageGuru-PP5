@@ -47,6 +47,8 @@
 
 .ButtonSpacing {
 	margin-right: 10px;
+	margin-top: 10px;
+	font-size: x-small;
 }
 
 /* Display Success Message */
