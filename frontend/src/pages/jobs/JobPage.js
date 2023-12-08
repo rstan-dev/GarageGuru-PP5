@@ -111,7 +111,11 @@ function JobPage() {
 					/>
 				</>
 			) : currentUser ? (
-				<span>No comments have been left. Please enter something here...</span>
+				<div className={styles.NoCommentsSection}>
+					<p className={styles.CommentTitle}>
+						No comments have been left yet...
+					</p>
+				</div>
 			) : null}
 		</div>
 	);
