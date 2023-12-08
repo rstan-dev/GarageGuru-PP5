@@ -171,11 +171,13 @@ const EditProfileForm = () => {
 				xl={8}
 				className='mx-auto'>
 				{/* Display success message */}
-				{successMessage && <Alert variant='success'>{successMessage}</Alert>}
-
-				{/* Display error messages */}
-				{errors.name && <Alert variant='danger'>{errors.name[0]}</Alert>}
-				{errors.bio && <Alert variant='danger'>{errors.bio[0]}</Alert>}
+				{successMessage && (
+					<Alert
+						className={styles.SuccessMessage}
+						variant='success'>
+						{successMessage}
+					</Alert>
+				)}
 
 				<div className={styles.CardBlock}>
 					<Card className={styles.FormCard}>
@@ -261,6 +263,10 @@ const EditProfileForm = () => {
 									className={styles.FormControl}
 								/>
 							</Form.Group>
+
+							{/* Display error messages */}
+							{errors.name && <Alert variant='danger'>{errors.name[0]}</Alert>}
+							{errors.bio && <Alert variant='danger'>{errors.bio[0]}</Alert>}
 
 							<Row className='justify-content-center'>
 								<Col
