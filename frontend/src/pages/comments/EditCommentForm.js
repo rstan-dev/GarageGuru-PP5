@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import ConfirmationModal from "../../components/ConfirmationModal";
+import styles from "../../styles/AddEditComment.module.css";
 
 /**
  * EditCommentForm Component
@@ -23,10 +24,9 @@ const EditCommentForm = (props) => {
 		parentCommentId,
 	} = props;
 
-	// State for managing form errors, success messages, form content,
+	// State for managing form errors, form content,
 	// displaying the confirmation modal and managing its content.
 	const [errors, setErrors] = useState({});
-	const [successMessage, setSuccessMessage] = useState("");
 	const [formContent, setFormContent] = useState(comment_detail);
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 	const [confirmationModalContent, setConfirmationModalContent] = useState({
@@ -35,16 +35,12 @@ const EditCommentForm = (props) => {
 		confirmAction: () => {},
 	});
 
-	const successTimeoutRef = useRef();
 	const isMountedRef = useRef(true);
 
 	// useEffect for handling component mount and unmount
 	useEffect(() => {
 		return () => {
 			isMountedRef.current = false;
-			if (successTimeoutRef.current) {
-				clearTimeout(successTimeoutRef.current);
-			}
 		};
 	}, []);
 
@@ -165,11 +161,6 @@ const EditCommentForm = (props) => {
 				// Decrement the comments count
 				setCommentsCount((prevCount) => prevCount - 1);
 
-				// Sets the success message with timeout
-				setSuccessMessage("Comment has been deleted successfully");
-				successTimeoutRef.current = setTimeout(() => {
-					setSuccessMessage("");
-				}, 1500);
 				setShowConfirmationModal(false);
 				setDisplayEditForm();
 			}
@@ -205,8 +196,6 @@ const EditCommentForm = (props) => {
 
 	return (
 		<>
-			{/* Display success message */}
-			{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 			<Form onSubmit={handleSubmit}>
 				<Form.Group>
 					<Form.Control
@@ -227,20 +216,27 @@ const EditCommentForm = (props) => {
 				))}
 				<div className='text-right'>
 					<Button
-						variant='warning'
+						variant='outline-warning'
+						size='sm'
 						onClick={() => setDisplayEditForm()}
-						type='button'>
+						type='button'
+						className={styles.ButtonSpacing}>
+
 						Cancel
 					</Button>
 					<Button
-						variant='success'
+						variant='outline-success'
+						size='sm'
 						disabled={!comment_detail.trim()}
-						type='submit'>
-						Save
+						type='submit'
+						className={styles.ButtonSpacing}>
+						Update
 					</Button>
 					<Button
-						variant='danger'
-						onClick={handleDelete}>
+						variant='outline-danger'
+						size='sm'
+						onClick={handleDelete}
+						className={styles.ButtonSpacing}>
 						Delete
 					</Button>
 				</div>
