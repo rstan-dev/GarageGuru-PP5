@@ -23,8 +23,13 @@ p {
 }
 
 .JobCardHeader {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-weight: 400;
+}
+
+.DisabledJobEditButton {
+	color: black;
+	font-size: 0.6rem;
 }
 
 /* JobCard details */
