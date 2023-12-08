@@ -87,8 +87,13 @@ function AddCommentForm(props) {
 	return (
 		<div>
 			{/* Display success message */}
-			{successMessage && <Alert
-				className={styles.SuccessMessage} variant='success'>{successMessage}</Alert>}
+			{successMessage && (
+				<Alert
+					className={styles.SuccessMessage}
+					variant='success'>
+					{successMessage}
+				</Alert>
+			)}
 			<div className='card'>
 				<div className={`card-body ${styles.CardBody}`}>
 					<div className={styles.CommentArea}>
