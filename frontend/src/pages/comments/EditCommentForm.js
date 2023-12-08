@@ -17,7 +17,7 @@ const EditCommentForm = (props) => {
 	const {
 		id,
 		comment_detail,
-		setDisplayEditForm,
+		onEditComplete,
 		setComments,
 		setCommentsCount,
 		isReply,
@@ -100,7 +100,7 @@ const EditCommentForm = (props) => {
 					}));
 				}
 
-				setDisplayEditForm();
+				onEditComplete();
 			}
 		} catch (err) {
 			if (isMountedRef.current) {
@@ -158,11 +158,13 @@ const EditCommentForm = (props) => {
 					}
 				});
 
-				// Decrement the comments count
-				setCommentsCount((prevCount) => prevCount - 1);
+				if (isMountedRef.current) {
+					// Decrement the comments count
+					setCommentsCount((prevCount) => prevCount - 1);
 
-				setShowConfirmationModal(false);
-				setDisplayEditForm();
+					setShowConfirmationModal(false);
+					onEditComplete();
+				}
 			}
 		} catch (err) {
 			if (isMountedRef.current) {
@@ -172,7 +174,7 @@ const EditCommentForm = (props) => {
 		}
 		if (isMountedRef.current) {
 			setShowConfirmationModal(false);
-			setDisplayEditForm();
+			onEditComplete();
 		}
 	};
 
@@ -219,7 +221,7 @@ const EditCommentForm = (props) => {
 					<Button
 						variant='outline-warning'
 						size='sm'
-						onClick={() => setDisplayEditForm()}
+						onClick={() => onEditComplete()}
 						type='button'
 						className={styles.ButtonSpacing}>
 						Cancel

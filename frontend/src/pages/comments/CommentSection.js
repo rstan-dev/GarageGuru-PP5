@@ -38,6 +38,10 @@ const CommentSection = (props) => {
 	const is_owner = currentUser?.username === owner;
 	const isReplyOwner = currentUser?.username;
 
+	const handleEditComplete = () => {
+		setEditingId(null);
+	};
+
 	/**
 	 * Renders the list of replies for a comment.
 	 * Each reply is rendered within a Card component, and conditionally displays
@@ -64,7 +68,7 @@ const CommentSection = (props) => {
 								comment_detail={reply.reply_comment_detail}
 								isReply={true}
 								parentCommentId={id}
-								setDisplayEditForm={() => setEditingId(null)}
+								onEditComplete={handleEditComplete}
 								setComments={setComments}
 								setCommentsCount={setCommentsCount}
 							/>
@@ -113,7 +117,7 @@ const CommentSection = (props) => {
 							id={id}
 							profile_image={profile_image}
 							comment_detail={comment_detail}
-							setDisplayEditForm={() => setEditingId(null)}
+							onEditComplete={handleEditComplete}
 							setComments={setComments}
 							setCommentsCount={setCommentsCount}
 						/>
