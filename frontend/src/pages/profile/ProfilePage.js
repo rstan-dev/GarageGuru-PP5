@@ -101,6 +101,7 @@ const ProfilePage = () => {
 								src={image}
 								alt='Profile'
 								fluid
+								className={styles.ProfileImage}
 							/>
 						</Card>
 						<table className='table table-striped'>
