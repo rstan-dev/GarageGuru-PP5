@@ -235,6 +235,7 @@ function EditJobForm() {
 				console.error(err);
 				setErrors({ message: ["There was an error submitting the form."] });
 			}
+			setErrorKey(prevKey => prevKey + 1);
 		}
 
 		setShowConfirmationModal(false);
