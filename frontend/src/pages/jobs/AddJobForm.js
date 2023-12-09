@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 
@@ -42,8 +43,9 @@ function AddJobForm() {
 	const { job_type, job_details, image, due_date, assigned_to, status } =
 		jobData;
 
-	// State for managing form errors and success messages.
+	// State for managing form errors, error key and success messages.
 	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 	const [successMessage, setSuccessMessage] = useState("");
 
 	// useRef hooks to manage component lifecycle and success message timeout.
@@ -146,14 +148,36 @@ function AddJobForm() {
 		let formErrors = {};
 
 		if (!job_type || job_type === "Choose Job Type") {
-			formErrors.job_type = ["Job Type is Required. Please select a job type."];
+			formErrors.job_type = [
+				"Job Type is Required. Please select a job type...",
+			];
+		}
+
+		if (
+			!job_details ||
+			job_details === "Enter some details about the vehicle and the job here..."
+		) {
+			formErrors.job_details = [
+				"Please enter some details about the vehicle and the job",
+			];
 		}
 
 		if (!due_date) {
-			formErrors.due_date = ["Due Date is required. Please select a due date."];
+			formErrors.due_date = [
+				"Due Date is required. Please select a due date...",
+			];
+		}
+
+		if (!assigned_to || assigned_to === "") {
+			formErrors.assigned_to = ["Please assign this job to a user..."];
+		}
+
+		if (!status || status === "") {
+			formErrors.assigned_to = ["Please select a status for thjis job..."];
 		}
 
 		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
 			setErrors(formErrors);
 			return;
 		}
@@ -203,7 +227,7 @@ function AddJobForm() {
 					name='job_type'
 					value={job_type}
 					onChange={handleChange}
-					isrequired='true'
+					required
 					className={styles.FormControl}>
 					<option>Choose Job Type</option>
 					<option value='Major Service'>Major Service</option>
@@ -212,33 +236,39 @@ function AddJobForm() {
 					<option value='Tyre Change'>Tyre Change</option>
 				</Form.Control>
 			</Form.Group>
-			{errors?.job_type?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`job_type-errors-${errorKey}`}>
+				{errors.job_type?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			<Form.Group controlId='job_details'>
 				<Form.Label>Job Details:</Form.Label>
 				<Form.Control
 					as='textarea'
 					name='job_details'
-					placeholder='Enter some details about the job or vehicle here...'
+					placeholder='Enter some details about the vehicle and the job here...'
 					rows={2}
 					value={job_details}
 					onChange={handleChange}
 					className={styles.FormControl}
 				/>
 			</Form.Group>
-			{errors?.job_details?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`job_details-errors-${errorKey}`}>
+				{errors.job_details?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			<Form.Group controlId='assigned_to'>
 				<Form.Label>Assigned to:</Form.Label>
@@ -247,7 +277,7 @@ function AddJobForm() {
 					name='assigned_to'
 					value={assigned_to}
 					onChange={handleChange}
-					isrequired='true'
+					required
 					className={styles.FormControl}>
 					<option>Choose a user</option>
 					{users.map((user) => (
@@ -259,13 +289,16 @@ function AddJobForm() {
 					))}
 				</Form.Control>
 			</Form.Group>
-			{errors?.assigned_to?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`assigned_to-errors-${errorKey}`}>
+				{errors.assigned_to?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			<Form.Group controlId='due_date'>
 				<Form.Label>Due Date:</Form.Label>
@@ -278,13 +311,16 @@ function AddJobForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
-			{errors?.due_date?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`due_date-errors-${errorKey}`}>
+				{errors.due_date?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			<Form.Group controlId='status'>
 				<Form.Label>Status:</Form.Label>
@@ -301,13 +337,16 @@ function AddJobForm() {
 					<option value='Overdue'>Overdue</option>
 				</Form.Control>
 			</Form.Group>
-			{errors?.status?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`status-errors-${errorKey}`}>
+				{errors.status?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 		</div>
 	);
 
@@ -354,13 +393,16 @@ function AddJobForm() {
 														alt='Job Image'
 													/>
 												</figure>
-												{errors?.image?.map((message, index) => (
-													<Alert
-														variant='warning'
-														key={index}>
-														{message}
-													</Alert>
-												))}
+												<div key={`image-errors-${errorKey}`}>
+													{errors.image?.map((message, index) => (
+														<TimedAlert
+															key={index}
+															message={message}
+															variant='warning'
+															timeout={3000}
+														/>
+													))}
+												</div>
 
 												<div>
 													<Form.Label
