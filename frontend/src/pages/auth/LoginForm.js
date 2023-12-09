@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 
@@ -17,9 +18,9 @@ import { setTokenTimestamp } from "../../utils/utils";
 /**
  * LoginForm Component
  *
- * This component renders a login form allowing users to authenticate. It handles user input,
- * form submission, and error handling for the login process. On successful login, the user is
- * redirected to the home page.
+ * This component renders a login form allowing users to authenticate.
+ * It handles user input, form submission, and error handling for the
+ * login process. On successful login, the user is redirected to the home page.
  */
 function LoginForm() {
 	// Custom hook to set the current user's data.
@@ -33,8 +34,9 @@ function LoginForm() {
 
 	const { username, password } = logInData;
 
-	// State for managing form errors.
+	// State for managing form errors and error key to trigger update.
 	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 
 	const history = useHistory();
 
@@ -48,18 +50,37 @@ function LoginForm() {
 
 	/**
 	 * Handles form submission for the login process.
-	 * On successful login, sets the current user data, updates the token timestamp,
-	 * and navigates to the home page. On failure, sets error messages.
+	 * On successful login, sets the current user data, updates the token
+	 * timestamp, and navigates to the home page. On failure, sets error
+	 * messages.
 	 **/
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		let formErrors = {};
+
+		if (!username || username === "Enter your username") {
+			formErrors.username = ["Please enter your username..."];
+		}
+
+		if (!password || password === "Enter Password") {
+			formErrors.password = ["Please enter your password..."];
+		}
+
+		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
+			setErrors(formErrors);
+			return;
+		}
+
 		try {
 			const { data } = await axios.post("/dj-rest-auth/login/", logInData);
 			setCurrentUser(data.user);
 			setTokenTimestamp(data);
 			history.push("/");
 		} catch (err) {
-			setErrors(err.response?.data);
+			console.log(err);
+			setErrors({ message: ["There was an error submitting the form."] });
 		}
 	};
 
@@ -97,13 +118,16 @@ function LoginForm() {
 									className={styles.FormControl}
 								/>
 							</Form.Group>
-							{errors.username?.map((message, index) => (
-								<Alert
-									key={index}
-									variant='warning'>
-									{message}
-								</Alert>
-							))}
+							<div key={`username-errors-${errorKey}`}>
+								{errors.username?.map((message, index) => (
+									<TimedAlert
+										key={index}
+										message={message}
+										variant='warning'
+										timeout={3000}
+									/>
+								))}
+							</div>
 							<Form.Group controlId='password'>
 								<Form.Label>Password</Form.Label>
 								<Form.Control
@@ -116,13 +140,16 @@ function LoginForm() {
 									autoComplete='off'
 								/>
 							</Form.Group>
-							{errors.password?.map((message, index) => (
-								<Alert
-									key={index}
-									variant='warning'>
-									{message}
-								</Alert>
-							))}
+							<div key={`password-errors-${errorKey}`}>
+								{errors.password?.map((message, index) => (
+									<TimedAlert
+										key={index}
+										message={message}
+										variant='warning'
+										timeout={3000}
+									/>
+								))}
+							</div>
 
 							<Row className='justify-content-center'>
 								<Col
