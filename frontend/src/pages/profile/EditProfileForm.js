@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import { Image } from "react-bootstrap";
 import styles from "../../styles/EditProfile.module.css";
 
@@ -44,9 +45,10 @@ const EditProfileForm = () => {
 
 	const { name, bio, image } = editProfileData;
 
-	// State for managing form errors and success messages, displaying confirmation
-	// modal and its content.
+	// State for managing form errors, error key and success messages,
+	// displaying confirmation modal and its content.
 	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 	const [successMessage, setSuccessMessage] = useState("");
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 	const [confirmationModalContent, setConfirmationModalContent] = useState({
@@ -112,6 +114,22 @@ const EditProfileForm = () => {
 	 **/
 	const handleSubmit = (event) => {
 		event.preventDefault();
+
+		let formErrors = {};
+
+		if (!name || name === "enter your name") {
+			formErrors.name = ["Please enter your name..."];
+		}
+
+		if (!bio || bio === "enter something about yourself") {
+			formErrors.bio = ["Please enter a few words about yourself..."];
+		}
+
+		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
+			setErrors(formErrors);
+			return;
+		}
 
 		setConfirmationModalContent({
 			title: "Confirm Profile Update",
@@ -205,13 +223,16 @@ const EditProfileForm = () => {
 											/>
 										</figure>
 									)}
-									{errors?.image?.map((message, idx) => (
-										<Alert
-											variant='warning'
-											key={idx}>
-											{message}
-										</Alert>
-									))}
+									<div key={`image-errors-${errorKey}`}>
+										{errors.image?.map((message, index) => (
+											<TimedAlert
+												key={index}
+												message={message}
+												variant='warning'
+												timeout={3000}
+											/>
+										))}
+									</div>
 									<div>
 										<Form.Label
 											className='d-flex justify-content-center'
@@ -247,27 +268,44 @@ const EditProfileForm = () => {
 									as='input'
 									type='text'
 									name='name'
+									placeholder='enter your name'
 									value={name}
 									onChange={handleChange}
 									className={styles.FormControl}
 								/>
 							</Form.Group>
+							<div key={`name-errors-${errorKey}`}>
+								{errors.name?.map((message, index) => (
+									<TimedAlert
+										key={index}
+										message={message}
+										variant='warning'
+										timeout={3000}
+									/>
+								))}
+							</div>
 							<Form.Group controlId='bio'>
 								<Form.Label>Update Bio</Form.Label>
 								<Form.Control
 									as='textarea'
 									name='bio'
+									placeholder='enter something about yourself'
 									value={bio}
 									rows={4}
 									onChange={handleChange}
 									className={styles.FormControl}
 								/>
 							</Form.Group>
-
-							{/* Display error messages */}
-							{errors.name && <Alert variant='danger'>{errors.name[0]}</Alert>}
-							{errors.bio && <Alert variant='danger'>{errors.bio[0]}</Alert>}
-
+							<div key={`bio-errors-${errorKey}`}>
+								{errors.bio?.map((message, index) => (
+									<TimedAlert
+										key={index}
+										message={message}
+										variant='warning'
+										timeout={3000}
+									/>
+								))}
+							</div>
 							<Row className='justify-content-center'>
 								<Col
 									md='auto'
