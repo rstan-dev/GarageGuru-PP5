@@ -79,6 +79,7 @@ table th {
 .CommentBubbleActive i {
 	font-size: 2rem;
 	margin-right: 5px;
+	color: #007bff
 }
 
 .CommentBubbleGrey i {
