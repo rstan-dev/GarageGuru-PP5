@@ -24,9 +24,11 @@ function AddCommentForm(props) {
 		profileName,
 	} = props;
 
-	// State for managing the input of the new comment, and success message.
+	// State for managing the input of the new comment, and success
+	// messages and errors.
 	const [comment_detail, setComment_detail] = useState("");
 	const [successMessage, setSuccessMessage] = useState("");
+	const [errors, setErrors] = useState({});
 
 	const successTimeoutRef = useRef();
 	const isMountedRef = useRef(true);
@@ -45,6 +47,18 @@ function AddCommentForm(props) {
 	 **/
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		let formErrors = {};
+
+		if (!comment_detail || comment_detail === "add a comment...") {
+			formErrors.job_type = ["A comment is required. Please add a comment."];
+		}
+
+		if (Object.keys(formErrors).length > 0) {
+			setErrors(formErrors);
+			return;
+		}
+
 		try {
 			const { data } = await axiosRes.post("/comments/", {
 				comment_detail,
@@ -81,6 +95,7 @@ function AddCommentForm(props) {
 			}
 		} catch (err) {
 			console.log(err);
+			setErrors({ message: ["There was an error submitting the form."] });
 		}
 	};
 
@@ -119,6 +134,13 @@ function AddCommentForm(props) {
 											className={styles.FormControl}
 										/>
 									</Form.Group>
+									{errors?.job_type?.map((message, index) => (
+										<Alert
+											variant='warning'
+											key={index}>
+											{message}
+										</Alert>
+									))}
 									<div className={`text-right ${styles.SubmitButton}`}>
 										<Button
 											variant='outline-success'
