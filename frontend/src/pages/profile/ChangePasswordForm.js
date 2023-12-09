@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import styles from "../../styles/ChangeUsernamePassword.module.css";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -35,8 +36,9 @@ const ChangePasswordForm = () => {
 	});
 	const { new_password1, new_password2 } = userData;
 
-	// State for managing form errors and success messages.
+	// State for managing form errors, errorkey and success messages.
 	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 	const [successMessage, setSuccessMessage] = useState("");
 
 	const history = useHistory();
@@ -64,6 +66,23 @@ const ChangePasswordForm = () => {
 	 **/
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		let formErrors = {};
+
+		if (!new_password1 || new_password1 === "choose a new password") {
+			formErrors.new_password1 = ["Please choose a new password..."];
+		}
+
+		if (!new_password2 || new_password2 === "confirm new password") {
+			formErrors.new_password2 = ["Please confirm using the same password..."];
+		}
+
+		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
+			setErrors(formErrors);
+			return;
+		}
+
 		try {
 			await axiosRes.post("/dj-rest-auth/password/change/", userData);
 			setSuccessMessage("Password updated successfully");
@@ -102,13 +121,6 @@ const ChangePasswordForm = () => {
 
 						<Form onSubmit={handleSubmit}>
 							<Form.Group>
-								{errors?.new_password1?.map((message, index) => (
-									<Alert
-										key={index}
-										variant='warning'>
-										{message}
-									</Alert>
-								))}
 								<Form.Label>Update password</Form.Label>
 								<Form.Control
 									placeholder='choose a new password'
@@ -119,15 +131,19 @@ const ChangePasswordForm = () => {
 									className={styles.FormControl}
 								/>
 							</Form.Group>
+							{/* Display error message */}
+							<div key={`new_password1-errors-${errorKey}`}>
+								{errors.new_password1?.map((message, index) => (
+									<TimedAlert
+										key={index}
+										message={message}
+										variant='warning'
+										timeout={3000}
+									/>
+								))}
+							</div>
 
 							<Form.Group>
-								{errors?.new_password2?.map((message, index) => (
-									<Alert
-										key={index}
-										variant='warning'>
-										{message}
-									</Alert>
-								))}
 								<Form.Label>Confirm password</Form.Label>
 								<Form.Control
 									placeholder='confirm new password'
@@ -138,6 +154,17 @@ const ChangePasswordForm = () => {
 									className={styles.FormControl}
 								/>
 							</Form.Group>
+							{/* Display error message */}
+							<div key={`new_password2-errors-${errorKey}`}>
+								{errors.new_password2?.map((message, index) => (
+									<TimedAlert
+										key={index}
+										message={message}
+										variant='warning'
+										timeout={3000}
+									/>
+								))}
+							</div>
 
 							<Row className='justify-content-center'>
 								<Col
