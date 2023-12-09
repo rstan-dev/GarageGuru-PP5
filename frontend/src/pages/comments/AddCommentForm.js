@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import styles from "../../styles/AddEditComment.module.css";
 
 import { axiosRes } from "../../api/axiosDefaults";
@@ -24,9 +25,12 @@ function AddCommentForm(props) {
 		profileName,
 	} = props;
 
-	// State for managing the input of the new comment, and success message.
+	// State for managing the input of the new comment, and success
+	// messages, errors, and error key to trigger update.
 	const [comment_detail, setComment_detail] = useState("");
 	const [successMessage, setSuccessMessage] = useState("");
+	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 
 	const successTimeoutRef = useRef();
 	const isMountedRef = useRef(true);
@@ -45,6 +49,21 @@ function AddCommentForm(props) {
 	 **/
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		let formErrors = {};
+
+		if (!comment_detail || comment_detail === "add a comment...") {
+			formErrors.comment_detail = [
+				"A comment is required. Please add a comment.",
+			];
+		}
+
+		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
+			setErrors(formErrors);
+			return;
+		}
+
 		try {
 			const { data } = await axiosRes.post("/comments/", {
 				comment_detail,
@@ -81,6 +100,7 @@ function AddCommentForm(props) {
 			}
 		} catch (err) {
 			console.log(err);
+			setErrors({ message: ["There was an error submitting the form."] });
 		}
 	};
 
@@ -119,6 +139,16 @@ function AddCommentForm(props) {
 											className={styles.FormControl}
 										/>
 									</Form.Group>
+									<div key={errorKey}>
+										{errors?.comment_detail?.map((message, index) => (
+											<TimedAlert
+												key={index}
+												message={message}
+												variant='warning'
+												timeout={3000}
+											/>
+										))}
+									</div>
 									<div className={`text-right ${styles.SubmitButton}`}>
 										<Button
 											variant='outline-success'

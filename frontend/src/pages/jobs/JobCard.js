@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
@@ -148,27 +148,25 @@ const JobCard = (props) => {
 	// Reusable component for Comments Icon.
 	const CommentBubble = () => {
 		const displayCommentCount = commentsCount || comment_count;
+		const location = useLocation();
+		const linkPath = `/jobs/${id}`;
+		const isCurrentPage = location.pathname === linkPath;
+
+		const CommentContent = ({ isActive }) => (
+			<div className={isActive ? styles.CommentBubbleActive : styles.CommentBubbleGrey}>
+				<i className='fa-regular fa-comment' aria-hidden='true'></i>
+				<span>{isActive ? `${displayCommentCount} commenting` : 'leave a comment'}</span>
+			</div>
+		);
 
 		return (
 			<>
-				{displayCommentCount > 0 ? (
-					<div className={styles.CommentBubbleActive}>
-						<Link to={`/jobs/${id}`}>
-							<i
-								className='fa-regular fa-comment'
-								aria-hidden='true'></i>
-							<span>{displayCommentCount} commenting</span>
-						</Link>
-					</div>
+				{isCurrentPage ? (
+					<CommentContent isActive={displayCommentCount > 0} />
 				) : (
-					<div className={styles.CommentBubbleGrey}>
-						<Link to={`/jobs/${id}`}>
-							<i
-								className='fa-regular fa-comment'
-								aria-hidden='true'></i>
-							<span>leave a comment</span>
-						</Link>
-					</div>
+					<Link to={linkPath}>
+						<CommentContent isActive={displayCommentCount > 0} />
+					</Link>
 				)}
 			</>
 		);

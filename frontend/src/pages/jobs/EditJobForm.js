@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 
@@ -44,10 +45,11 @@ function EditJobForm() {
 	const { job_type, job_details, image, due_date, assigned_to, status } =
 		jobData;
 
-	// State for managing form errors and success messages, displaying the confirmation
-	//modal and its content.
+	// State for managing form errors, error key, and success messages, displaying
+	// the confirmation modal and its content.
 	const [errors, setErrors] = useState({});
 	const [successMessage, setSuccessMessage] = useState("");
+	const [errorKey, setErrorKey] = useState(0);
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 	const [confirmationModalContent, setConfirmationModalContent] = useState({
 		title: "",
@@ -162,14 +164,36 @@ function EditJobForm() {
 		let formErrors = {};
 
 		if (!job_type || job_type === "Choose Job Type") {
-			formErrors.job_type = ["Job Type is Required. Please select a job type."];
+			formErrors.job_type = [
+				"Job Type is Required. Please select a job type...",
+			];
+		}
+
+		if (
+			!job_details ||
+			job_details === "Enter some details about the vehicle and the job here..."
+		) {
+			formErrors.job_details = [
+				"Please enter some details about the vehicle and the job",
+			];
 		}
 
 		if (!due_date) {
-			formErrors.due_date = ["Due Date is required. Please select a due date."];
+			formErrors.due_date = [
+				"Due Date is required. Please select a due date...",
+			];
+		}
+
+		if (!assigned_to || assigned_to === "") {
+			formErrors.assigned_to = ["Please assign this job to a user..."];
+		}
+
+		if (!status || status === "") {
+			formErrors.assigned_to = ["Please select a status for thjis job..."];
 		}
 
 		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
 			setErrors(formErrors);
 			return;
 		}
@@ -211,6 +235,7 @@ function EditJobForm() {
 				console.error(err);
 				setErrors({ message: ["There was an error submitting the form."] });
 			}
+			setErrorKey(prevKey => prevKey + 1);
 		}
 
 		setShowConfirmationModal(false);
@@ -271,13 +296,16 @@ function EditJobForm() {
 					<option value='Tyre Change'>Tyre Change</option>
 				</Form.Control>
 			</Form.Group>
-			{errors?.job_type?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`job_type-errors-${errorKey}`}>
+				{errors.job_type?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			{/* Job Details Field */}
 			<Form.Group controlId='job_details'>
@@ -291,13 +319,16 @@ function EditJobForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
-			{errors?.job_details?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`job_details-errors-${errorKey}`}>
+				{errors.job_details?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			{/* Assigned To Field */}
 			<Form.Group controlId='assigned_to'>
@@ -319,13 +350,16 @@ function EditJobForm() {
 					))}
 				</Form.Control>
 			</Form.Group>
-			{errors?.assigned_to?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`assigned_to-errors-${errorKey}`}>
+				{errors.assigned_to?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			{/* Due Date Field */}
 			<Form.Group controlId='due_date'>
@@ -339,13 +373,16 @@ function EditJobForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
-			{errors?.due_date?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`due_date-errors-${errorKey}`}>
+				{errors.due_date?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			{/* Status Field */}
 			<Form.Group controlId='status'>
@@ -363,13 +400,16 @@ function EditJobForm() {
 					<option value='Overdue'>Overdue</option>
 				</Form.Control>
 			</Form.Group>
-			{errors?.status?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`status-errors-${errorKey}`}>
+				{errors.status?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 		</div>
 	);
 
@@ -419,13 +459,16 @@ function EditJobForm() {
 														alt='Job Image'
 													/>
 												</figure>
-												{errors?.image?.map((message, index) => (
-													<Alert
-														variant='warning'
-														key={index}>
-														{message}
-													</Alert>
-												))}
+												<div key={`image-errors-${errorKey}`}>
+													{errors.image?.map((message, index) => (
+														<TimedAlert
+															key={index}
+															message={message}
+															variant='warning'
+															timeout={3000}
+														/>
+													))}
+												</div>
 
 												<div>
 													<Form.Label

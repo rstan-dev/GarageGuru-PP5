@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 
 import styles from "../../styles/ChangeUsernamePassword.module.css";
 
@@ -32,10 +33,11 @@ const ChangeUsernameForm = () => {
 	// Extracting user ID from URL parameters.
 	const { id } = useParams();
 
-	// State for managing the username and form errors and success messages.
+	// State for managing the username and form errors, errorKey, and success messages.
 	const setCurrentUser = useSetCurrentUser();
 	const [username, setUsername] = useState("");
 	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 	const [successMessage, setSuccessMessage] = useState("");
 
 	const history = useHistory();
@@ -63,9 +65,23 @@ const ChangeUsernameForm = () => {
 	/**
 	 * Handles form submission to change the user's username.
 	 * Submits the new username to the server and updates the user state.
+	 * Handles form errors.
 	 **/
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		let formErrors = {};
+
+		if (!username || username === "Enter your username") {
+			formErrors.username = ["choose a new username"];
+		}
+
+		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
+			setErrors(formErrors);
+			return;
+		}
+
 		try {
 			await axiosRes.put("/dj-rest-auth/user/", { username });
 			setCurrentUser((prevUser) => ({
@@ -96,11 +112,6 @@ const ChangeUsernameForm = () => {
 					{/* Display success message */}
 					{successMessage && <Alert variant='success'>{successMessage}</Alert>}
 
-					{/* Display error messages */}
-					{errors.response && (
-						<Alert variant='danger'>{errors.response[0]}</Alert>
-					)}
-
 					<Card className={styles.FormCard}>
 						<div className={`d-flex flex-column align-items-center`}>
 							<p>
@@ -113,13 +124,6 @@ const ChangeUsernameForm = () => {
 
 						<Form onSubmit={handleSubmit}>
 							<Form.Group>
-								{errors?.username?.map((message, index) => (
-									<Alert
-										key={index}
-										variant='warning'>
-										{message}
-									</Alert>
-								))}
 								<Form.Label>Update username</Form.Label>
 								<Form.Control
 									placeholder='choose a new username'
@@ -129,6 +133,16 @@ const ChangeUsernameForm = () => {
 									className={styles.FormControl}
 								/>
 							</Form.Group>
+							<div key={errorKey}>
+								{errors.username?.map((message, index) => (
+									<TimedAlert
+										key={index}
+										message={message}
+										variant='warning'
+										timeout={3000}
+									/>
+								))}
+							</div>
 
 							<Row className='justify-content-center'>
 								<Col

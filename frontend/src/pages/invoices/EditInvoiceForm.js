@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 
@@ -62,9 +63,10 @@ function EditInvoiceForm() {
 		invoice_status,
 	} = invoiceData;
 
-	// State for managing form errors and success messages, displaying the
-	// confirmation modal and its content
+	// State for managing form errors, error key, and success messages,
+	// displaying the confirmation modal and its content.
 	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 	const [successMessage, setSuccessMessage] = useState("");
 	const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 	const [confirmationModalContent, setConfirmationModalContent] = useState({
@@ -150,19 +152,36 @@ function EditInvoiceForm() {
 
 		let formErrors = {};
 
-		if (!customer_firstname) {
+		if (!customer_firstname || customer_firstname === "enter first name") {
 			formErrors.customer_firstname = [
-				"First name is required. Please enter the customer's name.",
+				"First name is required. Please enter the customer's name...",
 			];
 		}
 
-		if (!customer_lastname) {
+		if (!customer_lastname || customer_lastname === "enter last name") {
 			formErrors.customer_lastname = [
-				"Last name is required. Please enter the customer's second name.",
+				"Last name is required. Please enter the customer's second name...",
 			];
+		}
+
+		if (!amount || amount === "enter invoice amount") {
+			formErrors.amount = [
+				"An amount is required. Please enter a decimal amount...",
+			];
+		}
+
+		if (!inv_due_date) {
+			formErrors.due_date = [
+				"Due Date is required. Please select a due date...",
+			];
+		}
+
+		if (!invoice_status || invoice_status === "") {
+			formErrors.invoice_status = ["Please select a status for this job..."];
 		}
 
 		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
 			setErrors(formErrors);
 			return;
 		}
@@ -258,13 +277,16 @@ function EditInvoiceForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
-			{errors?.customer_firstname?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`customer_firstname-errors-${errorKey}`}>
+				{errors.customer_firstname?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 			<Form.Group controlId='customer_lastname'>
 				<Form.Label>Customer Last Name:</Form.Label>
 				<Form.Control
@@ -275,13 +297,16 @@ function EditInvoiceForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
-			{errors?.customer_lastname?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`customer_lastname-errors-${errorKey}`}>
+				{errors.customer_lastname?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 			<Form.Group controlId='customer_email'>
 				<Form.Label>Email:</Form.Label>
 				<Form.Control
@@ -316,6 +341,16 @@ function EditInvoiceForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
+			<div key={`amount-errors-${errorKey}`}>
+				{errors.amount?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 			<Form.Group controlId='inv_due_date'>
 				<Form.Label>Due Date:</Form.Label>
 				<Form.Control
@@ -327,6 +362,16 @@ function EditInvoiceForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
+			<div key={`inv_due_date-errors-${errorKey}`}>
+				{errors.inv_due_date?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 			<Form.Group controlId='invoice_status'>
 				<Form.Label>Status:</Form.Label>
 				<Form.Control
@@ -340,6 +385,16 @@ function EditInvoiceForm() {
 					<option value='Invoiced'>Invoiced</option>
 					<option value='Paid'>Paid</option>
 				</Form.Control>
+				<div key={`invoice_status-errors-${errorKey}`}>
+					{errors.invoice_status?.map((message, index) => (
+						<TimedAlert
+							key={index}
+							message={message}
+							variant='warning'
+							timeout={3000}
+						/>
+					))}
+				</div>
 			</Form.Group>
 		</div>
 	);
