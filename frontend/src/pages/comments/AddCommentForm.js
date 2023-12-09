@@ -26,10 +26,11 @@ function AddCommentForm(props) {
 	} = props;
 
 	// State for managing the input of the new comment, and success
-	// messages and errors.
+	// messages, errors, and error key to trigger update.
 	const [comment_detail, setComment_detail] = useState("");
 	const [successMessage, setSuccessMessage] = useState("");
 	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 
 	const successTimeoutRef = useRef();
 	const isMountedRef = useRef(true);
@@ -58,6 +59,7 @@ function AddCommentForm(props) {
 		}
 
 		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
 			setErrors(formErrors);
 			return;
 		}
@@ -137,14 +139,16 @@ function AddCommentForm(props) {
 											className={styles.FormControl}
 										/>
 									</Form.Group>
-									{errors?.comment_detail?.map((message, index) => (
-										<TimedAlert
-											key={index}
-											message={message}
-											variant='warning'
-											timeout={3000}
-										/>
-									))}
+									<div key={errorKey}>
+										{errors?.comment_detail?.map((message, index) => (
+											<TimedAlert
+												key={index}
+												message={message}
+												variant='warning'
+												timeout={3000}
+											/>
+										))}
+									</div>
 									<div className={`text-right ${styles.SubmitButton}`}>
 										<Button
 											variant='outline-success'
