@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 
@@ -24,7 +25,6 @@ function AddInvoiceForm() {
 	// Gets jobId from the URL using useLocation hook.
 	const location = useLocation();
 	const jobId = parseInt(location.state?.jobId, 10);
-	const [errors, setErrors] = useState({});
 
 	// Initialize state of invoice data
 	const [invoiceData, setInvoiceData] = useState({
@@ -48,8 +48,11 @@ function AddInvoiceForm() {
 		invoice_status,
 	} = invoiceData;
 
-	// State for managing form errors and success messages.
+	// State for managing form errors, error key and success messages.
+	const [errors, setErrors] = useState({});
+	const [errorKey, setErrorKey] = useState(0);
 	const [successMessage, setSuccessMessage] = useState("");
+
 	const successTimeoutRef = useRef();
 	const history = useHistory();
 
@@ -101,19 +104,36 @@ function AddInvoiceForm() {
 
 		let formErrors = {};
 
-		if (!customer_firstname) {
+		if (!customer_firstname || customer_firstname === "enter first name") {
 			formErrors.customer_firstname = [
-				"First name is required. Please enter the customer's name.",
+				"First name is required. Please enter the customer's name...",
 			];
 		}
 
-		if (!customer_lastname) {
+		if (!customer_lastname || customer_lastname === "enter last name") {
 			formErrors.customer_lastname = [
-				"Last name is required. Please enter the customer's second name.",
+				"Last name is required. Please enter the customer's second name...",
 			];
+		}
+
+		if (!amount || amount === "enter invoice amount") {
+			formErrors.amount = [
+				"An amount is required. Please enter a decimal amount...",
+			];
+		}
+
+		if (!due_date) {
+			formErrors.due_date = [
+				"Due Date is required. Please select a due date...",
+			];
+		}
+
+		if (!invoice_status || invoice_status === "") {
+			formErrors.invoice_status = ["Please select a status for this job..."];
 		}
 
 		if (Object.keys(formErrors).length > 0) {
+			setErrorKey((prevKey) => prevKey + 1);
 			setErrors(formErrors);
 			return;
 		}
@@ -164,13 +184,16 @@ function AddInvoiceForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
-			{errors?.customer_firstname?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`customer_firstname-errors-${errorKey}`}>
+				{errors.customer_firstname?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 
 			<Form.Group controlId='customer_lastname'>
 				<Form.Label>Customer Last Name:</Form.Label>
@@ -183,13 +206,16 @@ function AddInvoiceForm() {
 					placeholder='enter last name'
 				/>
 			</Form.Group>
-			{errors?.customer_lastname?.map((message, index) => (
-				<Alert
-					variant='danger'
-					key={index}>
-					{message}
-				</Alert>
-			))}
+			<div key={`customer_lastname-errors-${errorKey}`}>
+				{errors.customer_lastname?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 			<Form.Group controlId='customer_email'>
 				<Form.Label>Email:</Form.Label>
 				<Form.Control
@@ -227,6 +253,16 @@ function AddInvoiceForm() {
 					placeholder='enter invoice amount'
 				/>
 			</Form.Group>
+			<div key={`amount-errors-${errorKey}`}>
+				{errors.amount?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 			<Form.Group controlId='due_date'>
 				<Form.Label>Due Date:</Form.Label>
 				<Form.Control
@@ -238,6 +274,16 @@ function AddInvoiceForm() {
 					className={styles.FormControl}
 				/>
 			</Form.Group>
+			<div key={`due_date-errors-${errorKey}`}>
+				{errors.due_date?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 			<Form.Group controlId='invoice_status'>
 				<Form.Label>Invoice Status:</Form.Label>
 				<Form.Control
@@ -252,6 +298,16 @@ function AddInvoiceForm() {
 					<option value='Paid'>Paid</option>
 				</Form.Control>
 			</Form.Group>
+			<div key={`invoice_status-errors-${errorKey}`}>
+				{errors.invoice_status?.map((message, index) => (
+					<TimedAlert
+						key={index}
+						message={message}
+						variant='warning'
+						timeout={3000}
+					/>
+				))}
+			</div>
 		</div>
 	);
 
