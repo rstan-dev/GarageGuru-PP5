@@ -164,7 +164,10 @@ const EditProfileForm = () => {
 				history.goBack();
 			}, 1500);
 		} catch (err) {
-			setErrors(err.response?.data);
+			if (err.response?.data) {
+				setErrors(err.response.data);
+				setErrorKey(prevKey => prevKey + 1);
+			}
 		}
 		setShowConfirmationModal(false);
 	};

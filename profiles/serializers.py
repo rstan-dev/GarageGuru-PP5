@@ -31,6 +31,20 @@ class ProfileSerializer(serializers.ModelSerializer):
         source="updated_at", format="%Y-%m-%d %H:%M:%S", read_only=True
     )
 
+    def validate_image(self, value):
+        "check if file size is greater than 2mb"
+        if value.size > 1024 * 1024 * 2:
+            raise serializers.ValidationError("Image size larger than 2mb!")
+        if value.image.width > 2048:
+            raise serializers.ValidationError(
+                "Image width larger than 2048px!"
+            )
+        if value.image.height > 2048:
+            raise serializers.ValidationError(
+                "Image height larger than 2048px!"
+            )
+        return value
+
     class Meta:
         model = Profile
         fields = [
