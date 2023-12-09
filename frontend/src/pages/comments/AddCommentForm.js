@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import Alert from "react-bootstrap/Alert";
+import TimedAlert from "../../components/TimedAlert";
 import styles from "../../styles/AddEditComment.module.css";
 
 import { axiosRes } from "../../api/axiosDefaults";
@@ -51,7 +52,9 @@ function AddCommentForm(props) {
 		let formErrors = {};
 
 		if (!comment_detail || comment_detail === "add a comment...") {
-			formErrors.job_type = ["A comment is required. Please add a comment."];
+			formErrors.comment_detail = [
+				"A comment is required. Please add a comment.",
+			];
 		}
 
 		if (Object.keys(formErrors).length > 0) {
@@ -134,12 +137,13 @@ function AddCommentForm(props) {
 											className={styles.FormControl}
 										/>
 									</Form.Group>
-									{errors?.job_type?.map((message, index) => (
-										<Alert
+									{errors?.comment_detail?.map((message, index) => (
+										<TimedAlert
+											key={index}
+											message={message}
 											variant='warning'
-											key={index}>
-											{message}
-										</Alert>
+											timeout={3000}
+										/>
 									))}
 									<div className={`text-right ${styles.SubmitButton}`}>
 										<Button
