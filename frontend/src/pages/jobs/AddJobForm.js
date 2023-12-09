@@ -173,7 +173,7 @@ function AddJobForm() {
 		}
 
 		if (!status || status === "") {
-			formErrors.assigned_to = ["Please select a status for thjis job..."];
+			formErrors.assigned_to = ["Please select a status for this job..."];
 		}
 
 		if (Object.keys(formErrors).length > 0) {
