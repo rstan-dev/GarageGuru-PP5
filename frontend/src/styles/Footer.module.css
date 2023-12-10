@@ -1,0 +1,23 @@
+.Footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #004aad;
+	color: white;
+	padding: 10px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.Footer > div {
+	margin-left: 10px;
+}
+
+.Footer i {
+	color: white;
+}
+
+.Footer i:hover {
+	color: yellow;
+}
