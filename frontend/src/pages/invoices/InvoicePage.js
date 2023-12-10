@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import InvoiceCard from "./InvoiceCard";
 
@@ -19,6 +19,8 @@ function InvoicePage() {
 	const [jobDetails, setJobDetails] = useState(null);
 	const job_id = invoice.results[0]?.job_id;
 
+	const history = useHistory();
+
 	/**
 	 * Fetches invoice data from the server when the component mounts or the ID changes.
 	 */
@@ -32,6 +34,7 @@ function InvoicePage() {
 				setInvoice({ results: [invoice] });
 			} catch (err) {
 				console.log(err);
+				history.push('/404-error-page')
 			}
 		};
 
