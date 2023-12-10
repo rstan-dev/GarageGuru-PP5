@@ -15,6 +15,7 @@ import Asset from "../../components/Asset";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 import { useHistory } from "react-router-dom";
+import BackToTop from "../../components/BackToTop";
 
 /**
  * AllJobsPage Component
@@ -313,6 +314,9 @@ function AllJobsPage({ filter = "" }) {
 					/>
 				)}
 			</Col>
+			<div>
+				<BackToTop />
+			</div>
 		</Container>
 	);
 }
