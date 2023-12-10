@@ -1,0 +1,14 @@
+.CenteredModal {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.CenteredModal .modal-dialog {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.ModalTitle {
+	color: #454545;
+}

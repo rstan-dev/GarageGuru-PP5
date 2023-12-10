@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
+import styles from "../styles/ConfirmationModal.module.css";
 
 /*
   Reusable Modal to offer a user the chance to Confirm or Cancel
@@ -15,19 +16,23 @@ const ConfirmationModal = ({
 	return (
 		<Modal
 			show={showModal}
-			onHide={handleClose}>
+			onHide={handleClose}
+			className={styles.CenteredModal}
+			centered>
 			<Modal.Header closeButton>
-				<Modal.Title>{title}</Modal.Title>
+				<Modal.Title className={styles.ModalTitle}>{title}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>{body}</Modal.Body>
 			<Modal.Footer>
 				<Button
-					variant='warning'
+					variant='outline-warning'
+					size='sm'
 					onClick={handleClose}>
 					Cancel
 				</Button>
 				<Button
-					variant='success'
+					variant='outline-success'
+					size='sm'
 					onClick={handleConfirm}>
 					Confirm
 				</Button>
