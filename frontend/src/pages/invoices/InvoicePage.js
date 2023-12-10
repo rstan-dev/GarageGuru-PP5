@@ -39,7 +39,7 @@ function InvoicePage() {
 		};
 
 		handleMount();
-	}, [id]);
+	}, [id, history]);
 
 	/**
 	 * Fetches job details associated with the invoice when the job_id is available.
