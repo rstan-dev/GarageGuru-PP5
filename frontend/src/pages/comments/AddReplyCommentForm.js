@@ -127,7 +127,7 @@ function AddReplyCommentForm(props) {
 				setSuccessMessage("Comment has been added successfully");
 				successTimeoutRef.current = setTimeout(() => {
 					setSuccessMessage("");
-				}, 1500);
+				}, 2500);
 
 				// Reset the comment input field
 				setComment_detail("");

@@ -89,7 +89,7 @@ const ChangePasswordForm = () => {
 			setTimeout(() => {
 				setSuccessMessage("");
 				history.goBack();
-			}, 1500);
+			}, 2500);
 		} catch (err) {
 			console.log(err);
 			setErrors(err.response?.data);

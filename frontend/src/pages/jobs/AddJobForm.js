@@ -202,7 +202,7 @@ function AddJobForm() {
 						setSuccessMessage("");
 						history.push(`/jobs/${data.id}`);
 					}
-				}, 1500);
+				}, 2500);
 			}
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {

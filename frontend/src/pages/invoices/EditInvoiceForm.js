@@ -213,7 +213,7 @@ function EditInvoiceForm() {
 			successTimeoutRef.current = setTimeout(() => {
 				setSuccessMessage("");
 				history.push("/");
-			}, 1500);
+			}, 2500);
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {
 				console.log(err);
@@ -247,7 +247,7 @@ function EditInvoiceForm() {
 			successTimeoutRef.current = setTimeout(() => {
 				setSuccessMessage("");
 				history.goBack();
-			}, 1500);
+			}, 2500);
 		} catch (err) {
 			console.log(err);
 		}

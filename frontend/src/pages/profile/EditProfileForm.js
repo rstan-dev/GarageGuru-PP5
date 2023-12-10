@@ -162,7 +162,7 @@ const EditProfileForm = () => {
 			setTimeout(() => {
 				setSuccessMessage("");
 				history.goBack();
-			}, 1500);
+			}, 2500);
 		} catch (err) {
 			if (err.response?.data) {
 				setErrors(err.response.data);
