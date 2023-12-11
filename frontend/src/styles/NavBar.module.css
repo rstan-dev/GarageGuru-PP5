@@ -43,7 +43,7 @@
 	padding-left: 5px;
 }
 
-/* White background for toggled dropdown menu on mobile */
+/* Blue background for toggled dropdown menu on mobile */
 @media (max-width: 991px) {
 	.NavbarCollapse {
 		background-color: #004aad;
@@ -58,5 +58,11 @@
 	/* Show the label next to the icon on mobile */
 	.NavLinks .Label {
 		display: inline;
+	}
+
+	/* Adds additional padding for smaller mobiles */
+	.NavBar {
+		padding-left: 40px;
+		padding-right: 45px;
 	}
 }
