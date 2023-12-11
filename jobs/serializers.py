@@ -3,6 +3,7 @@ Imports for JobSerializer
 """
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from .models import Job
 from invoices.serializers import InvoiceSerializer
 from watchers.models import Watch
@@ -29,6 +30,7 @@ class JobSerializer(serializers.ModelSerializer):
     comment_count = serializers.IntegerField(read_only=True)
     invoice_details = serializers.SerializerMethodField()
     watch_id = serializers.SerializerMethodField()
+    updated_at = serializers.SerializerMethodField()
 
     assigned_to = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), allow_null=True
@@ -36,16 +38,20 @@ class JobSerializer(serializers.ModelSerializer):
 
     # Formats date and time
     created_at = serializers.DateTimeField(
-        format="%Y-%m-%d %H:%M:%S", read_only=True
-    )
-    updated_at = serializers.DateTimeField(
-        format="%Y-%m-%d %H:%M:%S", read_only=True
+        format="%d %b %Y - %H:%M:%S", read_only=True
     )
     # Format with only date
-    due_date = serializers.DateField(format="%Y-%m-%d")
+    due_date = serializers.DateField(format="%d %b %Y")
+
+    def get_updated_at(self, obj):
+        """
+        Provides a human-readable representation of the comment's updated
+        time.
+        """
+        return naturaltime(obj.updated_at)
 
     def validate_image(self, value):
-        "check if file size is greater than 2mb"
+        # Check if file size is greater than 2mb
         if value.size > 1024 * 1024 * 2:
             raise serializers.ValidationError("Image size larger than 2mb!")
         if value.image.width > 2048:
