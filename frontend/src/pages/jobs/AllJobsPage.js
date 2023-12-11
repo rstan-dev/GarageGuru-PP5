@@ -23,7 +23,7 @@ import BackToTop from "../../components/BackToTop";
  * This component renders a page displaying all jobs with filtering and sorting capabilities.
  * It fetches job data from the server, displays job status counts, and handles query and ordering updates.
  **/
-function AllJobsPage({ filter = "" }) {
+function AllJobsPage({ filter = "", isWatchedJobsPage = false }) {
 	// Fetching current user details for authentication checks.
 	const currentUser = useCurrentUser();
 
@@ -81,6 +81,16 @@ function AllJobsPage({ filter = "" }) {
 		} catch (err) {
 			console.log(err);
 		}
+	};
+
+	// Handles the watch status change, passed to JobCard component
+	const handleWatchStatusChange = (jobId, newWatchId) => {
+		setJobs((prevJobs) => ({
+			...prevJobs,
+			results: prevJobs.results.map((job) =>
+				job.id === jobId ? { ...job, watch_id: newWatchId } : job
+			),
+		}));
 	};
 
 	/**
@@ -293,6 +303,8 @@ function AllJobsPage({ filter = "" }) {
 										setJobs={setJobs}
 										jobs={jobs}
 										onUnwatch={refetchJobsAndCounts}
+										onWatchStatusChange={(newWatchId) => handleWatchStatusChange(job.id, newWatchId)}
+										shouldRemoveOnUnwatch={isWatchedJobsPage}
 									/>
 								))}
 								dataLength={jobs.results.length}

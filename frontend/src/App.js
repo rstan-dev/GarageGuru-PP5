@@ -105,7 +105,10 @@ function App() {
 							<>
 								<FixedHeader text='Viewing Watched Jobs - watched by me' />
 								{currentUser ? (
-									<AllJobsPage filter={`watched_by=${currentUser.pk}&`} />
+									<AllJobsPage
+										filter={`watched_by=${currentUser.pk}&`}
+										isWatchedJobsPage={true}
+									/>
 								) : (
 									<Asset
 										spinner

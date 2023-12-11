@@ -69,12 +69,22 @@ function JobPage() {
 		};
 	}, [id, currentUser, history]);
 
+	// Handles the watch status change, passed to JobCard component
+	const handleWatchStatusChange = (newWatchId) => {
+		setJob((prevJob) => {
+			const updatedJob = { ...prevJob.results[0], watch_id: newWatchId };
+			return { results: [updatedJob] };
+		});
+	};
+
 	return (
 		<div>
 			<JobCard
 				{...job.results[0]}
 				commentsCount={commentsCount}
 				{...invoice.results[0]}
+				onWatchStatusChange={handleWatchStatusChange}
+				shouldRemoveOnUnwatch={false}
 			/>
 			{currentUser ? (
 				<>

@@ -38,6 +38,8 @@ const JobCard = (props) => {
 		jobs,
 		onUnwatch,
 		commentsCount,
+		onWatchStatusChange,
+		shouldRemoveOnUnwatch
 	} = props;
 
 	const {
@@ -83,28 +85,43 @@ const JobCard = (props) => {
 	const handleWatch = async () => {
 		try {
 			const { data } = await axiosRes.post("/watchers/", { job: id });
-			setJobs((prevJobs) => ({
-				...prevJobs,
-				results: prevJobs.results.map((job) => {
-					return job.id === id ? { ...job, watch_id: data.id } : job;
-				}),
-			}));
+			// Behavior for AllJobsPage
+			if (typeof setJobs === 'function') {
+				setJobs((prevJobs) => ({
+					...prevJobs,
+					results: prevJobs.results.map((job) =>
+						job.id === id ? { ...job, watch_id: data.id } : job
+					),
+				}));
+			} else {
+				// Behavior for JobPage (JobCard)
+				onWatchStatusChange(data.id);
+			}
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
-	// Handles logic for unwatching a job.
+	// Handles logic for unwatching a job, depending if its on Watched Jobs page
+	// or AllJobs Page or JobCard.
 	const handleUnwatch = async () => {
-		// Updates the UI by removing the unwatched job before calling axiosRes.delete.
 		try {
-			setJobs((prevJobs) => ({
-				...prevJobs,
-				results: prevJobs.results.filter((job) => job.id !== id),
-			}));
-
 			await axiosRes.delete(`/watchers/${watch_id}/`);
-			onUnwatch();
+			if (shouldRemoveOnUnwatch) {
+				// Behavior for Watched Jobs Page
+				onUnwatch();
+			} else if (typeof setJobs === 'function') {
+				// Behavior for AllJobsPage
+				setJobs((prevJobs) => ({
+					...prevJobs,
+					results: prevJobs.results.map((job) =>
+						job.id === id ? { ...job, watch_id: null } : job
+					),
+				}));
+			} else {
+				// Behavior for JobPage (JobCard)
+				onWatchStatusChange(null);
+			}
 		} catch (err) {
 			console.log(err);
 			// Reverts the state if there is an error.
