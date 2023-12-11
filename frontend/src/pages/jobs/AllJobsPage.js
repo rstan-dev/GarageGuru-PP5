@@ -61,7 +61,7 @@ function AllJobsPage({ filter = "", isWatchedJobsPage = false }) {
 				setStatusCounts(data.status_counts);
 				setHasLoaded(true);
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		};
 		setHasLoaded(false);
@@ -79,7 +79,7 @@ function AllJobsPage({ filter = "", isWatchedJobsPage = false }) {
 			setJobs(data);
 			setStatusCounts(data.status_counts);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 		}
 	};
 

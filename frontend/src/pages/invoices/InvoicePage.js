@@ -33,7 +33,7 @@ function InvoicePage() {
 				]);
 				setInvoice({ results: [invoice] });
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 				history.push('/404-error-page')
 			}
 		};
@@ -53,7 +53,7 @@ function InvoicePage() {
 					setJobDetails(jobData.data);
 				}
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		};
 		fetchJobData();

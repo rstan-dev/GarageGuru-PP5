@@ -133,7 +133,7 @@ function AddReplyCommentForm(props) {
 				setComment_detail("");
 			}
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setErrors({ message: ["There was an error submitting the form."] });
 		}
 	};

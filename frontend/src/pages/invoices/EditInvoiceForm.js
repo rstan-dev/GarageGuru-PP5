@@ -99,7 +99,7 @@ function EditInvoiceForm() {
 					invoice_status: data.invoice_status,
 				});
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		};
 		handleMount();
@@ -216,7 +216,7 @@ function EditInvoiceForm() {
 			}, 2500);
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {
-				console.log(err);
+				// console.log(err);
 				if (err.response.status !== 401) {
 					setErrors(err.response.data);
 				}
@@ -249,7 +249,7 @@ function EditInvoiceForm() {
 				history.goBack();
 			}, 2500);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 		}
 		setShowConfirmationModal(false);
 	};

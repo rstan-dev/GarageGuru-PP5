@@ -94,7 +94,7 @@ const ChangeUsernameForm = () => {
 				history.goBack();
 			}, 2500);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			setErrors(err.response?.data);
 		}
 	};
