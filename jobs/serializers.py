@@ -41,7 +41,7 @@ class JobSerializer(serializers.ModelSerializer):
         format="%d %b %Y - %H:%M:%S", read_only=True
     )
     # Format with only date
-    due_date = serializers.DateField(format="%d %b %Y")
+    due_date = serializers.DateField(format="%Y-%m-%d")
 
     def get_updated_at(self, obj):
         """

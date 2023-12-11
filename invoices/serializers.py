@@ -39,7 +39,7 @@ class InvoiceSerializer(serializers.ModelSerializer):
 
     # Format with only date
     inv_due_date = serializers.DateField(
-        source="due_date", format="%d %b-%Y"
+        source="due_date", format="%Y-%m-%d"
     )
 
     def get_inv_updated_at(self, obj):
