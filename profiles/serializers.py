@@ -1,6 +1,7 @@
 """
 Imports for Profile Serializers
 """
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Profile
 
@@ -14,6 +15,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     owner = serializers.ReadOnlyField(source="owner.username")
     is_owner = serializers.SerializerMethodField()
+    display_updated_at = serializers.SerializerMethodField(read_only=True)
 
     def get_is_owner(self, obj):
         """
@@ -24,12 +26,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     # Format with only date
     display_created_at = serializers.DateTimeField(
-        source="created_at", format="%Y-%m-%d", read_only=True
+        source="created_at", format="%d %b %Y", read_only=True
     )
-    # Format with date and time
-    display_updated_at = serializers.DateTimeField(
-        source="updated_at", format="%Y-%m-%d %H:%M:%S", read_only=True
-    )
+
+    def get_display_updated_at(self, obj):
+        """
+        Provides a human-readable representation of the object's updated time.
+        """
+        return naturaltime(obj.updated_at)
 
     def validate_image(self, value):
         "check if file size is greater than 2mb"

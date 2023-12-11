@@ -30,7 +30,7 @@ class JobSerializer(serializers.ModelSerializer):
     comment_count = serializers.IntegerField(read_only=True)
     invoice_details = serializers.SerializerMethodField()
     watch_id = serializers.SerializerMethodField()
-    updated_at = serializers.SerializerMethodField()
+    updated_at = serializers.SerializerMethodField(read_only=True)
 
     assigned_to = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), allow_null=True
