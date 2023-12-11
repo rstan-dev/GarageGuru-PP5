@@ -14,6 +14,7 @@ import InvoiceCard from "./InvoiceCard";
 import Asset from "../../components/Asset";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
+import BackToTop from "../../components/BackToTop";
 
 /**
  * AllInvoicesPage Component
@@ -104,13 +105,11 @@ function AllInvoicesPage() {
 				xl={10}
 				className='mx-auto'>
 				<div className={styles.CardBlock}>
-
-                    {/* Dashboard Section */}
+					{/* Dashboard Section */}
 					<Card className={styles.StatusCard}>
 						<p className={styles.DashboardHeadings}>Dashboard</p>
 						<div className={`row ${styles["StatusBlock"]}`}>
-
-                            {/* Pending Status */}
+							{/* Pending Status */}
 							<div className='col-md-4'>
 								<div
 									className={`card ${styles.CardPointer} ${
@@ -318,6 +317,9 @@ function AllInvoicesPage() {
 					/>
 				)}
 			</Col>
+			<div>
+				<BackToTop />
+			</div>
 		</Container>
 	);
 }

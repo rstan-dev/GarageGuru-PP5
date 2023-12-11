@@ -68,6 +68,7 @@ const ProfilePage = () => {
 				}
 			} catch (err) {
 				console.log(err);
+				history.push('/404-error-page')
 			}
 		};
 

@@ -22,6 +22,7 @@ import InvoicePage from "./pages/invoices/InvoicePage";
 import AllInvoicesPage from "./pages/invoices/AllInvoicesPage";
 import FixedHeader from "./components/FixedHeader";
 import Asset from "./components/Asset";
+import Footer from "./components/Footer";
 
 function App() {
 	const currentUser = useCurrentUser();
@@ -64,9 +65,7 @@ function App() {
 							<>
 								<FixedHeader text='Viewing My Jobs - created by me' />
 								{currentUser ? (
-									<AllJobsPage
-										filter={`owner__username=${currentUsername}&`}
-									/>
+									<AllJobsPage filter={`owner__username=${currentUsername}&`} />
 								) : (
 									<Asset
 										spinner
@@ -108,6 +107,7 @@ function App() {
 								{currentUser ? (
 									<AllJobsPage
 										filter={`watched_by=${currentUser.pk}&`}
+										isWatchedJobsPage={true}
 									/>
 								) : (
 									<Asset
@@ -256,10 +256,9 @@ function App() {
 					<Route render={() => <LoginForm />} />
 				</Switch>
 			</Container>
+			<Footer />
 		</div>
 	);
 }
 
 export default App;
-
-

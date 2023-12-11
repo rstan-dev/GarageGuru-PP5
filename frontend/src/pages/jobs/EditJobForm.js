@@ -224,7 +224,7 @@ function EditJobForm() {
 			successTimeoutRef.current = setTimeout(() => {
 				setSuccessMessage("");
 				history.push(`/jobs/${id}`);
-			}, 1500);
+			}, 2500);
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {
 				console.log(err);

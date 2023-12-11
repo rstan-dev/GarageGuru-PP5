@@ -1,0 +1,19 @@
+.UpArrowButton {
+	background-color: #004aad;
+	color: white;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	position: fixed;
+	bottom: 20px;
+	right: 40px;
+	padding: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	transition: opacity 0.2s ease-in-out;
+}
+
+.UpArrowButton:hover {
+	background-color: white;
+	color: #004aad;
+}

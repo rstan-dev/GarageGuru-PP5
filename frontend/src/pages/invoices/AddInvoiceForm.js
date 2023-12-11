@@ -156,7 +156,7 @@ function AddInvoiceForm() {
 			successTimeoutRef.current = setTimeout(() => {
 				setSuccessMessage("");
 				history.push(`/jobs/${jobId}`);
-			}, 1500);
+			}, 2500);
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {
 				console.log(err);
