@@ -59,11 +59,12 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "DEBUG" in os.environ
+DEBUG = "DEV" in os.environ
 
 ALLOWED_HOSTS = [
     os.environ.get("ALLOWED_HOST"),
-    "localhost",
+    'localhost',
+    'garageguru2023-9cc8e49ac2b8.herokuapp.com'
 ]
 
 
@@ -75,8 +76,8 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "cloudinary_storage",
     "django.contrib.staticfiles",
+    "cloudinary_storage",
     "cloudinary",
     "rest_framework",
     "django_filters",
@@ -100,6 +101,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -117,7 +119,7 @@ ROOT_URLCONF = "drf_api.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'staticfiles', 'build')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -189,6 +191,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+WHITENOISE_ROOT = BASE_DIR / 'staticfiles' / 'build'
 
 MEDIA_URL = "/media/"
 
