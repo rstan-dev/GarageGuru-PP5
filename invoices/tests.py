@@ -106,6 +106,9 @@ class InvoiceDetailViewTests(APITestCase):
         self.testuser2 = User.objects.create_user(
             username="testuser2", password="testpw1234"
         )
+        self.testuser3 = User.objects.create_user(
+            username="testuser3", password="testpw1234"
+        )
         self.test_job = Job.objects.create(
             owner=self.testuser1,
             job_type="MOT",
@@ -154,11 +157,17 @@ class InvoiceDetailViewTests(APITestCase):
         Tests a user can't update invoice details they don't own.
         Verified with a HTTP 403 status.
         """
-        self.client.login(username="testuser2", password="testpw1234")
-        response = self.client.put(
-            "/invoices/1/",
-            {"customer_firstname": "UPDATED FIRST NAME"},
-        )
+        self.client.login(username="testuser3", password="testpw1234")
+        data = {
+            "customer_firstname": "Updated_FirstName",
+            "customer_lastname": "UpdatedSecondName",
+            "inv_owner": "test_user1",
+            "job_id": "1",
+            "inv_due_date": "2023-11-15",
+            "invoice_status": "Pending",
+        }
+        url = f"/invoices/{self.invoice.id}/"
+        response = self.client.put(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_user_can_update_own_invoice(self):
