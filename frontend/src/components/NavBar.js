@@ -49,7 +49,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-circle-plus'
-					aria-hidden='true'></i>
+					aria-label='add job'></i>
 				<span className={styles.Label}>Add Job</span>
 			</NavLink>
 			<NavLink
@@ -59,7 +59,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-car'
-					aria-hidden='true'></i>
+					aria-label='all jobs'></i>
 				<span className={styles.Label}>All Jobs</span>
 			</NavLink>
 			<NavLink
@@ -68,7 +68,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-clipboard-list'
-					aria-hidden='true'></i>
+					aria-label='my jobs'></i>
 				<span className={styles.Label}>My Jobs</span>
 			</NavLink>
 			<NavLink
@@ -77,7 +77,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-people-group'
-					aria-hidden='true'></i>
+					aria-label='assigned jobs'></i>
 				<span className={styles.Label}>Assigned</span>
 			</NavLink>
 			<NavLink
@@ -86,7 +86,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-eye'
-					aria-hidden='true'></i>
+					aria-label='watched jobs'></i>
 				<span className={styles.Label}>Watching</span>
 			</NavLink>
 			<NavLink
@@ -95,7 +95,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-cash-register'
-					aria-hidden='true'></i>
+					aria-label='all invoices'></i>
 				<span className={styles.Label}>Invoices</span>
 			</NavLink>
 			<NavLink
@@ -105,7 +105,7 @@ const NavBar = () => {
 				onClick={handleLogOut}>
 				<i
 					className='fa-solid fa-power-off'
-					aria-hidden='true'></i>
+					aria-label='logout'></i>
 				<span className={styles.Label}>Logout</span>
 			</NavLink>
 			<NavLink
@@ -114,7 +114,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-circle-user'
-					aria-hidden='true'></i>
+					aria-label='register'></i>
 				<span className={styles.Label}>Profile</span>
 				<span className={styles.Username}>
 					Welcome: {currentUser?.username}
@@ -134,7 +134,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-right-to-bracket'
-					aria-hidden='true'></i>
+					aria-label='login'></i>
 				<span className={styles.Label}>Login</span>
 			</NavLink>
 			<NavLink
@@ -143,7 +143,7 @@ const NavBar = () => {
 				activeClassName={styles.Active}>
 				<i
 					className='fa-solid fa-user-plus'
-					aria-hidden='true'></i>
+					aria-label='register'></i>
 				<span className={styles.Label}>Register</span>
 			</NavLink>
 		</>
