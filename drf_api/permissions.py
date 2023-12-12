@@ -53,7 +53,8 @@ class IsOwnerOrReplyOwnerOrReadOnly(permissions.BasePermission):
 
         is_owner = obj.owner == request.user
 
-        # Checks if the object is a reply and if the user is the owner of this reply.
+        # Checks if the object is a reply and if the user is the owner
+        # of this reply.
         is_reply_owner = False
         if obj.parent:
             is_reply_owner = obj.owner == request.user

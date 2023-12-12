@@ -38,8 +38,8 @@ REST_FRAMEWORK = {
 }
 
 if "DEV" not in os.environ:
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-        'rest_framework.renderers.JSONRenderer',
+    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [
+        "rest_framework.renderers.JSONRenderer",
     ]
 
 REST_USE_JWT = True
@@ -63,8 +63,8 @@ DEBUG = "DEV" in os.environ
 
 ALLOWED_HOSTS = [
     os.environ.get("ALLOWED_HOST"),
-    'localhost',
-    'garageguru2023-9cc8e49ac2b8.herokuapp.com'
+    "localhost",
+    "garageguru2023-9cc8e49ac2b8.herokuapp.com",
 ]
 
 
@@ -101,7 +101,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -119,7 +119,7 @@ ROOT_URLCONF = "drf_api.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'staticfiles', 'build')],
+        "DIRS": [os.path.join(BASE_DIR, "staticfiles", "build")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -138,28 +138,15 @@ WSGI_APPLICATION = "drf_api.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# if "DATABASE_URL" not in os.environ:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": BASE_DIR / "db.sqlite3",
-#             "TEST": {
-#                 "NAME": BASE_DIR / "test_db.sqlite3",
-#             },
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-#     }
-
 DATABASES = {
-    'default': ({
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    } if 'DEV' in os.environ else dj_database_url.parse(
-        os.environ.get('DATABASE_URL')
-    ))
+    "default": (
+        {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+        if "DEV" in os.environ
+        else dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    )
 }
 
 # Password validation
@@ -200,7 +187,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-WHITENOISE_ROOT = BASE_DIR / 'staticfiles' / 'build'
+WHITENOISE_ROOT = BASE_DIR / "staticfiles" / "build"
 
 MEDIA_URL = "/media/"
 
