@@ -526,22 +526,118 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
   * [Back to Contents](#contents)
 
 ## DEPLOYMENT
-The summary of the steps to deployment are as follows:
-1.
+  This project was built as a unified project, the benefits of this approach were:
+   * CORS would not be an issue as requests and responses will come from a shared base URL, both in development and production environments.
+   * Terminal logs for the API would be visible while interacting with the React side of the project during development, making debugging significantly easier.
+   * Development of both the API and the React project could take place simultaneously.
+   * With the front and back-end applications on the same domain, Cookies (containing the JSONWebToken) required for authentication would not be blocked from being set on browsers that currently have cross-site tracking protection enabled by default.
 
-On completion of development, the following steps took place to deploy the final site to Heroku:
-1.
+  Initially, Django was installed following this Code Institute [DRF Cheatsheet](https://docs.google.com/document/d/1LCLxWhmW_4VTE4GXsnHgmPUwSPKNT4KyMxSH8agbVqU/edit#heading=h.mpopj7v69qqn)
+
+   1. Create a Cloudinary account and gather API key
+   2. Create ElephantSQL database and gather API key
+   3. Install Django
+   4. Create project
+   5. Install Cloudinary Storage
+   6. Install Pillow (image processing)
+   7. Update INSTALLED_APPs
+   8. Create env.py file
+       * Add CLOUDINARY_KEY (from Cloudinary API key)
+       * Add SECRET_KEY - (a unique password)
+       * ADD DATABASE_URL - (postgres ElephantSQL API key)
+       * ADD CLIENT_ORIGIN - (set to the value of your development environment URL, wrapped in quotes, prepended with https://)
+       * ADD ALLOWED_HOST - (set to the value of the development environment URL, wrapped in quotes)
+       * Add os.environ['DEBUG'] = '1'
+       * Add os.environ['DEV'] = '1'
+   9. Update settings.py
+       * CLOUDINARY_STORAGE
+       * Define Media Storage URL
+       * Set DEFAULT_FILE_STORAGE
+       * Set DATABASES
+
+  ### React was installed using the following steps
+
+   1. Create a folder in the root directory named “frontend”
+   2. Type “cd frontend” to change directory
+   3. Run this command: npx create-react-app . --template git+https://github.com/Code-Institute-Org/cra-template-moments.git --use-npm.
+   4. Remove redundant files from the frontend folder: rm -rf .git .gitignore README.md.
+   5. Freeze requirements
+   6. In settings.py remove all CORS code leaving only CORS_ALLOWED_ORIGINS
+   7. Add key to package.json - "proxy": "http://localhost:8000/"
+   8. Create “api” directory and axiosDefaults.js file in frontend/src/
+       * Add the following comment:
+       * // IMPORTANT!!
+       * // Because this React app is running in the same workspace as the API, there is no need to set a separate baseURL until you reach deployment. Setting a baseURL before you reach deployment will cause errors
+   9. Open the terminal and type python3 manage.py runserver - (the Django API will run on port 8000)
+   10. Open another terminal, cd frontend, and type npm start (the React application will run on port 8080 or 3000)
+   11. The React front-end logo should be visible.
+
+  ### Working in both the front and backend
+   1. Stop both servers
+   2. Set DEV in env.py - either commented out for frontend development or uncommented for backend dev.
+    * # os.environ['DEV'] = '1'
+   3. Start backend server: python3 manage.py runserver
+   4. Start frontend dir server: npm start
+
+  ### Deployment to Heroku involved the following steps and changes:
+   1. Setup WhiteNoise for static files
+      * pip3 install whitenoise==6.4.0
+      * pip3 freeze > requirements.txt
+   2. Create a new empty folder called staticfiles in the root directly
+      * mkdir staticfiles
+   3. In settings.py,
+      * ensure ‘cloudinary_storage’ app name is below ‘django.contrib.staticfiles’.
+      * Add WhiteNoise below SecurityMiddleware and above SessionMiddleware in MIDDLEWARE list 'whitenoise.middleware.WhiteNoiseMiddleware',
+      * In TEMPLATES list set the DIRS key: os.path.join(BASE_DIR, 'staticfiles', 'build')
+      * In the static files section, add the STATIC_ROOT and WHITENOISE_ROOT variables and values:
+        * STATIC_ROOT = BASE_DIR / 'staticfiles'
+        * WHITENOISE_ROOT = BASE_DIR / 'staticfiles' / 'build'
+   4. In urls.py
+        * remove root_route view from imports, replace with: from django.views.generic import TemplateView
+        * In urlpatterns remove root_route and replace with: path('', TemplateView.as_view(template_name='index.html')),
+        * Add 404 handler below urlpatterns: handler404 = TemplateView.as_view(template_name='index.html')
+        * Update all urls except home and admin with: api/
+   5. Update axiosDefaults with baseURL: axios.defaults.baseURL = “/api”;
+   6. Collect the admin and DRF staticfiles to the empty staticfiles directory you created earlier, with the following command in the terminal:
+       * python3 manage.py collectstatic
+       * cd frontend
+       * npm run build && mv build ../staticfiles/.
+   7. NOTE:  Anytime that static files are updated, including the react code:
+       * npm run build && rm -rf ../staticfiles/build && mv build ../staticfiles/.
+   8. Create a runtime.txt file and add the following: Python-3.9.16
+   9. Create a Procfile in the root directory and add: web: gunicorn drf_api.wsgi
+   10. Terminate all servers.
+       * Ensure DEBUG and DEV in env.py are commented out
+       * python3 manage.py runserver
+   11. Check project is displaying in the preview on port 8000
+   12. Log into your Heroku account, create a new app, and access the dashboard for your application
+   13. Go to Settings and open the Config Vars
+       * Add CLOUDINARY_KEY (the Cloudinary API key)
+       * Add SECRET_KEY - (the unique password)
+       * Add DATABASE_URL - (postgres ElephantSQL API key)
+       * Add CLIENT_ORIGIN - (set to the URL of the combined project, keeping the https:// at the beginning but removing the trailing slash at the end)
+       * Add ALLOWED_HOST - (set to the URL of your combined project, remove the https:// at the beginning and remove the trailing slash at the end)
+   14. Ensure your application has an ALLOWED_HOST key, set to the URL of your combined project, remove the https:// at the beginning and remove the trailing slash at the end
+   15. Ensure your application has a CLIENT_ORGIN key and set it to the URL of your combined project. This time keep the https:// at the beginning but remove the trailing slash at the end
+   16. Go to the Deploy tab, connect the project to GitHub, and choose main branch to deploy
+       * Click Deploy Branch (manually)
+       * (Optional) Select Enable Automatic Deploys
+
 
 * [Back to Contents](#contents)
 
 ## FORKING AND CLONING INSTRUCTIONS
-You can create a copy of a GitHub Repository without affecting the original by forking it. Here's a step-by-step guide:
+You can create a copy of a GitHub Repository without affecting the original by forking or cloning it.
+
+### Here's a step-by-step guide to forking:
+Forking is often used for proposing changes or using the project as a starting point for your own idea. Forking will apear on your GitHub profile.
 1. Log into GitHub or sign up for an account.
-2. Go to the Repo...
+2. Go to the [GarageGuru Repository](https://github.com/rstan-dev/GarageGuru-PP5)
 3. Click "Fork" on the right side of the repository's page to create a copy in your own repository.
 
-To clone a copy:
-1. Go to the Repo...
+### Here's a step-by-step guide to cloning:
+Cloning is oftne used for experimenting locally.  It will not show up on your GitHub profile.
+1. Go to the [GarageGuru Repository](https://github.com/rstan-dev/GarageGuru-PP5)
 2. Click the green code button, then the arrow, and select the "clone by https" option to copy the URL.
 3. Open your preferred code editor and navigate to the directory where you want to clone the repository.
 4. Type 'git clone', paste the copied URL, and press enter. The repository will then be cloned to your machine.
