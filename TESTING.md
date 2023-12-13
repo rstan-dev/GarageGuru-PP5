@@ -29,7 +29,6 @@
   ### Manual User Story Tests
   User story tests were conducted systematically, with any failing tests rectified.  A link to the Google Test Sheet [can be found here](https://docs.google.com/spreadsheets/d/1esaHTm738sbXP-JMxzEvQ63mgN3IazsXGUL8tRsX0ZI/edit#gid=165646488)
 
-  Each user story was tested again in the production version to ensure it matched the development version.
   <details>
     <summary>Click to View Manual User Story Test Evidence</summary>
       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test1.png">
@@ -41,6 +40,21 @@
       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test7.png">
       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test8.png">
       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test9.png">
+
+  </details>
+
+  Each user story was tested again in the production version to ensure it matched the development version.
+  <details>
+    <summary>Click to View Manual User Story Test Evidence</summary>
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/final_test1.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/final_test2.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/final_test3.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/final_test4.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/final_test5.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/final_test6.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/final_test7.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/final_test8.png">
+
 
   </details>
 
