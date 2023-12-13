@@ -171,17 +171,44 @@ The performance issues are related to image sizes which are managed in the backe
 
   <details>
     <summary>Click to View Browser Test Evidence</summary>
-      -
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_googlepixel5_firefox.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_androids23_chrome.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_ipad12.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_ipad12mini.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_iphone13.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_mac_firefox.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_mac_safari.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_windows_11_chrome.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/browserstack_windows_11_firefox.png">
 
   </details>
 
   * [Back to Contents](#contents)
 
   ### Automated Tests
+   * A total of 37 automated tests were written covering 95% of the code using the DjangoRESTFramework APITestCase library.
+   * The tests were set up using a TEST database.  These settings were changed to address certain deployment issues.  The code can be seen below.  Screen shot of test_db_settings
+   * The tests can be run by entering "python3 manage.py test" into the terminal. Tests covered 95% of the code and included tests on:
+     - Jobs
+     - Invoices
+     - Profiles
+     - Comments
+     - Watchers
+
+     * A total of 10 tests were run on the react code using Jest.  The tests can be run using npm test.
 
 
   <details>
     <summary>Click to View Automated Test Evidence & Coverage Report</summary>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/test_db_settings.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/api_test_jobs.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/api_test_invoices.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/api_test_profiles.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/api_test_comments.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/api_test_watchers.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/api_test_coverage1.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/api_test_coverage2.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/react_test_results.png">
 
 
   </details>
