@@ -23,7 +23,6 @@
   * [Tools and Libraries](#tools-and-libraries)
   * [React Components](#react-components)
   * [Refactoring Opportunities](#refactoring-opportunities)
-
 * [TESTING](#testing)
   * [Tests performed](#tests-performed)
   * [User Story Tests](#user-story-tests)
@@ -461,29 +460,68 @@ Due to time constraints on completing this project, I was unable to refactor all
 
 
 ## TESTING
-FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:]().
+FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.com/rstan-dev/GarageGuru-PP5/blob/main/TESTING.md).
 
   ### Tests performed
   The site was thoroughly tested during development with each feature tested before committing to GitHub.  The testing regime included the following:
-  1.
+  1. Incremental development and live testing.
+  2. Django Models Automated Testing using Jest.
+  3. Early user observation test.
+  4. React Tests.
+  5. Manual user story tests.
+  6. Django re-run and additional automated testing .using jest
+  7. HTML, CSS, ESLINT, PYLINT, Lighthouse tests.
+  8. Browser Compatibility tests.
+  9. Final Production user tests
 
   ### User Story Tests
-  Each user story was tested manually according to a structured test sheet [VIEW IT HERE:](), with results being recorded and any failures rectified.
+  Each user story was tested manually according to a structured test sheet [VIEW IT HERE:](https://docs.google.com/spreadsheets/d/1esaHTm738sbXP-JMxzEvQ63mgN3IazsXGUL8tRsX0ZI/edit#gid=165646488), with results being recorded and any failures rectified.
 
   * [Back to Contents](#contents)
 
   ### Bugs resolved:
-  The following bugs were recorded and rectified [See test sheet]()
-  1.
+  The following bugs were recorded and rectified [See test sheet](https://docs.google.com/spreadsheets/d/1esaHTm738sbXP-JMxzEvQ63mgN3IazsXGUL8tRsX0ZI/edit#gid=165646488)
+  1. Initially, there was a console warning “Access to XMLHttpRequest…from origin…has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+    * This was resolved by replacing and setting up the CI template correctly which had a lot of necessary settings
+  2. When refreshing the JobCard page the user was logged out.
+    * This was resolved by adding a missing / in axiosRes.get('/dj-rest-auth/user').  Helpfully discovered by tutor support.
+  3. Status Counts were not decrementing correctly.
+    * This was resolved by overriding the list and creating a function to calculate status counts on a distinct list of jobs by id in Jobs Views.py.
+  4. Watched Jobs icon was not toggling on correctly on JobCard, AllJobs page and WatchedJobs page.
+    * Due to the complexity of the architecture, several attempts were made to resolve this,  Eventually, a Route prop was passed from App.js to AllJobs page, depending on if it was filtering for Watched Jobs or not.  A handleWatchStatusChange function was passed to JobCard.  A similar function was added to JobPage which passed a prop to JobCard.  The behaviour of the watch icon could then be managed depending on which page was serving the JobCard.
+  5. Deleting a reply was not working.
+     * This was resolved by creating a custom permission and updating the handleDelete function in EditCommentForm to filter out deleted comments to ensure a state update.
+
 
   * [Back to Contents](#contents)
 
   ### Unresolved bugs:
+  There are no known bugs at this time
 
 
   ### Improvements and future developments:
-  The following items have been identified for future development:
-  1.
+  The app was initially built with enough basic fields and functionality to ensure I could deliver an MVP that would meet assessment criteria within the allocated time frame.
+
+  There is scope to improve the app that would enhance the user experience and add more valuable functions, that could easily be developed on top of the existing structure:
+
+  * Create a Manager Profile who has access to all profiles, jobs and invoices on the front end, to allow moderation and site overrides.  Currently, this work can be undertaken in the Django Admin area which has not been configured for any UX.
+
+  * Upgrade to Bootstrap 5 - will allow improved design and functionality for the Accordion and Modal components - negating the need for the deprecated findDOMNode method.
+
+  * The app has scope to extend its usability.  Additional fields can be added to the JobCard to capture more vehicle details.
+
+  * An Overdue status was originally added to the Job Status dropdown and is available as a choice in the model.  However, due to time constraints, this was omitted from the dashboard design.  It might be useful to filter and see Overdue Jobs
+
+  * Reports would be useful to the business to summarize Jobs and Invoices by User, Customer, Vehicle Type, Month, Job Type, Amount etc
+
+  * Additional functionality could be added to the Invoice module to be able to create and email the customer a PDF invoice.
+
+  * Additional fields could be added to the Profile Model allowing the user to update their email address and other contact details.
+
+  * A customer profile model and a resource availability model could be created allowing them to book a service for their own vehicle.
+
+  * There is scope to adapt this for other service businesses that need to track job details with an invoice function.
+
 
   * [Back to Contents](#contents)
 
