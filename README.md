@@ -19,7 +19,11 @@
 * [FEATURES](#features)
 * [VALIDATION](#validation)
 * [TECH STACK](#tech-stack)
-* [MODULES & LIBRARIES](#modules-and-libraries)
+  * [Languages and Frameworks](#languages-and-frameworks)
+  * [Tools and Libraries](#tools-and-libraries)
+  * [React Components](#react-components)
+  * [Refactoring Opportunities](#refactoring-opportunities)
+
 * [TESTING](#testing)
   * [Tests performed](#tests-performed)
   * [User Story Tests](#user-story-tests)
@@ -236,41 +240,41 @@ Goals for the Site Owner
 
    * [Back to Contents](#contents)
 
-   ### Imagery
-   I used FontAwesome https://fontawesome.com/ for various icons in the navbar, JobCard, and other places for visual effects.
+  ### Imagery
+   - I used FontAwesome https://fontawesome.com/ for various icons in the navbar, JobCard, and other places for visual effects.
 
- <br>
+   <br>
 
-  I used [Unsplash](https://unsplash.com/) to populate the site with realistic royalty-free images while testing.
+   - I used [Unsplash](https://unsplash.com/) to populate the site with realistic royalty-free images while testing.
 
   * [Back to Contents](#contents)
 
-   ### Typography
+  ### Typography
    * I used a default Google font of Raleway and sans serif throughout the website for visual clarity and consistency.
 
 
-   ### MVP
-   Using the GitHub project board I prioritised user stories to give me an incremental MVP.
+  ### MVP
+  Using the GitHub project board I prioritised user stories to give me an incremental MVP.
 
-At each stage of achieving an MVP, I would aim to complete a piece of functioning work.  Styling issues would be noted as a small-item, logged to the Kanban board and I would revisit to make incremental visual improvements once the functionality logic was completed.
+  At each stage of achieving an MVP, I would aim to complete a piece of functioning work.  Styling issues would be noted as a small-item, logged to the Kanban board and I would revisit to make incremental visual improvements once the functionality logic was completed.
 
-Every commit message thoroughly detailed the work that had been completed.  Some of the more complex pieces of functionality required updates and development across several pages for the functions to work as expected and this was captured in the commit history.
+  Every commit message thoroughly detailed the work that had been completed.  Some of the more complex pieces of functionality required updates and development across several pages for the functions to work as expected and this was captured in the commit history.
 
-1. I created the basic models for profiles and jobs first so I could upload information to pull into the front end.
-2. I built the Navbar and routes
-3. I built the Login, Logout and registration functionality
-4. I built the Profile Area with CRUD functionality
-5. I built the Jobs section with CRUD functionality
-6. I built the comments section below each job card with CRUD functionality
-7. I built the Invoice Model and frontend components and linked them to the relevant JobCard
-8. I built the Watch Jobs functionality and views
-9. I built the filters and views for My Jobs and Assigned Jobs
+  1. I created the basic models for profiles and jobs first so I could upload information to pull into the front end.
+  2. I built the Navbar and routes
+  3. I built the Login, Logout and registration functionality
+  4. I built the Profile Area with CRUD functionality
+  5. I built the Jobs section with CRUD functionality
+  6. I built the comments section below each job card with CRUD functionality
+  7. I built the Invoice Model and frontend components and linked them to the relevant JobCard
+  8. I built the Watch Jobs functionality and views
+  9. I built the filters and views for My Jobs and Assigned Jobs
 
 
    * [Back to Contents](#contents)
 
 ## FEATURES
-* The following fully responsive webiste pages have been implemented:
+* The following fully responsive website pages have been implemented:
 1. Register
 2. Login
 3. AllJobs with Status Dashboard, filter and search functionality
@@ -306,30 +310,36 @@ Every commit message thoroughly detailed the work that had been completed.  Some
   * [Back to Contents](#contents)
 
 * UX features and User Interactions to note:
-- Users can always see where they are by the nav icon that highlights yellow or by the breadrcumb Viewing bar at the top of each screen.
-- Users can hover over each icon in the NavBar to see the Nav label, and Users will know they are logged in by seeing their name next to the Profile link.
-- All user can access their own Profile page where they can view or edit their profile, username or password.
-- Users can view All the jobs, jobs only created by them or jobs assigned to them.
-- A dashboard allows them to organise each view according to its status and the status counter lets the user filter by and know at all times how many jobs are Pending, Underway or Completed.
-- Users can filter by jobs that are recently created, recently updated or by their due date
-- Users can enter a keyword to search by job type, description, created by or assigned to.
-- On each job card, users can click through to view the profiles of the user who created the job or the user who is assigned to the job.
-- Jobs can be edited by the person who created them which allows updates to any of the fields including the image.
-- Jobs will also allow the two users involved in the job - those who created it and those who are assigned to the job to add an invoice.
-- Any user can view the invoice summary by opening the Accordion feature Click To View Invoice Summary, where they can find a button to view the invoice card or Edit it if they have permission.
-- Users can also click an eye icon which will add the job to a Watch list if they want to keep track of a job
-- Users will see if any comments have been left on a job and will know the amount of comments that have been left on that specific job.
-- Users can click on the comment bubble icon and view the job card, and invoice summary, leave a comment, leave a reply to a comment and edit or delete any of their comments.
-- Users can view all invoices in the system and use familiar dashboard features to view and filter the status, order by dates and search using keywords
-- On each invoice card, users can click through to view the profiles of the user who created the invoice or the user who is assigned to the job.
-- Invoices can be edited only by those who created or were assigned to the job can edit an invoice.
-- Any users can click on the View Job Summary accordion and find a link to view the full job card
-- Any user can click the BackToTop button incorporated on Jobs and Invoices pages to help navigate long page lists.
+  - Users can always see where they are by the nav icon that highlights yellow or by the breadrcumb Viewing bar at the top of each screen.
+  - Users can hover over each icon in the NavBar to see the Nav label, and Users will know they are logged in by seeing their name next to the Profile link.
+  - All user can access their own Profile page where they can view or edit their profile, username or password.
+  - Users can view All the jobs, jobs only created by them or jobs assigned to them.
+  - A dashboard allows them to organise each view according to its status and the status counter lets the user filter by and know at all times how many jobs are Pending, Underway or Completed.
+  - Users can filter by jobs that are recently created, recently updated or by their due date
+  - Users can enter a keyword to search by job type, description, created by or assigned to.
+  - On each job card, users can click through to view the profiles of the user who created the job or the user who is assigned to the job.
+  - Jobs can be edited by the person who created them which allows updates to any of the fields including the image.
+  - Jobs will also allow the two users involved in the job - those who created it and those who are assigned to the job to add an invoice.
+  - Any user can view the invoice summary by opening the Accordion feature Click To View Invoice Summary, where they can find a button to view the invoice card or Edit it if they have permission.
+  - Users can also click an eye icon which will add the job to a Watch list if they want to keep track of a job
+  - Users will see if any comments have been left on a job and will know the amount of comments that have been left on that specific job.
+  - Users can click on the comment bubble icon and view the job card, and invoice summary, leave a comment, leave a reply to a comment and edit or delete any of their comments.
+  - Users can view all invoices in the system and use familiar dashboard features to view and filter the status, order by dates and search using keywords
+  - On each invoice card, users can click through to view the profiles of the user who created the invoice or the user who is assigned to the job.
+  - Invoices can be edited only by those who created or were assigned to the job can edit an invoice.
+  - Any users can click on the View Job Summary accordion and find a link to view the full job card
+  - Any user can click the BackToTop button incorporated on Jobs and Invoices pages to help navigate long page lists.
 
   <details>
     <summary>Click to View UX Features Images</summary>
-    - <img src=""><br>
-
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/navbar.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/dashboard.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_editing.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_adding_invoice.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/view_invoice_accordion.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/commenting_and_watching.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/back_to_top.png"><br>
 
   </details>
 
@@ -337,35 +347,118 @@ Every commit message thoroughly detailed the work that had been completed.  Some
 
 ## VALIDATION
 Various validation methods have been incorporated:
- 1.
+ 1. Onscreen success messages after user actions
+ 2. Onscreen warnings if form fields have been omitted
+ 3. Onscreen modal confirmation step before updating or deleting items
+ 4. No-Data to display icon
+ 5. Custom 404 page for redirecting logged-in users to non-existing pages
+ 6. General catch-all redirects for logged-out users to the Login page for non-existing pages.
+ 7. Date validation to prevent booking or invoicing a past date
+ 8. Image validation to prevent oversized images from being uploaded
+ 9. Infinite scroll on jobs and invoices to reduce server load
+ 10. Form validation to capture email and phone formats correctly
+
 
  <details>
   <summary>Click to View Validation Images</summary>
-  <img src=""><br>
+
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_of_action.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/frontend_warning_messages.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_modal.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/no_jobs_icon.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/custom_404_page.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/date_validation.png"><br>
+
 
 </details>
 
  * [Back to Contents](#contents)
 
 ## TECH STACK
-The site has been built with the following tech and tools:
-1.
+The site has been built with the following tech, tools and libraries
+
+### Languages and Frameworks
+
+* HTML5
+* CSS
+* JavaScript
+* React - javascript library
+* JSX - syntax extension for JavaScript
+* Python
+* Django - web framework
+* Django REST Framework - API framework
+* Django CORS - handles Cross Origin Resource Sharing
+* Django AllAuth - user authentication
+* Django Filter - filtering querysets
+* Psycopg2 - postgreSQL adapter for python
+* ElephantSQL - database hosting
+* Axios - promise API
+* JWT - JSON web token
+* Cloudinary - media hosting
+* Pillow - python image processing library
+* Gunicorn - WSGI HTTP server for UNIX
+* Bootstrap 4 and react-bootsrap - frontend responsive styling framework
+* Heroku - live site hosting
+
+
+### Tools and Libraries
+* GitHub Projects - agile management, kanban, roadmap and milestones
+* GitHub Repo - code storage
+* Git - version control
+* GitPod & VS Code - IDE
+* [Balsamiq](https://balsamiq.com/) - wireframes
+* [Coolors](https://coolors.co) - pallette generator
+* [Image resizer](https://www.reduceimages.com/)
+* [Canva](https://www.canva.com/) - artwork
+* Google Fonts
+* [Lucid Chart](https://lucid.app/) - database schema
+* [Favicon](https://favicon.io/favicon-converter/) - favicon generator
+* [Responsive Image generator](https://ui.dev/amiresponsive)
+* [BrowserStack](https://live.browserstack.com/) Browser Compatability Tests
+* [Unsplash](https://unsplash.com/) - stock images
+* [FontAwesome](https://fontawesome.com/) - icons
+* [W3C HTML Validator](https://validator.w3.org/)
+* [W3C CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator/)
+* LightHouse
+* Chrome Dev Tools
+* [PycodeStyle](https://pypi.org/project/pycodestyle/)
+* [CI Python Linter](https://pep8ci.herokuapp.com/)
+* Black - code formatter for python
+* Prettier - code formatter for html, css and javascript
+* ESLint - code analysis tool
+* APITestCase - DjangoRESTFramework test library
+* Jest - frontend testing library
+* MSW - Mock Service Worker for front-end testing
+* Coverage - measures code coverage of Python programs
+* Whitenoise - serving static files
+* React Router
+* React Infinite Scroll
+
+### React Components
+
+React’s strengths come from reusable components.
+The following components were built and reused in different parts of the application:
+* < AllInvoicesPage />  - the main page that was used for viewing All Jobs, My Jobs, Assigned Jobs and Watched Jobs
+* < Asset /> - used to display a spinner icon while loading data
+* < BackToTop /> -  used to quickly navigate the user back to the top of the page
+* < ConfirmationModal /> - used to add a confirmation layer for users before updating or deleting content
+* < FixedHeader /> - used to create a breadcrumb bar for viewing status
+* < Footer /> - used on the Login and register screen
+* < NavBar /> - used above every page
+* < Page Not Found /> - used as a landing page for any redirects
+* < TimedAlert > - used to control how long alert and success messages are displayed on screen
+
+
+### Refactoring Opportunities
+
+Due to time constraints on completing this project, I was unable to refactor all of the code.  Two notable components could help streamline the app further:
+
+1. Dashboard used in All Jobs Page and All Invoices Page
+2. Accordion used in JobCard and InvoiceCard
+3. Confrimation Modal used in Editing Jobs, Editing Invoices, Editing Profiles, and Deleting Jobs and Deleting Invoices.
 
 * [Back to Contents](#contents)
 
-### Tools used
-- [Canva Artwork](https://www.canva.com/).
-- [Lucid Chart](https://lucid.app/) - schema and flow diagrams.
-- [Favicon generator](https://favicon.io/favicon-converter/).
-- [Responsive Image generator](https://ui.dev/amiresponsive).
-- [Browserstack Browser Compatability](https://www.browserstack.com/).
-
-* [Back to Contents](#contents)
-
-## MODULES AND LIBRARIES
-   * font-awesome - icons.
-
-* [Back to Contents](#contents)
 
 ## TESTING
 FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:]().
