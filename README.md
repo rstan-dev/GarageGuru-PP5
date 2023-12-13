@@ -1,6 +1,7 @@
 # Project Name - GarageGuru
 
-* [Link to Deployed Project]()
+
+* [Link to Deployed Project](https://garageguru2023-9cc8e49ac2b8.herokuapp.com/)
 
 ## CONTENTS
 * [USER EXPERIENCE (UX)](#user-experience)
@@ -40,37 +41,67 @@
 
    ### Purpose and target audience
 
-GarageGuru is a Job Card management system for a vehicle service and repair centre...
+GarageGuru is a collaborative job management app aimed at vehicle service centres.
 
-<img src="">
+It is designed with the employee in mind, where jobs can be created, and assigned to different users, and job status can be tracked. Jobs can be viewed, watched, edited, filtered and searched.  In addition, an invoice can be created and its status can also be separately managed.
+
+Each job card also has a comments section where users can collaborate on the job and specific comments in the form of a conversation thread.
+
+This fully responsive accessible website can be used on a  desktop or the employee's mobile device on the workshop floor.
+
+
+<img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/site_images/hosted_site.png">
 
 * [Back to Contents](#contents)
 
   ### Goals
 Goals for the first time user
-1. To have an intuitive website with straightforward navigation that is fully responsive.
-2.
+1. To be able to create an account easily.
+2. To be able to customise and update their profile.
+3. To easily understand what the app is supposed to do and how to navigate it on a desktop or mobile device.
+4. To easily be able to Add a Job, choose from a selection of job types, assign a job by default to themselves, or to be able to select another user.
+5. To be able to select a due date for the job, while defaulting to the current day.
+6. To be unable to choose a date in the past.
+7. To be able to watch various jobs and view them on a dashboard.
+8. To be able to view the jobs they have created on a dashboard.
+9. To be able to view jobs assigned to them on a specific dashboard.
+10. To be able to easily create and edit an invoice associated with a job.
+11. To be able to leave comments about any job.
+12. To view all the invoices in the system and manage their status.
 
 Goals for the returning user
-1.
+1. All the pages of the app should be secure, so once logged out, the only way to access any pages is via the login page.
+The app should feel familiar to the returning user.
+2.
 
 Goals for the Administrator
-1.
+1. The administrator can easily update or override any information on the backend as a superuser.
+
+Goals for the Site Owner
+1. The app should have the capacity to scale.
+2. More choices of services can easily be added and customised for different businesses.
+3. Images are validated to ensure they are not oversized dragging on site performance and storage resources.
+4. Jobs, invoices and comments are pulled as required, to avoid dragging on site performance and storage resources.
+
 
 * [Back to Contents](#contents)
 
 ## PROJECT DESIGN
 
   ### Agile Approach
-  From the start the project was managed using [GitHub Projects (View Here - ensure labels are activated)](https://github.com/users/rstan-dev/projects/8/views/2), using an agile approach.
+  From the start the project was managed using [GitHub Projects (View Here - ensure labels are activated)](https://github.com/users/rstan-dev/projects/8/views/2?filterQuery=), using an agile approach.
   - The project goals were broken into epics, which were broken into user stories with acceptance criteria and individual tasks.
   - Each user story was allocated a certain number of story points based on a rough estimation of time to complete the work.
   - This allowed me to create a roadmap with milestones and target dates. [View Roadmap Here(ensure milestone and start date markers are activated)](https://github.com/users/rstan-dev/projects/8/views/1)
   - Each User Story was assigned a label according to the MoSCoW system so I could prioritise the work.
-<img src="">
+<img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/moscow_labels.png">
 
   ### Wireframes
    The initial wireframes were created in [Balsamiq](https://balsamiq.cloud/) to understand how the site would work, and this layout would drive User Stories, the logic required and overall design artwork decisions.
+   The final app deviated slightly in a couple of areas as improvements were made while the site was being built and user functions could be tested.
+
+   The Invoice functionality was added midway through the project because I felt not only would it complete the app, but it would add a layer of much-needed functionality.  The Comments functionality was also enhanced later in the project when I added the ability to leave a reply to a comment, ensuring it was a fully collaborative system.
+
 
    - <img src="">
 
@@ -319,6 +350,6 @@ The following precautions were taken regarding the security of the site:
   * [Back to Contents](#contents)
 
   ### Acknowledgements
-  * Thanks to 
+  * Thanks to
 
   * [Back to Contents](#contents)
