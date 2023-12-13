@@ -5,9 +5,9 @@
   * [Manual User Story Tests](#manual-user-story-tests)
   * [HTML](#html)
   * [CSS](#css)
-  * [Lighthouse](#lighthouse)
   * [ESLINT](#eslint)
-  * [PYLINT](#pylint)
+  * [PYLINT & PEP8](#pylint-and-pep8)
+  * [Lighthouse](#lighthouse)
   * [Browser Compatability](#browser-compatability)
   * [Automated Tests](#automated-tests)
 
@@ -15,18 +15,32 @@
 
 
 ## TESTS PERFORMED
-  The site was thoroughly tested during development with each feature tested before committing to GitHub.  The testing regime included:
-  1. Incremental testing
+  The site was thoroughly tested during development with each feature tested before committing to GitHub. The testing regime included:
+  1. Incremental preview testing
+  2. Django Automated Tests
   2. Early user observation test
-  3. Manual user story tests
-  4.
+  3. Manual user story tests on the dev app
+  4. Django Automated Tests checks and updates
+  5. React Automated Tests
+  5. HTML, CSS, ESLINT, PYLINT, Lighthouse
+  6. Browser Compatability Tests
+  7. Manual user story tests on the production app
 
   ### Manual User Story Tests
-  User story tests were conducted systematically, with any failing tests rectified.  A link to the Google Test Sheet [can be found here]()
+  User story tests were conducted systematically, with any failing tests rectified.  A link to the Google Test Sheet [can be found here](https://docs.google.com/spreadsheets/d/1esaHTm738sbXP-JMxzEvQ63mgN3IazsXGUL8tRsX0ZI/edit#gid=165646488)
+
+  Each user story was tested again in the production version to ensure it matched the development version.
   <details>
     <summary>Click to View Manual User Story Test Evidence</summary>
-      - <img src="">
-
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test1.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test2.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test3.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test4.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test5.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test6.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test7.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test8.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/manual_test9.png">
 
   </details>
 
@@ -37,7 +51,17 @@
 
   <details>
     <summary>Click to View HTML Test Evidence</summary>
-      -
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_add_invoice.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_addjob.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_all_invoices.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_all_jobs.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_edit_invoice.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_edit_job.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_job_id.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_login.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_profile_page.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_edit_profile.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_register.png">
 
   </details>
 
@@ -48,52 +72,95 @@
 
   <details>
     <summary>Click to View CSS Test Evidence</summary>
-      -
+       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_add_invoice.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_addjob.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_all_invoices.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_alljobs.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_edit_invoice.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_edit_job.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_edit_profile.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_job_id.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3c_login.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_profile.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/w3jigsaw_register.png">
 
   </details>
 
    * [Back to Contents](#contents)
 
-   ### JSHINT
+   ### ESLINT
   All JS pages were checked with [ESLINT]
 
   <details>
     <summary>Click to View ESLINT Test Evidence</summary>
-      -
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/eslint_results.png">
 
   </details>
 
   * [Back to Contents](#contents)
 
-  ### PYLINT
+  ### PYLINT AND PEP8
   All Python pages were checked with [CODE INSTITUTES PYTHON LINTER](https://pep8ci.herokuapp.com/)
 
   <details>
     <summary>Click to View PYLINT Test Evidence</summary>
-      -
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_comments_admin.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_comments_model.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_comments_serializer.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_comments_tests.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_comments_urls.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_comments_views.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_drf_permissions.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_drf_serializers.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_drf_urls.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_drf_views.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_invoices_admin.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_invoices_models.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_invoices_serializer.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_invoices_tests.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_invoices_urls.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_invoices_views.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_jobs_admin.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_jobs_choices.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_jobs_models.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_jobs_serializer.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_jobs_tests.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_jobs_urls.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_jobs_views.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_profiles_models.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_profiles_serializer.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_profiles_tests.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_profiles_urls.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_profiles_views.png">
+       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_watchers_models.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_watchers_serializer.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_watchers_tests.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_watchers_urls.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/pep8_watchers_views.png">
 
   </details>
 
   * [Back to Contents](#contents)
 
   ### LIGHTHOUSE
-  A lighthouse report was run on the site following deployment on the Home Page and Dashboard Page
-  * The performance issues are related to image sizes and have been noted in the Future Enhancements
+  A lighthouse report was run on the site on the following pages to ensure accessibility criteria was met
+   * AllJobs
+   * AllInvoices
+   * EditInvoices
+   * EditJob
+   * Jobcard
+   * ProfilePage
+
+The performance issues are related to image sizes which are managed in the backend.  A certain resolution is needed for good quality and as the app is fully responsive the images need to be flexible according to the container size - so this item has been left.
 
   <details>
     <summary>Click to View LightHouse Test Evidence</summary>
-      -
-
-  </details>
-
-  * [Back to Contents](#contents)
-
-  ### PEP8
-  During development, any PEP8 problems in the IDE tab were addressed.  The following were left as they are in the settings and env.py files and relate to specific links or security keys.
-
-  <details>
-    <summary>Click to View PEP8 Evidence</summary>
-      -
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_all_jobs.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_allinvoices.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_edit_invoices.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_edit_job.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_job_card.png">
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_profilepage.png">
 
   </details>
 
