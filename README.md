@@ -119,7 +119,7 @@ Goals for the Site Owner
    <br>
 
    New wireframe for including the invoice module was conceived halfway through the project.
-   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/wf_new alljobs.png">
+   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/wf_newalljobs.png">
    </details>
 
 * [Back to Contents](#contents)
@@ -214,23 +214,23 @@ Goals for the Site Owner
   * [Back to Contents](#contents)
 
   ### Color Scheme
-  The main colours of blue, white and grey were chosen for maximum contrast. I used Coolors to generate a colour palette.
+  The main colours of blue, white and grey were chosen for maximum contrast. I used [Coolors](https://coolors.co) to generate a colour palette.
 
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/color_pallette.png">
 
   I used [Canva](https://www.canva.com/) to generate a logo and a style guide.
 
-  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/site_images/garage_guru_logo.png">
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/site_images/garageguru_logo.jpg">
 
   <details>
     <summary>Click to View More Color Scheme Images</summary>
 
     With a color palette in mind, I could create a project style guide:
 
-    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/garage_guru_project_colors.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/garageguru_project_colors.jpg">
 
     <br>
-  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/gg_icon.png">
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/site_images/gg_icon.png">
 
   </details>
 
@@ -238,37 +238,10 @@ Goals for the Site Owner
 
    ### Imagery
    I used FontAwesome https://fontawesome.com/ for various icons in the navbar, JobCard, and other places for visual effects.
-- All Jobs - <i class="fa-solid fa-car"></i>
-- My Jobs - <i class="fa-solid fa-clipboard-list"></i>
-- Add Job - <i class="fa-solid fa-circle-plus"></i>
-- Assigned Jobs - <i class="fa-solid fa-people-group"></i>
-- Login - <i class="fa-solid fa-right-to-bracket"></i>
-- Log out - <i class="fa-solid fa-right-from-bracket"></i>
-- Register - <i class="fa-solid fa-user-plus"></i>
-- Profile - <i class="fa-solid fa-circle-user"></i>
-- Pending - <i class="fa-solid fa-bell-concierge"></i>
-- Underway - <i class="fa-solid fa-hourglass-half"></i>
-- Completed - <i class="fa-solid fa-flag-checkered"></i>
-- Job type - <i class="fa-solid fa-wrench"></i>
-- Details - <i class="fa-solid fa-circle-info"></i>
-- Created_by - <i class="fa-solid fa-user"></i>
-- Created_on - <i class="fa-solid fa-calendar-days"></i>
-- Updated_on - <i class="fa-regular fa-calendar-plus"></i>
-- Due date_on - <i class="fa-regular fa-calendar-check"></i>
-- Assigned to - <i class="fa-solid fa-person"></i>
-- Status - <i class="fa-solid fa-circle-question"></i>
-- Pencil - <i class="fa-solid fa-pencil"></i>
-- Eyes - <i class="fa-regular fa-eye"></i> and  <i class="fa-solid fa-eye"></i>
-- Speech bubble - <i class="fa-regular fa-comment"></i> and  <i class="fa-solid fa-comment"></i>
-- Default car pic - <i class="fa-solid fa-car-side"></i>
-- No jobs found clipboard - <i class="fa-solid fa-clipboard-question"></i>
-- Upload image - <i className="fas fa-upload"></i>
-- Cash register - <i class="fa-solid fa-cash-register"></i>
-- Traffic Light - <i class="fa-solid fa-traffic-light"></i>
 
-<br>
+ <br>
 
-I used [Unsplash](https://unsplash.com/) to populate the site with realistic royalty-free images while testing.
+  I used [Unsplash](https://unsplash.com/) to populate the site with realistic royalty-free images while testing.
 
   * [Back to Contents](#contents)
 
@@ -297,21 +270,61 @@ Every commit message thoroughly detailed the work that had been completed.  Some
    * [Back to Contents](#contents)
 
 ## FEATURES
-The following features have been implemented:
-1. Fully responsive website consisting of:
-  - Home.
+* The following fully responsive webiste pages have been implemented:
+1. Register
+2. Login
+3. AllJobs with Status Dashboard, filter and search functionality
+4. MyJobs with Status Dashboard, filter and search functionality
+5. Assigned Jobs with Status Dashboard, filter and search functionality
+6. Watched Jobs with Status Dashboard, filter and search functionality
+7. Job Card with comments and links to assigned user profile, invoice, and conditional editing and ability to watch a job
+8. Add Invoice functionality with custom validation and alerts
+9. AddJob form with custom validation and alerts
+10. All Invoices with Status Dashboard, filter and search functionality, links to conditional editing, assigned users and relevant JobCard
+11. Profile page with editing functionality and custom validation
 
   <details>
     <summary>Click to View Images</summary>
-    - <img src=""><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/register.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/login.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/alljobs.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/myjobs.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/assignedjobs.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/watching.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addjob.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editjob.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/allinvoices.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addinvoice.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editinvoice.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/profilepage.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editprofile.png"><br>
 
   </details>
 
 
   * [Back to Contents](#contents)
 
-2. UX features include:
-  -
+* UX features and User Interactions to note:
+- Users can always see where they are by the nav icon that highlights yellow or by the breadrcumb Viewing bar at the top of each screen.
+- Users can hover over each icon in the NavBar to see the Nav label, and Users will know they are logged in by seeing their name next to the Profile link.
+- All user can access their own Profile page where they can view or edit their profile, username or password.
+- Users can view All the jobs, jobs only created by them or jobs assigned to them.
+- A dashboard allows them to organise each view according to its status and the status counter lets the user filter by and know at all times how many jobs are Pending, Underway or Completed.
+- Users can filter by jobs that are recently created, recently updated or by their due date
+- Users can enter a keyword to search by job type, description, created by or assigned to.
+- On each job card, users can click through to view the profiles of the user who created the job or the user who is assigned to the job.
+- Jobs can be edited by the person who created them which allows updates to any of the fields including the image.
+- Jobs will also allow the two users involved in the job - those who created it and those who are assigned to the job to add an invoice.
+- Any user can view the invoice summary by opening the Accordion feature Click To View Invoice Summary, where they can find a button to view the invoice card or Edit it if they have permission.
+- Users can also click an eye icon which will add the job to a Watch list if they want to keep track of a job
+- Users will see if any comments have been left on a job and will know the amount of comments that have been left on that specific job.
+- Users can click on the comment bubble icon and view the job card, and invoice summary, leave a comment, leave a reply to a comment and edit or delete any of their comments.
+- Users can view all invoices in the system and use familiar dashboard features to view and filter the status, order by dates and search using keywords
+- On each invoice card, users can click through to view the profiles of the user who created the invoice or the user who is assigned to the job.
+- Invoices can be edited only by those who created or were assigned to the job can edit an invoice.
+- Any users can click on the View Job Summary accordion and find a link to view the full job card
+- Any user can click the BackToTop button incorporated on Jobs and Invoices pages to help navigate long page lists.
 
   <details>
     <summary>Click to View UX Features Images</summary>
