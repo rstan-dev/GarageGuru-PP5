@@ -73,18 +73,17 @@ Goals for the first time user
 12. To view all the invoices in the system and manage their status.
 
 Goals for the returning user
-1. All the pages of the app should be secure, so once logged out, the only way to access any pages is via the login page.
-The app should feel familiar to the returning user.
-2.
+13. All the pages of the app should be secure, so once logged out, the only way to access any pages is via the login page.
+14. The app should feel familiar to the returning user.
 
 Goals for the Administrator
-1. The administrator can easily update or override any information on the backend as a superuser.
+15. The administrator can easily update or override any information on the backend as a superuser.
 
 Goals for the Site Owner
-1. The app should have the capacity to scale.
-2. More choices of services can easily be added and customised for different businesses.
-3. Images are validated to ensure they are not oversized dragging on site performance and storage resources.
-4. Jobs, invoices and comments are pulled as required, to avoid dragging on site performance and storage resources.
+16. The app should have the capacity to scale.
+17. More choices of services can easily be added and customised for different businesses.
+18. Images are validated to ensure they are not oversized dragging on site performance and storage resources.
+19. Jobs, invoices and comments are pulled as required, to avoid dragging on site performance and storage resources.
 
 
 * [Back to Contents](#contents)
@@ -107,6 +106,7 @@ Goals for the Site Owner
 
    The Comments design and functionality was also enhanced later in the project when I added the ability to leave a reply to a comment, ensuring it was a fully collaborative system.
 
+   General visual styling improvements were made during the project that were not considered during wireframing which resulted in a better UX
 
    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/wf_alljobs.png">
 
@@ -136,18 +136,23 @@ Goals for the Site Owner
 
 1. [US1] Project General Requirements
  - As a developer, I can understand the goals of the site so that development decisions can be made accordingly.
+ - Maps to Project Goal 16, 17, 18 and 19
 2. [US2] Setup Repo
 - As a developer, I will set up the repo and install the necessary packages so that I can start building the initial models to view on the React front-end
 3. [US3] Profiles Model
-- As a superuser, I can log in to the admin panel	 so that I can manage users and other parts of the system as it develops
+- As a superuser, I can log in to the admin panel	so that I can manage users and other parts of the system as it develops
+- Maps to Project Goal 15
 4. [US4] Jobs Model
 - As a superuser, I can create a Job Card so that I can capture the details of the job I wish to display
 5. [US5] Create NavBar
 - As a website user, I can view the basic navbar so that I can easily navigate the website on desktop and mobile
+- Maps to Project Goal 14
 6. [US6] Link NavBar
 - As a website user, I can navigate each page seamlessly so that I do not need to wait for page refresh
+- Maps to Project Goal 3
 7. [US7] User Login frontend
 - As a website user, I can log in so that I can access all the functions of the site, and I can easily see if I am logged in or not
+- Maps to Project Goal 1 and 13
 8. [US8] User Logout frontend
 - As a website user, I can log out so that I can protect my profile data, and I can easily see if I need to log in again
 9. [US9] User Registration Frontend
@@ -158,6 +163,7 @@ Goals for the Site Owner
 - As a logged in User I can view my profile so that I can see the details I have entered about myself
 12. [US12] Edit Profile Page frontend
 - As a logged in User I can edit my profile so that I can change my personal info
+- Maps to Project Goal 2
 13. [US13] Update Password frontend
 - As a logged-in User, I can update my password so that I can change my password if I need to
 14. [US14] Update Username frontend
@@ -170,6 +176,7 @@ Goals for the Site Owner
 - As a logged-in User, I can filter the job cards so that I can display them in the order I want
 18. [US18] Add Job
 - As a logged-in User, I can click on the Add Job button in the NavBar so that I can add the Job details to a form and save them to the database
+- Maps to Project Goal 4 and 5 and 6
 19. [US19] Edit Job Card
 - As a logged-in User, and creator of a job, I can click on the pencil icon on the job card so that I can edit the Job Card details
 20. [US20] Delete a Job
@@ -182,6 +189,7 @@ Goals for the Site Owner
 - As a logged-in User, and creator of a comment, I can click on the pencil item of a comment I have written so that I can update it if I want to
 24. [US24] Delete Comment
 - As a logged-in User, and creator of a comment, I can click on the pencil item of a comment I have written so that I can delete it if I want to
+- Maps to Project Goal 11
 25. [US25] Add Invoice details
 - As an Owner or Assigned person of a Job Card, I can add invoice details to a job card so that a financial record can be maintained
 26. [US26] View Invoice Details on the Job Card
@@ -192,12 +200,16 @@ Goals for the Site Owner
 - As an Owner or Assigned person of a Job Card, I can delete an invoice related to a job card so that I can delete an invoice if a job is cancelled
 29. [US29] View Invoice Details on AllInvoicesPage
 - As any user of a Job Card, I can view invoice details on the AllInvoicesPage so that I can see the status of the invoices for a job
+- Maps to Project Goal 11
 30. [US30] Edit Invoice Details on AllInvoicesPage
 - As an Owner or Assigned person of an Invoice, I can edit invoice details on the AllInvoicesPage so that I can edit any of the details of the invoices for a job
+- Maps to Project Goal 10
 31. [US31] My Jobs & Assigned Jobs View
 - As a logged-in User, I can click on the My Jobs button or the Assigned Jobs button in the NavBar so that I can see all of the jobs that I have created or that have been assigned to me in the system
+- Maps to Project Goal 8 and 9
 32. [US32] Watch Jobs
 - As a logged-in User, I can click on the eye icon on a job card so that I can add it to my watch list where I can keep an eye on a job
+- Maps to Project Goal 7
 33. [US33] UX & Testing
 - As a developer, I can test each user story function so that I can verify each function works as intended
 34. [US34] Deploy to Heroku
@@ -309,23 +321,24 @@ Goals for the Site Owner
   * [Back to Contents](#contents)
 
 * UX features and User Interactions to note:
-  - Users can always see where they are by the nav icon that highlights yellow or by the breadrcumb Viewing bar at the top of each screen.
+  - Unauthenticated users can only access the login or register page.  All other pages are protected at the Route level and only available to users who have registered and logged in to their account.
+  - Users can always see where they are by the nav icon that highlights yellow or by the breadrcumb Viewing bar at the top of each screen. [US5, US6,]
   - Users can hover over each icon in the NavBar to see the Nav label, and Users will know they are logged in by seeing their name next to the Profile link.
-  - All user can access their own Profile page where they can view or edit their profile, username or password.
-  - Users can view All the jobs, jobs only created by them or jobs assigned to them.
-  - A dashboard allows them to organise each view according to its status and the status counter lets the user filter by and know at all times how many jobs are Pending, Underway or Completed.
-  - Users can filter by jobs that are recently created, recently updated or by their due date
-  - Users can enter a keyword to search by job type, description, created by or assigned to.
-  - On each job card, users can click through to view the profiles of the user who created the job or the user who is assigned to the job.
-  - Jobs can be edited by the person who created them which allows updates to any of the fields including the image.
-  - Jobs will also allow the two users involved in the job - those who created it and those who are assigned to the job to add an invoice.
-  - Any user can view the invoice summary by opening the Accordion feature Click To View Invoice Summary, where they can find a button to view the invoice card or Edit it if they have permission.
-  - Users can also click an eye icon which will add the job to a Watch list if they want to keep track of a job
-  - Users will see if any comments have been left on a job and will know the amount of comments that have been left on that specific job.
-  - Users can click on the comment bubble icon and view the job card, and invoice summary, leave a comment, leave a reply to a comment and edit or delete any of their comments.
-  - Users can view all invoices in the system and use familiar dashboard features to view and filter the status, order by dates and search using keywords
-  - On each invoice card, users can click through to view the profiles of the user who created the invoice or the user who is assigned to the job.
-  - Invoices can be edited only by those who created or were assigned to the job can edit an invoice.
+  - All user can access their own Profile page where they can view or edit their profile, username or password. [US3, US11, US12, US13, US14]
+  - Users can view All the jobs, jobs only created by them or jobs assigned to them. [US4, US15, US31 and US32]
+  - A dashboard allows them to organise each view according to its status and the status counter lets the user filter by and know at all times how many jobs are Pending, Underway or Completed. [US16, US17]
+  - Users can filter by jobs that are recently created, recently updated or by their due date. [US16, US17]
+  - Users can enter a keyword to search by job type, description, created by or assigned to. [US16, US17]
+  - On each job card, users can click through to view the profiles of the user who created the job or the user who is assigned to the job. [ US11 ]
+  - Jobs can be edited by the person who created them which allows updates to any of the fields including the image. [ US19 ]
+  - Jobs will also allow the two users involved in the job - those who created it and those who are assigned to the job to add an invoice. [ US25 ]
+  - Any user can view the invoice summary by opening the Accordion feature Click To View Invoice Summary, where they can find a button to view the invoice card or Edit it if they have permission. [ US26 ]
+  - Users can also click an eye icon which will add the job to a Watch list if they want to keep track of a job [ US32 ]
+  - Users will see if any comments have been left on a job and will know the amount of comments that have been left on that specific job. [US21, US22, US23, US24]
+  - Users can click on the comment bubble icon and view the job card, and invoice summary, leave a comment, leave a reply to a comment and edit or delete any of their comments. [US21, US22, US23, US24]
+  - Users can view all invoices in the system and use familiar dashboard features to view and filter the status, order by dates and search using keywords [ US29 ]
+  - On each invoice card, users can click through to view the profiles of the user who created the invoice or the user who is assigned to the job. [ US11 ]
+  - Invoices can be edited only by those who created or were assigned to the job can edit an invoice. [US27 and US30]
   - Any users can click on the View Job Summary accordion and find a link to view the full job card
   - Any user can click the BackToTop button incorporated on Jobs and Invoices pages to help navigate long page lists.
 
@@ -405,47 +418,57 @@ The site has been built with the following tech, tools and libraries
 * GitHub Repo - code storage
 * Git - version control
 * GitPod & VS Code - IDE
-* [Balsamiq](https://balsamiq.com/) - wireframes
-* [Coolors](https://coolors.co) - pallette generator
-* [Image resizer](https://www.reduceimages.com/)
-* [Canva](https://www.canva.com/) - artwork
-* Google Fonts
-* [Lucid Chart](https://lucid.app/) - database schema
+* [Balsamiq](https://balsamiq.com/) - creating wireframes
+* [Coolors](https://coolors.co) - color allette generator
+* [Image resizer](https://www.reduceimages.com/) - resizing images for optimal storage
+* [Canva](https://www.canva.com/) - creating artwork
+* Google Fonts - consistent typography
+* [Lucid Chart](https://lucid.app/) - creating a database schema
 * [Favicon](https://favicon.io/favicon-converter/) - favicon generator
 * [Responsive Image generator](https://ui.dev/amiresponsive)
-* [BrowserStack](https://live.browserstack.com/) Browser Compatability Tests
+* [BrowserStack](https://live.browserstack.com/) browser compatability tests
 * [Unsplash](https://unsplash.com/) - stock images
 * [FontAwesome](https://fontawesome.com/) - icons
 * [W3C HTML Validator](https://validator.w3.org/)
 * [W3C CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator/)
-* LightHouse
-* Chrome Dev Tools
-* [PycodeStyle](https://pypi.org/project/pycodestyle/)
-* [CI Python Linter](https://pep8ci.herokuapp.com/)
+* LightHouse - measures performance, accessibility, best practices and SEO
+* Chrome Dev Tools - for development debugging
+* [PycodeStyle](https://pypi.org/project/pycodestyle/) - - code analysis tool conforming to pep8
+* [CI Python Linter](https://pep8ci.herokuapp.com/) - code analysis tool conforming to pep8
 * Black - code formatter for python
 * Prettier - code formatter for html, css and javascript
-* ESLint - code analysis tool
+* ESLint - code analysis tool for javascript
 * APITestCase - DjangoRESTFramework test library
 * Jest - frontend testing library
 * MSW - Mock Service Worker for front-end testing
 * Coverage - measures code coverage of Python programs
 * Whitenoise - serving static files
-* React Router
-* React Infinite Scroll
+* React Router - routing and navigation, url management
+* React Infinite Scroll - continuous content loading
 
 ### React Components
 
 React’s strengths come from reusable components.
-The following components were built and reused in different parts of the application:
-* < AllInvoicesPage />  - the main page that was used for viewing All Jobs, My Jobs, Assigned Jobs and Watched Jobs
-* < Asset /> - used to display a spinner icon while loading data
-* < BackToTop /> -  used to quickly navigate the user back to the top of the page
-* < ConfirmationModal /> - used to add a confirmation layer for users before updating or deleting content
+The following components were built and reused in different parts of the application, contributing to improved user experience:
+* < AllInvoicesPage />  - the main page that was used for viewing All Jobs, My Jobs, Assigned Jobs and Watched Jobs.
+   - This reusable component ensures that all views are based on the same code and therefore familiar to the user.
+* < Asset /> - used to display a spinner icon while loading data.
+   - Signals to the user that there is more data or actions to follow.
+* < BackToTop /> -  used to quickly navigate the user back to the top of the page.
+   - Assists the user with site navigation, especially on pages with a lot of data to scroll through.
+* < ConfirmationModal /> - used to add a confirmation layer for users before updating or deleting content.
+   - Assists the user by adding a step in between the action to confirm they want to make the change.
 * < FixedHeader /> - used to create a breadcrumb bar for viewing status
-* < Footer /> - used on the Login and register screen
-* < NavBar /> - used above every page
-* < Page Not Found /> - used as a landing page for any redirects
-* < TimedAlert > - used to control how long alert and success messages are displayed on screen
+   - Improves the user experience by letting them know which page they are on, especially useful for pages that look very similar such as the AllJobs, MyJobs and WatchedJobs pages.
+* < Footer /> - used on the Login and register screen.
+* < NavBar /> - used above every page.
+   - Improves the user experience by being fixed to the top of the page, the active page is highlighted very prominently in yellow, and if the user hovers over the icons on a desktop, they will see the menu label, or it will be identified by the aria-label for screen readers.
+* < Page Not Found /> - used as a landing page for any redirects.
+   - Ensures the user does not come across any broken links while navigating the site or entering non-existent urls.
+* < TimedAlert > - used to control how long alert and success messages are displayed on the screen.
+   - Improves the user experience by keeping them informed of actions and system updates.
+
+These react components have contributed to the user experience
 
 
 ### Refactoring Opportunities
@@ -646,39 +669,86 @@ Cloning is oftne used for experimenting locally.  It will not show up on your Gi
 
 ## SECURITY SETTINGS
 The following precautions were taken regarding the security of the site:
-1. An env.py was created at the start of the project, and added to .gitignore, to contain the following:
-- DATABASE_URL
-- SECRET_KEY
-- CLOUDINARY_URL
+1. An env.py was created at the start of the project, and added to .gitignore, to contain the following settings:
+   - CLOUDINARY_URL
+   - SECRET_KEY
+   - DATABASE_URL
+   - CLIENT_ORIGIN
+   - ALLOWED_HOST
 2. These values were added to the Config Vars section of Heroku's Settings page.
 3. Heroku is configured with 2FA
+
 
 * [Back to Contents](#contents)
 
 ## CREDITS:
+The entire concept was created specifically for this assessment and is not a copy of any walkthrough project.
+
+Initially, parts of the project were based on the Moments walkthrough project:
+  * CI Template for setting up the repo - [View Here](https://github.com/Code-Institute-Org/cra-template-moments)
+  * The Profile Model - similar to the Moments Profile model
+  * The Comments model - similar to the Moments Comments model but customised further for replies
+  * The Watch model - similar to the Moments Like model - with enhanced UX
+  * image_filter and validate_image - used from the Moments walkthrough
+  * APITestCase - Jobs tests initially written based on Moments PostList tests
+
+In React, certain components from the Moments walkthrough project were used or closely adapted:
+  * CurrentUserProvider - for current user context
+  * useToggleMenu -  similar to useClickOutsideToggle hook to close the mobile nav menu
+  * InfintityScroll setup for Jobs, Invoices and Comments
+  * fetchMoredata - utility function to get more API data for use with Infinity Scroll
+  * setTokenTimestamp - utility function to decode the JWT refresh token and store its expiration timestamp in local storage.
+  * shouldRefreshToken - utility function to check if the refresh token's timestamp is stored in local storage.
+  * removeTokenTimestamp - utility function to remove the stored refresh token's expiration timestamp from local storage.
+  * React NavBar tests - adapted from Moments
+
   ### Code
-  *
+    * All Python logic was written and developed specifically for this project, with references to the Moments walkthrough.
+    * All frontend HTML, CSS, JavaScript and JSX were incrementally written specifically for this project.
 
   * [Back to Contents](#contents)
 
   ### Resources
   I used the following resources to help develop features and functionality:
-  1.
+  1. [DjangoREST Framework](https://www.django-rest-framework.org/)
+  2. [Installing all-auth](https://dj-rest-auth.readthedocs.io/en/latest/installation.html)
+  3. [QuerySet annotate](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.annotate)
+  4. [Django Filtering](https://www.django-rest-framework.org/api-guide/filtering/)
+  5. [Form Control elements](https://react-bootstrap.netlify.app/docs/forms/form-control/)
+  6. [Passing State through Link](https://medium.com/frontendweb/how-to-pass-state-or-data-in-react-router-v6-c366db9ee2f4)
+  7. [Use the describe test feature in React] tests(https://jestjs.io/docs/api#describename-fn)
+  8. ChatGPT was used to help troubleshoot and explain code functions
+  9. Google and StackOverflow were also used for more context and understanding
+  10. I reached out to Code Institute team members and tutor support from time to time
+
+  I referred to several alumni student’s projects for further ideas and guidance:
+  * [MikeR94 - LeagueHub](https://github.com/MikeR94/ci-project-portfolio-5)
+  * [Mathew Hurrel - GearAddict](https://github.com/Matthew-Hurrell/gear-addict)
+  * [Jamie King - Tickit](https://github.com/jkingportfolio/ci_pp5_tick_it_react)
 
   * [Back to Contents](#contents)
 
   ### Content
-  *
+  * All profile names, content, jobs, invoices and comments are fictional and written specifically for this project.
+
 
   * [Back to Contents](#contents)
 
   ### Media
-  * Logo was custom designed for this project.
+  * The GarageGuru logo was custom-designed for this project.
+  * 24/7 icon created in Canva Pro.
+  * Vehicle pics - Royalty free from Canva Pro and Unsplash
+  * Profile pics - Royalty free from Unsplash
+  * Van pics - Royalty free from Canva Pro and Unsplash
   * Icons - font awesome.
 
   * [Back to Contents](#contents)
 
   ### Acknowledgements
-  * Thanks to
+  * Thanks to my mentor Mitko for your guidance through our project meetings
+  * I would like to thank several of the Code Institute staff for their help and support:
+    - Sean Murphy - for our weekly cohort slot where you gave me some invaluable help and advice on tricky issues
+    - Oisin, Gemma, Martin and Joanne in Tutor Support for helping me solve a few issues throughout the times I needed help.
+    - And a special thanks to Jeffrey Frankfort for all your patience and support when I was spinning my wheels and doubting myself - You never stopped believing in me!
 
   * [Back to Contents](#contents)
