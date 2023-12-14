@@ -36,6 +36,8 @@ class JobSerializer(serializers.ModelSerializer):
         queryset=User.objects.all(), allow_null=True
     )
 
+    assigned_username = serializers.ReadOnlyField(source="assigned_to.username")
+
     # Formats date and time
     created_at = serializers.DateTimeField(
         format="%d %b %Y - %H:%M:%S", read_only=True
@@ -105,6 +107,7 @@ class JobSerializer(serializers.ModelSerializer):
             "owner",
             "owner_id",
             "assigned_to",
+            "assigned_username",
             "job_type",
             "job_details",
             "status",

@@ -79,8 +79,8 @@ function LoginForm() {
 			setTokenTimestamp(data);
 			history.push("/");
 		} catch (err) {
-			// console.log(err);
-			setErrors({ message: ["There was an error submitting the form."] });
+			console.log(err);
+			setErrors(err.response?.data);
 		}
 	};
 

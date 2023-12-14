@@ -258,7 +258,7 @@ function EditJobForm() {
 			setSuccessMessage("Job has been deleted successfully");
 			successTimeoutRef.current = setTimeout(() => {
 				setSuccessMessage("");
-				history.goBack();
+				history.push('/');
 			}, 1500);
 		} catch (err) {
 			// console.log(err);
@@ -397,7 +397,6 @@ function EditJobForm() {
 					<option value='Pending'>Pending</option>
 					<option value='Underway'>Underway</option>
 					<option value='Completed'>Completed</option>
-					<option value='Overdue'>Overdue</option>
 				</Form.Control>
 			</Form.Group>
 			<div key={`status-errors-${errorKey}`}>
