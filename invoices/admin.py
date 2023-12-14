@@ -21,4 +21,4 @@ class InvoiceAdmin(admin.ModelAdmin):
         "updated_at",
         "owner",
     )
-    list_display_links = ("id",)
+    list_display_links = ("id", "customer_firstname")

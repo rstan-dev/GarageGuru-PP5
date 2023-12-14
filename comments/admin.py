@@ -12,8 +12,10 @@ class CommentAdmin(admin.ModelAdmin):
     """
 
     list_display = (
+        "id",
+        "owner",
+        "comment_detail",
         "created_at",
         "updated_at",
-        "owner",
     )
-    list_display_links = ("owner",)
+    list_display_links = ("id", "owner", "comment_detail",)
