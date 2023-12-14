@@ -3,6 +3,7 @@ Imports for Invoice Serializers
 """
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from .models import Invoice
 
 
@@ -29,18 +30,24 @@ class InvoiceSerializer(serializers.ModelSerializer):
     )
     is_inv_owner = serializers.SerializerMethodField()
     job_id = serializers.IntegerField()
+    inv_updated_at = serializers.SerializerMethodField(read_only=True)
 
     # Formats date and time
     inv_created_at = serializers.DateTimeField(
         source="created_at", format="%Y-%m-%d %H:%M:%S", read_only=True
     )
-    inv_updated_at = serializers.DateTimeField(
-        source="updated_at", format="%Y-%m-%d %H:%M:%S", read_only=True
-    )
+
     # Format with only date
     inv_due_date = serializers.DateField(
         source="due_date", format="%Y-%m-%d"
     )
+
+    def get_inv_updated_at(self, obj):
+        """
+        Provides a human-readable representation of the comment's updated
+        time.
+        """
+        return naturaltime(obj.updated_at)
 
     def get_is_inv_owner(self, obj):
         """
