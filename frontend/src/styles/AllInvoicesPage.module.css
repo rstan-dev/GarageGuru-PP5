@@ -1,4 +1,11 @@
 /* General */
+.DashboardHeaderContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
 .DashboardHeadings {
 	font-size: 1rem;
 	margin-bottom: 5px;
