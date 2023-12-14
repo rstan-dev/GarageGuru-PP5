@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/utils";
 
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
@@ -120,7 +121,7 @@ const InvoiceCard = (props) => {
 									</tr>
 									<tr>
 										<th>Invoice Due:</th>
-										<td>{inv_due_date}</td>
+										<td>{formatDate(inv_due_date)}</td>
 									</tr>
 									<tr>
 										<th>Invoice Staus:</th>
