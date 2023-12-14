@@ -258,7 +258,7 @@ function EditJobForm() {
 			setSuccessMessage("Job has been deleted successfully");
 			successTimeoutRef.current = setTimeout(() => {
 				setSuccessMessage("");
-				history.goBack();
+				history.push('/');
 			}, 1500);
 		} catch (err) {
 			console.log(err);
