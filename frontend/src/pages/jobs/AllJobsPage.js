@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
@@ -47,6 +47,10 @@ function AllJobsPage({ filter = "", isWatchedJobsPage = false }) {
 	const history = useHistory();
 	const { pathname } = useLocation();
 
+	// Ref to store the previous filter/path value
+	const prevFilterRef = useRef(filter);
+	const prevPathRef = useRef(pathname);
+
 	/**
 	 * Fetches jobs data from the server when the component mounts or when dependencies change.
 	 * Applies filters and ordering based on the component's state and props.
@@ -67,6 +71,18 @@ function AllJobsPage({ filter = "", isWatchedJobsPage = false }) {
 		setHasLoaded(false);
 		fetchJobs();
 	}, [pathname, currentUser, filter, query, orderingField, history]);
+
+	/**
+	 * Reset dashboard on navigation change
+	 */
+	useEffect(() => {
+		if (prevFilterRef.current !== filter || prevPathRef.current !== pathname) {
+			handleResetDashboard();
+		}
+		// Update the previous filter/path after the dashboard is reset
+		prevFilterRef.current = filter;
+		prevPathRef.current = pathname;
+	}, [filter, pathname]);
 
 	/**
 	 * Refetches jobs and status counts, typically used after an update to ensure data consistency.
