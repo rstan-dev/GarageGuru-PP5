@@ -80,7 +80,7 @@ function LoginForm() {
 			history.push("/");
 		} catch (err) {
 			console.log(err);
-			setErrors({ message: ["There was an error submitting the form."] });
+			setErrors(err.response?.data);
 		}
 	};
 
