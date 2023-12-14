@@ -109,6 +109,18 @@ function AllJobsPage({ filter = "", isWatchedJobsPage = false }) {
 		setQuery("");
 	};
 
+	/**
+	 * Resets filters and search
+	 */
+	const handleResetDashboard = () => {
+		// Clears the query state.
+		setQuery("");
+		// Resets filter state to default.
+		setOrderingField("-created_at");
+		// Resets selected status to null, removes border color.
+		setSelectedStatus(null);
+	};
+
 	return (
 		<Container className={styles.AllJobsContainer}>
 			<Col
@@ -121,7 +133,18 @@ function AllJobsPage({ filter = "", isWatchedJobsPage = false }) {
 				<div className={styles.CardBlock}>
 					{/* Dashboard Block */}
 					<Card className={styles.StatusCard}>
-						<p className={styles.DashboardHeadings}>Dashboard</p>
+						<div className={styles.DashboardHeaderContainer}>
+							<p className={styles.DashboardHeadings}>Dashboard</p>
+							<Button
+								variant='outline-info'
+								size='sm'
+								onClick={handleResetDashboard}>
+								X Reset Filters
+							</Button>
+						</div>
+						<p className={`text-md-end ${styles.DashboardHeadings}`}>
+							Filter Status by:
+						</p>
 						<div className={`row ${styles["StatusBlock"]}`}>
 							{/* Pending Status */}
 							<div className='col-md-4'>
@@ -303,7 +326,9 @@ function AllJobsPage({ filter = "", isWatchedJobsPage = false }) {
 										setJobs={setJobs}
 										jobs={jobs}
 										onUnwatch={refetchJobsAndCounts}
-										onWatchStatusChange={(newWatchId) => handleWatchStatusChange(job.id, newWatchId)}
+										onWatchStatusChange={(newWatchId) =>
+											handleWatchStatusChange(job.id, newWatchId)
+										}
 										shouldRemoveOnUnwatch={isWatchedJobsPage}
 									/>
 								))}
