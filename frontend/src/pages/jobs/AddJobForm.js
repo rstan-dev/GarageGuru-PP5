@@ -335,7 +335,6 @@ function AddJobForm() {
 					<option value='Pending'>Pending</option>
 					<option value='Underway'>Underway</option>
 					<option value='Completed'>Completed</option>
-					<option value='Overdue'>Overdue</option>
 				</Form.Control>
 			</Form.Group>
 			<div key={`status-errors-${errorKey}`}>
