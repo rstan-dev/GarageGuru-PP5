@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { formatDate } from "../../utils/utils";
 
 import { Link, useLocation } from "react-router-dom";
 import Card from "react-bootstrap/Card";
@@ -340,7 +341,7 @@ const JobCard = (props) => {
 												aria-hidden='true'></i>
 											Due date:
 										</th>
-										<td>{due_date}</td>
+										<td>{formatDate(due_date)}</td>
 									</tr>
 									<tr>
 										<th>
