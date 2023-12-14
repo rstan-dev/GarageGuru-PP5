@@ -12,11 +12,12 @@ class JobAdmin(admin.ModelAdmin):
     """
 
     list_display = (
+        "id",
+        "job_type",
         "created_at",
         "updated_at",
-        "job_type",
         "owner",
         "assigned_to",
         "status",
     )
-    list_display_links = ("job_type",)
+    list_display_links = ("id", "job_type",)
