@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { formatDate } from "../../utils/utils";
 
 import { Link, useLocation } from "react-router-dom";
 import Card from "react-bootstrap/Card";
@@ -7,7 +8,6 @@ import Accordion from "react-bootstrap/Accordion";
 
 import styles from "../../styles/JobCard.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { axiosReq } from "../../api/axiosDefaults";
 import { axiosRes } from "../../api/axiosDefaults";
 
 /**
@@ -28,6 +28,7 @@ const JobCard = (props) => {
 		updated_at,
 		due_date,
 		assigned_to,
+		assigned_username,
 		status,
 		image,
 		has_invoice,
@@ -53,33 +54,6 @@ const JobCard = (props) => {
 	// Fetches current user details for permission checks.
 	const currentUser = useCurrentUser();
 	const is_owner = currentUser?.username === owner;
-
-	// State for managing assigned users username.
-	const [assignedUsername, setAssignedUsername] = useState();
-
-	/**
-	 * Fetches username for the user assigned to the job.
-	 * Updates the assignedUsername state based on the fetched data.
-	 */
-	useEffect(() => {
-		let isMounted = true; // Flag to track if the component is mounted.
-		const getProfileUsername = async () => {
-			if (assigned_to) {
-				try {
-					const response = await axiosReq.get(`/profiles/${assigned_to}/`);
-					if (isMounted) {
-						setAssignedUsername(response.data.owner);
-					}
-				} catch (err) {
-					// console.log(err);
-				}
-			}
-		};
-		getProfileUsername();
-		return () => {
-			isMounted = false; // Set the flag to false when the component unmounts.
-		};
-	}, [assigned_to]);
 
 	// Handles logic for watching a job.
 	const handleWatch = async () => {
@@ -239,7 +213,7 @@ const JobCard = (props) => {
 						<div
 							className={
 								styles.DisabledButton
-							}>{`Only ${owner} or ${assignedUsername} can add an invoice`}</div>
+							}>{`Only ${owner} or ${assigned_username} can add an invoice`}</div>
 					</Button>
 				</div>
 			)}
@@ -340,7 +314,7 @@ const JobCard = (props) => {
 												aria-hidden='true'></i>
 											Due date:
 										</th>
-										<td>{due_date}</td>
+										<td>{formatDate(due_date)}</td>
 									</tr>
 									<tr>
 										<th>
@@ -351,7 +325,7 @@ const JobCard = (props) => {
 										</th>
 										<td>
 											<Link to={`/profile/${assigned_to}`}>
-												{assignedUsername}
+												{assigned_username}
 											</Link>
 										</td>
 									</tr>

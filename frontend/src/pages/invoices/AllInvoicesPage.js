@@ -95,6 +95,18 @@ function AllInvoicesPage() {
 		setQuery("");
 	};
 
+	/**
+	 * Resets filters and search
+	 */
+	const handleResetDashboard = () => {
+		// Clears the query state.
+		setQuery("");
+		// Resets filter state to default.
+		setOrderingField("-created_at");
+		// Resets selected status to null, removes border color.
+		setSelectedStatus(null);
+	};
+
 	return (
 		<Container className={styles.AllInvoicesContainer}>
 			<Col
@@ -107,7 +119,18 @@ function AllInvoicesPage() {
 				<div className={styles.CardBlock}>
 					{/* Dashboard Section */}
 					<Card className={styles.StatusCard}>
-						<p className={styles.DashboardHeadings}>Dashboard</p>
+						<div className={styles.DashboardHeaderContainer}>
+							<p className={styles.DashboardHeadings}>Dashboard</p>
+							<Button
+								variant='outline-info'
+								size='sm'
+								onClick={handleResetDashboard}>
+								X Reset Filters
+							</Button>
+						</div>
+						<p className={`text-md-end ${styles.DashboardHeadings}`}>
+							Filter Status by:
+						</p>
 						<div className={`row ${styles["StatusBlock"]}`}>
 							{/* Pending Status */}
 							<div className='col-md-4'>
@@ -260,7 +283,7 @@ function AllInvoicesPage() {
 								<Form.Control
 									type='text'
 									className='mr-sm-2'
-									placeholder='Search jobs'
+									placeholder='Search invoices'
 									value={query}
 									onChange={(event) => setQuery(event.target.value)}
 								/>
