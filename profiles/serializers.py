@@ -26,7 +26,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     # Format with only date
     display_created_at = serializers.DateTimeField(
-        source="created_at", format="%Y-%m-%d", read_only=True
+        source="created_at", format="%d %b %Y", read_only=True
     )
 
     def get_display_updated_at(self, obj):

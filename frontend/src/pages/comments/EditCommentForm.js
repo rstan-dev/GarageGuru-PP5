@@ -104,7 +104,7 @@ const EditCommentForm = (props) => {
 			}
 		} catch (err) {
 			if (isMountedRef.current) {
-				console.log(err);
+				// console.log(err);
 				setErrors({ message: ["There was an error updating this comment."] });
 			}
 		}
@@ -168,7 +168,7 @@ const EditCommentForm = (props) => {
 			}
 		} catch (err) {
 			if (isMountedRef.current) {
-				console.log(err);
+				// console.log(err);
 				setErrors({ message: ["There was an error deleting the comment."] });
 			}
 		}

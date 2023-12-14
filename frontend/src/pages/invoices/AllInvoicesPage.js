@@ -57,7 +57,7 @@ function AllInvoicesPage() {
 				setStatusCounts(data.invoice_status_counts);
 				setHasLoaded(true);
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		};
 		setHasLoaded(false);
@@ -71,7 +71,7 @@ function AllInvoicesPage() {
 				setJobs(jobsData);
 				setHasLoaded(true);
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		};
 		setHasLoaded(false);

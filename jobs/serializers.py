@@ -53,7 +53,7 @@ class JobSerializer(serializers.ModelSerializer):
         return naturaltime(obj.updated_at)
 
     def validate_image(self, value):
-        "check if file size is greater than 2mb"
+        # Check if file size is greater than 2mb
         if value.size > 1024 * 1024 * 2:
             raise serializers.ValidationError("Image size larger than 2mb!")
         if value.image.width > 2048:

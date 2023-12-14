@@ -79,7 +79,7 @@ function AddJobForm() {
 					setUsers(data);
 				}
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		};
 		fetchProfiles();
@@ -206,7 +206,7 @@ function AddJobForm() {
 			}
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {
-				console.log(err);
+				// console.log(err);
 				if (err.response.status !== 401) {
 					setErrors(err.response.data);
 				}

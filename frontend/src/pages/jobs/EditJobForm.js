@@ -91,7 +91,7 @@ function EditJobForm() {
 					  })
 					: history.push("/");
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		};
 		handleMount();
@@ -106,7 +106,7 @@ function EditJobForm() {
 				const { data } = await axiosReq.get(`/profiles/`);
 				setUsers(data);
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 			}
 		};
 		fetchProfiles();
@@ -227,7 +227,7 @@ function EditJobForm() {
 			}, 2500);
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {
-				console.log(err);
+				// console.log(err);
 				if (err.response.status !== 401) {
 					setErrors(err.response.data);
 				}
@@ -261,7 +261,7 @@ function EditJobForm() {
 				history.push('/');
 			}, 1500);
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 		}
 		setShowConfirmationModal(false);
 	};

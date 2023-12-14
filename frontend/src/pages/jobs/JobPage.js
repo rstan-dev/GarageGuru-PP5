@@ -57,7 +57,7 @@ function JobPage() {
 				}
 			} catch (err) {
 				if (isMountedRef.current) {
-					console.log(err);
+					// console.log(err);
 					history.push('/404-error-page')
 				}
 			}

@@ -67,7 +67,7 @@ const ProfilePage = () => {
 					setProfileData(data);
 				}
 			} catch (err) {
-				console.log(err);
+				// console.log(err);
 				history.push('/404-error-page')
 			}
 		};

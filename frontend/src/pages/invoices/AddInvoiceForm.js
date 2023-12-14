@@ -159,7 +159,7 @@ function AddInvoiceForm() {
 			}, 2500);
 		} catch (err) {
 			if (axios.isAxiosError(err) && err.response) {
-				console.log(err);
+				// console.log(err);
 				if (err.response.status !== 401) {
 					setErrors(err.response.data);
 				}

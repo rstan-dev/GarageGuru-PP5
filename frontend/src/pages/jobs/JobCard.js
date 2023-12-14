@@ -72,7 +72,7 @@ const JobCard = (props) => {
 				onWatchStatusChange(data.id);
 			}
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 		}
 	};
 
@@ -97,7 +97,7 @@ const JobCard = (props) => {
 				onWatchStatusChange(null);
 			}
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 			// Reverts the state if there is an error.
 			setJobs(jobs);
 		}
