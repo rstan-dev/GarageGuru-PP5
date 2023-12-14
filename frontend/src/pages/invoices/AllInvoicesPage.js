@@ -260,7 +260,7 @@ function AllInvoicesPage() {
 								<Form.Control
 									type='text'
 									className='mr-sm-2'
-									placeholder='Search jobs'
+									placeholder='Search invoices'
 									value={query}
 									onChange={(event) => setQuery(event.target.value)}
 								/>

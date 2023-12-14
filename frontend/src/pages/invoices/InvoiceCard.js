@@ -65,7 +65,7 @@ const InvoiceCard = (props) => {
 					<div
 						className={
 							styles.DisabledInvoiceEditButton
-						}>{`Only ${inv_owner} or ${job_assigned_to} can edit this job`}</div>
+						}>{`Only ${inv_owner} or ${job_assigned_to} can edit this invoice`}</div>
 				</Button>
 			)}
 		</div>
