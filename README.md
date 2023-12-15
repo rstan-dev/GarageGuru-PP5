@@ -524,7 +524,30 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
   * [Back to Contents](#contents)
 
   ### Unresolved bugs:
-  There are no known bugs at this time
+
+  On the final manual pass, an anomoly was noticed on one specific page on the deployed version: https://garageguru2023-9cc8e49ac2b8.herokuapp.com/assigned
+
+  When navigating to the page via the menu the page loads as expected.  When refreshing the page, a Dangerous Site warning appeared.  This only occurred on this one URL, and it only occurred on this browser. I could not replicate this issue in Incognito mode, on Firefox, or on Browserstack's Chrome browser on a Mac or a Windows terminal.
+
+  I contacted Tutor Support and spoke to John Rearden on 15th Dec 2023 and raised this issue and he was unable to replicate it. I uninstalled an Ignore X-Frame extension which I installed to use Browserstack however the problem persisted. I am noting it as a potential bug for future investigation just in case it arises.
+
+  Screen shots of the different browser tests have been included in the test results below.
+
+
+   <details>
+    <summary>Click to View Unresolved Bugs</summary>
+    - Screen shots of the Dangerous Site Warning:
+
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_site_warning.png"><br>
+
+    and other evidence from different browsers that did not display that warning:
+    <br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_no_warning_firefox.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_browserstack_chrome_no_warning.png">
+
+    </details>
+
+  There are no other known bugs at this time
 
 
   ### Improvements and future developments:
