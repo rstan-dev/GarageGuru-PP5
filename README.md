@@ -517,12 +517,37 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
     * Due to the complexity of the architecture, several attempts were made to resolve this,  Eventually, a Route prop was passed from App.js to AllJobs page, depending on if it was filtering for Watched Jobs or not.  A handleWatchStatusChange function was passed to JobCard.  A similar function was added to JobPage which passed a prop to JobCard.  The behaviour of the watch icon could then be managed depending on which page was serving the JobCard.
   5. Deleting a reply was not working.
      * This was resolved by creating a custom permission and updating the handleDelete function in EditCommentForm to filter out deleted comments to ensure a state update.
+  6. Comment Counter was not decrementing correctly when deleting comments and replies. This had been working previously but there were console warnings regarding updating state on unmounted components - caused by the confirmation modal.  I addressed this warning by implementing an additional isMountedRef flag, however the counter was inadvertently affected, only when deleting a comment or reply.
+     * This was resolved by removing the decrement function from the isMountedRef flag.
 
 
   * [Back to Contents](#contents)
 
   ### Unresolved bugs:
-  There are no known bugs at this time
+
+  On the final manual pass, an anomoly was noticed on one specific page on the deployed version: https://garageguru2023-9cc8e49ac2b8.herokuapp.com/assigned
+
+  When navigating to the page via the menu the page loads as expected.  When refreshing the page, a Dangerous Site warning appeared.  This only occurred on this one URL, and it only occurred on this browser. I could not replicate this issue in Incognito mode, on Firefox, or on Browserstack's Chrome browser on a Mac or a Windows terminal.
+
+  I contacted Tutor Support and spoke to John Rearden on 15th Dec 2023 and raised this issue and he was unable to replicate it. I uninstalled an Ignore X-Frame extension which I installed to use Browserstack however the problem persisted. I am noting it as a potential bug for future investigation just in case it arises.
+
+  Screen shots of the different browser tests have been included in the test results below.
+
+
+   <details>
+    <summary>Click to View Unresolved Bugs</summary>
+    - Screen shots of the Dangerous Site Warning:
+
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_site_warning.png"><br>
+
+    and other evidence from different browsers that did not display that warning:
+    <br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_no_warning_firefox.png">
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_browserstack_chrome_no_warning.png">
+
+    </details>
+
+  There are no other known bugs at this time
 
 
   ### Improvements and future developments:
@@ -703,7 +728,7 @@ Initially, parts of the project were based on the Moments walkthrough project:
 
 In React, certain components from the Moments walkthrough project were used or closely adapted:
   * CurrentUserProvider - for current user context
-  * useToggleMenu -  similar to useClickOutsideToggle hook to close the mobile nav menu
+  * useToggleMenu -  similar to useClickOutsideToggle hook from Moments, to close the mobile nav menu
   * InfintityScroll setup for Jobs, Invoices and Comments
   * fetchMoredata - utility function to get more API data for use with Infinity Scroll
   * setTokenTimestamp - utility function to decode the JWT refresh token and store its expiration timestamp in local storage.
@@ -712,7 +737,7 @@ In React, certain components from the Moments walkthrough project were used or c
   * React NavBar tests - adapted from Moments
 
   ### Code
-    * All Python logic was written and developed specifically for this project, with references to the Moments walkthrough.
+    * All Python logic was written and developed specifically for this project, using the Moments walkthrough as a reference.
     * All frontend HTML, CSS, JavaScript and JSX were incrementally written specifically for this project.
 
   * [Back to Contents](#contents)
@@ -725,7 +750,7 @@ In React, certain components from the Moments walkthrough project were used or c
   4. [Django Filtering](https://www.django-rest-framework.org/api-guide/filtering/)
   5. [Form Control elements](https://react-bootstrap.netlify.app/docs/forms/form-control/)
   6. [Passing State through Link](https://medium.com/frontendweb/how-to-pass-state-or-data-in-react-router-v6-c366db9ee2f4)
-  7. [Use the describe test feature in React] tests(https://jestjs.io/docs/api#describename-fn)
+  7. [Use the describe test feature in React tests](https://jestjs.io/docs/api#describename-fn)
   8. ChatGPT was used to help troubleshoot and explain code functions
   9. Google and StackOverflow were also used for more context and understanding
   10. I reached out to Code Institute team members and tutor support from time to time
@@ -739,7 +764,6 @@ In React, certain components from the Moments walkthrough project were used or c
 
   ### Content
   * All profile names, content, jobs, invoices and comments are fictional and written specifically for this project.
-
 
   * [Back to Contents](#contents)
 
@@ -758,6 +782,6 @@ In React, certain components from the Moments walkthrough project were used or c
   * I would like to thank several of the Code Institute staff for their help and support:
     - Sean Murphy - for our weekly cohort slot where you gave me some invaluable help and advice on tricky issues
     - Oisin, Gemma, Martin and Joanne in Tutor Support for helping me solve a few issues throughout the times I needed help.
-    - And a special thanks to Jeffrey Frankfort for all your patience and support when I was spinning my wheels and doubting myself - You never stopped believing in me!
+  * And a special thanks to Jeffrey Frankfort for all your patience and support when I was spinning my wheels and doubting myself - You never stopped believing in me!
 
   * [Back to Contents](#contents)
