@@ -158,10 +158,10 @@ const EditCommentForm = (props) => {
 					}
 				});
 
+				setCommentsCount((prevCount) => prevCount - 1);
+
 				if (isMountedRef.current) {
 					// Decrement the comments count
-					setCommentsCount((prevCount) => prevCount - 1);
-
 					setShowConfirmationModal(false);
 					onEditComplete();
 				}
