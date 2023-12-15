@@ -44,7 +44,6 @@ function App() {
 							</>
 						)}
 					/>
-
 					{/* ALL JOBS PAGE */}
 					<Route
 						exact
@@ -56,7 +55,6 @@ function App() {
 							</>
 						)}
 					/>
-
 					{/* MY JOBS PAGE */}
 					<Route
 						exact
@@ -75,7 +73,6 @@ function App() {
 							</>
 						)}
 					/>
-
 					{/* ASSIGNED JOBS PAGE */}
 					<Route
 						exact
@@ -96,7 +93,6 @@ function App() {
 							</>
 						)}
 					/>
-
 					{/* WATCHED JOBS PAGE */}
 					<Route
 						exact
@@ -118,8 +114,7 @@ function App() {
 							</>
 						)}
 					/>
-
-					{/* JOBS PAGES */}
+					{/* JOB PAGE BY ID */}
 					<Route
 						exact
 						path='/jobs/:id'
@@ -130,7 +125,7 @@ function App() {
 							</>
 						)}
 					/>
-
+					{/* EDIT JOB */}
 					<Route
 						exact
 						path='/jobs/:id/edit-job'
@@ -141,8 +136,7 @@ function App() {
 							</>
 						)}
 					/>
-
-					{/* INVOICES PAGES */}
+					{/* ALL INVOICES PAGE */}
 					<Route
 						exact
 						path='/all-invoices'
@@ -153,7 +147,7 @@ function App() {
 							</>
 						)}
 					/>
-
+					{/* ADD INVOICE */}
 					<Route
 						exact
 						path='/invoices/addinvoice'
@@ -164,7 +158,7 @@ function App() {
 							</>
 						)}
 					/>
-
+					{/* EDIT INVOICE */}
 					<Route
 						exact
 						path='/invoices/:id/edit-invoice'
@@ -175,7 +169,7 @@ function App() {
 							</>
 						)}
 					/>
-
+					{/* INVOICE BY ID */}
 					<Route
 						exact
 						path='/invoices/:id'
@@ -186,8 +180,7 @@ function App() {
 							</>
 						)}
 					/>
-
-					{/* PROFILE PAGES */}
+					{/* PROFILE PAGE */}
 					<Route
 						exact
 						path='/profile/:id'
@@ -198,7 +191,7 @@ function App() {
 							</>
 						)}
 					/>
-
+					{/* EDIT PROFILE */}
 					<Route
 						exact
 						path='/profile/:id/edit-profile'
@@ -209,7 +202,7 @@ function App() {
 							</>
 						)}
 					/>
-
+					{/* CHANGE PASSWORD */}
 					<Route
 						exact
 						path='/profile/:id/change-password'
@@ -220,7 +213,7 @@ function App() {
 							</>
 						)}
 					/>
-
+					{/* CHANGE USERNAME */}
 					<Route
 						exact
 						path='/profile/:id/change-username'
@@ -231,7 +224,6 @@ function App() {
 							</>
 						)}
 					/>
-
 					{/* PAGE NOT FOUND */}
 					<Route render={() => <PageNotFound />} />
 				</Switch>

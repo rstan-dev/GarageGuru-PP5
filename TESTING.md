@@ -1,7 +1,7 @@
 # PROJECT TEST DOC - GarageGuru
 
 ## CONTENTS
-* [TESTS PERFORMED](#tests-performed)
+[TESTS PERFORMED](#tests-performed)
   * [Manual User Story Tests](#manual-user-story-tests)
   * [HTML](#html)
   * [CSS](#css)
@@ -10,6 +10,8 @@
   * [Lighthouse](#lighthouse)
   * [Browser Compatability](#browser-compatability)
   * [Automated Tests](#automated-tests)
+  * [Final Manual Checks](#final-manual-checks)
+
 
   [Return to README.md](https://github.com/rstan-dev/GarageGuru-PP5/blob/main/README.md)
 
@@ -24,7 +26,7 @@
   5. React Automated Tests
   5. HTML, CSS, ESLINT, PYLINT, Lighthouse
   6. Browser Compatability Tests
-  7. Manual user story tests on the production app
+  7. Final manual user story tests on the production app
 
   ### Manual User Story Tests
   User story tests were conducted systematically, with any failing tests rectified.  A link to the Google Test Sheet [can be found here](https://docs.google.com/spreadsheets/d/1esaHTm738sbXP-JMxzEvQ63mgN3IazsXGUL8tRsX0ZI/edit#gid=165646488)
@@ -103,7 +105,7 @@
    * [Back to Contents](#contents)
 
    ### ESLINT
-  All JS pages were checked with [ESLINT]
+  All JS pages were checked with [ESLINT](https://eslint.org/)
 
   <details>
     <summary>Click to View ESLINT Test Evidence</summary>
@@ -165,7 +167,7 @@
    * Jobcard
    * ProfilePage
 
-The performance issues are related to image sizes which are managed in the backend.  A certain resolution is needed for good quality and as the app is fully responsive the images need to be flexible according to the container size - so this item has been left.
+The performance issues are related to image sizes which are managed in the backend. A certain resolution is needed for good quality and as the app is fully responsive the images need to be flexible according to the container size - so this item has been left.
 
   <details>
     <summary>Click to View LightHouse Test Evidence</summary>
@@ -200,16 +202,16 @@ The performance issues are related to image sizes which are managed in the backe
   * [Back to Contents](#contents)
 
   ### Automated Tests
-   * A total of 37 automated tests were written covering 95% of the code using the DjangoRESTFramework APITestCase library.
-   * The tests were set up using a TEST database.  These settings were changed to address certain deployment issues.  The code can be seen below.  Screen shot of test_db_settings
-   * The tests can be run by entering "python3 manage.py test" into the terminal. Tests covered 95% of the code and included tests on:
+  * A total of 37 automated tests were written covering 95% of the code using the DjangoRESTFramework APITestCase library.
+  * The tests were set up using a TEST database.  These settings were changed to address certain deployment issues.  The code can be seen below.  Screen shot of test_db_settings
+  * The tests can be run by entering "python3 manage.py test" into the terminal. Tests covered 95% of the code and included tests on:
      - Jobs
      - Invoices
      - Profiles
      - Comments
      - Watchers
 
-     * A total of 10 tests were run on the react code using Jest.  The tests can be run using npm test.
+  * A total of 10 tests were run on the react code using Jest.  The tests can be run using npm test.
 
 
   <details>
@@ -224,9 +226,20 @@ The performance issues are related to image sizes which are managed in the backe
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/api_test_coverage2.png">
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/react_test_results.png">
 
-
   </details>
 
+  ### Final Manual Checks
+  On deployment, a final check of all user stories was conducted on the production version, and any changes required were addressed and the project was redeplyed.
+
+  Every page of code was double checked to ensure there was no redundant or commented out code.
+
+  There are some console.log(err) which were left commented out, for future debugging purposes.
+
+   <details>
+    <summary>Click to View Final User Story Tests</summary>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/test_db_settings.png">
+
+    </details>
 
 
   * [Back to Contents](#contents)

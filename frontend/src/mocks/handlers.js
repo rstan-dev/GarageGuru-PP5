@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-const baseURL = "https://8080-rstandev-garageguru-qf6hm2jbgt7.ws-eu106.gitpod.io/";
+const baseURL = "https://8080-rstandev-garageguru-qf6hm2jbgt7.ws-eu107.gitpod.io/";
 
 export const handlers = [
     rest.get(`${baseURL}dj-rest-auth/user/`, ( req, res, ctx ) => {
