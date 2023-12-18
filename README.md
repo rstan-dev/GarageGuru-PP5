@@ -62,7 +62,7 @@ This fully responsive accessible website can be used on a  desktop or the employ
   1. To be able to create an account easily.
   2. To be able to customise and update their profile.
   3. To easily understand what the app is supposed to do and how to navigate it on a desktop or mobile device.
-  4. To easily be able to Add a Job, choose from a selection of job types, assign a job by default to themselves, or to be able to select another user.
+  4. To easily be able to add a job, choose from a selection of job types, assign a job by default to themselves, or to be able to select another user.
   5. To be able to select a due date for the job, while defaulting to the current day.
   6. To be unable to choose a date in the past.
   7. To be able to watch various jobs and view them on a dashboard.
@@ -93,25 +93,26 @@ This fully responsive accessible website can be used on a  desktop or the employ
   ### Agile Approach
   From the start the project was managed using [GitHub Projects (View Here - ensure labels are activated)](https://github.com/users/rstan-dev/projects/8/views/2?filterQuery=), using an agile approach.
   - The project goals were broken into epics, which were broken into user stories with acceptance criteria and individual tasks.
-  - Each user story was allocated a certain number of story points based on a rough estimation of time to complete the work.
+  - Each User Story was allocated a certain number of story points based on a rough estimation of time to complete the work.
   - This allowed me to create a roadmap with milestones and target dates. [View Roadmap Here(ensure milestone and start date markers are activated)](https://github.com/users/rstan-dev/projects/8/views/1)
   - Each User Story was assigned a label according to the MoSCoW system so I could prioritise the work.
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/moscow_labels.png">
 
   ### Wireframes
    The initial wireframes were created in [Balsamiq](https://balsamiq.cloud/) to understand how the site would work, and this layout would drive User Stories, the logic required and overall design artwork decisions.
+
    The final app deviated slightly in a couple of areas as improvements were made while the site was being built and user functions could be tested.
 
    The Invoice functionality was added midway through the project because I felt not only would it complete the app, but it would add a layer of much-needed functionality.
 
    The Comments design and functionality was also enhanced later in the project when I added the ability to leave a reply to a comment, ensuring it was a fully collaborative system.
 
-   General visual styling improvements were made during the project that were not considered during wireframing which resulted in a better UX
+   General visual styling improvements were made during the project that were not considered during wireframing or when I received some early-stage user feedback, which resulted in a better UX.
 
    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/wf_alljobs.png">
 
    <details>
-    <summary>Click to View More Wireframe Images</summary>
+    <summary><u>Click to View More Wireframe Images</u></summary>
    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/wf_addjob.png">
    <br>
    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/wireframes/wf_myjobs.png">
@@ -161,55 +162,55 @@ This fully responsive accessible website can be used on a  desktop or the employ
 10. [US10] Refresh Access Tokens
     - As a website user, I can maintain my logged-in status until I decide to log out So that my user experience is not interrupted
 11. [US11] View Profile Page frontend
-    - As a logged in User I can view my profile so that I can see the details I have entered about myself
+    - As a logged in user I can view my profile so that I can see the details I have entered about myself
 12. [US12] Edit Profile Page frontend
-    - As a logged in User I can edit my profile so that I can change my personal info
+    - As a logged in user I can edit my profile so that I can change my personal info
     - Maps to Project Goal 2
 13. [US13] Update Password frontend
-    - As a logged-in User, I can update my password so that I can change my password if I need to
+    - As a logged-in user, I can update my password so that I can change my password if I need to
 14. [US14] Update Username frontend
-    - As a logged-in User, I can change my username so that I can change my username if I want to
+    - As a logged-in user, I can change my username so that I can change my username if I want to
 15. [US15] View all jobs
-    - As a logged-in User, I can click on the All Jobs button in the NavBar so that I can see all the jobs in the system
+    - As a logged-in user, I can click on the All Jobs button in the NavBar so that I can see all the jobs in the system
 16. [US16] Search all jobs
-    - As a logged-in User, I can enter a query in the search bar so that I can find a job easily
+    - As a logged-in user, I can enter a query in the search bar so that I can find a job easily
 17. [US17] Filter jobs
-    - As a logged-in User, I can filter the job cards so that I can display them in the order I want
+    - As a logged-in user, I can filter the job cards so that I can display them in the order I want
 18. [US18] Add Job
-    - As a logged-in User, I can click on the Add Job button in the NavBar so that I can add the Job details to a form and save them to the database
+    - As a logged-in user, I can click on the Add Job button in the NavBar so that I can add the job details to a form and save them to the database
     - Maps to Project Goal 4 and 5 and 6
 19. [US19] Edit Job Card
-    - As a logged-in User, and creator of a job, I can click on the pencil icon on the job card so that I can edit the Job Card details
+    - As a logged-in user, and creator of a job, I can click on the edit icon on the JobCard so that I can edit the job details
 20. [US20] Delete a Job
-    - As a logged-in User, and creator of a job, I can click on the pencil icon on the job card so that I can delete the Job Card details
+    - As a logged-in user, and creator of a job, I can click on the edit icon on the JobCard so that I can delete the job details
 21. [US21] Add comment
-    - As a logged-in User, I can add a comment so that I can leave any comments about a particular job
+    - As a logged-in user, I can add a comment so that I can leave any comments about a particular job
 22. [US22] View Job Comments
-    - As a logged-in user | I can click on the comments bubble so that I can view all the comments that have been made about the job
+    - As a logged-in user I can click on the comments bubble so that I can view all the comments that have been made about the job
 23. [US23] Edit Comment
-    - As a logged-in User, and creator of a comment, I can click on the pencil item of a comment I have written so that I can update it if I want to
+    - As a logged-in user, and creator of a comment, I can click on the edit icon of a comment I have written so that I can update it if I want to
 24. [US24] Delete Comment
-    - As a logged-in User, and creator of a comment, I can click on the pencil item of a comment I have written so that I can delete it if I want to
+    - As a logged-in user, and creator of a comment, I can click on the edit item of a comment I have written so that I can delete it if I want to
     - Maps to Project Goal 11
 25. [US25] Add Invoice details
-    - As an Owner or Assigned person of a Job Card, I can add invoice details to a job card so that a financial record can be maintained
-26. [US26] View Invoice Details on the Job Card
-    - As any user of a Job Card, I can view invoice details on a job card so that I can see the status of the invoices for a job
-27. [US27] Edit Invoice Details on the Job Card
-    - As an Owner or Assigned person of a Job Card, I can edit invoice details on a job card so that I can edit any of the details of the invoices for a job
-28. [US28] Delete Invoice details on the Job Card
-    - As an Owner or Assigned person of a Job Card, I can delete an invoice related to a job card so that I can delete an invoice if a job is cancelled
+    - As an Owner or Assigned person of a JobCard, I can add invoice details to a job so that a financial record can be maintained
+26. [US26] View Invoice Details on the JobCard
+    - As any user of a JobCard, I can view invoice details on a job card so that I can see the status of the invoices for a job
+27. [US27] Edit Invoice Details on the JobCard
+    - As an Owner or Assigned person of a JobCard, I can edit invoice details on a job card so that I can edit any of the details of the invoices for a job
+28. [US28] Delete Invoice details on the JobCard
+    - As an Owner or Assigned person of a JobCard, I can delete an invoice related to a job card so that I can delete an invoice if a job is cancelled
 29. [US29] View Invoice Details on AllInvoicesPage
-    - As any user of a Job Card, I can view invoice details on the AllInvoicesPage so that I can see the status of the invoices for a job
+    - As any user of a JobCard, I can view invoice details on the AllInvoicesPage so that I can see the status of the invoices for a job
     - Maps to Project Goal 11
 30. [US30] Edit Invoice Details on AllInvoicesPage
     - As an Owner or Assigned person of an Invoice, I can edit invoice details on the AllInvoicesPage so that I can edit any of the details of the invoices for a job
     - Maps to Project Goal 10
 31. [US31] My Jobs & Assigned Jobs View
-    - As a logged-in User, I can click on the My Jobs button or the Assigned Jobs button in the NavBar so that I can see all of the jobs that I have created or that have been assigned to me in the system
+    - As a logged-in user, I can click on the MyJobs button or the Assigned Jobs button in the NavBar so that I can see all of the jobs that I have created or that have been assigned to me in the system
     - Maps to Project Goal 8 and 9
 32. [US32] Watch Jobs
-    - As a logged-in User, I can click on the eye icon on a job card so that I can add it to my watch list where I can keep an eye on a job
+    - As a logged-in user, I can click on the eye icon on a job card so that I can add it to my watch list where I can keep an eye on a job
     - Maps to Project Goal 7
 33. [US33] UX & Testing
     - As a developer, I can test each user story function so that I can verify each function works as intended
@@ -237,9 +238,10 @@ This fully responsive accessible website can be used on a  desktop or the employ
   I used [Canva](https://www.canva.com/) to generate a logo and a style guide.
 
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/site_images/garageguru_logo.jpg">
+  <br>
 
   <details>
-    <summary>Click to View More Color Scheme Images</summary>
+    <summary><u>Click to View More Color Scheme Images</u></summary>
 
   With a color palette in mind, I could create a project style guide:
   <br>
@@ -301,21 +303,35 @@ This fully responsive accessible website can be used on a  desktop or the employ
 11. Profile page with editing functionality and custom validation
 
   <details>
-    <summary>Click to View Images</summary>
+    <summary><u>Click to View Images</u></summary>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/register.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/register_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/login.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/login_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/alljobs.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/alljobs_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/myjobs.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/myjobs_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/assignedjobs.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/assignedjobs_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/watching.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/watching_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addjob.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addjob_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editjob.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editjob_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/allinvoices.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/allinvoices_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addinvoice.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addinvoice_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editinvoice.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editinvoice_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/profilepage.png"><br>
+     <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/profilepage_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editprofile.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editprofile_mob.png"><br>
 
   </details>
 
@@ -325,35 +341,44 @@ This fully responsive accessible website can be used on a  desktop or the employ
 * UX features and User Interactions to note:
   - Unauthenticated users can only access the login or register page.  All other pages are protected at the Route level and only available to users who have registered and logged in to their account.
   - Users can always see where they are by the nav icon that highlights yellow or by the breadrcumb Viewing bar at the top of each screen. [US5, US6,]
-  - Users can hover over each icon in the NavBar to see the Nav label, and Users will know they are logged in by seeing their name next to the Profile link.
-  - All user can access their own Profile page where they can view or edit their profile, username or password. [US3, US11, US12, US13, US14]
-  - Users can view All the jobs, jobs only created by them or jobs assigned to them. [US4, US15, US31 and US32]
+  - Users can hover over each icon in the NavBar to see the Nav label, and users will know they are logged in by seeing their name next to the Profile link.
+  - All users can access their own Profile page where they can view or edit their profile, username or password. [US3, US11, US12, US13, US14]
+  - Users can view all the jobs, jobs only created by them or jobs assigned to them. [US4, US15, US31 and US32]
   - A dashboard allows them to organise each view according to its status and the status counter lets the user filter by and know at all times how many jobs are Pending, Underway or Completed. [US16, US17]
-  - Users can filter by jobs that are recently created, recently updated or by their due date. [US16, US17]
+  - Users can filter by jobs that are recently created (the default), recently updated or by their due date. [US16, US17]
   - Users can enter a keyword to search by job type, description, created by or assigned to. [US16, US17]
   - On each job card, users can click through to view the profiles of the user who created the job or the user who is assigned to the job. [ US11 ]
-  - Jobs can be edited by the person who created them which allows updates to any of the fields including the image. [ US19 ]
-  - Jobs will also allow the two users involved in the job - those who created it and those who are assigned to the job to add an invoice. [ US25 ]
-  - Any user can view the invoice summary by opening the Accordion feature Click To View Invoice Summary, where they can find a button to view the invoice card or Edit it if they have permission. [ US26 ]
-  - Users can also click an eye icon which will add the job to a Watch list if they want to keep track of a job [ US32 ]
+  - A jobs can be edited by the person who created it and allows updates to any of the fields including the image. [ US19 ]
+  - An invoice can be added by the two users involved in the job - those who created it and those who are assigned to the job. [ US25 ]
+  - Any user can view the invoice summary by opening the accordion feature by clicking "Click To View Invoice Summary", where they can find a button to view the invoice card or edit it if they have permission. [ US26 ]
+  - Users can also click an eye icon which will add the job to a Watch list if they want to keep track of a job. [ US32 ]
   - Users will see if any comments have been left on a job and will know the amount of comments that have been left on that specific job. [US21, US22, US23, US24]
   - Users can click on the comment bubble icon and view the job card, and invoice summary, leave a comment, leave a reply to a comment and edit or delete any of their comments. [US21, US22, US23, US24]
-  - Users can view all invoices in the system and use familiar dashboard features to view and filter the status, order by dates and search using keywords [ US29 ]
+  - Users can view all invoices in the system and use familiar dashboard features to view and filter the status, order by dates and search using keywords. [ US29 ]
   - On each invoice card, users can click through to view the profiles of the user who created the invoice or the user who is assigned to the job. [ US11 ]
-  - Invoices can be edited only by those who created or were assigned to the job can edit an invoice. [US27 and US30]
-  - Any users can click on the View Job Summary accordion and find a link to view the full job card
-  - Any user can click the BackToTop button incorporated on Jobs and Invoices pages to help navigate long page lists.
+  - Invoices can be edited only by those who created or were assigned to the job. [US27 and US30]
+  - Any user can click on the "View Job Summary" accordion and find a link to view the full job card
+  - Any user can click the "BackToTop" button incorporated on Jobs and Invoices pages to help navigate long page lists.
+  <br>
 
   <details>
-    <summary>Click to View UX Features Images</summary>
+    <summary><u>Click to View UX Features Images</u></summary>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/navbar.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/navbar_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/dashboard.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/dashboard_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_editing.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_editing_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_adding_invoice.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_adding_invoice_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/view_invoice_accordion.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/view_invoice_accordion_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/commenting_and_watching.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/commenting_and_watching_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/back_to_top.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/back_to_top_mob.png"><br>
 
   </details>
 
@@ -374,14 +399,20 @@ Various validation methods have been incorporated:
 
 
  <details>
-  <summary>Click to View Validation Images</summary>
+  <summary><u>Click to View Validation Images</u></summary>
 
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_of_action.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_of_action_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/frontend_warning_messages.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/frontend_warning_messages_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_modal.png"><br>
+   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_modal_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/no_jobs_icon.png"><br>
+   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/no_jobs_icon_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/custom_404_page.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/custom_404_page_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/date_validation.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/date_validation_mob.png"><br>
 
 
 </details>
@@ -421,21 +452,21 @@ The site has been built with the following tech, tools and libraries
 * Git - version control
 * GitPod & VS Code - IDE
 * [Balsamiq](https://balsamiq.com/) - creating wireframes
-* [Coolors](https://coolors.co) - color allette generator
+* [Coolors](https://coolors.co) - color pallette generator
 * [Image resizer](https://www.reduceimages.com/) - resizing images for optimal storage
 * [Canva](https://www.canva.com/) - creating artwork
 * Google Fonts - consistent typography
 * [Lucid Chart](https://lucid.app/) - creating a database schema
 * [Favicon](https://favicon.io/favicon-converter/) - favicon generator
-* [Responsive Image generator](https://ui.dev/amiresponsive)
+* [Responsive Image Generator](https://ui.dev/amiresponsive)
 * [BrowserStack](https://live.browserstack.com/) browser compatability tests
 * [Unsplash](https://unsplash.com/) - stock images
 * [FontAwesome](https://fontawesome.com/) - icons
-* [W3C HTML Validator](https://validator.w3.org/)
-* [W3C CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator/)
+* [W3C HTML Validator](https://validator.w3.org/) - html code validation
+* [W3C CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator/) - css code validation
 * LightHouse - measures performance, accessibility, best practices and SEO
 * Chrome Dev Tools - for development debugging
-* [PycodeStyle](https://pypi.org/project/pycodestyle/) - - code analysis tool conforming to pep8
+* [PycodeStyle](https://pypi.org/project/pycodestyle/) - code analysis tool conforming to pep8
 * [CI Python Linter](https://pep8ci.herokuapp.com/) - code analysis tool conforming to pep8
 * Black - code formatter for python
 * Prettier - code formatter for html, css and javascript
@@ -470,14 +501,12 @@ The following components were built and reused in different parts of the applica
 * < TimedAlert > - used to control how long alert and success messages are displayed on the screen.
    - Improves the user experience by keeping them informed of actions and system updates.
 
-These react components have contributed to the user experience
-
 
 ### Refactoring Opportunities
 
 Due to time constraints on completing this project, I was unable to refactor all of the code.  Two notable components could help streamline the app further:
 
-1. Dashboard used in All Jobs Page and All Invoices Page
+1. Dashboard used in AllJobs Page and AllInvoices Page
 2. Accordion used in JobCard and InvoiceCard
 3. Confrimation Modal used in Editing Jobs, Editing Invoices, Editing Profiles, and Deleting Jobs and Deleting Invoices.
 4. SuccessMessage Timeout function could benefit from being a resusable component.
@@ -495,7 +524,7 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
   3. Early user observation test.
   4. React Tests.
   5. Manual user story tests.
-  6. Django APITest re-run and additional automated testing using jest
+  6. Django APITest re-run and additional automated testing using jest.
   7. HTML, CSS, ESLINT, PYLINT, Lighthouse tests.
   8. Browser Compatibility tests.
   9. Final Production user tests
@@ -508,46 +537,24 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
   ### Bugs resolved:
   The following bugs were recorded and rectified [See test sheet](https://docs.google.com/spreadsheets/d/1esaHTm738sbXP-JMxzEvQ63mgN3IazsXGUL8tRsX0ZI/edit#gid=165646488)
   1. Initially, there was a console warning “Access to XMLHttpRequest…from origin…has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-    * This was resolved by replacing and setting up the CI template correctly which had a lot of necessary settings
+     * This was resolved by replacing and setting up the CI template correctly which had a lot of necessary settings
   2. When refreshing the JobCard page the user was logged out.
-    * This was resolved by adding a missing / in axiosRes.get('/dj-rest-auth/user').  Helpfully discovered by tutor support.
+     * This was resolved by adding a missing "/" in axiosRes.get('/dj-rest-auth/user'). Helpfully discovered by tutor support.
   3. Status Counts were not decrementing correctly.
-    * This was resolved by overriding the list and creating a function to calculate status counts on a distinct list of jobs by id in Jobs Views.py.
-  4. Watched Jobs icon was not toggling on correctly on JobCard, AllJobs page and WatchedJobs page.
-    * Due to the complexity of the architecture, several attempts were made to resolve this,  Eventually, a Route prop was passed from App.js to AllJobs page, depending on if it was filtering for Watched Jobs or not.  A handleWatchStatusChange function was passed to JobCard.  A similar function was added to JobPage which passed a prop to JobCard.  The behaviour of the watch icon could then be managed depending on which page was serving the JobCard.
+     * This was resolved by overriding the list and creating a function to calculate status counts on a distinct list of jobs by id in Jobs Views.py.
+  4. Watched Jobs icon was not toggling-on correctly on JobCard, AllJobs page and WatchedJobs page.
+     * Due to the complexity of the architecture, several attempts were made to resolve this. Eventually, a Route prop was passed from App.js to AllJobs page, depending on if it was filtering for Watched Jobs or not. A handleWatchStatusChange function was passed to JobCard. A similar function was added to JobPage which passed a prop to JobCard. The behaviour of the watch icon could then be managed depending on which page was serving the JobCard.
   5. Deleting a reply was not working.
      * This was resolved by creating a custom permission and updating the handleDelete function in EditCommentForm to filter out deleted comments to ensure a state update.
-  6. Comment Counter was not decrementing correctly when deleting comments and replies. This had been working previously but there were console warnings regarding updating state on unmounted components - caused by the confirmation modal.  I addressed this warning by implementing an additional isMountedRef flag, however the counter was inadvertently affected, only when deleting a comment or reply.
-     * This was resolved by removing the decrement function from the isMountedRef flag.
+  6. Comment Counter was not decrementing correctly when deleting comments and replies. This had been working previously but there were console warnings regarding updating state on unmounted components - caused by the confirmation modal. I addressed this warning by implementing an additional isMountedRef flag, however the counter was inadvertently affected, only when deleting a comment or reply.
+     * This was resolved by moving the decrement function from inside the isMountedRef flag.
 
 
   * [Back to Contents](#contents)
 
   ### Unresolved bugs:
 
-  On the final manual pass, an anomoly was noticed on one specific page on the deployed version: https://garageguru2023-9cc8e49ac2b8.herokuapp.com/assigned
-
-  When navigating to the page via the menu the page loads as expected.  When refreshing the page, a Dangerous Site warning appeared.  This only occurred on this one URL, and it only occurred on this browser. I could not replicate this issue in Incognito mode, on Firefox, or on Browserstack's Chrome browser on a Mac or a Windows terminal.
-
-  I contacted Tutor Support and spoke to John Rearden on 15th Dec 2023 and raised this issue and he was unable to replicate it. I uninstalled an Ignore X-Frame extension which I installed to use Browserstack however the problem persisted. I am noting it as a potential bug for future investigation just in case it arises.
-
-  Screen shots of the different browser tests have been included in the test results below.
-
-
-   <details>
-    <summary>Click to View Unresolved Bugs</summary>
-    - Screen shots of the Dangerous Site Warning:
-
-    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_site_warning.png"><br>
-
-    and other evidence from different browsers that did not display that warning:
-    <br>
-    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_no_warning_firefox.png">
-    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_browserstack_chrome_no_warning.png">
-
-    </details>
-
-  There are no other known bugs at this time
+  There are no other known bugs at this time.
 
 
   ### Improvements and future developments:
@@ -632,9 +639,9 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
   ### Working in both the front and backend
    1. Stop both servers
    2. Set DEV in env.py - either commented out for frontend development or uncommented for backend dev.
-    * # os.environ['DEV'] = '1'
+       * os.environ['DEV'] = '1'
    3. Start backend server: python3 manage.py runserver
-   4. Start frontend dir server: npm start
+   4. Start frontend server: npm start
 
   ### Deployment to Heroku involved the following steps and changes:
    1. Setup WhiteNoise for static files
@@ -655,7 +662,7 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
         * Add 404 handler below urlpatterns: handler404 = TemplateView.as_view(template_name='index.html')
         * Update all urls except home and admin with: api/
    5. Update axiosDefaults with baseURL: axios.defaults.baseURL = “/api”;
-   6. Collect the admin and DRF staticfiles to the empty staticfiles directory you created earlier, with the following command in the terminal:
+   6. Collect the admin and DRF staticfiles to the empty staticfiles directory created earlier, with the following command in the terminal:
        * python3 manage.py collectstatic
        * cd frontend
        * npm run build && mv build ../staticfiles/.
@@ -675,7 +682,7 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
        * Add CLIENT_ORIGIN - (set to the URL of the combined project, keeping the https:// at the beginning but removing the trailing slash at the end)
        * Add ALLOWED_HOST - (set to the URL of your combined project, remove the https:// at the beginning and remove the trailing slash at the end)
    14. Ensure your application has an ALLOWED_HOST key, set to the URL of your combined project, remove the https:// at the beginning and remove the trailing slash at the end
-   15. Ensure your application has a CLIENT_ORGIN key and set it to the URL of your combined project. This time keep the https:// at the beginning but remove the trailing slash at the end
+   15. Ensure your application has a CLIENT_ORIGIN key and set it to the URL of your combined project. This time keep the https:// at the beginning but remove the trailing slash at the end
    16. Go to the Deploy tab, connect the project to GitHub, and choose main branch to deploy
        * Click Deploy Branch (manually)
        * (Optional) Select Enable Automatic Deploys
@@ -693,7 +700,7 @@ Forking is often used for proposing changes or using the project as a starting p
 3. Click "Fork" on the right side of the repository's page to create a copy in your own repository.
 
 ### Here's a step-by-step guide to cloning:
-Cloning is oftne used for experimenting locally.  It will not show up on your GitHub profile.
+Cloning is often used for experimenting locally.  It will not show up on your GitHub profile.
 1. Go to the [GarageGuru Repository](https://github.com/rstan-dev/GarageGuru-PP5)
 2. Click the green code button, then the arrow, and select the "clone by https" option to copy the URL.
 3. Open your preferred code editor and navigate to the directory where you want to clone the repository.
@@ -737,8 +744,8 @@ In React, certain components from the Moments walkthrough project were used or c
   * React NavBar tests - adapted from Moments
 
   ### Code
-    * All Python logic was written and developed specifically for this project, using the Moments walkthrough as a reference.
-    * All frontend HTML, CSS, JavaScript and JSX were incrementally written specifically for this project.
+  * All Python logic was written and developed specifically for this project, using the Moments walkthrough as a reference.
+  * All frontend HTML, CSS, JavaScript and JSX were incrementally written specifically for this project.
 
   * [Back to Contents](#contents)
 
@@ -780,7 +787,7 @@ In React, certain components from the Moments walkthrough project were used or c
   ### Acknowledgements
   * Thanks to my mentor Mitko for your guidance through our project meetings
   * I would like to thank several of the Code Institute staff for their help and support:
-    - Sean Murphy - for our weekly cohort slot where you gave me some invaluable help and advice on tricky issues
+    - Sean Murphy - for our weekly cohort slot where you gave me some invaluable help and advice on tricky issues.
     - Oisin, Gemma, Martin and Joanne in Tutor Support for helping me solve a few issues throughout the times I needed help.
   * And a special thanks to Jeffrey Frankfort for all your patience and support when I was spinning my wheels and doubting myself - You never stopped believing in me!
 
