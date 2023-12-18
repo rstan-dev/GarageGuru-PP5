@@ -158,9 +158,9 @@ The performance issues are related to image sizes which are managed in the backe
     <summary><u>Click to View LightHouse Test Evidence</u></summary>
       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_all_jobs.png"><br>
       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_allinvoices.png"><br>
-      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_edit_invoices.png"><br>
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_edit_invoice.png"><br>
       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_edit_job.png"><br>
-      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_job_card.png"><br>
+      - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_jobcard.png"><br>
       - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/lighthouse_profilepage.png"><br>
 
   </details>
@@ -250,7 +250,7 @@ The performance issues are related to image sizes which are managed in the backe
     <br>
     and other evidence from different browsers that did not display that warning:
     <br>
-    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_no_warning_firefox.png.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_no_warning_firefox.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_browserstack_chrome_no_warning.png"><br>
 
   </details>
