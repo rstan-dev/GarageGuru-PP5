@@ -305,19 +305,33 @@ This fully responsive accessible website can be used on a  desktop or the employ
   <details>
     <summary><u>Click to View Images</u></summary>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/register.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/register_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/login.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/login_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/alljobs.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/alljobs_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/myjobs.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/myjobs_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/assignedjobs.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/assignedjobs_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/watching.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/watching_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addjob.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addjob_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editjob.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editjob_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/allinvoices.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/allinvoices_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addinvoice.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/addinvoice_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editinvoice.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editinvoice_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/profilepage.png"><br>
+     <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/profilepage_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editprofile.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/editprofile_mob.png"><br>
 
   </details>
 
@@ -350,13 +364,21 @@ This fully responsive accessible website can be used on a  desktop or the employ
   <details>
     <summary><u>Click to View UX Features Images</u></summary>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/navbar.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/navbar_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/dashboard.png"><br>
+     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/dashboard_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_editing.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_editing_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_adding_invoice.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/conditional_adding_invoice_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/view_invoice_accordion.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/view_invoice_accordion_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/commenting_and_watching.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/commenting_and_watching_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/comments_and_replies_mob.png"><br>
     - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/back_to_top.png"><br>
+    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/back_to_top_mob.png"><br>
 
   </details>
 
@@ -380,11 +402,17 @@ Various validation methods have been incorporated:
   <summary><u>Click to View Validation Images</u></summary>
 
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_of_action.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_of_action_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/frontend_warning_messages.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/frontend_warning_messages_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_modal.png"><br>
+   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/confirmation_modal_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/no_jobs_icon.png"><br>
+   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/no_jobs_icon_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/custom_404_page.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/custom_404_page_mob.png"><br>
   - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/date_validation.png"><br>
+  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/features/date_validation_mob.png"><br>
 
 
 </details>
@@ -526,29 +554,7 @@ FOR DETAILED TEST REPORTS AND RESULTS PLEASE [VIEW THEM HERE:](https://github.co
 
   ### Unresolved bugs:
 
-  On the final manual pass, an anomoly was noticed on one specific page on Google Chrome - The Assigned Jobs page on the deployed version: https://garageguru2023-9cc8e49ac2b8.herokuapp.com/assigned
-
-  When navigating to the page via the menu the page loads as expected.  When refreshing the page, a "Dangerous Site" warning appeared. This only occurred on this one URL, and it only occurred on Chrome's browser. I could not replicate this issue in Incognito mode, or on Firefox, Safari or on BrowserStack's Chrome browser on a Mac or a Windows terminal.
-
-  I contacted Tutor Support and spoke to John Rearden on 15th Dec 2023 and raised this issue and he was unable to replicate it. I uninstalled an Ignore X-Frame extension which I installed to use BrowserStack however the problem persisted.  It is possible that it could be related to Norton anti-virus that I have installed. I am noting it as a potential bug for future investigation just in case it arises.
-
-  Screen shots of the different browser tests have been included in the test results below.
-
-  <details>
-  <summary><u>Click to View Unresolved Bugs Images</u></summary>
-  Image of warning page on Google Chrome:<br>
-  - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_site_warning.png"><br>
-
-  and other evidence from different browsers that did not display that warning:
-    <br>
-    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_no_warning_firefox.png"> <br>
-    - <img src="https://github.com/rstan-dev/GarageGuru-PP5/blob/main/documentation/images/test_results/dangerous_page_browserstack_chrome_no_warning.png">
-
-  </details>
-
-
-  <br>
-  There are no other known bugs at this time
+  There are no other known bugs at this time.
 
 
   ### Improvements and future developments:
